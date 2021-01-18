@@ -1,3 +1,5 @@
+import 'package:books_app/screens/login.dart';
+import 'package:books_app/util/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -15,14 +17,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Book Club"),
-        ),
+      theme:bookTheme(),
+      home: Scaffold(        
         body: Center(
           child: Container(
-            child: Text("Hi Peeps"),
+            child: LoginScreen(),
           ),
         ),
       ),
