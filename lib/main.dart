@@ -1,30 +1,20 @@
-import 'package:books_app/screens/login.dart';
-import 'package:books_app/util/themes.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+import 'package:books_app/Router/router.dart';
+import 'package:books_app/Services/auth.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: "Book Club", //This is shown when the app is minimized
-    home: HomePage(),
-  ));
+  runApp(MyApp());
 }
 
-class HomePage extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme:bookTheme(),
-      home: Scaffold(        
-        body: Center(
-          child: Container(
-            child: LoginScreen(),
-          ),
-        ),
-      ),
+      title: "Book Club", //This is shown when the app is minimized
+      home: AuthService().handleAuth(),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

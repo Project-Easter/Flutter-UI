@@ -23,9 +23,8 @@ ThemeData bookTheme() {
     //Buttons
     buttonColor: Color.fromRGBO(24, 25, 38, 1),
     buttonTheme: ButtonThemeData(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-            ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+    ),
     //Textfield frames
     inputDecorationTheme: InputDecorationTheme(
         focusedBorder: OutlineInputBorder(
