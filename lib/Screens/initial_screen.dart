@@ -53,22 +53,23 @@ class _InitialScreenState extends State<InitialScreen> {
       height: double.infinity,
       width: double.infinity,
       child: Container(
-        color: Color.fromRGBO(25, 24, 45, 0.75),
+        color: Color.fromRGBO(157, 206, 255, 1),
         child: Center(
           child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               children: <Widget>[
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20, right: 10.0),
-                    child: _skipButton(),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Image.asset('assets/Barter Books logo.png'),
+                Stack(
+                  children: <Widget>[
+                    Image.asset('assets/library-01.png'),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20, right: 15.0),
+                        child: _skipButton(),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +77,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     Text(
                       'Welcome to',
                       style: GoogleFonts.poppins(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 26,
                           fontWeight: FontWeight.w600),
                     ),
@@ -84,7 +85,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     Text(
                       'Barter Books',
                       style: GoogleFonts.poppins(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 26,
                           fontWeight: FontWeight.w700),
                     ),
@@ -96,14 +97,14 @@ class _InitialScreenState extends State<InitialScreen> {
                 Text(
                   'Easiest way to exchange your books',
                   style: GoogleFonts.poppins(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
                   'with others',
                   style: GoogleFonts.poppins(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w500),
                 ),
@@ -118,23 +119,19 @@ class _InitialScreenState extends State<InitialScreen> {
                     Container(
                       height: 1,
                       width: 120,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     SizedBox(width: 10),
                     Text(
                       ' or you can ',
                       style: GoogleFonts.poppins(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.w400,
                         fontSize: 13,
                       ),
                     ),
                     SizedBox(width: 10),
-                    Container(
-                      height: 1,
-                      width: 120,
-                      color: Colors.white,
-                    ),
+                    Container(height: 1, width: 120, color: Colors.black),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -197,7 +194,6 @@ class _InitialScreenState extends State<InitialScreen> {
   }
 
   Widget _sendOTP() {
-    String num = '$_dialCode$_contactEditingController';
     return ButtonTheme(
       height: 44,
       minWidth: 260,
@@ -205,12 +201,13 @@ class _InitialScreenState extends State<InitialScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Color(0xFF246BFD),
         onPressed: () async {
-          print('$num');
+          print('$_dialCode${_contactEditingController.text}');
           if (_contactEditingController.text.isEmpty) {
             showErrorDialog(context, 'Contact number can\'t be empty.');
           } else {
-            final responseMessage =
-                await Navigator.pushNamed(context, confirmOTP, arguments: num);
+            final responseMessage = await Navigator.pushNamed(
+                context, confirmOTP,
+                arguments: '$_dialCode${_contactEditingController.text}');
             if (responseMessage != null) {
               showErrorDialog(context, responseMessage as String);
             }
@@ -266,10 +263,11 @@ class _InitialScreenState extends State<InitialScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black87),
               onPressed: () async {
-                AuthService().signInWithGoogle();
-                Navigator.pushNamed(context, dashboard);
+                AuthService().signInWithGoogle().whenComplete(() {
+                  Navigator.pushNamed(context, dashboard);
+                });
               },
               child: Icon(
                 FontAwesomeIcons.google,
@@ -284,10 +282,11 @@ class _InitialScreenState extends State<InitialScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
-              borderSide: BorderSide(color: Colors.white),
+              borderSide: BorderSide(color: Colors.black87),
               onPressed: () async {
-                AuthService().signInWithFacebook();
-                Navigator.pushNamed(context, dashboard);
+                AuthService().signInWithFacebook().whenComplete(() {
+                  Navigator.pushNamed(context, dashboard);
+                });
               },
               child: Icon(
                 FontAwesomeIcons.facebook,
@@ -306,7 +305,9 @@ class _InitialScreenState extends State<InitialScreen> {
       minWidth: 56,
       buttonColor: Color.fromRGBO(35, 34, 51, 1),
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, dashboard);
+        },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         child: Text(
           'Skip',

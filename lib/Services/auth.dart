@@ -18,8 +18,7 @@ class AuthService {
     }
   }
 
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
+  Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
@@ -31,16 +30,31 @@ class AuthService {
       idToken: googleAuth.idToken,
     );
 
-    // Once signed in, return the UserCredential
-    return await auth.signInWithCredential(credential);
+    final UserCredential authResult =
+        await auth.signInWithCredential(credential);
+    final User user = authResult.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = auth.currentUser;
+      assert(user.uid == currentUser.uid);
+
+      print('Google SignIn succeeded: $user');
+
+      return '$user';
+    }
+    return null;
   }
 
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();
     await auth.signOut();
+    print("User Signed Out");
   }
 
-  Future<UserCredential> signInWithFacebook() async {
+  Future<String> signInWithFacebook() async {
     // Trigger the sign-in flow
     final FacebookLoginResult result = await facebookLogin.logIn();
 
@@ -49,7 +63,21 @@ class AuthService {
         FacebookAuthProvider.credential(result.accessToken.token);
 
     // Once signed in, return the UserCredential
-    return await auth.signInWithCredential(facebookAuthCredential);
+    final UserCredential fbAuthResult =
+        await auth.signInWithCredential(facebookAuthCredential);
+    final User fbUser = fbAuthResult.user;
+
+    if (fbUser != null) {
+      assert(!fbUser.isAnonymous);
+      assert(await fbUser.getIdToken() != null);
+      final User currentUser = auth.currentUser;
+      assert(fbUser.uid == currentUser.uid);
+
+      print('Facebook SignIn succeeded: $fbUser');
+
+      return '$fbUser';
+    }
+    return null;
   }
 
   Future<void> facebookSignout() async {

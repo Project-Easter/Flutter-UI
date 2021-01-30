@@ -10,8 +10,8 @@ import 'package:flutter/cupertino.dart';
 
 // ignore: must_be_immutable
 class ConfirmScreen extends StatefulWidget {
-  bool _isInit = true;
-  String _contact = '';
+  String mobile;
+  ConfirmScreen(this.mobile);
   @override
   _ConfirmScreenState createState() => _ConfirmScreenState();
 }
@@ -30,13 +30,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Load data only once after screen load
-    if (widget._isInit) {
-      widget._contact =
-          '${ModalRoute.of(context).settings.arguments as String}';
-      generateOtp(widget._contact);
-      widget._isInit = false;
-    }
+    phoneNo = widget.mobile.toString();
+    print(phoneNo);
+    print(phoneNo.length);
+    generateOtp(phoneNo);
   }
 
   //dispose controllers
@@ -45,7 +42,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
+    generateOtp(phoneNo);
+
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
@@ -138,7 +138,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       fontWeight: FontWeight.w500,
                       fontSize: 16),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  setState(() {
+                    smsOTP = _confirm.text;
+                  });
                   verifyOtp();
                 },
                 shape: RoundedRectangleBorder(
@@ -173,7 +176,8 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
             print(exception.toString());
           });
     } catch (e) {
-      handleError(e as PlatformException);
+      print(e.toString());
+      return null;
     }
   }
 
