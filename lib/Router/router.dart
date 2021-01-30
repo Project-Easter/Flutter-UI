@@ -6,6 +6,7 @@ import 'package:books_app/Screens/Auth/register.dart';
 import 'package:books_app/Screens/Auth/signup.dart';
 import 'package:books_app/Screens/Auth/confirmemail.dart';
 import 'package:books_app/screens/initial_screen.dart';
+import 'package:books_app/Screens/Dashboard.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -22,6 +23,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignUpScreen());
       case confirmEmail:
         return MaterialPageRoute(builder: (_) => ConfirmEmailScreen());
+      case dashboard:
+        return MaterialPageRoute(builder: (_) => DashboardPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

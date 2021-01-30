@@ -1,5 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Screens/initial_screen.dart';
@@ -25,8 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.white10,
         leading: FlatButton(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => InitialScreen()));
+              Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back_rounded)),
       ),

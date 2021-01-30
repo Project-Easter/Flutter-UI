@@ -1,25 +1,50 @@
+import 'dart:async';
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Screens/initial_screen.dart';
+import 'package:flutter/cupertino.dart';
 
-import 'package:books_app/Services/auth.dart';
-
+// ignore: must_be_immutable
 class ConfirmScreen extends StatefulWidget {
+  bool _isInit = true;
+  String _contact = '';
   @override
   _ConfirmScreenState createState() => _ConfirmScreenState();
 }
 
 class _ConfirmScreenState extends State<ConfirmScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
 
-  final TextEditingController _confirm = TextEditingController();
+  final TextEditingController _confirm = new TextEditingController();
+
+  String verificationId;
+  String phoneNo;
+  String smsOTP;
+  String errorMessage = '';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Load data only once after screen load
+    if (widget._isInit) {
+      widget._contact =
+          '${ModalRoute.of(context).settings.arguments as String}';
+      generateOtp(widget._contact);
+      widget._isInit = false;
+    }
+  }
+
+  //dispose controllers
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -35,8 +60,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               size: 20,
             ),
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => InitialScreen()));
+              Navigator.pop(context);
             },
           ),
         ),
@@ -78,8 +102,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   key: ValueKey('confirm'),
                   autocorrect: false,
                   textCapitalization: TextCapitalization.none,
+                  keyboardType: TextInputType.number,
                   enableSuggestions: false,
                   textAlign: TextAlign.start,
+                  controller: _confirm,
                   decoration: InputDecoration(
                     hintText: 'Enter your confirmation code',
                     hintStyle: GoogleFonts.poppins(
@@ -93,11 +119,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                         borderRadius: BorderRadius.circular(12)),
                     contentPadding: EdgeInsets.all(10),
                   ),
-                  onSaved: (value) {
-                    setState(() {
-                      a.smsOTP = value;
-                    });
-                  },
                 ),
               ),
             ),
@@ -118,9 +139,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       fontSize: 16),
                 ),
                 onPressed: () {
-                  a.codeSent
-                      ? a.signInWithOTP(a.smsOTP, a.verificationId)
-                      : a.verifyPhone(a.phoneNo);
+                  verifyOtp();
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16)),
@@ -129,6 +148,93 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Future<void> generateOtp(String contact) async {
+    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
+      verificationId = verId;
+      setState(() {
+        print('OTP sent to $contact');
+      });
+    };
+    try {
+      await _auth.verifyPhoneNumber(
+          phoneNumber: contact,
+          codeAutoRetrievalTimeout: (String verId) {
+            verificationId = verId;
+          },
+          codeSent: smsOTPSent,
+          timeout: const Duration(seconds: 60),
+          verificationCompleted: (AuthCredential phoneAuthCredential) {
+            print('Verfication completed');
+          },
+          verificationFailed: (FirebaseAuthException exception) {
+            print(exception.toString());
+          });
+    } catch (e) {
+      handleError(e as PlatformException);
+    }
+  }
+
+  //Method for verify otp entered by user
+  Future<void> verifyOtp() async {
+    if (smsOTP == null || smsOTP == '') {
+      showAlertDialog(context, 'please enter 6 digit otp');
+      return;
+    }
+    try {
+      final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: smsOTP,
+      );
+      final UserCredential user = await _auth.signInWithCredential(credential);
+      final User currentUser = _auth.currentUser;
+      assert(user.user.uid == currentUser.uid);
+      Navigator.pushReplacementNamed(context, registerRoute);
+    } catch (e) {
+      handleError(e as PlatformException);
+    }
+  }
+
+  //Method for handle the errors
+  void handleError(PlatformException error) {
+    switch (error.code) {
+      case 'ERROR_INVALID_VERIFICATION_CODE':
+        FocusScope.of(context).requestFocus(FocusNode());
+        setState(() {
+          errorMessage = 'Invalid Code';
+        });
+        showAlertDialog(context, 'Invalid Code');
+        break;
+      default:
+        showAlertDialog(context, error.message);
+        break;
+    }
+  }
+
+  //Basic alert dialogue for alert errors and confirmations
+  void showAlertDialog(BuildContext context, String message) {
+    // set up the AlertDialog
+    final CupertinoAlertDialog alert = CupertinoAlertDialog(
+      title: const Text('Error'),
+      content: Text('\n$message'),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          child: const Text('Ok'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        )
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
