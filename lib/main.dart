@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+import 'package:books_app/Router/router.dart';
+import 'package:books_app/Screens/initial_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: "Book Club", //This is shown when the app is minimized
-    home: HomePage(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
-class HomePage extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Book Club"),
-        ),
-        body: Center(
-          child: Container(
-            child: Text("Hi Peeps"),
-          ),
-        ),
-      ),
+      title: "Book Club", //This is shown when the app is minimized
+      home: InitialScreen(),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
