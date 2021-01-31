@@ -1,12 +1,12 @@
 import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Screens/Auth/register.dart';
-import 'package:books_app/Services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/painting.dart';
-import 'package:books_app/screens/Auth/confirmOTP.dart';
+import 'package:books_app/Widgets/country_picker.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:books_app/Services/auth.dart';
 
 class InitialScreen extends StatefulWidget {
   @override
@@ -14,36 +14,62 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+  final _contactEditingController = new TextEditingController();
+  String _dialCode = '';
+
+  void _callBackFunction(String name, String dialCode, String flag) {
+    _dialCode = dialCode;
+  }
+
+  //Alert dialogue to show error and response
+  void showErrorDialog(BuildContext context, String message) {
+    // set up the AlertDialog
+    final CupertinoAlertDialog alert = CupertinoAlertDialog(
+      title: const Text('Error'),
+      content: Text('\n$message'),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          child: const Text('Yes'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        )
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
       height: double.infinity,
       width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(
-              'https://images.unsplash.com/photo-1529148482759-b35b25c5f217?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8bGlicmFyeXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-          fit: BoxFit.cover,
-        ),
-      ),
       child: Container(
-        color: Color.fromRGBO(25, 24, 45, 0.75),
+        color: Color.fromRGBO(157, 206, 255, 1),
         child: Center(
           child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               children: <Widget>[
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _skipButton(),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Image.asset('assets/Barter Books logo.png'),
+                Stack(
+                  children: <Widget>[
+                    Image.asset('assets/library-01.png'),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20, right: 15.0),
+                        child: _skipButton(),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +77,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     Text(
                       'Welcome to',
                       style: GoogleFonts.poppins(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 26,
                           fontWeight: FontWeight.w600),
                     ),
@@ -59,7 +85,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     Text(
                       'Barter Books',
                       style: GoogleFonts.poppins(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 26,
                           fontWeight: FontWeight.w700),
                     ),
@@ -71,14 +97,14 @@ class _InitialScreenState extends State<InitialScreen> {
                 Text(
                   'Easiest way to exchange your books',
                   style: GoogleFonts.poppins(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
                   'with others',
                   style: GoogleFonts.poppins(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w500),
                 ),
@@ -93,23 +119,19 @@ class _InitialScreenState extends State<InitialScreen> {
                     Container(
                       height: 1,
                       width: 120,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     SizedBox(width: 10),
                     Text(
                       ' or you can ',
                       style: GoogleFonts.poppins(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.w400,
                         fontSize: 13,
                       ),
                     ),
                     SizedBox(width: 10),
-                    Container(
-                      height: 1,
-                      width: 120,
-                      color: Colors.white,
-                    ),
+                    Container(height: 1, width: 120, color: Colors.black),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -126,12 +148,11 @@ class _InitialScreenState extends State<InitialScreen> {
   }
 
   Widget _enterMobileNo() {
-    final TextEditingController _otp = new TextEditingController();
-
     return Container(
       alignment: Alignment.center,
       height: 44,
-      width: 250,
+      width: 260,
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -142,26 +163,32 @@ class _InitialScreenState extends State<InitialScreen> {
           ),
         ],
       ),
-      child: TextFormField(
-        keyboardType: TextInputType.phone,
-        textAlign: TextAlign.left,
-        style: GoogleFonts.poppins(
-          fontSize: 13,
-          fontWeight: FontWeight.w400,
-        ),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: Icon(
-            Icons.mobile_friendly_rounded,
+      child: Row(
+        children: [
+          CountryPicker(
+            callBackFunction: _callBackFunction,
+            headerText: 'Select Country',
+            headerBackgroundColor: Theme.of(context).primaryColor,
+            headerTextColor: Colors.white,
           ),
-          hintText: 'Enter Mobile No',
-        ),
-        onSaved: (value) {
-          setState(() {
-            _otp.text = value;
-            a.phoneNo = _otp.text;
-          });
-        },
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Enter your Mobile',
+                hintStyle: GoogleFonts.poppins(
+                  fontSize: 14,
+                ),
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                contentPadding: EdgeInsets.all(7),
+              ),
+              controller: _contactEditingController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [LengthLimitingTextInputFormatter(10)],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -169,12 +196,22 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget _sendOTP() {
     return ButtonTheme(
       height: 44,
-      minWidth: 250,
+      minWidth: 260,
       child: RaisedButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Color(0xFF246BFD),
         onPressed: () async {
-          Navigator.pushNamed(context, confirmOTP);
+          print('$_dialCode${_contactEditingController.text}');
+          if (_contactEditingController.text.isEmpty) {
+            showErrorDialog(context, 'Contact number can\'t be empty.');
+          } else {
+            final responseMessage = await Navigator.pushNamed(
+                context, confirmOTP,
+                arguments: '$_dialCode${_contactEditingController.text}');
+            if (responseMessage != null) {
+              showErrorDialog(context, responseMessage as String);
+            }
+          }
         },
         child: Text(
           'Send OTP',
@@ -195,8 +232,7 @@ class _InitialScreenState extends State<InitialScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Color(0xFF246BFD),
         onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+          Navigator.pushNamed(context, registerRoute);
         },
         icon: Icon(
           Icons.mail_outline_outlined,
@@ -227,8 +263,12 @@ class _InitialScreenState extends State<InitialScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
-              borderSide: BorderSide(color: Colors.white),
-              onPressed: () {},
+              borderSide: BorderSide(color: Colors.black87),
+              onPressed: () async {
+                AuthService().signInWithGoogle().whenComplete(() {
+                  Navigator.pushNamed(context, dashboard);
+                });
+              },
               child: Icon(
                 FontAwesomeIcons.google,
                 color: Colors.red,
@@ -242,8 +282,12 @@ class _InitialScreenState extends State<InitialScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
-              borderSide: BorderSide(color: Colors.white),
-              onPressed: () {},
+              borderSide: BorderSide(color: Colors.black87),
+              onPressed: () async {
+                AuthService().signInWithFacebook().whenComplete(() {
+                  Navigator.pushNamed(context, dashboard);
+                });
+              },
               child: Icon(
                 FontAwesomeIcons.facebook,
                 color: Colors.blue,
@@ -261,7 +305,9 @@ class _InitialScreenState extends State<InitialScreen> {
       minWidth: 56,
       buttonColor: Color.fromRGBO(35, 34, 51, 1),
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, dashboard);
+        },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         child: Text(
           'Skip',
