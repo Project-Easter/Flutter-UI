@@ -9,23 +9,24 @@ Widget searchBar() {
     child: Column(
       children: [
         AspectRatio(
-          aspectRatio: 343 / 52,
+          aspectRatio: 300 / 55,
           child: Container(
             child: TextFormField(
-              key: ValueKey('confirm'),
+              key: ValueKey('Location'),
               autocorrect: false,
               textCapitalization: TextCapitalization.none,
               enableSuggestions: false,
               validator: (value) {
                 if (value.isEmpty) {
-                  return 'Please enter with your confirmation code';
+                  return 'Please enter your Location';
                 }
                 return null;
               },
               textAlign: TextAlign.start,
               decoration: InputDecoration(
-                hintText: 'Enter your confirmation code',
-                hintStyle: GoogleFonts.poppins(
+                prefixIcon: Icon(Icons.search_rounded),
+                hintText: 'Enter your Location',
+                hintStyle: GoogleFonts.muli(
                   fontSize: 14,
                 ),
                 focusedBorder: OutlineInputBorder(
@@ -36,6 +37,7 @@ Widget searchBar() {
                     borderRadius: BorderRadius.circular(12)),
                 contentPadding: EdgeInsets.all(10),
               ),
+              onTap: () {},
               onSaved: (value) {
                 _confirm.text = value;
               },

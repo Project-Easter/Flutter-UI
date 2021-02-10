@@ -7,6 +7,8 @@ import 'package:books_app/Screens/Auth/signup.dart';
 import 'package:books_app/Screens/Auth/confirmemail.dart';
 import 'package:books_app/screens/initial_screen.dart';
 import 'package:books_app/Screens/Dashboard.dart';
+import 'package:books_app/Screens/Auth/ResetPassword.dart';
+import 'package:books_app/Screens/Auth/ForgotPassword.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -26,6 +28,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ConfirmEmailScreen());
       case dashboard:
         return MaterialPageRoute(builder: (_) => DashboardPage());
+      case forgotPassword:
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
+      case resetPassword:
+        return MaterialPageRoute(builder: (_) => ResetPassword());
+
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

@@ -25,8 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white10,
         leading: FlatButton(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => RegisterScreen()));
+              Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back_rounded)),
       ),
@@ -46,11 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Log In', registerRoute),
-            SizedBox(
-              height: 20.0,
-            ),
-            forgetButton()
+            button(context, blackButton, 'Log In', dashboard),
+            forgetButton(),
+            registerButton(),
           ],
         ),
       ),
@@ -99,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.symmetric(horizontal: 5),
             child: AspectRatio(
               aspectRatio: 343 / 52,
               child: TextFormField(
@@ -114,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
-                  hintText: 'Email',
+                  hintText: 'Password',
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
@@ -137,36 +134,52 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget loginButton() {
-    return Container(
-      height: MediaQuery.of(context).size.height / 13.5,
-      width: MediaQuery.of(context).size.width / 1.0,
+  Widget forgetButton() {
+    return Align(
+      alignment: Alignment.topRight,
       child: FlatButton(
-        color: Theme.of(context).buttonColor,
-        child: new Text(
-          'Log In',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
+        child: Text("Forgot password?",
+            style: GoogleFonts.muli(
+              color: Color.fromRGBO(224, 39, 20, 1),
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            )),
         onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+          Navigator.pushNamed(context, forgotPassword);
         },
-        shape: Theme.of(context).buttonTheme.shape,
       ),
     );
   }
 
-  Widget forgetButton() {
-    return Container(
-      child: FlatButton(
-        child: Text(
-          "Forgot  your password?",
-          style: TextStyle(color: Color.fromRGBO(224, 39, 20, 1), fontSize: 14),
+  Widget registerButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        alignment: Alignment.topRight,
+        child: FlatButton(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Dont have an account?',
+                style: GoogleFonts.muli(color: Colors.black, fontSize: 18),
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Text(
+                'Register',
+                style: GoogleFonts.muli(
+                    color: Color.fromRGBO(224, 39, 20, 1),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          onPressed: () async {
+            Navigator.pushNamed(context, registerRoute);
+          },
         ),
-        onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
-        },
       ),
     );
   }
