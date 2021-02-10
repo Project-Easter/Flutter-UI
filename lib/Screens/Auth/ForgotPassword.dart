@@ -1,19 +1,18 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpScreen extends StatefulWidget {
+class ForgotPasswordScreen extends StatefulWidget {
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _confirmemail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +35,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Padding(
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
-                "Username",
+                'Forgot Password?',
                 style: GoogleFonts.poppins(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
-                    fontSize: 36),
+                    fontSize: 35),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 15),
+              child: Text(
+                'Please enter your email ID to receive a verification code to reset your password',
+                textAlign: TextAlign.center,
+                softWrap: true,
+                style: GoogleFonts.muli(color: Colors.black87, fontSize: 15),
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Sign up', dashboard),
+            button(context, blackButton, 'Reset my Password', resetPassword),
             SizedBox(
               height: 20.0,
             ),
-            privacyPolicyLinkAndTermsOfService()
           ],
         ),
       ),
@@ -63,19 +70,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: AspectRatio(
           aspectRatio: 343 / 52,
           child: TextFormField(
-            key: ValueKey('username'),
+            key: ValueKey('resetPassword'),
             autocorrect: false,
             textCapitalization: TextCapitalization.none,
             enableSuggestions: false,
             validator: (value) {
               if (value.isEmpty) {
-                return 'Please enter your Username';
+                return 'Please enter your Email ID';
               }
               return null;
             },
+            keyboardType: TextInputType.emailAddress,
             textAlign: TextAlign.start,
             decoration: InputDecoration(
-              hintText: 'the_abc',
+              hintText: 'Enter your email ID',
               hintStyle: GoogleFonts.poppins(
                 fontSize: 14,
               ),
@@ -88,50 +96,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               contentPadding: EdgeInsets.all(10),
             ),
             onSaved: (value) {
-              _userName.text = value;
+              setState(() {
+                _confirmemail.text = value;
+              });
             },
           ),
         ),
       ),
-    );
-  }
-
-  Widget privacyPolicyLinkAndTermsOfService() {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(10),
-      child: Center(
-          child: Text.rich(TextSpan(
-              text: 'By signing up, you agree to Books App ',
-              style: TextStyle(fontSize: 13, color: Colors.black),
-              children: <TextSpan>[
-            TextSpan(
-                text: 'Terms of Service',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.black,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // code to open / launch terms of service link here
-                  }),
-            TextSpan(
-                text: ' and ',
-                style: TextStyle(fontSize: 13, color: Colors.black),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                          decoration: TextDecoration.underline),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // code to open / launch privacy policy link here
-                        })
-                ])
-          ]))),
     );
   }
 }

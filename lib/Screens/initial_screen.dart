@@ -232,7 +232,7 @@ class _InitialScreenState extends State<InitialScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Color(0xFF246BFD),
         onPressed: () async {
-          Navigator.pushNamed(context, registerRoute);
+          Navigator.pushNamed(context, loginRoute);
         },
         icon: Icon(
           Icons.mail_outline_outlined,

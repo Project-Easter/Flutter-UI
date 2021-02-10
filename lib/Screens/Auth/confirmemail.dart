@@ -1,7 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:books_app/screens/Auth/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,8 +24,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
         backgroundColor: Colors.white10,
         leading: FlatButton(
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+              Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back_rounded)),
       ),
@@ -91,7 +89,9 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
               contentPadding: EdgeInsets.all(10),
             ),
             onSaved: (value) {
-              _confirmemail.text = value;
+              setState(() {
+                              _confirmemail.text = value;
+                            });
             },
           ),
         ),

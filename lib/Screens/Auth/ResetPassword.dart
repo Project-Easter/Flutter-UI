@@ -4,17 +4,16 @@ import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RegisterScreen extends StatefulWidget {
+class ResetPassword extends StatefulWidget {
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _ResetPasswordState createState() => _ResetPasswordState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _ResetPasswordState extends State<ResetPassword> {
   final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _userEmail = TextEditingController();
-  final TextEditingController _passWord = TextEditingController();
-
+  final TextEditingController _newPassword = TextEditingController();
+  final TextEditingController _reEnterPassword = TextEditingController();
+  final TextEditingController _verificationCode = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,15 +35,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Padding(
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
-                "Register",
+                "Reset Password",
                 style: GoogleFonts.poppins(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
                     fontSize: 36),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Please enter the verification code sent to your Email ID and a new password',
+                textAlign: TextAlign.center,
+                softWrap: true,
+                style: GoogleFonts.muli(color: Colors.black87, fontSize: 15),
+              ),
+            ),
             buildLayouts(),
-            button(context, blackButton, 'Register', confirmEmail),
+            button(context, blackButton, 'Continue with Login', loginRoute),
           ],
         ),
       ),
@@ -61,20 +69,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: AspectRatio(
               aspectRatio: 343 / 52,
               child: TextFormField(
-                key: ValueKey('email'),
+                key: ValueKey('verification code'),
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
                 enableSuggestions: false,
                 validator: (value) {
-                  if (value.isEmpty || !value.contains('@')) {
-                    return 'Please enter a valid email address';
+                  if (value.isEmpty) {
+                    return 'Please enter the verification code correctly';
                   }
                   return null;
                 },
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
-                  hintText: 'Email',
+                  hintText: 'Enter Verification Code',
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
@@ -87,7 +95,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
-                  _userEmail.text = value;
+                  setState(() {
+                    _verificationCode.text = value;
+                  });
                 },
               ),
             ),
@@ -121,7 +131,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     contentPadding: EdgeInsets.all(10),
                   ),
                   onSaved: (value) {
-                    _passWord.text = value;
+                    setState(() {
+                      _newPassword.text = value;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: AspectRatio(
+              aspectRatio: 340 / 52,
+              child: Container(
+                child: TextFormField(
+                  key: ValueKey('Re -enter password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value.isEmpty || value.length < 6) {
+                      return 'Password too short must be at least 6 characters long';
+                    }
+                    return null;
+                  },
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    hintText: 'Confirm Password',
+                    hintStyle: GoogleFonts.poppins(
+                      fontSize: 14,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2),
+                        borderRadius: BorderRadius.circular(12)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2),
+                        borderRadius: BorderRadius.circular(12)),
+                    contentPadding: EdgeInsets.all(10),
+                  ),
+                  onSaved: (value) {
+                    setState(() {
+                      _reEnterPassword.text = value;
+                    });
                   },
                 ),
               ),

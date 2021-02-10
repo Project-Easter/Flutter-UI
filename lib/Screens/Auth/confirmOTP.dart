@@ -195,7 +195,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
       final UserCredential user = await _auth.signInWithCredential(credential);
       final User currentUser = _auth.currentUser;
       assert(user.user.uid == currentUser.uid);
-      Navigator.pushReplacementNamed(context, registerRoute);
+      Navigator.pushReplacementNamed(context, userName);
     } catch (e) {
       handleError(e as PlatformException);
     }

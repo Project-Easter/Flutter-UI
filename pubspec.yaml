@@ -42,10 +42,13 @@ dependencies:
   google_fonts: ^1.1.1
   google_sign_in: "^4.5.1"
   flutter_login_facebook: ^0.4.2+3
-
+  shared_preferences: ^0.5.12+4
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.1
+    
 flutter_icons:
   android: true
   ios: true
