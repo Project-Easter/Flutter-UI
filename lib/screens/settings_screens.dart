@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     _darkTheme = (themeNotifier.getTheme() == darkTheme);
 
-    return Scaffold(      
+    return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0.0,
@@ -145,6 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Transform.scale(
                   scale: 0.7,
                   child: CupertinoSwitch(
+                    trackColor: Colors.white70,
                     activeColor: Colors.black,
                     value: _switchValue,
                     onChanged: (val) {
@@ -162,12 +163,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           Row(
             children: [
-              Text(
-                "Dark mode",
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400, fontSize: 18),
-              ),
-              Expanded(flex: 2, child: Container()),
+              Expanded(
+                child: Text(
+                  "Dark mode",
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),              
               Transform.scale(
                 scale: 0.7,
                 child: CupertinoSwitch(
