@@ -18,7 +18,6 @@ ThemeData bookTheme() {
   return base.copyWith(
     //Text themes
     textTheme: _bookTextTheme(base.textTheme),
-    primaryColor: Colors.white,
 
     //Buttons
     buttonColor: Color.fromRGBO(24, 25, 38, 1),

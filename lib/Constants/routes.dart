@@ -5,3 +5,5 @@ const String userName = '/signup';
 const String confirmEmail = '/mailOTP';
 const String startupPage = '/startupPage';
 const String dashboard = '/dashboard';
+const String chatscreen = '/chat_screen';
+const String setscreen = '/settings_screens';

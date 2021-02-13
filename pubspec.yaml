@@ -42,6 +42,11 @@ dependencies:
   google_fonts: ^1.1.1
   google_sign_in: "^4.5.1"
   flutter_login_facebook: ^0.4.2+3
+  image_picker: ^0.6.7+3
+  shared_preferences: ^0.5.3+4
+ 
+  # Provider Theme
+  provider: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -59,4 +64,4 @@ flutter:
   uses-material-design: true
   assets:
       - assets/
-      
+      - assets/placeholder.PNG

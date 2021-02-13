@@ -1,4 +1,6 @@
 import 'package:books_app/Screens/Auth/login.dart';
+import 'package:books_app/screens/chat_screen.dart';
+import 'package:books_app/screens/settings_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/confirmOTP.dart';
@@ -26,6 +28,11 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ConfirmEmailScreen());
       case dashboard:
         return MaterialPageRoute(builder: (_) => DashboardPage());
+      case chatscreen:
+        return MaterialPageRoute(builder: (_) => ChatScreen());
+      //testing the screen
+       case setscreen:
+        return MaterialPageRoute(builder: (_) => SettingsScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
