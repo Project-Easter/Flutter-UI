@@ -8,3 +8,4 @@ const String dashboard = '/dashboard';
 const String preferences = '/preferences';
 const String resetPassword = '/reset';
 const String forgotPassword = '/forgotPassword';
+const String home = '/home';
