@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Book Club", //This is shown when the app is minimized
+      title: "Explr", //This is shown when the app is minimized
       initialRoute: startupPage,
       onGenerateRoute: RouteGenerator.generateRoute,
     );

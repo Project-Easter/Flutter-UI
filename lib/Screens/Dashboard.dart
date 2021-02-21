@@ -1,5 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Screens/UserPreferences.dart';
+import 'package:books_app/Screens/book_desciption.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,12 +12,15 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController _search = new TextEditingController();
     return Scaffold(
         appBar: AppBar(
-          titleSpacing: 10,
+          titleSpacing: 5,
           elevation: 0.0,
           backgroundColor: Colors.white10,
+          title: Text(
+            'Explr',
+            style: GoogleFonts.muli(color: Colors.black),
+          ),
           leading: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -24,9 +28,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 alignment: Alignment.centerLeft,
                 child: IconButton(
                   icon: Icon(
-                    Icons.navigate_before_rounded,
+                    Icons.arrow_back_sharp,
                     color: Colors.black,
-                    size: 35,
+                    size: 20,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -40,9 +44,26 @@ class _DashboardPageState extends State<DashboardPage> {
               icon: Icon(
                 Icons.search_rounded,
                 color: Colors.black,
+                size: 20,
               ),
               onPressed: () {},
-            )
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.filter_list_alt,
+                color: Colors.black,
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black,
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
           ],
         ),
         body: SingleChildScrollView(
@@ -50,38 +71,38 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Home',
-                        style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 35,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.settings,
-                        color: Colors.black,
-                        size: 28,
-                      ),
-                      onPressed: () {},
-                    ),
-                  )
-                ],
-              ),
+            children: <Widget>[
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   mainAxisSize: MainAxisSize.max,
+              //   children: <Widget>[
+              //     Padding(
+              //       padding: const EdgeInsets.all(20.0),
+              //       child: Align(
+              //         alignment: Alignment.centerLeft,
+              //         child: Text(
+              //           'Home',
+              //           style: GoogleFonts.poppins(
+              //             color: Colors.black,
+              //             fontSize: 35,
+              //             fontWeight: FontWeight.w500,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     Padding(
+              //       padding: const EdgeInsets.all(5.0),
+              //       child: IconButton(
+              //         icon: Icon(
+              //           Icons.settings,
+              //           color: Colors.black,
+              //           size: 28,
+              //         ),
+              //         onPressed: () {},
+              //       ),
+              //     )
+              //   ],
+              // ),
               quotes(),
               userChoice(),
               booksTile('Discover New'),
@@ -169,14 +190,24 @@ class _DashboardPageState extends State<DashboardPage> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Container(
-              height: 192,
-              width: 140,
-              decoration: new BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 15)],
-                  borderRadius: BorderRadius.circular(10),
-                  image: new DecorationImage(
-                      image: NetworkImage(imageLink), fit: BoxFit.fill)),
+            child: GestureDetector(
+              child: Container(
+                height: 192,
+                width: 140,
+                decoration: new BoxDecoration(
+                    boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 15)],
+                    borderRadius: BorderRadius.circular(10),
+                    image: new DecorationImage(
+                        image: NetworkImage(imageLink), fit: BoxFit.fill)),
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => BookDescription(
+                          imgLink: imageLink,
+                          authorName: authorName,
+                          bookName: bookName,
+                        )));
+              },
             ),
           ),
           Text(
@@ -195,39 +226,14 @@ class _DashboardPageState extends State<DashboardPage> {
               fontSize: 12,
             ),
           ),
-          Row(
-            children: <Widget>[
-              Icon(
-                Icons.star,
-                size: 15,
-              ),
-              Icon(
-                Icons.star,
-                size: 15,
-              ),
-              Icon(
-                Icons.star,
-                size: 15,
-              ),
-              Icon(
-                Icons.star,
-                size: 15,
-              ),
-              Icon(
-                Icons.star_half_outlined,
-                size: 15,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.bookmark_outline_rounded),
-                    iconSize: 20,
-                  )),
-            ],
+          Padding(
+            padding: EdgeInsets.only(left: 100),
+            child: IconButton(
+              alignment: Alignment.topRight,
+              onPressed: () {},
+              icon: Icon(Icons.bookmark_outline_rounded),
+              iconSize: 20,
+            ),
           ),
         ],
       ),
@@ -236,7 +242,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   userChoice() {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
@@ -244,7 +250,7 @@ class _DashboardPageState extends State<DashboardPage> {
           border: Border.all(color: Colors.black),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Column(
             children: <Widget>[
               Text(
@@ -253,7 +259,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     GoogleFonts.muli(fontSize: 24, fontWeight: FontWeight.w700),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
+                padding: EdgeInsets.fromLTRB(30, 8, 30, 0),
                 child: Text(
                   'Share your interests for best recommendations of books within your location range',
                   softWrap: true,
@@ -297,28 +303,30 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   quotes() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(children: <Widget>[
-        Text(
-          '\"Behind every exquisite thing that existed, there was some tragic\"',
-          softWrap: true,
-          maxLines: 3,
-          overflow: TextOverflow.visible,
-          style: GoogleFonts.lato(
-              color: blackButton, fontSize: 23, fontStyle: FontStyle.italic),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Text(
-            '-Oscar Wilde',
-            style: GoogleFonts.lato(color: blackButton, fontSize: 14),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(children: <Widget>[
+          Text(
+            '\"Behind every exquisite thing that existed, there was some tragic\"',
+            softWrap: true,
+            maxLines: 3,
+            overflow: TextOverflow.visible,
+            style: GoogleFonts.lato(
+                color: blackButton, fontSize: 23, fontStyle: FontStyle.italic),
           ),
-        )
-      ]),
+          SizedBox(
+            height: 15,
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              '-Oscar Wilde',
+              style: GoogleFonts.lato(color: blackButton, fontSize: 14),
+            ),
+          )
+        ]),
+      ),
     );
   }
 }

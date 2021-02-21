@@ -1,5 +1,7 @@
 import 'package:books_app/Screens/Dashboard.dart';
+import 'package:books_app/Screens/book_desciption.dart';
 import 'package:books_app/Screens/bookshelf.dart';
+import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/user_profile.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,9 +19,10 @@ class _HomeState extends State<Home> {
   List<Widget> _screens = [
     DashboardPage(),
     ExploreNearby(),
-    null,
+    ChatScreen(),
     MyBookshelf(),
     ProfilePage(),
+    BookDescription(),
   ];
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
@@ -34,9 +37,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
         body: _screens[_selectedIndex],
         bottomNavigationBar: FloatingNavbar(
+          showSelectedLabels: true,
           currentIndex: _selectedIndex,
           onTap: _selectedTab,
-          showUnselectedLabels: false,
+          showUnselectedLabels: true,
           items: [
             FloatingNavbarItem(
               icon: Icons.home_filled,

@@ -83,7 +83,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      'Barter Books',
+                      'Explr',
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 26,

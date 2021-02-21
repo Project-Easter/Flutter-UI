@@ -92,13 +92,13 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            height: 81,
+            height: 70,
             padding: widget.padding,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
                   spreadRadius: 0,
-                  blurRadius: 10,
+                  blurRadius: 20,
                   color: Colors.black26,
                 )
               ],
@@ -161,9 +161,6 @@ ItemBuilder _defaultItemBuilder({
                 child: Container(
                   height: 54,
                   width: 54,
-                  //max-width for each item
-                  //24 is the padding from left and right
-
                   padding: EdgeInsets.all(4),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -177,17 +174,15 @@ ItemBuilder _defaultItemBuilder({
                             : unselectedItemColor,
                         size: iconSize,
                       ),
-                      // Text(
-                      //   currentIndex == items.indexOf(item)
-                      //       ? '${item.title}'
-                      //       : '',
-                      //   style: TextStyle(
-                      //     color: currentIndex == items.indexOf(item)
-                      //         ? selectedItemColor
-                      //         : unselectedItemColor,
-                      //     fontSize: fontSize,
-                      //   ),
-                      // )
+                      Text(
+                        '${item.title}',
+                        style: TextStyle(
+                          color: currentIndex == items.indexOf(item)
+                              ? selectedItemColor
+                              : unselectedItemColor,
+                          fontSize: fontSize,
+                        ),
+                      )
                     ],
                   ),
                 ),
