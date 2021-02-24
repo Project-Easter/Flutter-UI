@@ -8,3 +8,7 @@ const String dashboard = '/dashboard';
 const String preferences = '/preferences';
 const String resetPassword = '/reset';
 const String forgotPassword = '/forgotPassword';
+const String libraryPage = '/library';
+const String exploreNearby = '/explorenearby';
+const String publicProfile = 'publicprofile';
+const String privateProfile = '/privateprofile';

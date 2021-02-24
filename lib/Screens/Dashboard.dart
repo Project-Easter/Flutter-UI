@@ -1,7 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/UserPreferences.dart';
-import 'package:books_app/Widgets/button.dart';
+import 'package:books_app/Screens/library_page/library_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -35,6 +34,22 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ],
           ),
+          actions: [
+            FlatButton(
+              textColor: Colors.black,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LibraryPage()),
+                );
+              },
+              child: Text(
+                "Skip",
+                style: GoogleFonts.poppins(),
+              ),
+              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+            ),
+          ],
         ),
         body: Center(
             child: Column(
