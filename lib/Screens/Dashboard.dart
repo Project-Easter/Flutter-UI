@@ -1,5 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Screens/UserPreferences.dart';
+import 'package:books_app/Screens/library_page/library_page.dart';
 import 'package:books_app/Screens/book_desciption.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +40,60 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ],
           ),
+          actions: [
+            FlatButton(
+              textColor: Colors.black,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LibraryPage()),
+                );
+              },
+              child: Text(
+                "Skip",
+                style: GoogleFonts.poppins(),
+              ),
+              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+            ),
+          ],
+        ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            userChoice(),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // RaisedButton(
+            //   child: Text('Signout'),
+            //   onPressed: () {
+            //     FirebaseAuth.instance.signOut();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // RaisedButton(
+            //   child: Text('Signout from Facebook'),
+            //   onPressed: () {
+            //     AuthService().facebookSignout();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // RaisedButton(
+            //   child: Text('Signout from Google'),
+            //   onPressed: () {
+            //     AuthService().googleSignout();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+
           actions: <Widget>[
             IconButton(
               icon: Icon(

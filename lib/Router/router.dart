@@ -1,4 +1,5 @@
 import 'package:books_app/Screens/Auth/login.dart';
+import 'package:books_app/Screens/Profile/public_profile.dart';
 import 'package:books_app/Screens/home.dart';
 import 'package:books_app/Screens/initial_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,9 @@ import 'package:books_app/Screens/Auth/confirmemail.dart';
 import 'package:books_app/Screens/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
+import 'package:books_app/Screens/Library_Page/library_page.dart';
+import 'package:books_app/Screens/Explore_Nearby/explore_page.dart';
+import 'package:books_app/Screens/Profile/private_profile.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -33,6 +37,14 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case resetPassword:
         return MaterialPageRoute(builder: (_) => ResetPassword());
+      case libraryPage:
+        return MaterialPageRoute(builder: (_) => LibraryPage());
+      case exploreNearby:
+        return MaterialPageRoute(builder: (_) => ExplorePage());
+      case publicProfile:
+        return MaterialPageRoute(builder: (_) => PublicProfile());
+      case privateProfile:
+        return MaterialPageRoute(builder: (_) => PrivateProfile());
       case home:
         return MaterialPageRoute(builder: (_) => Home());
 
