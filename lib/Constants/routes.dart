@@ -12,3 +12,4 @@ const String libraryPage = '/library';
 const String exploreNearby = '/explorenearby';
 const String publicProfile = 'publicprofile';
 const String privateProfile = '/privateprofile';
+const String home = '/home';

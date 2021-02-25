@@ -86,7 +86,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      'Barter Books',
+                      'Explr',
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 26,
@@ -309,7 +309,7 @@ class _InitialScreenState extends State<InitialScreen> {
       buttonColor: Color.fromRGBO(35, 34, 51, 1),
       child: RaisedButton(
         onPressed: () {
-          Navigator.pushNamed(context, dashboard);
+          Navigator.pushNamed(context, home);
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         child: Text(

@@ -121,7 +121,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     contentPadding: EdgeInsets.all(10),
                   ),
                   onSaved: (value) {
-                    _passWord.text = value;
+                    setState(() {
+                      _passWord.text = value;
+                    });
                   },
                 ),
               ),

@@ -44,7 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Sign up', dashboard),
+            button(context, blackButton, 'Sign up', home),
             SizedBox(
               height: 20.0,
             ),

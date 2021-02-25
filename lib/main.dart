@@ -22,6 +22,11 @@ class MyApp extends StatelessWidget {
         initialRoute: startupPage,
         onGenerateRoute: RouteGenerator.generateRoute,
       ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Explr", //This is shown when the app is minimized
+      initialRoute: startupPage,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
