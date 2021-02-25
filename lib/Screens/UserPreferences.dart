@@ -1,7 +1,6 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Widgets/UserLocation.dart';
 
 //------------Stack Overflow COde ----------------
 class MultiSelectDialogItem<V> {
@@ -179,7 +178,6 @@ userPreferences(BuildContext context) {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  searchBar(),
                   SizedBox(
                     height: 20,
                   ),

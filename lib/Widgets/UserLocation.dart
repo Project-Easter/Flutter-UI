@@ -1,50 +1,27 @@
+import 'package:books_app/util/config_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
-Widget searchBar() {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _confirm = TextEditingController();
-  return Form(
-    key: _formKey,
-    child: Column(
-      children: [
-        AspectRatio(
-          aspectRatio: 300 / 55,
-          child: Container(
-            child: TextFormField(
-              key: ValueKey('Location'),
-              autocorrect: false,
-              textCapitalization: TextCapitalization.none,
-              enableSuggestions: false,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter your Location';
-                }
-                return null;
-              },
-              textAlign: TextAlign.start,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search_rounded),
-                hintText: 'Enter your Location',
-                hintStyle: GoogleFonts.muli(
-                  fontSize: 14,
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2),
-                    borderRadius: BorderRadius.circular(12)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 2),
-                    borderRadius: BorderRadius.circular(12)),
-                contentPadding: EdgeInsets.all(10),
-              ),
-              onTap: () {},
-              onSaved: (value) {
-                _confirm.text = value;
-              },
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
+class GetLocation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FutureBuilder(
+        future: loadConfig(),
+        builder: (BuildContext buildContext,
+            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+          if (snapshot.hasData) {
+            return MapboxMap(
+              accessToken: snapshot.data['mapbox_api_token'],
+              initialCameraPosition: CameraPosition(target: LatLng(45, 45)),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
+  }
 }

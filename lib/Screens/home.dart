@@ -1,9 +1,10 @@
+import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Dashboard.dart';
-import 'package:books_app/Screens/book_desciption.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/user_profile.dart';
+import 'package:books_app/Widgets/appBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +23,6 @@ class _HomeState extends State<Home> {
     ChatScreen(),
     MyBookshelf(),
     ProfilePage(),
-    BookDescription(),
   ];
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
@@ -35,7 +35,33 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: MyAppBar(),
         body: _screens[_selectedIndex],
+        floatingActionButton: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton(
+                  heroTag: null,
+                  child: Icon(Icons.add_box_rounded),
+                  onPressed: () {
+                    Navigator.pushNamed(context, addBook);
+                  },
+                ),
+              ),
+              FloatingActionButton(
+                heroTag: 'map',
+                child: Icon(Icons.location_on),
+                backgroundColor: Colors.blueAccent,
+                onPressed: () {
+                  Navigator.pushNamed(context, location);
+                },
+              ),
+            ],
+          ),
+        ),
         bottomNavigationBar: FloatingNavbar(
           showSelectedLabels: true,
           currentIndex: _selectedIndex,

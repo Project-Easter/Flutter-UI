@@ -13,134 +13,50 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          titleSpacing: 5,
-          elevation: 0.0,
-          backgroundColor: Colors.white10,
-          title: Text(
-            'Explr',
-            style: GoogleFonts.muli(color: Colors.black),
-          ),
-          leading: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_sharp,
-                    color: Colors.black,
-                    size: 20,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.search_rounded,
-                color: Colors.black,
-                size: 20,
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.filter_list_alt,
-                color: Colors.black,
-                size: 20,
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Colors.black,
-                size: 20,
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
         body: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   mainAxisSize: MainAxisSize.max,
-              //   children: <Widget>[
-              //     Padding(
-              //       padding: const EdgeInsets.all(20.0),
-              //       child: Align(
-              //         alignment: Alignment.centerLeft,
-              //         child: Text(
-              //           'Home',
-              //           style: GoogleFonts.poppins(
-              //             color: Colors.black,
-              //             fontSize: 35,
-              //             fontWeight: FontWeight.w500,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.all(5.0),
-              //       child: IconButton(
-              //         icon: Icon(
-              //           Icons.settings,
-              //           color: Colors.black,
-              //           size: 28,
-              //         ),
-              //         onPressed: () {},
-              //       ),
-              //     )
-              //   ],
-              // ),
-              quotes(),
-              userChoice(),
-              booksTile('Discover New'),
-              booksTile('Recommended for you'),
+      physics: AlwaysScrollableScrollPhysics(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          quotes(),
+          userChoice(),
+          booksTile('Discover New'),
+          booksTile('Recommended for you'),
 
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // RaisedButton(
-              //   child: Text('Signout'),
-              //   onPressed: () {
-              //     FirebaseAuth.instance.signOut();
-              //     Navigator.of(context).pop();
-              //   },
-              // ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // RaisedButton(
-              //   child: Text('Signout from Facebook'),
-              //   onPressed: () {
-              //     AuthService().facebookSignout();
-              //     Navigator.of(context).pop();
-              //   },
-              // ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // RaisedButton(
-              //   child: Text('Signout from Google'),
-              //   onPressed: () {
-              //     AuthService().googleSignout();
-              //     Navigator.of(context).pop();
-              //   },
-              // ),
-            ],
-          ),
-        ));
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // RaisedButton(
+          //   child: Text('Signout'),
+          //   onPressed: () {
+          //     FirebaseAuth.instance.signOut();
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // RaisedButton(
+          //   child: Text('Signout from Facebook'),
+          //   onPressed: () {
+          //     AuthService().facebookSignout();
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // RaisedButton(
+          //   child: Text('Signout from Google'),
+          //   onPressed: () {
+          //     AuthService().googleSignout();
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
+        ],
+      ),
+    ));
   }
 
   booksTile(String title) {

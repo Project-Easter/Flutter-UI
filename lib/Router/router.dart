@@ -1,6 +1,8 @@
 import 'package:books_app/Screens/Auth/login.dart';
+import 'package:books_app/Screens/add_book.dart';
 import 'package:books_app/Screens/home.dart';
 import 'package:books_app/Screens/initial_screen.dart';
+import 'package:books_app/Widgets/UserLocation.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/confirmOTP.dart';
@@ -33,8 +35,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case resetPassword:
         return MaterialPageRoute(builder: (_) => ResetPassword());
+      case addBook:
+        return MaterialPageRoute(builder: (_) => AddBook());
       case home:
         return MaterialPageRoute(builder: (_) => Home());
+      case location:
+        return MaterialPageRoute(builder: (_) => GetLocation());
 
       default:
         return MaterialPageRoute(

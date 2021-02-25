@@ -9,3 +9,5 @@ const String preferences = '/preferences';
 const String resetPassword = '/reset';
 const String forgotPassword = '/forgotPassword';
 const String home = '/home';
+const String addBook = '/addBook';
+const String location = '/location';

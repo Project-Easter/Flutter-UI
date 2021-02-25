@@ -9,9 +9,6 @@ class _ExploreNearbyState extends State<ExploreNearby> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(' Explore Nearby'),
-      ),
       body: Center(
         child: Text('Explore Nearby Screen'),
       ),
