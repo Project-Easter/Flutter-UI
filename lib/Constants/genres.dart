@@ -38,7 +38,7 @@ List<String> genres = [
   'CRIME',
   'DRAMA',
   'DICTIONARY',
-  'ENCYKLOPEDIA',
+  'ENCYCLOPEDIA',
   'GUIDE',
   ' FAIRYTALE',
   'FANTASY',
