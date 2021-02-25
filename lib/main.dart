@@ -15,18 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => Books(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Book Club", //This is shown when the app is minimized
-        initialRoute: startupPage,
-        onGenerateRoute: RouteGenerator.generateRoute,
-      ),
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Explr", //This is shown when the app is minimized
-      initialRoute: startupPage,
-      onGenerateRoute: RouteGenerator.generateRoute,
-    );
+        create: (_) => Books(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Explr", //This is shown when the app is minimized
+          initialRoute: startupPage,
+          onGenerateRoute: RouteGenerator.generateRoute,
+        ));
   }
 }
