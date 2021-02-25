@@ -7,6 +7,7 @@ import 'package:flutter/painting.dart';
 import 'package:books_app/Widgets/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:books_app/Services/auth.dart';
+import 'package:books_app/util/size_config.dart';
 
 class InitialScreen extends StatefulWidget {
   @override
@@ -48,6 +49,8 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Size config init at starting of the tree.
+    SizeConfig().init(context);
     return Scaffold(
         body: Container(
       height: double.infinity,

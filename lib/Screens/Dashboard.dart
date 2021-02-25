@@ -1,5 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Screens/UserPreferences.dart';
+import 'package:books_app/Screens/library_page/library_page.dart';
 import 'package:books_app/Screens/book_desciption.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,116 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
+=======
+        appBar: AppBar(
+          titleSpacing: 5,
+          elevation: 0.0,
+          backgroundColor: Colors.white10,
+          title: Text(
+            'Explr',
+            style: GoogleFonts.muli(color: Colors.black),
+          ),
+          leading: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_sharp,
+                    color: Colors.black,
+                    size: 20,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            FlatButton(
+              textColor: Colors.black,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LibraryPage()),
+                );
+              },
+              child: Text(
+                "Skip",
+                style: GoogleFonts.poppins(),
+              ),
+              shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
+            ),
+          ],
+        ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            userChoice(),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // RaisedButton(
+            //   child: Text('Signout'),
+            //   onPressed: () {
+            //     FirebaseAuth.instance.signOut();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // RaisedButton(
+            //   child: Text('Signout from Facebook'),
+            //   onPressed: () {
+            //     AuthService().facebookSignout();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // RaisedButton(
+            //   child: Text('Signout from Google'),
+            //   onPressed: () {
+            //     AuthService().googleSignout();
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
+
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.search_rounded,
+                color: Colors.black,
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.filter_list_alt,
+                color: Colors.black,
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black,
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
+>>>>>>> e68656718869e9e87508702cd6df69e8ad013060
         body: SingleChildScrollView(
       physics: AlwaysScrollableScrollPhysics(),
       child: Column(

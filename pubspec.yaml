@@ -43,10 +43,12 @@ dependencies:
   google_sign_in: "^4.5.1"
   flutter_login_facebook: ^0.4.2+3
   shared_preferences: ^0.5.12+4
-  location: ^3.0.0
   mapbox_gl: ^0.10.0
-  
-  
+  location: ^3.2.4
+
+  #Added Provider package
+  provider: ^4.3.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
