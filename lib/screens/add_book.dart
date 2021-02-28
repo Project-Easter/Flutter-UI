@@ -17,7 +17,7 @@ class _AddBookState extends State<AddBook> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(),
+        appBar: MyAppBar(context),
         body: Column(
           children: <Widget>[
             Padding(

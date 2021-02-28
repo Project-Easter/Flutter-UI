@@ -20,11 +20,10 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    // final themeNotifier = Provider.of<ThemeNotifier>(context);
     return ChangeNotifierProvider(
         create: (_) => Books(),
         child: MaterialApp(
-          theme: themeNotifier.getTheme(),
           debugShowCheckedModeBanner: false,
           title: "Explr", //This is shown when the app is minimized
           initialRoute: startupPage,

@@ -1,8 +1,9 @@
+import 'package:books_app/Constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: non_constant_identifier_names
-MyAppBar() {
+MyAppBar(BuildContext buildContext) {
   return AppBar(
     shadowColor: Colors.black,
     bottomOpacity: 0.5,
@@ -40,7 +41,9 @@ MyAppBar() {
           color: Colors.black,
           size: 20,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(buildContext, setscreen);
+        },
       ),
     ],
   );

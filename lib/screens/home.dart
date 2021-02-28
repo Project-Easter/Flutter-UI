@@ -1,7 +1,7 @@
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Screens/Chat/messages.dart';
 import 'package:books_app/Screens/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
-import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
 import 'package:books_app/Widgets/appBar.dart';
@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
   List<Widget> _screens = [
     DashboardPage(),
     ExploreNearby(),
-    ChatScreen(),
+    Messages(),
     LibraryPage(),
     PrivateProfile(),
   ];
@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(),
+        appBar: MyAppBar(context),
         body: _screens[_selectedIndex],
         floatingActionButton: Container(
           child: Row(

@@ -171,16 +171,15 @@ class _InitialScreenState extends State<InitialScreen> {
           CountryPicker(
             callBackFunction: _callBackFunction,
             headerText: 'Select Country',
-            headerBackgroundColor: Theme.of(context).primaryColor,
-            headerTextColor: Colors.white,
+            headerTextColor: Colors.black,
+            headerBackgroundColor: Colors.black,
           ),
           Expanded(
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Enter your Mobile',
-                hintStyle: GoogleFonts.poppins(
-                  fontSize: 14,
-                ),
+                hintStyle:
+                    GoogleFonts.poppins(fontSize: 14, color: Colors.black),
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
