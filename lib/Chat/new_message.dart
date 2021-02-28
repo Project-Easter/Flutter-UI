@@ -9,7 +9,18 @@ class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Same"),
+      margin: EdgeInsets.only(top: 8),
+      padding: EdgeInsets.all(8),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(labelText: "Type a message here"),
+            ),
+          ),
+          IconButton(icon: null, onPressed: () {}),
+        ],
+      ),
     );
   }
 }

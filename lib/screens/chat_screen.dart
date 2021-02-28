@@ -9,7 +9,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Chat Screen"),         
+          title: Text("Chats"),
         ),
         body: Container(
           child: Column(

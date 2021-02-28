@@ -145,7 +145,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Transform.scale(
                   scale: 0.7,
                   child: CupertinoSwitch(
-                    trackColor: Colors.white70,
                     activeColor: Colors.black,
                     value: _switchValue,
                     onChanged: (val) {
@@ -169,7 +168,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w400, fontSize: 18),
                 ),
-              ),              
+              ),
               Transform.scale(
                 scale: 0.7,
                 child: CupertinoSwitch(

@@ -306,7 +306,7 @@ class _InitialScreenState extends State<InitialScreen> {
       buttonColor: Color.fromRGBO(35, 34, 51, 1),
       child: RaisedButton(
         onPressed: () {
-          Navigator.pushNamed(context, setscreen);
+          Navigator.pushNamed(context, chatscreen);
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         child: Text(
