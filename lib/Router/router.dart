@@ -3,6 +3,8 @@ import 'package:books_app/Screens/add_book.dart';
 import 'package:books_app/Screens/home.dart';
 import 'package:books_app/Screens/initial_screen.dart';
 import 'package:books_app/Services/UserLocation.dart';
+import 'package:books_app/screens/chat_screen.dart';
+import 'package:books_app/screens/settings_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/confirmOTP.dart';
@@ -42,6 +44,11 @@ class RouteGenerator {
       case location:
         return MaterialPageRoute(builder: (_) => GetLocation());
 
+      case chatscreen:
+        return MaterialPageRoute(builder: (_) => ChatScreen());
+      //testing the screen
+      case setscreen:
+        return MaterialPageRoute(builder: (_) => SettingsScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

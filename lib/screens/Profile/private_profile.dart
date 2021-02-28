@@ -2,7 +2,6 @@ import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/util/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 
