@@ -3,7 +3,7 @@ import 'package:books_app/Screens/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
-import 'package:books_app/Screens/user_profile.dart';
+import 'package:books_app/Screens/Profile/private_profile.dart';
 import 'package:books_app/Widgets/appBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +21,8 @@ class _HomeState extends State<Home> {
     DashboardPage(),
     ExploreNearby(),
     ChatScreen(),
-    MyBookshelf(),
-    ProfilePage(),
+    LibraryPage(),
+    PrivateProfile(),
   ];
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);

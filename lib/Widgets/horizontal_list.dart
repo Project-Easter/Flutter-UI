@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:books_app/util/size_config.dart';
 import 'package:books_app/Models/book.dart';
 
+// ignore: must_be_immutable
 class HorizontalList extends StatelessWidget {
   double height;
   List<Book> bookList;

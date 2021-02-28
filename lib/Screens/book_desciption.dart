@@ -1,4 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
+import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -131,7 +132,8 @@ class _BookDescriptionState extends State<BookDescription>
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
                         children: [
-                          button(context, blackButton, 'Visit Profile', ''),
+                          button(context, blackButton, 'Visit Profile',
+                              publicProfile),
                           button(
                               context, greenButton, 'Exchange this Book', ''),
                           ratings(),

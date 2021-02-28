@@ -33,7 +33,7 @@ dependencies:
 
   # Add the dependencies for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
-  firebase_auth: ^0.20.0
+  firebase_auth: ^0.20.0+1
   cloud_firestore: ^0.16.0
 
   # The following adds the Cupertino Icons font to your application.

@@ -42,6 +42,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>[Your explanation here]</string>
+	<string>User Location Retrieval</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>User Location Access in background</string>
+
 </dict>
 </plist>
