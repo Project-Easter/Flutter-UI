@@ -10,7 +10,7 @@ ThemeData bookTheme() {
         bodyText1: base.bodyText1.copyWith(
           fontFamily: 'Poppins',
           fontSize: 16.0,
-          color: Color.fromRGBO(255, 255, 255, 1),
+          color: Colors.white10,
         ));
   }
 
@@ -20,7 +20,7 @@ ThemeData bookTheme() {
     textTheme: _bookTextTheme(base.textTheme),
 
     //Buttons
-    buttonColor: Color.fromRGBO(24, 25, 38, 1),
+    buttonColor: Color.fromRGBO(36, 107, 253, 1),
     buttonTheme: ButtonThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
     ),

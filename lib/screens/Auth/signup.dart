@@ -18,11 +18,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
-        leading: FlatButton(
+        leading: TextButton(
             onPressed: () {
               Navigator.pop(context);
             },

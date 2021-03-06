@@ -1,3 +1,4 @@
+import 'package:books_app/Screens/bookshelf.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Screens/Auth/login.dart';
 import 'package:books_app/Screens/add_book.dart';
@@ -48,6 +49,8 @@ class RouteGenerator {
       //testing the screen
       case setscreen:
         return MaterialPageRoute(builder: (_) => SettingsScreen());
+      case libraryPage:
+        return MaterialPageRoute(builder: (_) => LibraryPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

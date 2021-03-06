@@ -19,12 +19,15 @@ class PrivateProfile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'My Profile',
-                    style: GoogleFonts.poppins(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 26),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'My Profile',
+                      style: GoogleFonts.poppins(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 26),
+                    ),
                   ),
                   TextButton(
                     onPressed: () {

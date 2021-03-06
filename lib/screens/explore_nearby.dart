@@ -1,9 +1,7 @@
-import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/util/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:books_app/Widgets/horizontal_list.dart';
-import 'package:books_app/Widgets/filter_items.dart';
 import 'package:provider/provider.dart';
 import 'package:books_app/Models/books.dart';
 
@@ -34,34 +32,12 @@ class _ExploreNearbyState extends State<ExploreNearby> {
               SizedBox(
                 height: getProportionateScreenHeight(50.0),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Explore Nearby',
-                    style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 26,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.format_align_left,
-                      color: Colors.black54,
-                    ),
-                    tooltip: 'Filter Items',
-                    onPressed: () {
-                      openDialog();
-                    },
-                  ),
-                  //TODO:5.Remove Icon and Adjust routes
-                  IconButton(
-                      icon: Icon(Icons.settings),
-                      color: Color(0xFF666666),
-                      onPressed: () {
-                        Navigator.pushNamed(context, publicProfile);
-                      }),
-                ],
+              Text(
+                'Explore Nearby',
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: getProportionateScreenHeight(25),
@@ -91,35 +67,6 @@ class _ExploreNearbyState extends State<ExploreNearby> {
         ),
       ),
       //TODO:6.Add BottomNav Icon and Adjust routes
-    );
-  }
-
-  void openDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                'CANCEL',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300),
-              ),
-            ),
-          ],
-          content: Container(
-            width: 300,
-            height: 200,
-            child: FilterItems(),
-          ),
-        );
-      },
     );
   }
 

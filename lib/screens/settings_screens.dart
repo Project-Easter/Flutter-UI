@@ -117,7 +117,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "Add a payment method",
+                    "Change User Preferences",
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w400, fontSize: 18),
                   ),

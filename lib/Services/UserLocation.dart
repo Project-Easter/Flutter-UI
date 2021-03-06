@@ -19,14 +19,14 @@ class GetLocation extends StatelessWidget {
                 final currLocation = await acquireCurrentLocation();
                 final animateCameraResult = await controller.animateCamera(
                   CameraUpdate.newCameraPosition(
-                    CameraPosition(zoom: 20, target: currLocation),
+                    CameraPosition(zoom: 3, target: currLocation),
                   ),
                 );
 
                 if (animateCameraResult) {
                   controller.addCircle(CircleOptions(
                     circleColor: '#333333',
-                    circleRadius: 10,
+                    circleRadius: 4,
                     geometry: currLocation,
                   ));
                 }

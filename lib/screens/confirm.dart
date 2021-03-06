@@ -16,16 +16,17 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
-        leading: FlatButton(
+        leading: TextButton(
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => RegisterScreen()));
             },
-             child: Image.asset("images/icon.PNG", )),
+            child: Image.asset(
+              "images/icon.PNG",
+            )),
       ),
       body: Container(
         padding: EdgeInsets.all(10.0),
@@ -36,7 +37,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 "Confirm",
-               style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
             SizedBox(
@@ -72,11 +73,13 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                 return 'Please enter with your confirmation code';
               }
               return null;
-            },            
+            },
             decoration: InputDecoration(
                 hintText: 'Enter your confirmation code',
-                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _confirm.text = value;
             },
@@ -93,19 +96,19 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     return Container(
       height: MediaQuery.of(context).size.height / 13.5,
       width: MediaQuery.of(context).size.width / 1.0,
-      child: FlatButton(
-        color: Theme.of(context).buttonColor,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Theme.of(context).buttonColor,
+          shape: Theme.of(context).buttonTheme.shape,
+        ),
         child: new Text(
           'Continue',
-          style:
-              Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ConfirmEmailScreen()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ConfirmEmailScreen()));
         },
-        shape:
-            Theme.of(context).buttonTheme.shape,
       ),
     );
   }
@@ -115,43 +118,37 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       child: Center(
-      child: Text.rich(
-        TextSpan(
-          text: 'By signing up, you agree to Books App ', style: TextStyle(
-          fontSize: 13, color: Colors.black
-        ),
-          children: <TextSpan>[
-            TextSpan(
-              text: 'Terms of Service', style: TextStyle(
-              fontSize: 13, color: Colors.black,
-              decoration: TextDecoration.underline,
-            ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                // code to open / launch terms of service link here
-                }
-            ),
-            TextSpan(
-              text: ' and ', style: TextStyle(
-              fontSize: 13, color: Colors.black
-            ),
+          child: Text.rich(TextSpan(
+              text: 'By signing up, you agree to Books App ',
+              style: TextStyle(fontSize: 13, color: Colors.black),
               children: <TextSpan>[
-                TextSpan(
-                  text: 'Privacy Policy', style: TextStyle(
-                  fontSize: 13, color: Colors.black,
-                  decoration: TextDecoration.underline
+            TextSpan(
+                text: 'Terms of Service',
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.black,
+                  decoration: TextDecoration.underline,
                 ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                    // code to open / launch privacy policy link here
-                      }
-                )
-              ]
-            )
-          ]
-        )
-      )
-      ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    // code to open / launch terms of service link here
+                  }),
+            TextSpan(
+                text: ' and ',
+                style: TextStyle(fontSize: 13, color: Colors.black),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: 'Privacy Policy',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                          decoration: TextDecoration.underline),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // code to open / launch privacy policy link here
+                        })
+                ])
+          ]))),
     );
   }
 }

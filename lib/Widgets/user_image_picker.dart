@@ -27,7 +27,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
           backgroundImage: _imageFile != null ? FileImage(_imageFile) : null,
           radius: 40,
         ),
-        FlatButton.icon(
+        TextButton.icon(
             onPressed: _pickImage,
             icon: Icon(Icons.image),
             label: Text('Add image')),

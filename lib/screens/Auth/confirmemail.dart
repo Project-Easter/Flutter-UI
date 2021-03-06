@@ -18,11 +18,10 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
-        leading: FlatButton(
+        leading: TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
@@ -90,8 +89,8 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
             ),
             onSaved: (value) {
               setState(() {
-                              _confirmemail.text = value;
-                            });
+                _confirmemail.text = value;
+              });
             },
           ),
         ),

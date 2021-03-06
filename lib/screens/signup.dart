@@ -16,11 +16,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
-        leading: FlatButton(
+        leading: TextButton(
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => RegisterScreen()));
@@ -77,8 +76,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             },
             decoration: InputDecoration(
                 hintText: 'Username',
-                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _userName.text = value;
             },
@@ -95,7 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Container(
       height: MediaQuery.of(context).size.height / 13.5,
       width: MediaQuery.of(context).size.width / 1.0,
-      child: FlatButton(
+      child: MaterialButton(
         color: Theme.of(context).buttonColor,
         child: new Text(
           'Sign Up',

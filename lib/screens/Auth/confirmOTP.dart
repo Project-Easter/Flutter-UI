@@ -47,7 +47,6 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     generateOtp(phoneNo);
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
@@ -129,7 +128,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
           child: AspectRatio(
             aspectRatio: 343 / 52,
             child: Container(
-              child: RaisedButton(
+              child: MaterialButton(
                 color: blackButton,
                 child: new Text(
                   'Continue',

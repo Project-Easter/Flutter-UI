@@ -15,11 +15,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
-        leading: FlatButton(
+        leading: MaterialButton(
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => RegisterScreen()));
@@ -77,8 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 hintText: 'Email',
-                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _userEmail.text = value;
             },
@@ -97,8 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             decoration: InputDecoration(
                 hintText: 'Password',
-                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _passWord.text = value;
             },
@@ -115,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       height: MediaQuery.of(context).size.height / 13.5,
       width: MediaQuery.of(context).size.width / 1.0,
-      child: FlatButton(
+      child: MaterialButton(
         color: Theme.of(context).buttonColor,
         child: new Text(
           'Log In',
@@ -132,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget forgetButton() {
     return Container(
-      child: FlatButton(
+      child: MaterialButton(
         child: Text(
           "Forgot  your password?",
           style: TextStyle(color: Color.fromRGBO(224, 39, 20, 1), fontSize: 14),

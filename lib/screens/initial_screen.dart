@@ -1,3 +1,4 @@
+import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -197,11 +198,15 @@ class _InitialScreenState extends State<InitialScreen> {
 
   Widget _sendOTP() {
     return ButtonTheme(
-      height: 44,
-      minWidth: 260,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Color(0xFF246BFD),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(260, 44),
+          elevation: 0.2,
+          primary: Color(0xFF246BFD),
+          onPrimary: Colors.white10,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
         onPressed: () async {
           print('$_dialCode${_contactEditingController.text}');
           if (_contactEditingController.text.isEmpty) {
@@ -230,9 +235,12 @@ class _InitialScreenState extends State<InitialScreen> {
     return SizedBox(
       height: 44,
       width: 250,
-      child: RaisedButton.icon(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Color(0xFF246BFD),
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          primary: Color(0xFF246BFD),
+        ),
         onPressed: () async {
           Navigator.pushNamed(context, loginRoute);
         },
@@ -261,11 +269,13 @@ class _InitialScreenState extends State<InitialScreen> {
           SizedBox(
             height: 44,
             width: 110,
-            child: OutlineButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                side: BorderSide(color: Colors.black87),
               ),
-              borderSide: BorderSide(color: Colors.black87),
               onPressed: () async {
                 AuthService().signInWithGoogle().whenComplete(() {
                   Navigator.pushNamed(context, dashboard);
@@ -280,11 +290,13 @@ class _InitialScreenState extends State<InitialScreen> {
           SizedBox(
             height: 44,
             width: 110,
-            child: OutlineButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                side: BorderSide(color: Colors.black87),
               ),
-              borderSide: BorderSide(color: Colors.black87),
               onPressed: () async {
                 AuthService().signInWithFacebook().whenComplete(() {
                   Navigator.pushNamed(context, dashboard);
@@ -302,20 +314,20 @@ class _InitialScreenState extends State<InitialScreen> {
   }
 
   Widget _skipButton() {
-    return ButtonTheme(
-      height: 24.75,
-      minWidth: 56,
-      buttonColor: Color.fromRGBO(35, 34, 51, 1),
-      child: RaisedButton(
-        onPressed: () {
-          Navigator.pushNamed(context, home);
-        },
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.pushNamed(context, home);
+      },
+      style: ElevatedButton.styleFrom(
+        primary: blackButton,
+        onPrimary: Colors.white12,
+        minimumSize: Size(55, 24.75),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        child: Text(
-          'Skip',
-          style: GoogleFonts.poppins(
-              color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
-        ),
+      ),
+      child: Text(
+        'Skip',
+        style: GoogleFonts.poppins(
+            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
       ),
     );
   }

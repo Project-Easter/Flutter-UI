@@ -63,11 +63,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        MaterialButton(
           child: Text('CANCEL'),
           onPressed: _onCancelTap,
         ),
-        FlatButton(
+        MaterialButton(
           child: Text('OK'),
           onPressed: _onSubmitTap,
         )
@@ -214,10 +214,12 @@ userPreferences(BuildContext context) {
                   ButtonTheme(
                     minWidth: 220,
                     height: 40,
-                    child: RaisedButton(
-                      color: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11)),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(11)),
+                        primary: Colors.blue,
+                      ),
                       onPressed: () {
                         _showMultiSelect(context);
                       },
@@ -235,7 +237,7 @@ userPreferences(BuildContext context) {
             ),
           ),
           actions: <Widget>[
-            FlatButton(
+            MaterialButton(
               onPressed: () {
                 Navigator.pop(context, false);
               },
@@ -244,7 +246,7 @@ userPreferences(BuildContext context) {
                 style: GoogleFonts.muli(fontWeight: FontWeight.bold),
               ),
             ),
-            FlatButton(
+            MaterialButton(
               onPressed: () => Navigator.pop(context, false),
               child: Text(
                 'Cancel',

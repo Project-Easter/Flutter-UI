@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (_) => Books(),
         child: MaterialApp(
+          // theme: themeNotifier.getTheme(),
           debugShowCheckedModeBanner: false,
           title: "Explr", //This is shown when the app is minimized
           initialRoute: startupPage,

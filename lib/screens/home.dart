@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Screens/Chat/messages.dart';
+import 'package:books_app/Screens/Chat/new_message.dart';
 import 'package:books_app/Screens/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
   List<Widget> _screens = [
     DashboardPage(),
     ExploreNearby(),
-    Messages(),
+    NewMessage(),
     LibraryPage(),
     PrivateProfile(),
   ];

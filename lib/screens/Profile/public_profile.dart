@@ -184,7 +184,7 @@ class CupertinoStyleButton extends StatelessWidget {
     return SizedBox(
       width: getProportionateScreenWidth(345.0),
       height: getProportionateScreenHeight(52.0),
-      child: FlatButton(
+      child: MaterialButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),

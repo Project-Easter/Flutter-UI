@@ -1,9 +1,39 @@
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Widgets/filter_items.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: non_constant_identifier_names
 MyAppBar(BuildContext buildContext) {
+  void openDialog() {
+    showDialog(
+      context: buildContext,
+      builder: (ctx) {
+        return AlertDialog(
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(buildContext);
+              },
+              child: Text(
+                'CANCEL',
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
+          ],
+          content: Container(
+            width: 300,
+            height: 200,
+            child: FilterItems(),
+          ),
+        );
+      },
+    );
+  }
+
   return AppBar(
     shadowColor: Colors.black,
     bottomOpacity: 0.5,
@@ -33,7 +63,10 @@ MyAppBar(BuildContext buildContext) {
           color: Colors.black,
           size: 20,
         ),
-        onPressed: () {},
+        tooltip: 'Filter Items',
+        onPressed: () {
+          openDialog();
+        },
       ),
       IconButton(
         icon: Icon(

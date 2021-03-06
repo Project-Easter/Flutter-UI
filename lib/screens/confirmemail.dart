@@ -15,7 +15,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
@@ -96,8 +95,11 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
     return Container(
       height: MediaQuery.of(context).size.height / 13.5,
       width: MediaQuery.of(context).size.width / 1.0,
-      child: FlatButton(
-        color: Theme.of(context).buttonColor,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Theme.of(context).buttonColor,
+          shape: Theme.of(context).buttonTheme.shape,
+        ),
         child: new Text(
           'Continue',
           style: Theme.of(context).textTheme.bodyText1,
@@ -106,7 +108,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => LoginScreen()));
         },
-        shape: Theme.of(context).buttonTheme.shape,
       ),
     );
   }

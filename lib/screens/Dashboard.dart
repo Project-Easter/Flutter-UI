@@ -193,7 +193,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: AspectRatio(
                   aspectRatio: 343 / 52,
                   child: Container(
-                    child: RaisedButton(
+                    child: MaterialButton(
                       color: blackButton,
                       child: new Text(
                         'Personalize',
