@@ -8,7 +8,7 @@ Widget button(
     child: AspectRatio(
       aspectRatio: 343 / 52,
       child: Container(
-        child: RaisedButton(
+        child: MaterialButton(
           color: buttonColor,
           child: new Text(
             name,
