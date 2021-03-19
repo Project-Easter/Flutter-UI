@@ -19,22 +19,16 @@ Our project aims at providing a platform for users where they can know what thei
 ## Screenshots
 
 <p align = "Center">
-<div align="center”>
-
  <img  src="https://user-images.githubusercontent.com/59333817/111765679-ab154000-88ca-11eb-8379-156f56bd2b88.png" width="30%" height="30%" />
  <img  src="https://user-images.githubusercontent.com/59333817/111765666-a81a4f80-88ca-11eb-960d-bbe5f13407a8.png" width="30%" height="30%" />
  <img  src="https://user-images.githubusercontent.com/59333817/111765670-a9e41300-88ca-11eb-9205-6c9fb4307a44.png" width="30%" height="30%" />
- </div>
  </p>
  <br>
 
  <p align = "Center">
- <div align="center”>
-
  <img  src="https://user-images.githubusercontent.com/59333817/104824162-9c33f200-5875-11eb-8dd1-6e71f8362f8e.png" width="30%" height="30%" />
  <img  src="https://user-images.githubusercontent.com/59333817/104824174-ac4bd180-5875-11eb-9bfe-726d25f59033.png" width="30%" height="30%" />
  <img  src="https://user-images.githubusercontent.com/59333817/111765740-bf593d00-88ca-11eb-85cb-48b40feca9b2.png" width="30%" height="30%" />
- </div>
   </p>
   <br>
 
