@@ -26,9 +26,9 @@ Our project aims at providing a platform for users where they can know what thei
  <br>
 
  <p align = "Center">
- <img  src="https://user-images.githubusercontent.com/59333817/104824162-9c33f200-5875-11eb-8dd1-6e71f8362f8e.png" width="30%" height="30%" />
- <img  src="https://user-images.githubusercontent.com/59333817/104824174-ac4bd180-5875-11eb-9bfe-726d25f59033.png" width="30%" height="30%" />
  <img  src="https://user-images.githubusercontent.com/59333817/111765740-bf593d00-88ca-11eb-85cb-48b40feca9b2.png" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111765734-bd8f7980-88ca-11eb-8e7e-aa9e9ca0ca43.png" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111765735-be281000-88ca-11eb-94f3-ff73753ea8c0.png" width="30%" height="30%" />
   </p>
   <br>
 
