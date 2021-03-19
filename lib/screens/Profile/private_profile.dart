@@ -51,7 +51,7 @@ class PrivateProfile extends StatelessWidget {
                     padding: EdgeInsets.all(5),
                     child: CircleAvatar(
                       radius: 70,
-                      backgroundImage: AssetImage('assets/profile.jpg'),
+                      backgroundImage: AssetImage('assets/placeholder.PNG'),
                     ),
                   ),
                   Container(
