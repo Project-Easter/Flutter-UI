@@ -1,6 +1,6 @@
 # Project Easter
 
-![App Logo](assets/Explr Logo.png)
+<img  src="https://github.com/Project-Easter/Flutter-UI/blob/main/assets/Explr%20Logo.png"  />
 
 ## Table of contents
 
@@ -19,16 +19,21 @@ Our project aims at providing a platform for users where they can know what thei
 ## Screenshots
 
 <p align = "Center">
- <img  src="https://user-images.githubusercontent.com/59333817/111765679-ab154000-88ca-11eb-8379-156f56bd2b88.png" width="30%" height="30%" />
- <img  src="https://user-images.githubusercontent.com/59333817/111765666-a81a4f80-88ca-11eb-960d-bbe5f13407a8.png" width="30%" height="30%" />
- <img  src="https://user-images.githubusercontent.com/59333817/111765670-a9e41300-88ca-11eb-9205-6c9fb4307a44.png" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111777617-88d6ee80-88d9-11eb-994b-ecea2fc9b01c.jpeg" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111777662-97bda100-88d9-11eb-930a-2566fede248a.jpeg" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111777996-0ac71780-88da-11eb-947e-2ec0d4bc562b.jpeg" width="30%" height="30%" />
  </p>
  <br>
-
  <p align = "Center">
- <img  src="https://user-images.githubusercontent.com/59333817/111765740-bf593d00-88ca-11eb-85cb-48b40feca9b2.png" width="30%" height="30%" />
- <img  src="https://user-images.githubusercontent.com/59333817/111765734-bd8f7980-88ca-11eb-8e7e-aa9e9ca0ca43.png" width="30%" height="30%" />
- <img  src="https://user-images.githubusercontent.com/59333817/111765735-be281000-88ca-11eb-94f3-ff73753ea8c0.png" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111780909-0ac91680-88de-11eb-8761-58046afdaec8.jpeg" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111781130-2df3c600-88de-11eb-99f7-d08f2210c920.jpeg" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111780924-10bef780-88de-11eb-840e-c4b8f7fad08d.jpeg" width="30%" height="30%" />
+  </p>
+  <br>
+  <p align = "Center">
+ <img  src="https://user-images.githubusercontent.com/59333817/111782093-a35f9680-88de-11eb-935f-9836d7b3e89c.jpeg" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111782106-a65a8700-88de-11eb-94fa-52725570dbdb.jpeg" width="30%" height="30%" />
+ <img  src="https://user-images.githubusercontent.com/59333817/111782207-c4c08280-88de-11eb-8c00-aece1493431b.jpeg" width="30%" height="30%" />
   </p>
   <br>
 
