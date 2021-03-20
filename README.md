@@ -2,7 +2,8 @@
 
  <p align = "Center">
 <img  src="https://github.com/Project-Easter/Flutter-UI/blob/main/assets/Explr%20Logo.png"  />
-Explr
+ <br>
+**Explr**
 </p>
 
 ## Table of contents
@@ -65,11 +66,12 @@ flutter run
 
 List of features ready:
 
-* Authentication
+* Google/Facebook/Mobile Authentication
 * User Library
 * Mapbox Location API
 * Chat Feature UI  
-* Search engine
+* Bookmark
+* Settings UI
 
 To-do list:
 
