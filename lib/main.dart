@@ -1,4 +1,5 @@
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:books_app/util/theme_notifier.dart';
 import 'package:books_app/util/values/theme_switch.dart';
 import 'package:flutter/material.dart';
@@ -11,24 +12,41 @@ import 'Models/books.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  SharedPreferences.getInstance().then((prefs) {
-    runApp(ChangeNotifierProvider<ThemeNotifier>(
-        create: (_) => ThemeNotifier(darkTheme), child: MyApp()));
-  });
+  SharedPreferences.getInstance().then(
+    (prefs) {
+      runApp(
+        MultiProvider(
+          providers: [
+            //Stream from Firebase
+            // StreamProvider<MyAppUser>.value(value: AuthService().user),
+            //Theme
+            ChangeNotifierProvider<ThemeNotifier>(
+              create: (_) => ThemeNotifier(darkTheme),
+            ),
+            //**AppWide Data From Model
+            ChangeNotifierProvider(
+              create: (_) => Books(),
+            ),
+          ],
+          child: MyApp(),
+        ),
+      );
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
+  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
-    // final themeNotifier = Provider.of<ThemeNotifier>(context);
-    return ChangeNotifierProvider(
-        create: (_) => Books(),
-        child: MaterialApp(
-          // theme: themeNotifier.getTheme(),
-          debugShowCheckedModeBanner: false,
-          title: "Explr", //This is shown when the app is minimized
-          initialRoute: startupPage,
-          onGenerateRoute: RouteGenerator.generateRoute,
-        ));
+    final myAppUser = _authService.currentUserFromFireBase;
+    return MaterialApp(
+      // theme: themeNotifier.getTheme(),
+      debugShowCheckedModeBanner: false,
+      title: "Explr", //This is shown when the app is minimized
+      initialRoute: myAppUser == null ? startupPage : home,
+      // initialRoute: startupPage,
+      onGenerateRoute: RouteGenerator.generateRoute,
+    );
   }
 }

@@ -17,3 +17,4 @@ const String addBook = '/addBook';
 const String location = '/location';
 const String chatscreen = '/chat_screen';
 const String setscreen = '/settings_screens';
+const String editProfile = '/edit_profile';

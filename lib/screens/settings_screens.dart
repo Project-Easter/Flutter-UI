@@ -1,4 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
+import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Models/user.dart';
 import 'package:books_app/util/theme_notifier.dart';
 import 'package:books_app/util/values/theme_switch.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../Services/auth.dart';
+import '../Services/databaseService.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -15,45 +19,62 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   var _darkTheme = true;
   bool _switchValue = true;
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     _darkTheme = (themeNotifier.getTheme() == darkTheme);
-
-    return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0.0,
-          toolbarHeight: 90,
-          bottom: PreferredSize(
-              child: Container(
-                color: silverDivisor,
-                height: 1.0,
-              ),
-              preferredSize: Size.fromHeight(1.0)),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(50.0),
-                  child: Image.asset('assets/placeholder.PNG',
-                      height: 60, fit: BoxFit.fill)),
-              Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Jane Doe",
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w400, fontSize: 18),
-                  ))
-            ],
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [_accountSettingsDetails(themeNotifier), _moreWidget()],
-          ),
-        ));
+    final uID = _authService.getUID;
+    print(uID);
+    return StreamBuilder<UserData>(
+        stream: DatabaseService(uid: uID).userData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print(snapshot.data);
+            UserData userData = snapshot.data;
+            return Scaffold(
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  elevation: 0.0,
+                  toolbarHeight: 90,
+                  bottom: PreferredSize(
+                      child: Container(
+                        color: silverDivisor,
+                        height: 1.0,
+                      ),
+                      preferredSize: Size.fromHeight(1.0)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(50.0),
+                          child: Image.asset('assets/placeholder.PNG',
+                              height: 60, fit: BoxFit.fill)),
+                      Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            userData.displayName,
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400, fontSize: 18),
+                          ))
+                    ],
+                  ),
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _accountSettingsDetails(themeNotifier),
+                      _moreWidget()
+                    ],
+                  ),
+                ));
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 
   Widget _accountSettingsDetails(tNotifier) {
@@ -72,21 +93,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SizedBox(
             height: 15,
           ),
-          Container(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "Edit Profile",
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w400, fontSize: 18),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, editProfile);
+            },
+            child: Container(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "Edit Profile",
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400, fontSize: 18),
+                    ),
                   ),
-                ),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14,
-                ),
-              ],
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 14,
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(

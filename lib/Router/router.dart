@@ -15,12 +15,15 @@ import 'package:books_app/Screens/Auth/confirmemail.dart';
 import 'package:books_app/Screens/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
+import '../screens/edit_profile.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case startupPage:
         return MaterialPageRoute(builder: (_) => InitialScreen());
+      case editProfile:
+        return MaterialPageRoute(builder: (_) => EditProfile());
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case confirmOTP:
@@ -53,10 +56,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => LibraryPage());
       default:
         return MaterialPageRoute(
-            builder: (_) => Scaffold(
-                  body: Center(
-                      child: Text('No route defined for ${settings.name}')),
-                ));
+          builder: (_) => Scaffold(
+            body: Center(child: Text('No route defined for ${settings.name}')),
+          ),
+        );
     }
   }
 }

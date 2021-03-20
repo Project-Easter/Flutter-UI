@@ -11,7 +11,8 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Explr"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -68,4 +69,5 @@
     </application>
     
   <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>

@@ -1,6 +1,8 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../Models/books.dart';
 
 //------------Stack Overflow COde ----------------
 class MultiSelectDialogItem<V> {
@@ -32,6 +34,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   }
 
   void _onItemCheckedChange(V itemValue, bool checked) {
+    // print("Selected Item:${itemValue}");
     setState(() {
       if (checked) {
         _selectedValues.add(itemValue);
@@ -42,11 +45,19 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   }
 
   void _onCancelTap() {
-    Navigator.pop(context);
+    // Navigator.pop(context);
+    Navigator.of(context).pop();
   }
 
   void _onSubmitTap() {
-    Navigator.pop(context, _selectedValues);
+    // Navigator.pop(context);
+    // print("Selected Item List:");
+    // print(_selectedValues);
+    //TODO:Convert type V to List<String>,PP-CN
+    // for (V v in _selectedValues) {
+    //   print(v);
+    // }
+    Navigator.of(context).pop();
   }
 
   @override
@@ -132,6 +143,26 @@ class _LocationRangeState extends State<LocationRange> {
 
 userPreferences(BuildContext context) {
 //------------Stack Overflow CodeList ----------------
+//------------Stack Overflow CodeList ----------------
+  showGeneralDialog(
+      barrierColor: Colors.black.withOpacity(0.5),
+      barrierLabel: 'Animation',
+      barrierDismissible: true,
+      transitionDuration: Duration(milliseconds: 500),
+      context: context,
+      pageBuilder: (context, animation1, animation2) {
+        return UserPreference();
+      });
+}
+
+//Form Builder
+
+class UserPreference extends StatefulWidget {
+  @override
+  _UserPreferenceState createState() => _UserPreferenceState();
+}
+
+class _UserPreferenceState extends State<UserPreference> {
   void _showMultiSelect(BuildContext context) async {
     int i = 0;
     int j = i;
@@ -147,113 +178,143 @@ userPreferences(BuildContext context) {
         );
       },
     );
-
     print(selectedValues);
   }
 
-//------------Stack Overflow CodeList ----------------
+  void myfunction() {}
 
-  showGeneralDialog(
-      barrierColor: Colors.black.withOpacity(0.5),
-      barrierLabel: 'Animation',
-      barrierDismissible: true,
-      transitionDuration: Duration(milliseconds: 500),
-      context: context,
-      pageBuilder: (context, animation1, animation2) {
-        TextEditingController _author;
-        TextEditingController _book;
-
-        return AlertDialog(
-          title: Center(
+  //
+  // TextEditingController _author;
+  // TextEditingController _book;
+  final _author = TextEditingController();
+  final _book = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: AlertDialog(
+        title: Center(
+          child: Text(
+            'User Preferences',
+            style: GoogleFonts.muli(),
+          ),
+        ),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        content: Container(
+          height: 300,
+          width: 250,
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                LocationRange(),
+                TextFormField(
+                  controller: _book,
+                  keyboardType: TextInputType.name,
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    hintText: 'Favourite Book',
+                    hintStyle: GoogleFonts.muli(),
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Book name cannot be empty';
+                    }
+                    return null;
+                  },
+                  onChanged: (v) {
+                    print(v);
+                  },
+                  onSaved: (val) {
+                    _book.text = val;
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: _author,
+                  keyboardType: TextInputType.name,
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                      hintText: 'Favourite Author',
+                      hintStyle: GoogleFonts.muli()),
+                  onSaved: (val) {
+                    _author.text = val;
+                  },
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Author cannot be empty';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                ButtonTheme(
+                  minWidth: 220,
+                  height: 40,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(11)),
+                      primary: Colors.blue,
+                    ),
+                    onPressed: () {
+                      _showMultiSelect(context);
+                    },
+                    child: Text(
+                      'Select Book Genres',
+                      style: GoogleFonts.muli(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            onPressed: () async {
+              //Validate Author and BookName
+              if (_formKey.currentState.validate()) {
+                //do some
+                print(_book.text);
+                print(_author.text);
+                try {
+                  dynamic res = await Provider.of<Books>(context, listen: false)
+                      .getRecommended(_book.text);
+                  if (res != null) {
+                    print(res);
+                    Navigator.pop(context, false);
+                  }
+                } catch (e) {
+                  print(e.toString());
+                }
+              }
+            },
             child: Text(
-              'User Preferences',
-              style: GoogleFonts.muli(),
+              'Save',
+              style: GoogleFonts.muli(fontWeight: FontWeight.bold),
             ),
           ),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          content: Container(
-            height: 300,
-            width: 250,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 20,
-                  ),
-                  LocationRange(),
-                  TextFormField(
-                    controller: _book,
-                    keyboardType: TextInputType.name,
-                    textAlign: TextAlign.start,
-                    decoration: InputDecoration(
-                      hintText: 'Favourite Book',
-                      hintStyle: GoogleFonts.muli(),
-                    ),
-                    onSaved: (val) {
-                      val = _book.text;
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    controller: _author,
-                    keyboardType: TextInputType.name,
-                    textAlign: TextAlign.start,
-                    decoration: InputDecoration(
-                        hintText: 'Favourite Author',
-                        hintStyle: GoogleFonts.muli()),
-                    onSaved: (val) {
-                      val = _author.text;
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ButtonTheme(
-                    minWidth: 220,
-                    height: 40,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(11)),
-                        primary: Colors.blue,
-                      ),
-                      onPressed: () {
-                        _showMultiSelect(context);
-                      },
-                      child: Text(
-                        'Select Book Genres',
-                        style: GoogleFonts.muli(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+          MaterialButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(
+              'Cancel',
+              style: GoogleFonts.muli(fontWeight: FontWeight.bold),
             ),
-          ),
-          actions: <Widget>[
-            MaterialButton(
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-              child: Text(
-                'Save',
-                style: GoogleFonts.muli(fontWeight: FontWeight.bold),
-              ),
-            ),
-            MaterialButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.muli(fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
-        );
-      });
+          )
+        ],
+      ),
+    );
+  }
 }

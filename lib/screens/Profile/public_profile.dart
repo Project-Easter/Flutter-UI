@@ -3,10 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:books_app/util/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import '../../Models/books.dart';
 
 class PublicProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ownedBooksLength =
+        Provider.of<Books>(context).ownedBooks.length.toString();
+    final borrowedBooksLength =
+        Provider.of<Books>(context).borrowedBooks.length.toString();
+    final lentBooksLength =
+        Provider.of<Books>(context).lentBooks.length.toString();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 16, right: 16),
@@ -107,7 +115,7 @@ class PublicProfile extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text('10',
+                            Text(ownedBooksLength,
                                 style: GoogleFonts.poppins(
                                     color: Colors.black,
                                     fontSize: 30,
@@ -117,22 +125,22 @@ class PublicProfile extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            Text('10',
+                            Text(lentBooksLength,
                                 style: GoogleFonts.poppins(
                                     color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.w400)),
-                            Text('Owned Books')
+                            Text('Lent Books')
                           ],
                         ),
                         Column(
                           children: [
-                            Text('10',
+                            Text(borrowedBooksLength,
                                 style: GoogleFonts.poppins(
                                     color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.w400)),
-                            Text('Owned Books')
+                            Text('Borrowed Books')
                           ],
                         )
                       ],

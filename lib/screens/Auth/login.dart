@@ -1,5 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _userEmail = TextEditingController();
@@ -23,7 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white10,
         leading: TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
+              Navigator.pushNamed(context, startupPage);
             },
             child: Icon(Icons.arrow_back_rounded)),
       ),
@@ -43,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Log In', dashboard),
+            // button(context, blackButton, 'Log In', dashboard),
             forgetButton(),
             registerButton(),
           ],
@@ -88,7 +91,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
-                  _userEmail.text = value;
+                  setState(() {
+                    _userEmail.text = value;
+                  });
+                },
+                onChanged: (v) {
+                  _userEmail.text = v;
+                  print(_userEmail.text);
                 },
               ),
             ),
@@ -122,10 +131,38 @@ class _LoginScreenState extends State<LoginScreen> {
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
-                  _passWord.text = value;
+                  setState(() {
+                    _passWord.text = value;
+                  });
+                },
+                onChanged: (v) {
+                  _passWord.text = v;
+                  print(_passWord.text);
                 },
               ),
             ),
+          ),
+          CupertinoStyleButton(
+            name: 'Sign In',
+            color: blackButton,
+            myFunction: () async {
+              print(_userEmail.text);
+              print(_passWord.text);
+              if (_formKey.currentState.validate()) {
+                print(_userEmail.text);
+                print(_passWord.text);
+                //Sign in with email and password and direct to home page.
+                try {
+                  dynamic res = await _authService.signInWithEmailAndPassword(
+                      _userEmail.text, _passWord.text);
+                  if (res != null) {
+                    Navigator.pushNamed(context, home);
+                  }
+                } catch (e) {
+                  print(e.toString());
+                }
+              }
+            },
           ),
         ],
       ),
@@ -135,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget forgetButton() {
     return Align(
       alignment: Alignment.topRight,
-      child: FlatButton(
+      child: TextButton(
         child: Text("Forgot password?",
             style: GoogleFonts.muli(
               color: Color.fromRGBO(224, 39, 20, 1),
@@ -154,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         alignment: Alignment.topRight,
-        child: FlatButton(
+        child: TextButton(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

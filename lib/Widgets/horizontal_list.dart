@@ -1,55 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:books_app/util/size_config.dart';
 import 'package:books_app/Models/book.dart';
+import 'package:provider/provider.dart';
+import 'package:books_app/screens/book_desciption.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-// ignore: must_be_immutable
 class HorizontalList extends StatelessWidget {
-  double height;
-  List<Book> bookList;
-  HorizontalList(this.height, this.bookList);
+  final String headingText;
+  final double height;
+  final List<Book> bookList;
+  HorizontalList(this.height, this.bookList, this.headingText);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: getProportionateScreenHeight(height),
-      color: Colors.white,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        semanticChildCount: 2,
-        itemBuilder: (context, index) => CustomCard(
-          title: bookList[index].title,
-          author: bookList[index].author,
-          imageUrl: bookList[index].imageUrl,
-          rating: bookList[index].rating,
-        ),
-        itemCount: bookList.length,
-      ),
-    );
+    return bookList.length == 0
+        ? SizedBox()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //Heading text
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: getProportionateScreenHeight(36.0),
+                  child: Text(
+                    headingText,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: getProportionateScreenHeight(height),
+                color: Colors.white,
+                child: ListView.builder(
+                  // shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => ChangeNotifierProvider.value(
+                    value: bookList[index],
+                    child: CustomCard(),
+                  ),
+                  itemCount: bookList.length,
+                ),
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(15.0),
+              ),
+            ],
+          );
   }
 }
 
 class CustomCard extends StatelessWidget {
-  final String title;
-  final String author;
-  final String imageUrl;
-  final double rating;
-  CustomCard({this.title, this.author, this.imageUrl, this.rating});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: getProportionateScreenWidth(127.0),
-      margin: EdgeInsets.only(right: 18.0),
-      foregroundDecoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: GridTile(
-        footer: GridTileBar(
+    var book = Provider.of<Book>(context);
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => BookDescription(
+              bookFromList: book,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        width: getProportionateScreenWidth(127.0),
+        margin: EdgeInsets.only(right: 18.0),
+        foregroundDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: GridTile(
+          footer: GridTileBar(
             backgroundColor: Colors.transparent.withOpacity(0.4),
             title: Text(
-              title,
+              book.title,
               style: TextStyle(fontSize: 12),
             ),
             subtitle: Text(
-              author,
+              book.author,
               style: TextStyle(fontSize: 10),
             ),
             trailing: Column(
@@ -60,14 +91,16 @@ class CustomCard extends StatelessWidget {
                   color: Colors.amber,
                 ),
                 Text(
-                  rating.toString(),
+                  book.rating.toString(),
                   style: TextStyle(fontSize: 12, color: Colors.white),
                 ),
               ],
-            )),
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
+            ),
+          ),
+          child: Image.network(
+            book.imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );

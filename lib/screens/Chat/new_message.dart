@@ -18,7 +18,7 @@ class _NewMessageState extends State<NewMessage> {
               decoration: InputDecoration(labelText: "Type a message here"),
             ),
           ),
-          IconButton(icon: null, onPressed: () {}),
+          IconButton(icon: Icon(Icons.add), onPressed: () {}),
         ],
       ),
     );
