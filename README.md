@@ -1,13 +1,3 @@
-# Project Easter
-
- <p align = "Center">
-<img  src="https://github.com/Project-Easter/Flutter-UI/blob/main/assets/Explr%20Logo.png"  />
- <br>
- 
-</p>
-
-### Explr
-
 ## Table of contents
 
 * [Aim](#aim)
@@ -71,16 +61,15 @@ List of features ready:
 * Google/Facebook/Mobile Authentication
 * User Library
 * Mapbox Location API
-* Chat Feature UI  
-* Bookmark
+* Adding Bookmarks 
+* Profile Page UI
 * Settings UI
 
 To-do list:
 
 * App Terms and Conditions
 * Auto-generated mail after the exchange  
-* Book Recommendations
-* Machine Learning Algorithms [Repo Link](https://github.com/Project-Easter/Machine-Learning)
+* Book Recommendations via ML
 * Manually changing the location.
 * User Ratings
 * User Reviews
