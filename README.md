@@ -3,8 +3,9 @@
  <p align = "Center">
 <img  src="https://github.com/Project-Easter/Flutter-UI/blob/main/assets/Explr%20Logo.png"  />
  <br>
- ###Explr
+ 
 </p>
+### Explr
 
 ## Table of contents
 
