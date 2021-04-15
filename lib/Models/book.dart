@@ -35,8 +35,50 @@ class Book with ChangeNotifier {
     notifyListeners();
   }
 
-  // void updateRatings(double stars) {
-  //   rating = stars;
-  //   notifyListeners();
+  //This Function is to Make Books FROM JSON result
+  //Add Book Driver
+  // Book makeBook(dynamic result) {
+  //   Book book;
+  //   if (result != null) {
+  //     //Deserialize
+  //     String title = result['items'][0]['volumeInfo']['title'];
+  //     String author = result['items'][0]['volumeInfo']['authors'][0];
+  //     String description = result['items'][0]['volumeInfo']['description'];
+  //     String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][0]
+  //         ['identifier'];
+  //     String imageLink =
+  //         result['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+  //     imageLink = imageLink.replaceFirst("http", "https", 0);
+  //     print(imageLink.length);
+  //     if (imageLink.isEmpty) {
+  //       print("imageLink is empty");
+  //     }
+  //     print('ISBN' + isbn);
+  //     print('Title:' + title);
+  //     print('Author:' + author);
+  //     print('ImageLink:' + imageLink);
+  //     print('Description' + description);
+  //     //add ISBN
+  //     //Converted to a book object
+  //     book = Book(
+  //       isbn: isbn,
+  //       title: title,
+  //       description: description,
+  //       imageUrl: imageLink,
+  //       author: author,
+  //       isOwned: true,
+  //     );
+  //   }
+  //   return book;
   // }
 }
+//
+// class Genre {
+//   String name;
+//   bool isSelected;
+// }
+//
+//
+// List<Genre> genres=[
+//   Genre(""),
+// ];

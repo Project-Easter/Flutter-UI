@@ -28,18 +28,24 @@ class UserData {
   String state;
   // Map<String, dynamic> location;
   // Region:MH,City:Nagpur,lat:68.68778,lon:68.977
-  String latitude;
-  String longitude;
-  UserData({
-    this.uid,
-    this.displayName,
-    this.email,
-    this.emailVerified,
-    this.isAnonymous,
-    this.phoneNumber,
-    this.photoURL,
-    this.city,
-    this.state,
-  });
+  double latitude;
+  double longitude;
+  double locationRange;
+  //Preferences
+  Map<String, dynamic> preferences;
+  UserData(
+      {this.uid,
+      this.displayName,
+      this.email,
+      this.emailVerified,
+      this.isAnonymous,
+      this.phoneNumber,
+      this.photoURL,
+      this.city,
+      this.state,
+      this.latitude = 0.0,
+      this.longitude = 0.0,
+      this.preferences,
+      this.locationRange});
 //Add Refresh Token Later
 }

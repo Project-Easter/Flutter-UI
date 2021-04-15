@@ -278,19 +278,21 @@ class _InitialScreenState extends State<InitialScreen> {
                 side: BorderSide(color: Colors.black87),
               ),
               onPressed: () async {
-                await AuthService().signInWithGoogle().whenComplete(() {
-                  Navigator.pushNamed(context, home);
-                });
-
-                // try {
-                //   dynamic res = await _authService.signInWithGoogle();
-                //   if (res != null) {
-                //     print(res);
-                //     Navigator.pushNamed(context, home);
-                //   }
-                // } catch (e) {
-                //   print(e.toString());
-                // }
+                //Old Code
+                // await AuthService().signInWithGoogle().whenComplete(() {
+                //   Navigator.pushNamed(context, home);
+                // });
+                print("signing In");
+                try {
+                  dynamic res = await _authService.signInWithGoogle();
+                  print(res);
+                  if (res != null) {
+                    print(res);
+                    Navigator.pushNamed(context, home);
+                  }
+                } catch (e) {
+                  print(e.toString());
+                }
               },
               child: Icon(
                 FontAwesomeIcons.google,

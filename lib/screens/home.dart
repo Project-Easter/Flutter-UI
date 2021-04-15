@@ -1,6 +1,6 @@
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Chat/new_message.dart';
-import 'package:books_app/Screens/Dashboard.dart';
+import '../screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
@@ -16,6 +16,7 @@ import '../util/size_config.dart';
 import '../Services/auth.dart';
 import '../Models/user.dart';
 import '../Models/book.dart';
+import 'Chat/wrapper.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,7 +28,8 @@ class _HomeState extends State<Home> {
   List<Widget> _screens = [
     DashboardPage(),
     ExploreNearby(),
-    NewMessage(),
+    // NewMessage(),
+    Wrapper(),
     LibraryPage(),
     PrivateProfile(),
   ];
@@ -39,12 +41,12 @@ class _HomeState extends State<Home> {
     });
   }
 
+  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     //Setup Size Config-starting of app
     SizeConfig().init(context);
     //Get current User
-    final AuthService _authService = AuthService();
     final uID = _authService.getUID;
     print(uID);
     //Listen to Stream from Firebase
@@ -52,6 +54,7 @@ class _HomeState extends State<Home> {
       providers: [
         StreamProvider<UserData>.value(
           value: DatabaseService(uid: uID).userData,
+          catchError: (_, e) => null,
         ),
         //TODO:SETUP STREAM PROVIDER For DatabaseService
         StreamProvider<List<Book>>.value(
@@ -61,29 +64,32 @@ class _HomeState extends State<Home> {
           appBar: MyAppBar(context),
           body: _screens[_selectedIndex],
           floatingActionButton: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    child: Icon(Icons.add_box_rounded),
-                    onPressed: () {
-                      Navigator.pushNamed(context, addBook);
-                    },
-                  ),
-                ),
-                FloatingActionButton(
-                  heroTag: 'map',
-                  child: Icon(Icons.location_on),
-                  backgroundColor: Colors.blueAccent,
-                  onPressed: () {
-                    Navigator.pushNamed(context, location);
-                  },
-                ),
-              ],
-            ),
+            child: _selectedIndex == 3 || _selectedIndex == 1
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          child: Icon(Icons.add_box_rounded),
+                          onPressed: () {
+                            Navigator.pushNamed(context, addBook);
+                          },
+                        ),
+                      ),
+                      FloatingActionButton(
+                        heroTag: 'map',
+                        child: Icon(Icons.location_on),
+                        backgroundColor: Colors.blueAccent,
+                        onPressed: () async {
+                          //Add users Location to DB
+                          await Navigator.pushNamed(context, location);
+                        },
+                      ),
+                    ],
+                  )
+                : SizedBox.shrink(),
           ),
           bottomNavigationBar: FloatingNavbar(
             showSelectedLabels: true,

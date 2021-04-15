@@ -26,17 +26,16 @@ class PrivateProfile extends StatelessWidget {
     final profileData = Provider.of<UserData>(context);
     //TODO:Available user data. Implement live data from firebase and implement Edit Screen
     //User profile data will be null at first. Check
-    // print(profileData.phoneNumber);
-    // print(profileData.email);
-    // print(profileData.displayName);
-    // print(profileData.city);
-    // print(profileData.state);
     //Redundant code fix this. Just need to get the length of owned Books,borrowed,saved Books
-
     //TODO:Fix current books length showing wrong. =>
-
     final booksData = Provider.of<List<Book>>(context) ?? [];
-    var ownedBooksLength = booksData.length;
+    //Check booksDataLength
+    var ownedBooksLength;
+    if (booksData.length == 0) {
+      ownedBooksLength = 0;
+    } else {
+      ownedBooksLength = booksData.where((book) => book.isOwned).length;
+    }
     // List<Book> ownedBooks = [];
     // booksData.forEach((book) {
     //   if (book.isOwned == true) {
@@ -50,8 +49,8 @@ class PrivateProfile extends StatelessWidget {
     //   }
     // });
 
-    return profileData == null
-        ? CircularProgressIndicator()
+    return profileData == null || booksData == null
+        ? Center(child: CircularProgressIndicator())
         : Scaffold(
             body: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
@@ -100,12 +99,11 @@ class PrivateProfile extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          width: 100,
+                          width: 300,
                           padding: EdgeInsets.all(5),
                           child: CircleAvatar(
                             radius: 100,
-                            backgroundImage:
-                                AssetImage('assets/placeholder.PNG'),
+                            backgroundImage: NetworkImage(profileData.photoURL),
                           ),
                         ),
                         Container(

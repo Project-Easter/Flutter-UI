@@ -34,6 +34,7 @@ void main() async {
     },
   );
 }
+//TODO:Create a singleton class and use that as global variable instead of making a new Authservice instancee and getting the UID and passing that to DatabaseService..
 
 class MyApp extends StatelessWidget {
   final AuthService _authService = AuthService();
