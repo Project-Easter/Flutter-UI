@@ -39,12 +39,11 @@ class _BookDescriptionState extends State<BookDescription>
   Widget build(BuildContext context) {
     // var book = Provider.of<Book>(context);
     //Go with consumer Later
-
     //Database Service
     final uid = _authService.getUID;
     final DatabaseService _databaseService = DatabaseService(uid: uid);
     print(widget.bookFromList.rating);
-
+    print(_tabController.index);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

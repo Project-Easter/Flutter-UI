@@ -190,37 +190,37 @@ class Books with ChangeNotifier {
   //Filtering Functions
   //A-Z
   void sortAZ() {
-    _ownedBooks.sort((a, b) => a.title.compareTo(b.title));
-    _lentBooks.sort((a, b) => a.title.compareTo(b.title));
-    _borrowedBooks.sort((a, b) => a.title.compareTo(b.title));
-    _savedBooks.sort((a, b) => a.title.compareTo(b.title));
+    _within3km.sort((a, b) => a.title.compareTo(b.title));
+    _within5km.sort((a, b) => a.title.compareTo(b.title));
+    _within10km.sort((a, b) => a.title.compareTo(b.title));
+    _within20km.sort((a, b) => a.title.compareTo(b.title));
     notifyListeners();
   }
 
   //Z-A
   void sortZA() {
-    _ownedBooks.sort((b, a) => a.title.compareTo(b.title));
-    _lentBooks.sort((b, a) => a.title.compareTo(b.title));
-    _borrowedBooks.sort((b, a) => a.title.compareTo(b.title));
-    _savedBooks.sort((b, a) => a.title.compareTo(b.title));
+    _within3km.sort((b, a) => a.title.compareTo(b.title));
+    _within5km.sort((b, a) => a.title.compareTo(b.title));
+    _within10km.sort((b, a) => a.title.compareTo(b.title));
+    _within20km.sort((b, a) => a.title.compareTo(b.title));
     notifyListeners();
   }
 
   //Author
   void sortAuthor() {
-    _ownedBooks.sort((a, b) => a.author.compareTo(b.author));
-    _lentBooks.sort((a, b) => a.author.compareTo(b.author));
-    _borrowedBooks.sort((a, b) => a.author.compareTo(b.author));
-    _savedBooks.sort((a, b) => a.author.compareTo(b.author));
+    _within3km.sort((a, b) => a.author.compareTo(b.author));
+    _within5km.sort((a, b) => a.author.compareTo(b.author));
+    _within10km.sort((a, b) => a.author.compareTo(b.author));
+    _within20km.sort((a, b) => a.author.compareTo(b.author));
     notifyListeners();
   }
 
   //Ratings highest to lowest
   void sortRating() {
-    _ownedBooks.sort((b, a) => a.rating.compareTo(b.rating));
-    _lentBooks.sort((b, a) => a.rating.compareTo(b.rating));
-    _borrowedBooks.sort((b, a) => a.rating.compareTo(b.rating));
-    _savedBooks.sort((b, a) => a.rating.compareTo(b.rating));
+    _within3km.sort((b, a) => a.rating.compareTo(b.rating));
+    _within5km.sort((b, a) => a.rating.compareTo(b.rating));
+    _within10km.sort((b, a) => a.rating.compareTo(b.rating));
+    _within20km.sort((b, a) => a.rating.compareTo(b.rating));
     notifyListeners();
   }
 
@@ -460,13 +460,17 @@ class Books with ChangeNotifier {
   //Get Book By ISBN
   Future<dynamic> getBooksbyISBN(String isbn) async {
     //Add Books from Google API
-    String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:";
+    String url = "https://www.googleapis.com/books/v1/volumes?q=isbn";
     try {
       http.Response response = await http.get(url + isbn);
       var result = jsonDecode(response.body);
-      print("Result From get Books From ISBN:");
-      print(result);
+      // print("Result From get Books From ISBN:");
+
+      // print(result);
       if (result != null) {
+        //Test
+        // Map<String, dynamic> res = result;
+        // print(res);
         // //Deserialize
         // String title = result['items'][0]['volumeInfo']['title'];
         // String author = result['items'][0]['volumeInfo']['authors'][0];
@@ -521,7 +525,8 @@ class Books with ChangeNotifier {
   }
 
   //2.0->Get RecommendedBooks From ISBN
-  Future<dynamic> getRecommended(String title) async {
+  Future<dynamic> getRecommendedBooks(String title) async {
+    //For now we are not using title
     String recommendedURL =
         "https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859";
     try {
@@ -531,22 +536,68 @@ class Books with ChangeNotifier {
       if (result != null) {
         final booksISBNList = json.decode(response.body);
         final length = booksISBNList.length;
-        print(length);
+        // print(length);
+        List<Book> recommendedBooks = [];
         for (int i = 0; i < length; i++) {
-          print("Inside for loop");
-          print(booksISBNList[i].toString());
-          http.Response responseFromISBN =
+          // print("Inside for loop: ${i}");
+          // print(booksISBNList[i].toString());
+          var responseFromISBN =
               await getBooksbyISBN(booksISBNList[i].toString());
-          var data = jsonDecode(responseFromISBN.body);
-          print(data);
+          // var data = responseFromISBN;
+          // print("Got response back");
+          // print(data);
+          Book book = makeBook(responseFromISBN);
+          recommendedBooks.add(book);
+          // if (data != null) {
+          //   Map<String, dynamic> json = data;
+          //   print(json);
+          // }
+          // print(data);
         }
-        return result;
+        return recommendedBooks;
       }
       return null;
     } catch (e) {
       print(e.toString());
     }
   }
+
+//This Function is to Make Books FROM JSON result
+//Add Book Driver
+  Book makeBook(dynamic result) {
+    Book book;
+    if (result != null) {
+      //Deserialize
+      String title = result['items'][0]['volumeInfo']['title'];
+      String author = result['items'][0]['volumeInfo']['authors'][0];
+      String description = result['items'][0]['volumeInfo']['description'];
+      String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][0]
+          ['identifier'];
+      String imageLink =
+          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+      imageLink = imageLink.replaceFirst("http", "https", 0);
+      print(imageLink.length);
+      if (imageLink.isEmpty) {
+        print("imageLink is empty");
+      }
+      // print('ISBN' + isbn);
+      // print('Title:' + title);
+      // print('Author:' + author);
+      // print('ImageLink:' + imageLink);
+      // print('Description' + description);
+      //add ISBN
+      //Converted to a book object
+      book = Book(
+        isbn: isbn,
+        title: title,
+        description: description,
+        imageUrl: imageLink,
+        author: author,
+      );
+    }
+    return book;
+  }
+
   //Change this with our REST API Database
   //***************End of class************//
 }

@@ -31,7 +31,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         stream: DatabaseService(uid: uID).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data);
+            print("Setting Page");
+            print(snapshot.data.photoURL);
             UserData userData = snapshot.data;
             return Scaffold(
                 appBar: AppBar(
@@ -47,17 +48,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(50.0),
-                          child: Image.asset('assets/placeholder.PNG',
-                              height: 60, fit: BoxFit.fill)),
+                      // ClipRRect(
+                      //     borderRadius: BorderRadius.circular(50.0),
+                      //     child: Image.network(userData.photoURL,
+                      //         height: 60, fit: BoxFit.fill)),
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(userData.photoURL),
+                      ),
                       Container(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            userData.displayName,
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400, fontSize: 18),
-                          ))
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          userData.displayName,
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400, fontSize: 18),
+                        ),
+                      )
                     ],
                   ),
                 ),

@@ -1,13 +1,24 @@
 import 'package:books_app/Constants/genres.dart';
+import 'package:books_app/Models/user.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/databaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../Models/books.dart';
+import '../Constants/genres.dart';
+
+//Global Variables
+String uID = AuthService().getUID;
+DatabaseService _databaseService = DatabaseService(uid: uID);
+
+//Listening to Stream of UserData from Home Screen
+
+double sliderValue = 10.0;
 
 //------------Stack Overflow COde ----------------
 class MultiSelectDialogItem<V> {
   const MultiSelectDialogItem(this.value, this.label);
-
   final V value;
   final String label;
 }
@@ -34,7 +45,6 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   }
 
   void _onItemCheckedChange(V itemValue, bool checked) {
-    // print("Selected Item:${itemValue}");
     setState(() {
       if (checked) {
         _selectedValues.add(itemValue);
@@ -49,19 +59,40 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     Navigator.of(context).pop();
   }
 
-  void _onSubmitTap() {
-    // Navigator.pop(context);
+  void _onSubmitTap(Set<V> selectedItems) async {
+    //Selected Items are of Type<V> {}
+    // print(selectedItems);
     // print("Selected Item List:");
-    // print(_selectedValues);
-    //TODO:Convert type V to List<String>,PP-CN
-    // for (V v in _selectedValues) {
-    //   print(v);
-    // }
+    // print(selectedItems.toList());
+
+    ///Using Alternate MultiSelect Items:
+    //Reason:selectedItems=> [27, 28, 29, 30, 32, 33, 31, 34, 35, 36]
+
+    //Index out of Range
+
+    //This gets the Index in int.
+    //We need the values
+
+    List items = selectedItems.toList();
+    //Remove default 0,1 values
+    items.removeRange(0, 1);
+    print(items);
+    List<String> selectedGenres = [];
+    items.forEach((element) {
+      var x = element.toString();
+      print(genres[int.parse(x)]);
+      selectedGenres.add(genres[int.parse(x)]);
+    });
+    //TODO:Set users preferences to DB
+    print(selectedGenres);
+    await _databaseService.updateGenres(selectedGenres);
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Select genres");
+    print(uID);
     return AlertDialog(
       title: Text('Select Genres'),
       contentPadding: EdgeInsets.only(top: 12.0),
@@ -80,7 +111,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         ),
         MaterialButton(
           child: Text('OK'),
-          onPressed: _onSubmitTap,
+          onPressed: () => _onSubmitTap(_selectedValues),
         )
       ],
     );
@@ -99,12 +130,14 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
 
 //------------Stack Overflow Code ----------------
 class LocationRange extends StatefulWidget {
+  var locationRange;
+  LocationRange(this.locationRange);
   @override
   _LocationRangeState createState() => _LocationRangeState();
 }
 
 class _LocationRangeState extends State<LocationRange> {
-  double _currentSlidervalue = 10;
+  double _currentSlidervalue = 10.0;
   String s;
   @override
   Widget build(BuildContext context) {
@@ -120,13 +153,15 @@ class _LocationRangeState extends State<LocationRange> {
         ),
         Slider(
           label: _currentSlidervalue.round().toString(),
-          value: _currentSlidervalue,
+          value: widget.locationRange ?? _currentSlidervalue,
           min: 0,
           max: 40,
           onChanged: (double value) {
             setState(() {
+              widget.locationRange = value;
               _currentSlidervalue = value;
             });
+            sliderValue = value;
           },
         ),
         Align(
@@ -141,23 +176,25 @@ class _LocationRangeState extends State<LocationRange> {
   }
 }
 
-userPreferences(BuildContext context) {
-//------------Stack Overflow CodeList ----------------
-//------------Stack Overflow CodeList ----------------
-  showGeneralDialog(
-      barrierColor: Colors.black.withOpacity(0.5),
-      barrierLabel: 'Animation',
-      barrierDismissible: true,
-      transitionDuration: Duration(milliseconds: 500),
-      context: context,
-      pageBuilder: (context, animation1, animation2) {
-        return UserPreference();
-      });
-}
+// userPreferences(BuildContext context) {
+// //------------Stack Overflow CodeList ----------------
+// //------------Stack Overflow CodeList ----------------
+//   showGeneralDialog(
+//       barrierColor: Colors.black.withOpacity(0.5),
+//       barrierLabel: 'Animation',
+//       barrierDismissible: true,
+//       transitionDuration: Duration(milliseconds: 500),
+//       context: context,
+//       pageBuilder: (context, animation1, animation2) {
+//         return UserPreference();
+//       });
+// }
 
 //Form Builder
 
 class UserPreference extends StatefulWidget {
+  final UserData userData;
+  UserPreference(this.userData);
   @override
   _UserPreferenceState createState() => _UserPreferenceState();
 }
@@ -169,6 +206,9 @@ class _UserPreferenceState extends State<UserPreference> {
     final selectedValues = await showDialog<Set<int>>(
       context: context,
       builder: (BuildContext context) {
+        print("Building Items");
+        i = 0;
+        j = 1;
         return MultiSelectDialog(
           items: genres.map<MultiSelectDialogItem<String>>((String val) {
             return MultiSelectDialogItem<String>(
@@ -178,19 +218,20 @@ class _UserPreferenceState extends State<UserPreference> {
         );
       },
     );
+    //Tried Ressting the values
+
     print(selectedValues);
   }
 
-  void myfunction() {}
-
-  //
-  // TextEditingController _author;
-  // TextEditingController _book;
-  final _author = TextEditingController();
-  final _book = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    String favBook = widget.userData.preferences["favBook"];
+    String favAuthor = widget.userData.preferences["favAuthor"];
+    String location = widget.userData.preferences["locationRange"];
+    double locationRange = double.parse(location);
+    final _author = TextEditingController(text: favAuthor);
+    final _book = TextEditingController(text: favBook);
     return Form(
       key: _formKey,
       child: AlertDialog(
@@ -211,11 +252,12 @@ class _UserPreferenceState extends State<UserPreference> {
                 SizedBox(
                   height: 20,
                 ),
-                LocationRange(),
+                LocationRange(locationRange),
                 TextFormField(
                   controller: _book,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.start,
+                  // initialValue: favBook,
                   decoration: InputDecoration(
                     hintText: 'Favourite Book',
                     hintStyle: GoogleFonts.muli(),
@@ -237,6 +279,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   height: 10,
                 ),
                 TextFormField(
+                  // initialValue: favAuthor,
                   controller: _author,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.start,
@@ -287,18 +330,26 @@ class _UserPreferenceState extends State<UserPreference> {
               //Validate Author and BookName
               if (_formKey.currentState.validate()) {
                 //do some
-                print(_book.text);
-                print(_author.text);
-                try {
-                  dynamic res = await Provider.of<Books>(context, listen: false)
-                      .getRecommended(_book.text);
-                  if (res != null) {
-                    print(res);
-                    Navigator.pop(context, false);
-                  }
-                } catch (e) {
-                  print(e.toString());
-                }
+                // print(_book.text);
+                // print(_author.text);
+                // print("Slider Value");
+                // print(sliderValue.round());
+                ///
+                //Save Values to DB
+                await _databaseService.updatePreferences(_book.text,
+                    _author.text, sliderValue.round().toString() ?? "");
+                //API Call To get prefered Book
+                //TODO:Make a future builder in Dashboard and Update UI
+                // try {
+                //   dynamic res = Provider.of<Books>(context, listen: false)
+                //       .getRecommended(_book.text);
+                //   if (res != null) {
+                //     Navigator.pop(context, false);
+                //   }
+                // } catch (e) {
+                //   print(e.toString());
+                // }
+                Navigator.pop(context);
               }
             },
             child: Text(
