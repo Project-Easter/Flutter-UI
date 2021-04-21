@@ -58,7 +58,7 @@ class PublicProfile extends StatelessWidget {
                       child: Container(
                         child: CircleAvatar(
                           radius: 100,
-                          backgroundImage: AssetImage('assets/profile.jpg'),
+                          backgroundImage: AssetImage('assets/placeholder.PNG'),
                         ),
                       ),
                       flex: 60,

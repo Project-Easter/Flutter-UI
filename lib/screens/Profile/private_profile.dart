@@ -58,41 +58,10 @@ class PrivateProfile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'My Profile',
-                            style: GoogleFonts.poppins(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 26),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            try {
-                              await _authService.signOutNormal();
-                              print("Logged Out");
-                              //No need of this.We using current user status
-                              Navigator.pushReplacementNamed(
-                                  context, startupPage);
-                            } catch (e) {
-                              print(e.toString());
-                            }
-                          },
-                          child: Text(
-                            'Logout',
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13),
-                          ),
-                        )
-                      ],
+                    padding: EdgeInsets.all(5),
+                    child: CircleAvatar(
+                      radius: 70,
+                      backgroundImage: AssetImage('assets/placeholder.PNG'),
                     ),
                   ),
                   Container(
