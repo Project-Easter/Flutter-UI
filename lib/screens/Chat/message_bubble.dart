@@ -1,45 +1,53 @@
-import 'package:books_app/Constants/Colors.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble(this.message, this.userName, this.isMe, {this.key});
-
-  final String message;
+  final String sender;
+  final String text;
   final bool isMe;
-  final String userName;
-  //making sure flutter is rendering the messages properly
-  final Key key;
+  final DateTime dateTime;
+  MessageBubble({this.text, this.sender, this.isMe, this.dateTime});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: isMe ? blackButton : Theme.of(context).textTheme.bodyText1,
-            borderRadius: BorderRadius.circular(12),
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Text(
+            sender,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.black54,
+            ),
           ),
-          width: 140,
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-          child: Column(
-            crossAxisAlignment:
-                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            children: [
-              Text(userName, style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(
-                message,
+          Material(
+            elevation: 5.0,
+            borderRadius: isMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  )
+                : BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+            color: isMe ? Colors.lightBlueAccent : Colors.white,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Text(
+                '$text',
                 style: TextStyle(
-                    color: isMe
-                        ? Colors.black
-                        : Theme.of(context).accentTextTheme.headline1.color),
-                textAlign: isMe ? TextAlign.end : TextAlign.start,
+                    fontSize: 15.0,
+                    color: isMe ? Colors.white : Colors.black54),
               ),
-            ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

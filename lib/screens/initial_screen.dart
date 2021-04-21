@@ -18,6 +18,8 @@ class InitialScreen extends StatefulWidget {
 class _InitialScreenState extends State<InitialScreen> {
   final _contactEditingController = new TextEditingController();
   String _dialCode = '';
+  //Init AuthService
+  final AuthService _authService = AuthService();
 
   void _callBackFunction(String name, String dialCode, String flag) {
     _dialCode = dialCode;
@@ -50,7 +52,6 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //Size config init at starting of the tree.
     SizeConfig().init(context);
     return Scaffold(
         body: Container(
@@ -277,9 +278,21 @@ class _InitialScreenState extends State<InitialScreen> {
                 side: BorderSide(color: Colors.black87),
               ),
               onPressed: () async {
-                AuthService().signInWithGoogle().whenComplete(() {
-                  Navigator.pushNamed(context, dashboard);
-                });
+                //Old Code
+                // await AuthService().signInWithGoogle().whenComplete(() {
+                //   Navigator.pushNamed(context, home);
+                // });
+                print("signing In");
+                try {
+                  dynamic res = await _authService.signInWithGoogle();
+                  print(res);
+                  if (res != null) {
+                    print(res);
+                    Navigator.pushNamed(context, home);
+                  }
+                } catch (e) {
+                  print(e.toString());
+                }
               },
               child: Icon(
                 FontAwesomeIcons.google,
@@ -299,7 +312,7 @@ class _InitialScreenState extends State<InitialScreen> {
               ),
               onPressed: () async {
                 AuthService().signInWithFacebook().whenComplete(() {
-                  Navigator.pushNamed(context, dashboard);
+                  Navigator.pushNamed(context, home);
                 });
               },
               child: Icon(
@@ -315,8 +328,16 @@ class _InitialScreenState extends State<InitialScreen> {
 
   Widget _skipButton() {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, home);
+      onPressed: () async {
+        try {
+          dynamic res = await _authService.signInAnonymous();
+          if (res != null) {
+            Navigator.pushReplacementNamed(context, home);
+            print("Signed in Anon User ID: ${res.uid}");
+          }
+        } catch (e) {
+          print(e.toString());
+        }
       },
       style: ElevatedButton.styleFrom(
         primary: blackButton,

@@ -116,37 +116,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       child: Center(
-          child: Text.rich(TextSpan(
-              text: 'By signing up, you agree to Books App ',
-              style: TextStyle(fontSize: 13, color: Colors.black),
-              children: <TextSpan>[
-            TextSpan(
-                text: 'Terms of Service',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.black,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // code to open / launch terms of service link here
-                  }),
-            TextSpan(
-                text: ' and ',
-                style: TextStyle(fontSize: 13, color: Colors.black),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                          decoration: TextDecoration.underline),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // code to open / launch privacy policy link here
-                        })
-                ])
-          ]))),
+        child: Text.rich(
+          TextSpan(
+            text: 'By signing up, you agree to Books App ',
+            style: TextStyle(fontSize: 13, color: Colors.black),
+            children: <TextSpan>[
+              TextSpan(
+                  text: 'Terms of Service',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.black,
+                    decoration: TextDecoration.underline,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // code to open / launch terms of service link here
+                    }),
+              TextSpan(
+                  text: ' and ',
+                  style: TextStyle(fontSize: 13, color: Colors.black),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Privacy Policy',
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black,
+                            decoration: TextDecoration.underline),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // code to open / launch privacy policy link here
+                          })
+                  ])
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

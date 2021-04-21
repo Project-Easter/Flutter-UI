@@ -18,14 +18,15 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
-        leading: FlatButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => LoginScreen()));
-            },
-            child: Image.asset(
-              "images/icon.PNG",
-            )),
+        leading: TextButton(
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+          },
+          child: Image.asset(
+            "images/icon.PNG",
+          ),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.all(10.0),

@@ -1,4 +1,5 @@
 import 'package:books_app/Screens/bookshelf.dart';
+import 'package:books_app/screens/Chat/message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Screens/Auth/login.dart';
 import 'package:books_app/Screens/add_book.dart';
@@ -12,15 +13,18 @@ import 'package:books_app/Screens/Auth/confirmOTP.dart';
 import 'package:books_app/Screens/Auth/register.dart';
 import 'package:books_app/Screens/Auth/signup.dart';
 import 'package:books_app/Screens/Auth/confirmemail.dart';
-import 'package:books_app/Screens/Dashboard.dart';
+import '../screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
+import '../screens/edit_profile.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case startupPage:
         return MaterialPageRoute(builder: (_) => InitialScreen());
+      case editProfile:
+        return MaterialPageRoute(builder: (_) => EditProfile());
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case confirmOTP:
@@ -51,12 +55,18 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SettingsScreen());
       case libraryPage:
         return MaterialPageRoute(builder: (_) => LibraryPage());
+      case messageScreen:
+        return MaterialPageRoute(
+            builder: (_) => MessageScreen(
+                  receiver: settings.arguments,
+                ));
+
       default:
         return MaterialPageRoute(
-            builder: (_) => Scaffold(
-                  body: Center(
-                      child: Text('No route defined for ${settings.name}')),
-                ));
+          builder: (_) => Scaffold(
+            body: Center(child: Text('No route defined for ${settings.name}')),
+          ),
+        );
     }
   }
 }

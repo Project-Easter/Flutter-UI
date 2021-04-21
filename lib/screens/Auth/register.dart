@@ -1,5 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _userEmail = TextEditingController();
@@ -43,7 +45,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Register', confirmEmail),
+            // button(context, blackButton, 'Register', confirmEmail),
+            //These buttons don't get the values of the form. Moved this button inside form
+            // CupertinoStyleButton(name: 'Register',color: blackButton,
+            // myfunction: () async {
+            //   Navigator.pushNamed(context, confirmEmail);
+            // },
+            // ),
           ],
         ),
       ),
@@ -86,7 +94,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
-                  _userEmail.text = value;
+                  setState(() {
+                    _userEmail.text = value;
+                  });
+                },
+                onChanged: (v) {
+                  _userEmail.text = v;
+                  print(_userEmail.text);
                 },
               ),
             ),
@@ -124,9 +138,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _passWord.text = value;
                     });
                   },
+                  onChanged: (v) {
+                    _passWord.text = v;
+                    print(_passWord.text);
+                  },
                 ),
               ),
             ),
+          ),
+          CupertinoStyleButton(
+            name: 'Register',
+            color: blackButton,
+            myFunction: () async {
+              print(_userEmail.text);
+              print(_passWord.text);
+              if (_formKey.currentState.validate()) {
+                //Note for Now skipped confirm OTP and username from user.
+                //Register with email and password and direct him to login page.
+                print(_userEmail.text);
+                print(_passWord.text);
+                try {
+                  dynamic res = await _authService.registerWithEmailAndPassword(
+                      _userEmail.text, _passWord.text);
+                  if (res != null) {
+                    print(res);
+                    Navigator.pushNamed(context, loginRoute);
+                  }
+                } catch (e) {
+                  print(e.toString());
+                }
+              }
+            },
           ),
         ],
       ),

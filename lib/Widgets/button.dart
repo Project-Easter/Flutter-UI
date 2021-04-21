@@ -25,3 +25,36 @@ Widget button(
     ),
   );
 }
+
+class CupertinoStyleButton extends StatelessWidget {
+  final Color color;
+  final String name;
+  final Function myFunction;
+
+  CupertinoStyleButton({this.color, this.name, this.myFunction});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: AspectRatio(
+        aspectRatio: 343 / 52,
+        child: Container(
+          child: MaterialButton(
+            color: color,
+            child: new Text(
+              name,
+              style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16),
+            ),
+            onPressed: myFunction,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          ),
+        ),
+      ),
+    );
+  }
+}
