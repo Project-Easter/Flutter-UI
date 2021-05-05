@@ -25,5 +25,8 @@ Future<LatLng> acquireCurrentLocation() async {
   }
 
   locationData = await location.getLocation();
+  print('Latitude Longitude data is below');
+  print(locationData.latitude);
+  print(locationData.longitude);
   return LatLng(locationData.latitude, locationData.longitude);
 }

@@ -8,7 +8,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FacebookLogin facebookLogin = FacebookLogin();
 
-  //*Turn MyAppUser from FirebaseUser 
+  //*Turn MyAppUser from FirebaseUser
   //Add this per Needed
   MyAppUser _userFromFirebaseUser(User user) {
     return user != null ? MyAppUser(uid: user.uid) : null;
@@ -78,7 +78,8 @@ class AuthService {
     print(authResult.user.tenantId);
     print(authResult.user.displayName);
     print(authResult.user.uid);
-    print(authResult.user.getIdToken());
+
+    // print(await authResult.user.getIdToken());
     print("User from firebase ends");
     print("*********************");
     //User from firebase
@@ -88,6 +89,13 @@ class AuthService {
       assert(await user.getIdToken() != null);
       final User currentUser = _auth.currentUser;
       assert(user.uid == currentUser.uid);
+      String token = await user.getIdToken(true);
+      while (token.length > 0) {
+        int initLength = (token.length >= 500 ? 500 : token.length);
+        print(token.substring(0, initLength));
+        int endLength = token.length;
+        token = token.substring(initLength, endLength);
+      }
       // //Test Area
       // var name, email, photoUrl, uid, emailVerified;
       // name = user.displayName;
