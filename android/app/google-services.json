@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "339703745629",
+    "firebase_url": "https://book-exchange-dde4a-default-rtdb.firebaseio.com",
     "project_id": "book-exchange-dde4a",
     "storage_bucket": "book-exchange-dde4a.appspot.com"
   },
@@ -14,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "339703745629-am46l7jcbs0sqgi39a6gf4jjvab0nnfa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "0a73355f21b08c1d58e3a2d4dd52400b1793f920"
+          }
+        },
+        {
           "client_id": "339703745629-dau900hflr232p111ofh1dp2dajjvmae.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.books_app",
             "certificate_hash": "1c6b2f711244f47ea36242975ac9a02c8d1a108c"
+          }
+        },
+        {
+          "client_id": "339703745629-v9tq40e8lqfepm3p7nvhrhbrsi7n1762.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "cc159e1f2635148a2ecbd8f4527d5bd897c68f8e"
           }
         },
         {
