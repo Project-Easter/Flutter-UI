@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:books_app/Models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'databaseService.dart';
+import 'package:books_app/Constants/api.dart';
+import 'package:books_app/Constants/exception.dart';
+import 'package:http/http.dart' as http;
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,10 +15,11 @@ class AuthService {
 
   //*Turn MyAppUser from FirebaseUser
   //Add this per Needed
-  MyAppUser _userFromFirebaseUser(User user) {
+  MyAppUser _retrieveUserFromFirebaseUser(User user) {
     return user != null ? MyAppUser(uid: user.uid) : null;
   }
 
+//
   //Get current user Logged in Status.
   // User from Firebase to detect Auth changes-Listen in main
   dynamic get currentUserFromFireBase {
@@ -37,7 +43,7 @@ class AuthService {
       ///This holds default values for new users
       await DatabaseService(uid: user.uid).updateUserData(userData);
       print(user);
-      return _userFromFirebaseUser(user);
+      return _retrieveUserFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
       return null;
@@ -46,43 +52,15 @@ class AuthService {
 
   Future<MyAppUser> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-    // Create a new credential
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    print("**************************HERE************");
     final UserCredential authResult =
         await _auth.signInWithCredential(credential);
-    print("Additional User Info");
-    print(authResult.additionalUserInfo.profile);
-    print(authResult.additionalUserInfo.providerId);
-    print(authResult.additionalUserInfo.username);
-    print(authResult.additionalUserInfo.isNewUser);
-    print("Additional User info ends");
-    print("*********************");
-    print(authResult.credential);
-    print(authResult.credential.signInMethod);
-    print("User from firebase");
-    print(authResult.user.displayName);
-    print(authResult.user.email);
-    print(authResult.user.displayName);
-    print(authResult.user.isAnonymous);
-    print(authResult.user.phoneNumber);
-    print(authResult.user.photoURL);
-    print(authResult.user.email);
-    print(authResult.user.refreshToken);
-    print(authResult.user.tenantId);
-    print(authResult.user.displayName);
-    print(authResult.user.uid);
 
-    // print(await authResult.user.getIdToken());
-    print("User from firebase ends");
-    print("*********************");
-    //User from firebase
     final User user = authResult.user;
     if (user != null) {
       assert(!user.isAnonymous);
@@ -96,41 +74,14 @@ class AuthService {
         int endLength = token.length;
         token = token.substring(initLength, endLength);
       }
-      // //Test Area
-      // var name, email, photoUrl, uid, emailVerified;
-      // name = user.displayName;
-      // email = user.email;
-      // photoUrl = user.photoURL;
-      // emailVerified = user.emailVerified;
-      // uid =
-      //     user.uid; // The user's ID, unique to the Firebase project. Do NOT use
-      // // this value to authenticate with your backend server, if
-      // // you have one. Use User.getToken() instead.
-      // // print("Sign-in provider: " + providerId);
-      // print("  Provider-specific UID: " + uid);
-      // print("  Name: " + name);
-      // print("  Email: " + email);
-      // print("  Photo URL: " + photoUrl);
-      // print("Email Verified" + emailVerified);
-      // //Test Area
-      // print(currentUser);
-      // print('Google SignIn succeeded: $user');
-      //Test Area Ends
 
-      // return currentUser;
-      // return '$user';
-      ///HELPER
-      ///Convert user From Firebase to UserData Object
       UserData userData = makeUserDataFromAuthUser(user);
 
-      ///This holds default values for new users
       await DatabaseService(uid: user.uid).updateUserData(userData);
-      return _userFromFirebaseUser(currentUser);
+      return _retrieveUserFromFirebaseUser(currentUser);
     }
     return null;
   }
-
-  ///
 
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();
@@ -139,14 +90,11 @@ class AuthService {
   }
 
   Future<String> signInWithFacebook() async {
-    // Trigger the sign-in flow
     final FacebookLoginResult result = await facebookLogin.logIn();
 
-    // Create a credential from the access token
     final FacebookAuthCredential facebookAuthCredential =
         FacebookAuthProvider.credential(result.accessToken.token);
 
-    // Once signed in, return the UserCredential
     final UserCredential fbAuthResult =
         await _auth.signInWithCredential(facebookAuthCredential);
     final User fbUser = fbAuthResult.user;
@@ -170,7 +118,6 @@ class AuthService {
     });
   }
 
-  //Normal Signout
   Future<void> signOutNormal() async {
     try {
       await _auth.signOut();
@@ -179,39 +126,100 @@ class AuthService {
     }
   }
 
-//sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      User user = result.user;
-      return _userFromFirebaseUser(user);
+      var response = await http.post(Uri.parse(API_ROUTE + "/auth/email"),
+          body: {"email": email, "password": password});
+
+      if (response.statusCode == 200) {
+        print('Logged in successfully');
+        //TODO: Redirects user to the homepage
+
+      } else {
+        var responseBody = jsonDecode(response.body);
+        var errorId = responseBody['error']['id'];
+
+        switch (errorId) {
+          case Exception.INVALID_INPUT:
+            {
+              print('Invalid input');
+
+              //TODO: Displays error message: Invalid email or password. Check your input and try once again.
+              //! Too low or too many characters inside password / email
+
+              break;
+            }
+
+          case Exception.INVALID_ACCOUNT_TYPE:
+            {
+              print('Account type is invalid');
+
+              //TODO: Displays error message: You've already created an account using Google or Facebook
+
+              break;
+            }
+
+          case Exception.INVALID_CREDENTIALS:
+            {
+              print('Invalid Credentials');
+
+              //TODO: Displays error message: Invalid Credentials. Check your input and try again
+
+              break;
+            }
+
+          case Exception.UNCONFIRMED_ACCOUNT:
+            {
+              print('Unconfirmed account');
+
+              //TODO: Displays error message: Your account is not confirmed yet. Click here to confirm it.
+
+              break;
+            }
+        }
+      }
     } catch (e) {
       print(e.toString());
-      return null;
     }
   }
 
-//register with email and password
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      User user = result.user;
+      var response = await http.post(Uri.parse(API_ROUTE + "/auth/new-account"),
+          body: {"email": email, "password": password});
 
-      ///Convert user From Firebase to UserData Object
-      UserData userData = makeUserDataFromAuthUser(user);
+      if (response.statusCode == 201) {
+        print('Registered successfully');
+        //TODO: Redirects user to the ENTER YOUR CONFIRMATION CODE
 
-      ///This provides
-      await DatabaseService(uid: user.uid).updateUserData(userData);
-      return _userFromFirebaseUser(user);
+      } else {
+        var responseBody = jsonDecode(response.body);
+        var errorId = responseBody['error']['id'];
+
+        switch (errorId) {
+          case Exception.INVALID_INPUT:
+            {
+              print('Invalid input');
+
+              //TODO: Displays error message: Invalid email or password. Check your input and try once again.
+
+              break;
+            }
+
+          case Exception.DUPLICATE_EMAIL:
+            {
+              print('Email already exists');
+
+              //TODO: Displays error message: Email already exists. Please try a different one.
+
+              break;
+            }
+        }
+      }
     } catch (e) {
       print(e.toString());
-      return null;
     }
   }
-
-  ///HELPER
 
   UserData makeUserDataFromAuthUser(User user) {
     //IMP:DO NOT REMOVE THIS URL,this is the default image while signing up.

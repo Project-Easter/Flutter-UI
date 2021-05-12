@@ -157,16 +157,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //Register with email and password and direct him to login page.
                 print(_userEmail.text);
                 print(_passWord.text);
-                try {
-                  dynamic res = await _authService.registerWithEmailAndPassword(
-                      _userEmail.text, _passWord.text);
-                  if (res != null) {
-                    print(res);
-                    Navigator.pushNamed(context, loginRoute);
-                  }
-                } catch (e) {
-                  print(e.toString());
-                }
+                await _authService.registerWithEmailAndPassword(
+                    _userEmail.text, _passWord.text);
               }
             },
           ),

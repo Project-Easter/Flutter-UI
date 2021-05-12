@@ -57,13 +57,13 @@ class PrivateProfile extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    child: CircleAvatar(
-                      radius: 70,
-                      backgroundImage: AssetImage('assets/placeholder.PNG'),
-                    ),
-                  ),
+                  // Container(
+                  //   padding: EdgeInsets.all(5),
+                  //   child: CircleAvatar(
+                  //     radius: 70,
+                  //     backgroundImage: AssetImage('assets/placeholder.PNG'),
+                  //   ),
+                  // ),
                   Container(
                     child: Column(
                       children: <Widget>[
