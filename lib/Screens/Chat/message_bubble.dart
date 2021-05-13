@@ -12,8 +12,7 @@ class MessageBubble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             sender,
@@ -40,9 +39,7 @@ class MessageBubble extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Text(
                 '$text',
-                style: TextStyle(
-                    fontSize: 15.0,
-                    color: isMe ? Colors.white : Colors.black54),
+                style: TextStyle(fontSize: 15.0, color: isMe ? Colors.white : Colors.black54),
               ),
             ),
           ),

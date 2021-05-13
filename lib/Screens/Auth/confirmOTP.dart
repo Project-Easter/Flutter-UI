@@ -73,10 +73,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
               padding: EdgeInsets.only(left: 5.0, bottom: 20),
               child: Text(
                 "Enter OTP",
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 36),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
             buildLayouts(),
@@ -110,12 +107,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                     contentPadding: EdgeInsets.all(10),
                   ),
                 ),
@@ -132,10 +127,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                 color: blackButton,
                 child: new Text(
                   'Continue',
-                  style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16),
+                  style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                 ),
                 onPressed: () async {
                   setState(() {
@@ -143,8 +135,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   });
                   verifyOtp();
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
             ),
           ),
@@ -261,21 +252,15 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   ..onTap = () {
                     // code to open / launch terms of service link here
                   }),
-            TextSpan(
-                text: ' and ',
-                style: TextStyle(fontSize: 13, color: Colors.black),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                          decoration: TextDecoration.underline),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // code to open / launch privacy policy link here
-                        })
-                ])
+            TextSpan(text: ' and ', style: TextStyle(fontSize: 13, color: Colors.black), children: <TextSpan>[
+              TextSpan(
+                  text: 'Privacy Policy',
+                  style: TextStyle(fontSize: 13, color: Colors.black, decoration: TextDecoration.underline),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // code to open / launch privacy policy link here
+                    })
+            ])
           ]))),
     );
   }

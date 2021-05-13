@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/painting.dart';
 import 'package:books_app/Widgets/country_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/util/size_config.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -81,18 +81,12 @@ class _InitialScreenState extends State<InitialScreen> {
                   children: <Widget>[
                     Text(
                       'Welcome to',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 26,
-                          fontWeight: FontWeight.w600),
+                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 26, fontWeight: FontWeight.w600),
                     ),
                     SizedBox(width: 5),
                     Text(
                       'Explr',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 26,
-                          fontWeight: FontWeight.w700),
+                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 26, fontWeight: FontWeight.w700),
                     ),
                   ],
                 ),
@@ -101,17 +95,11 @@ class _InitialScreenState extends State<InitialScreen> {
                 ),
                 Text(
                   'Easiest way to exchange your books',
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500),
+                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 Text(
                   'with others',
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500),
+                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 20),
                 _enterMobileNo(),
@@ -180,8 +168,7 @@ class _InitialScreenState extends State<InitialScreen> {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Enter your Mobile',
-                hintStyle:
-                    GoogleFonts.poppins(fontSize: 14, color: Colors.black),
+                hintStyle: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
@@ -205,16 +192,14 @@ class _InitialScreenState extends State<InitialScreen> {
           elevation: 0.2,
           primary: Color(0xFF246BFD),
           onPrimary: Colors.white10,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
         onPressed: () async {
           print('$_dialCode${_contactEditingController.text}');
           if (_contactEditingController.text.isEmpty) {
             showErrorDialog(context, 'Contact number can\'t be empty.');
           } else {
-            final responseMessage = await Navigator.pushNamed(
-                context, confirmOTP,
+            final responseMessage = await Navigator.pushNamed(context, confirmOTP,
                 arguments: '$_dialCode${_contactEditingController.text}');
             if (responseMessage != null) {
               showErrorDialog(context, responseMessage as String);
@@ -238,8 +223,7 @@ class _InitialScreenState extends State<InitialScreen> {
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           primary: Color(0xFF246BFD),
         ),
         onPressed: () async {
@@ -347,8 +331,7 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       child: Text(
         'Skip',
-        style: GoogleFonts.poppins(
-            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
+        style: GoogleFonts.poppins(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
       ),
     );
   }

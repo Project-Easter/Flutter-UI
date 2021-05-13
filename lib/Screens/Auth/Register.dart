@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/util/validator.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
                 "Register",
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 36),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
             buildLayouts(),
@@ -72,12 +69,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
@@ -106,12 +101,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                     contentPadding: EdgeInsets.all(10),
                   ),
                   onSaved: (value) {
@@ -133,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               var isFormValid = _formKey.currentState.validate();
 
               if (isFormValid) {
-                await _authService.registerWithEmailAndPassword(_email.text, _password.text);
+                await _authService.register(_email.text, _password.text);
               }
             },
           ),

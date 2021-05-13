@@ -27,7 +27,7 @@ class _LibraryPageState extends State<LibraryPage> {
         savedBooks.add(book);
       }
     });
-    
+
     if (savedBooks != [] && ownedBooks != []) {}
 
     return Scaffold(
@@ -62,10 +62,7 @@ class _LibraryPageState extends State<LibraryPage> {
               },
               child: Text(
                 'CANCEL',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
               ),
             ),
             TextButton(
@@ -74,10 +71,7 @@ class _LibraryPageState extends State<LibraryPage> {
               },
               child: Text(
                 'OK',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
               ),
             )
           ],

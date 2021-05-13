@@ -28,8 +28,7 @@ class RouteGenerator {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case confirmOTP:
-        return MaterialPageRoute(
-            builder: (_) => ConfirmScreen(settings.arguments));
+        return MaterialPageRoute(builder: (_) => ConfirmScreen(settings.arguments));
       case registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
       case userName:

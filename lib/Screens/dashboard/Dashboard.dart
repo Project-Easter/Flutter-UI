@@ -221,8 +221,7 @@ class UserChoiceBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Provider.of<Books>(context, listen: false)
-            .getRecommendedBooks("test"),
+        future: Provider.of<Books>(context, listen: false).getRecommendedBooks("test"),
         builder: (ctx, snapshot) {
           // Checking if future is resolved
           if (snapshot.connectionState == ConnectionState.done) {

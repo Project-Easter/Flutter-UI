@@ -4,7 +4,7 @@ import 'package:books_app/Services/databaseService.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/Models/book.dart';
 import 'package:books_app/Widgets/rating.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
@@ -16,8 +16,7 @@ class BookDescription extends StatefulWidget {
   _BookDescriptionState createState() => _BookDescriptionState();
 }
 
-class _BookDescriptionState extends State<BookDescription>
-    with SingleTickerProviderStateMixin {
+class _BookDescriptionState extends State<BookDescription> with SingleTickerProviderStateMixin {
   final AuthService _authService = AuthService();
   final bodyGlobalKey = GlobalKey;
   TabController _tabController;
@@ -161,13 +160,9 @@ class _BookDescriptionState extends State<BookDescription>
                       height: 192,
                       width: 140,
                       decoration: new BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(color: Colors.grey, blurRadius: 15)
-                        ],
+                        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 15)],
                         borderRadius: BorderRadius.circular(10),
-                        image: new DecorationImage(
-                            image: NetworkImage(widget.bookFromList.imageUrl),
-                            fit: BoxFit.fill),
+                        image: new DecorationImage(image: NetworkImage(widget.bookFromList.imageUrl), fit: BoxFit.fill),
                       ),
                     ),
                   ),
@@ -198,24 +193,21 @@ class _BookDescriptionState extends State<BookDescription>
                           setState(() {
                             widget.bookFromList.changeBookMark();
                           });
-                          await _databaseService
-                              .updateBookMark(widget.bookFromList);
+                          await _databaseService.updateBookMark(widget.bookFromList);
                         } catch (e) {
                           print(e.toString());
                         }
                         print("Book Marked");
                       },
-                      icon:
-                          widget.bookFromList.isBookMarked
-                              ? Icon(Icons.bookmark)
-                              : Icon(Icons.bookmark_outline_rounded),
+                      icon: widget.bookFromList.isBookMarked
+                          ? Icon(Icons.bookmark)
+                          : Icon(Icons.bookmark_outline_rounded),
                       iconSize: 20,
                     ),
                   ),
                 ],
               ),
             )),
-
             SliverToBoxAdapter(
               child: TabBar(
                 controller: _tabController,
@@ -224,19 +216,13 @@ class _BookDescriptionState extends State<BookDescription>
                   Tab(
                     child: Text(
                       'About Book',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14),
+                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 14),
                     ),
                   ),
                   Tab(
                     child: Text(
                       'Owner\'s Info',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14),
+                      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 14),
                     ),
                   ),
                 ],
@@ -276,23 +262,17 @@ class _BookDescriptionState extends State<BookDescription>
                               color: blackButton,
                               name: 'Rate this Book',
                               myFunction: () async {
-                                int stars = await showDialog(
-                                    context: context,
-                                    builder: (_) => RatingDialog());
+                                int stars = await showDialog(context: context, builder: (_) => RatingDialog());
                                 if (stars == null) return;
                                 print('Selected rate stars: $stars');
-                                await _databaseService.updateRating(
-                                    stars.toDouble(), widget.bookFromList.isbn);
+                                await _databaseService.updateRating(stars.toDouble(), widget.bookFromList.isbn);
                                 print("Update Ratings");
                               }),
                         )
                       : Padding(
                           padding: const EdgeInsets.all(18.0),
                           child: CupertinoStyleButton(
-                              color: blackButton,
-                              name: 'Exchange this Book',
-                              myFunction: () async {
-                              }),
+                              color: blackButton, name: 'Exchange this Book', myFunction: () async {}),
                         ),
                   widget.bookFromList.isOwned
                       ? Padding(
@@ -301,8 +281,7 @@ class _BookDescriptionState extends State<BookDescription>
                               color: blackButton,
                               name: 'Remove this Book',
                               myFunction: () async {
-                                await _databaseService
-                                    .removeBook(widget.bookFromList.isbn);
+                                await _databaseService.removeBook(widget.bookFromList.isbn);
                                 Navigator.of(context).pop();
                                 print('Book Removed');
                               }),
@@ -318,8 +297,7 @@ class _BookDescriptionState extends State<BookDescription>
                     padding: const EdgeInsets.all(15.0),
                     child: Column(
                       children: [
-                        button(context, blackButton, 'Visit Profile',
-                            publicProfile),
+                        button(context, blackButton, 'Visit Profile', publicProfile),
                         button(context, greenButton, 'Exchange this Book', ''),
                         ratings(),
                       ],
@@ -404,8 +382,7 @@ class _BookDescriptionState extends State<BookDescription>
           padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
           child: Text(
             'Description',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+            style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
           ),
         ),
         Padding(
@@ -414,10 +391,7 @@ class _BookDescriptionState extends State<BookDescription>
             widget.bookFromList.description,
             // "",
             // description,
-            style: GoogleFonts.poppins(
-                color: Colors.blueGrey,
-                fontWeight: FontWeight.w500,
-                fontSize: 14),
+            style: GoogleFonts.poppins(color: Colors.blueGrey, fontWeight: FontWeight.w500, fontSize: 14),
             trimLines: 6,
             colorClickableText: Colors.pink,
             trimMode: TrimMode.Line,
@@ -446,10 +420,7 @@ class _BookDescriptionState extends State<BookDescription>
                 borderRadius: BorderRadius.circular(8)),
             child: Center(
               child: Text('Action',
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14)),
+                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w300, fontSize: 14)),
             ),
           ),
           Container(
@@ -463,10 +434,7 @@ class _BookDescriptionState extends State<BookDescription>
             child: Center(
               child: Text(
                 'Fantasy',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w300, fontSize: 14),
               ),
             ),
           ),
@@ -482,18 +450,15 @@ class _BookDescriptionState extends State<BookDescription>
         children: [
           Text(
             'Jane Doe',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
           ),
           Text(
             'SAN FRANSISCO, CA',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
           ),
           Text(
             'jane@example.com',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400),
+            style: GoogleFonts.poppins(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400),
           ),
         ],
       ),
@@ -505,8 +470,7 @@ class _BookDescriptionState extends State<BookDescription>
       padding: const EdgeInsets.all(15.0),
       child: Text(
         'Note : The exchange will be done on the consent of both the users and an autogenerated mail will be sent to both when the exchange gets finally completed',
-        style: GoogleFonts.muli(
-            color: Colors.redAccent, fontWeight: FontWeight.bold),
+        style: GoogleFonts.muli(color: Colors.redAccent, fontWeight: FontWeight.bold),
         softWrap: true,
       ),
     );
@@ -521,8 +485,7 @@ class _BookDescriptionState extends State<BookDescription>
         children: <Widget>[
           Text(
             'Reviews',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
+            style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
           ),
           AspectRatio(
             aspectRatio: 343 / 52,

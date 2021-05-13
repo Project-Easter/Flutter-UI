@@ -10,15 +10,11 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
+  final CollectionReference userDataCollection = FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference userDataCollection =
-      FirebaseFirestore.instance.collection('users');
+  final CollectionReference booksCollection = FirebaseFirestore.instance.collection('books');
 
-  final CollectionReference booksCollection =
-      FirebaseFirestore.instance.collection('books');
-
-  final CollectionReference chatCollection =
-      FirebaseFirestore.instance.collection('chat');
+  final CollectionReference chatCollection = FirebaseFirestore.instance.collection('chat');
 
   //TODO:Add USERDATA and BOOKS Stream
 
@@ -82,8 +78,7 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updateUser(
-      String name, String city, String state, String photoURL) async {
+  Future updateUser(String name, String city, String state, String photoURL) async {
     return await userDataCollection.doc(uid).set({
       "city": city,
       "state": state,
@@ -100,14 +95,9 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updatePreferences(
-      String favAuthor, String favBook, String locationRange) async {
+  Future updatePreferences(String favAuthor, String favBook, String locationRange) async {
     return await userDataCollection.doc(uid).set({
-      "preferences": {
-        "favAuthor": favAuthor,
-        "favBook": favBook,
-        "locationRange": locationRange
-      }
+      "preferences": {"favAuthor": favAuthor, "favBook": favBook, "locationRange": locationRange}
     }, SetOptions(merge: true));
   }
 
@@ -147,11 +137,7 @@ class DatabaseService {
   //TODO:Get 10 and 13 digit.
   Future addBook(Book book) async {
     //GET BOOK FROM API or an existing List
-    return await booksCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .doc(book.isbn)
-        .set({
+    return await booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn).set({
       "rating": book.rating,
       "isbn": book.isbn,
       "isBookMarked": book.isBookMarked,
@@ -185,11 +171,7 @@ class DatabaseService {
 
   //Read from firestore
   Stream<List<Book>> get booksData {
-    return booksCollection
-        .doc(uid)
-        .collection("ownedBooks")
-        .snapshots()
-        .map((_bookFromQuerySnapShot));
+    return booksCollection.doc(uid).collection("ownedBooks").snapshots().map((_bookFromQuerySnapShot));
   }
 
   //*********Updates***************//
@@ -203,8 +185,7 @@ class DatabaseService {
   //2.0->Update BookMark toggle bookmark
   updateBookMark(Book book) {
     //Get
-    var docReference =
-        booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
+    var docReference = booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
     docReference
         .get()
         .then((doc) => {
@@ -221,12 +202,7 @@ class DatabaseService {
   }
 
   removeBook(String isbn) {
-    booksCollection
-        .doc(uid)
-        .collection("ownedBooks")
-        .doc(isbn)
-        .delete()
-        .catchError((e) => print(e.toString()));
+    booksCollection.doc(uid).collection("ownedBooks").doc(isbn).delete().catchError((e) => print(e.toString()));
   }
 
 //TODO:Get All users from firebase to a List and display on chat screen
@@ -244,8 +220,7 @@ class DatabaseService {
 //       LatLng(userLatitude, userLongitude),
 //     );
 //   }
-  double distanceInMeters =
-      Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
+  double distanceInMeters = Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
 
   // Stream<List<Book>> get booksData {
   //   return booksCollection

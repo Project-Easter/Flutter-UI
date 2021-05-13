@@ -27,8 +27,7 @@ class UserChoice extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Whats Your Choice?',
-                style:
-                    GoogleFonts.muli(fontSize: 24, fontWeight: FontWeight.w700),
+                style: GoogleFonts.muli(fontSize: 24, fontWeight: FontWeight.w700),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 8, 30, 0),
@@ -36,10 +35,7 @@ class UserChoice extends StatelessWidget {
                   'Share your interests for best recommendations of books within your location range',
                   softWrap: true,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.muli(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
+                  style: GoogleFonts.muli(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
                 ),
               ),
               //-----------------
@@ -52,10 +48,7 @@ class UserChoice extends StatelessWidget {
                       color: blackButton,
                       child: new Text(
                         'Personalize',
-                        style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16),
+                        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                       onPressed: () async {
                         // userPreferences(context);
@@ -65,11 +58,9 @@ class UserChoice extends StatelessWidget {
                             barrierDismissible: true,
                             transitionDuration: Duration(milliseconds: 500),
                             context: context,
-                            pageBuilder: (context, animation1, animation2) =>
-                                UserPreference(userData));
+                            pageBuilder: (context, animation1, animation2) => UserPreference(userData));
                       },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     ),
                   ),
                 ),

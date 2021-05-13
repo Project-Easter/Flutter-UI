@@ -27,10 +27,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
           backgroundImage: _imageFile != null ? FileImage(_imageFile) : null,
           radius: 35,
         ),
-        TextButton.icon(
-            onPressed: _pickImage,
-            icon: Icon(Icons.image),
-            label: Text('Add image')),
+        TextButton.icon(onPressed: _pickImage, icon: Icon(Icons.image), label: Text('Add image')),
       ],
     );
   }

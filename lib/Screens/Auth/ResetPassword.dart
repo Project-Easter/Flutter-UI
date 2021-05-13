@@ -35,10 +35,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
                 "Reset Password",
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 36),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
             Padding(
@@ -85,12 +82,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
@@ -121,12 +116,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                     contentPadding: EdgeInsets.all(10),
                   ),
                   onSaved: (value) {
@@ -158,12 +151,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                     contentPadding: EdgeInsets.all(10),
                   ),
                   onSaved: (value) {

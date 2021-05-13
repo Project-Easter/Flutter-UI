@@ -36,10 +36,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
                 'Forgot Password?',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 35),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 35),
               ),
             ),
             Padding(
@@ -87,12 +84,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               hintStyle: GoogleFonts.poppins(
                 fontSize: 14,
               ),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2),
-                  borderRadius: BorderRadius.circular(12)),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2),
-                  borderRadius: BorderRadius.circular(12)),
+              focusedBorder:
+                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+              enabledBorder:
+                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
               contentPadding: EdgeInsets.all(10),
             ),
             onSaved: (value) {

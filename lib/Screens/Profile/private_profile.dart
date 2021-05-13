@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Models/book.dart';
 
 class PrivateProfile extends StatelessWidget {
@@ -66,20 +66,14 @@ class PrivateProfile extends StatelessWidget {
                           child: Text(
                             // 'John Doe',
                             profileData.displayName,
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 36,
-                                fontWeight: FontWeight.w400),
+                            style: GoogleFonts.poppins(color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
                             "${profileData.city},${profileData.state}",
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400),
+                            style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ],
@@ -95,10 +89,7 @@ class PrivateProfile extends StatelessWidget {
                       children: [
                         Text(
                           'User Stats',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w400),
+                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,9 +99,7 @@ class PrivateProfile extends StatelessWidget {
                               children: [
                                 Text(ownedBooksLength.toString(),
                                     style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w400)),
+                                        color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Owned Books')
                               ],
                             ),
@@ -119,9 +108,7 @@ class PrivateProfile extends StatelessWidget {
                                 Text("0",
                                     // borrowedBooksLength,
                                     style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w400)),
+                                        color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Borrowed Books')
                               ],
                             ),
@@ -130,9 +117,7 @@ class PrivateProfile extends StatelessWidget {
                                 Text("0",
                                     // lentBooksLength,
                                     style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w400)),
+                                        color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Lent Books')
                               ],
                             )

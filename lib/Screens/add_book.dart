@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:books_app/Models/books.dart';
 import 'package:books_app/Models/book.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Services/databaseService.dart';
 
 class AddBook extends StatefulWidget {
@@ -34,10 +34,7 @@ class _AddBookState extends State<AddBook> {
             padding: const EdgeInsets.all(18.0),
             child: Text(
               'Add your Book',
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 30),
+              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 30),
             ),
           ),
           Padding(
@@ -125,8 +122,7 @@ class _AddBookState extends State<AddBook> {
                       color: blackButton,
                       myFunction: () async {
                         if (_bookKey.currentState.validate()) {
-                          dynamic result =
-                              await bookList.getBooksbyISBN(_isbnCode.text);
+                          dynamic result = await bookList.getBooksbyISBN(_isbnCode.text);
                           if (result != null) {
                             Book book = makeBook(result);
                             await _databaseService.addBook(book);
@@ -252,10 +248,8 @@ class _AddBookState extends State<AddBook> {
       String title = result['items'][0]['volumeInfo']['title'];
       String author = result['items'][0]['volumeInfo']['authors'][0];
       String description = result['items'][0]['volumeInfo']['description'];
-      String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][0]
-          ['identifier'];
-      String imageLink =
-          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+      String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][0]['identifier'];
+      String imageLink = result['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
       imageLink = imageLink.replaceFirst("http", "https", 0);
       print(imageLink.length);
       if (imageLink.isEmpty) {

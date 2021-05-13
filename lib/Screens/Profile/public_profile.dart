@@ -9,12 +9,9 @@ import '../../Models/books.dart';
 class PublicProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ownedBooksLength =
-        Provider.of<Books>(context).ownedBooks.length.toString();
-    final borrowedBooksLength =
-        Provider.of<Books>(context).borrowedBooks.length.toString();
-    final lentBooksLength =
-        Provider.of<Books>(context).lentBooks.length.toString();
+    final ownedBooksLength = Provider.of<Books>(context).ownedBooks.length.toString();
+    final borrowedBooksLength = Provider.of<Books>(context).borrowedBooks.length.toString();
+    final lentBooksLength = Provider.of<Books>(context).lentBooks.length.toString();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 16, right: 16),
@@ -33,17 +30,11 @@ class PublicProfile extends StatelessWidget {
                     ),
                     Text(
                       'My Profile',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 26),
+                      style: GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 26),
                     ),
                     Text(
                       'Logout',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13),
+                      style: GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w400, fontSize: 13),
                     )
                   ],
                 ),
@@ -67,10 +58,7 @@ class PublicProfile extends StatelessWidget {
                       child: Container(
                         child: Text(
                           'John Doe',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 36,
-                              fontWeight: FontWeight.w400),
+                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
                         ),
                       ),
                       flex: 15,
@@ -80,10 +68,7 @@ class PublicProfile extends StatelessWidget {
                         margin: EdgeInsets.only(top: 5),
                         child: Text(
                           'SAN FRANCISCO,CA',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400),
+                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400),
                         ),
                       ),
                       flex: 15,
@@ -104,10 +89,7 @@ class PublicProfile extends StatelessWidget {
                   children: [
                     Text(
                       'User Stats',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w400),
+                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -117,9 +99,7 @@ class PublicProfile extends StatelessWidget {
                           children: [
                             Text(ownedBooksLength,
                                 style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400)),
+                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Owned Books')
                           ],
                         ),
@@ -127,9 +107,7 @@ class PublicProfile extends StatelessWidget {
                           children: [
                             Text(lentBooksLength,
                                 style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400)),
+                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Lent Books')
                           ],
                         ),
@@ -137,9 +115,7 @@ class PublicProfile extends StatelessWidget {
                           children: [
                             Text(borrowedBooksLength,
                                 style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400)),
+                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Borrowed Books')
                           ],
                         )
@@ -200,8 +176,7 @@ class CupertinoStyleButton extends StatelessWidget {
         onPressed: onpress,
         child: Text(
           text,
-          style: GoogleFonts.poppins(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
     );

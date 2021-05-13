@@ -17,19 +17,15 @@ class BookList extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: EdgeInsets.fromLTRB(15, 15, 0, 0),
-          child: Text(title,
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600)),
+          child:
+              Text(title, style: GoogleFonts.poppins(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600)),
         ),
         Container(
           height: 320,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: bookList.length,
-            itemBuilder: (context, index) => ChangeNotifierProvider.value(
-                value: bookList[index], child: BookCard()),
+            itemBuilder: (context, index) => ChangeNotifierProvider.value(value: bookList[index], child: BookCard()),
           ),
         ),
       ],

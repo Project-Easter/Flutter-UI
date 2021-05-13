@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:books_app/util/size_config.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Models/book.dart';
 import 'Chat/wrapper.dart';
@@ -30,8 +30,7 @@ class _HomeState extends State<Home> {
     LibraryPage(),
     PrivateProfile(),
   ];
-  TextStyle name = GoogleFonts.muli(
-      color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
+  TextStyle name = GoogleFonts.muli(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   void _selectedTab(int index) {
     setState(() {
       _selectedIndex = index;
@@ -52,8 +51,7 @@ class _HomeState extends State<Home> {
           catchError: (_, e) => null,
         ),
         //TODO:SETUP STREAM PROVIDER For DatabaseService
-        StreamProvider<List<Book>>.value(
-            value: DatabaseService(uid: uID).booksData),
+        StreamProvider<List<Book>>.value(value: DatabaseService(uid: uID).booksData),
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -97,12 +95,9 @@ class _HomeState extends State<Home> {
                 title: 'Home',
               ),
               FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              FloatingNavbarItem(
-                  icon: Icons.chat_bubble_rounded, title: 'Chats'),
-              FloatingNavbarItem(
-                  icon: Icons.favorite_rounded, title: 'Library'),
-              FloatingNavbarItem(
-                  icon: Icons.account_circle_rounded, title: 'Profile'),
+              FloatingNavbarItem(icon: Icons.chat_bubble_rounded, title: 'Chats'),
+              FloatingNavbarItem(icon: Icons.favorite_rounded, title: 'Library'),
+              FloatingNavbarItem(icon: Icons.account_circle_rounded, title: 'Profile'),
             ],
           )),
     );

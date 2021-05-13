@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget button(
-    BuildContext context, Color buttonColor, String name, String pageRoute) {
+Widget button(BuildContext context, Color buttonColor, String name, String pageRoute) {
   return Padding(
     padding: const EdgeInsets.all(5.0),
     child: AspectRatio(
@@ -12,14 +11,12 @@ Widget button(
           color: buttonColor,
           child: new Text(
             name,
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
           ),
           onPressed: () async {
             Navigator.pushNamed(context, pageRoute);
           },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
       ),
     ),
@@ -44,14 +41,10 @@ class CupertinoStyleButton extends StatelessWidget {
             color: color,
             child: new Text(
               name,
-              style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16),
+              style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
             ),
             onPressed: myFunction,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           ),
         ),
       ),

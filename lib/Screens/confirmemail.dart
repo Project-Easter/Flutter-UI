@@ -20,8 +20,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
         backgroundColor: Colors.white10,
         leading: TextButton(
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()));
           },
           child: Image.asset(
             "images/icon.PNG",
@@ -76,10 +75,8 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
             },
             decoration: InputDecoration(
                 hintText: 'Enter your confirmation code',
-                focusedBorder:
-                    Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder:
-                    Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _confirmemail.text = value;
             },
@@ -106,8 +103,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
           style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()));
         },
       ),
     );
@@ -133,21 +129,15 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                   ..onTap = () {
                     // code to open / launch terms of service link here
                   }),
-            TextSpan(
-                text: ' and ',
-                style: TextStyle(fontSize: 13, color: Colors.black),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                          decoration: TextDecoration.underline),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // code to open / launch privacy policy link here
-                        })
-                ])
+            TextSpan(text: ' and ', style: TextStyle(fontSize: 13, color: Colors.black), children: <TextSpan>[
+              TextSpan(
+                  text: 'Privacy Policy',
+                  style: TextStyle(fontSize: 13, color: Colors.black, decoration: TextDecoration.underline),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // code to open / launch privacy policy link here
+                    })
+            ])
           ]))),
     );
   }

@@ -21,8 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.white10,
         leading: MaterialButton(
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoginScreen()));
             },
             child: Image.asset(
               "images/icon.PNG",
@@ -76,10 +75,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 hintText: 'Email',
-                focusedBorder:
-                    Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder:
-                    Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _userEmail.text = value;
             },
@@ -98,10 +95,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             },
             decoration: InputDecoration(
                 hintText: 'Password',
-                focusedBorder:
-                    Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder:
-                    Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _passWord.text = value;
             },
@@ -125,8 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()));
         },
         shape: Theme.of(context).buttonTheme.shape,
       ),

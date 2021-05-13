@@ -17,8 +17,7 @@ class Quotes extends StatelessWidget {
             softWrap: true,
             maxLines: 3,
             overflow: TextOverflow.visible,
-            style: GoogleFonts.lato(
-                color: blackButton, fontSize: 23, fontStyle: FontStyle.italic),
+            style: GoogleFonts.lato(color: blackButton, fontSize: 23, fontStyle: FontStyle.italic),
           ),
           SizedBox(
             height: 15,

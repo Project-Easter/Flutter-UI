@@ -17,10 +17,7 @@ MyAppBar(BuildContext buildContext) {
               },
               child: Text(
                 'CANCEL',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
               ),
             ),
             TextButton(
@@ -29,10 +26,7 @@ MyAppBar(BuildContext buildContext) {
               },
               child: Text(
                 'Ok',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
               ),
             ),
           ],

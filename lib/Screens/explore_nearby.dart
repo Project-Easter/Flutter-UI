@@ -37,10 +37,7 @@ class _ExploreNearbyState extends State<ExploreNearby> {
                     // ),
                     Text(
                       'Explore Nearby',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 26,
-                          fontWeight: FontWeight.w400),
+                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 26, fontWeight: FontWeight.w400),
                     ),
                     SizedBox(
                       height: getProportionateScreenHeight(25),

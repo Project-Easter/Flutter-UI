@@ -1,22 +1,16 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:books_app/Models/user.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Services/databaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import '../Models/books.dart';
 import '../Constants/genres.dart';
 
-//Global Variables
 String uID = AuthService().getUID;
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
-//Listening to Stream of UserData from Home Screen
-
 double sliderValue = 10.0;
 
-//------------Stack Overflow COde ----------------
 class MultiSelectDialogItem<V> {
   const MultiSelectDialogItem(this.value, this.label);
   final V value;
@@ -24,8 +18,7 @@ class MultiSelectDialogItem<V> {
 }
 
 class MultiSelectDialog<V> extends StatefulWidget {
-  MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
-      : super(key: key);
+  MultiSelectDialog({Key key, this.items, this.initialSelectedValues}) : super(key: key);
 
   final List<MultiSelectDialogItem<V>> items;
   final Set<V> initialSelectedValues;
@@ -211,8 +204,7 @@ class _UserPreferenceState extends State<UserPreference> {
         j = 1;
         return MultiSelectDialog(
           items: genres.map<MultiSelectDialogItem<String>>((String val) {
-            return MultiSelectDialogItem<String>(
-                (i++).toString(), val.toString());
+            return MultiSelectDialogItem<String>((i++).toString(), val.toString());
           }).toList(),
           initialSelectedValues: [1, j].toSet(),
         );
@@ -241,8 +233,7 @@ class _UserPreferenceState extends State<UserPreference> {
             style: GoogleFonts.muli(),
           ),
         ),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
         content: Container(
           height: 300,
           width: 250,
@@ -283,9 +274,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   controller: _author,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                      hintText: 'Favourite Author',
-                      hintStyle: GoogleFonts.muli()),
+                  decoration: InputDecoration(hintText: 'Favourite Author', hintStyle: GoogleFonts.muli()),
                   onSaved: (val) {
                     _author.text = val;
                   },
@@ -304,8 +293,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   height: 40,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
                       primary: Colors.blue,
                     ),
                     onPressed: () {
@@ -313,10 +301,7 @@ class _UserPreferenceState extends State<UserPreference> {
                     },
                     child: Text(
                       'Select Book Genres',
-                      style: GoogleFonts.muli(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
+                      style: GoogleFonts.muli(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -336,8 +321,8 @@ class _UserPreferenceState extends State<UserPreference> {
                 // print(sliderValue.round());
                 ///
                 //Save Values to DB
-                await _databaseService.updatePreferences(_book.text,
-                    _author.text, sliderValue.round().toString() ?? "");
+                await _databaseService.updatePreferences(
+                    _book.text, _author.text, sliderValue.round().toString() ?? "");
                 //API Call To get prefered Book
                 //TODO:Make a future builder in Dashboard and Update UI
                 // try {

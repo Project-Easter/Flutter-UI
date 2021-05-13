@@ -15,8 +15,7 @@ class _BookRequestState extends State<BookRequest> {
         child: Center(
           child: Text(
             "No Book Requests.",
-            style: GoogleFonts.poppins(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
+            style: GoogleFonts.poppins(fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500),
           ),
         ),
       ),

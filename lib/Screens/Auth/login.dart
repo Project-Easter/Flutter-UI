@@ -1,6 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,10 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
                 'Login',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 36),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
             buildLayouts(),
@@ -82,12 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
@@ -122,12 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
@@ -153,8 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 print(_passWord.text);
                 //Sign in with email and password and direct to home page.
                 try {
-                  dynamic res = await _authService.signInWithEmailAndPassword(
-                      _userEmail.text, _passWord.text);
+                  dynamic res = await _authService.signInWithEmailAndPassword(_userEmail.text, _passWord.text);
                   if (res != null) {
                     Navigator.pushNamed(context, home);
                   }
@@ -204,10 +196,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Text(
                 'Register',
-                style: GoogleFonts.muli(
-                    color: Color.fromRGBO(224, 39, 20, 1),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+                style:
+                    GoogleFonts.muli(color: Color.fromRGBO(224, 39, 20, 1), fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ],
           ),

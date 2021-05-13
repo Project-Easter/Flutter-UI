@@ -36,10 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
                 "Username",
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 36),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
             buildLayouts(),
@@ -78,12 +75,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               hintStyle: GoogleFonts.poppins(
                 fontSize: 14,
               ),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2),
-                  borderRadius: BorderRadius.circular(12)),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2),
-                  borderRadius: BorderRadius.circular(12)),
+              focusedBorder:
+                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+              enabledBorder:
+                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
               contentPadding: EdgeInsets.all(10),
             ),
             onSaved: (value) {
@@ -115,21 +110,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ..onTap = () {
                     // code to open / launch terms of service link here
                   }),
-            TextSpan(
-                text: ' and ',
-                style: TextStyle(fontSize: 13, color: Colors.black),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                          decoration: TextDecoration.underline),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // code to open / launch privacy policy link here
-                        })
-                ])
+            TextSpan(text: ' and ', style: TextStyle(fontSize: 13, color: Colors.black), children: <TextSpan>[
+              TextSpan(
+                  text: 'Privacy Policy',
+                  style: TextStyle(fontSize: 13, color: Colors.black, decoration: TextDecoration.underline),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // code to open / launch privacy policy link here
+                    })
+            ])
           ]))),
     );
   }
