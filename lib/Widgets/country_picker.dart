@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CountryPicker extends StatefulWidget {
-  CountryPicker(
-      {@required this.callBackFunction,
-      this.headerText,
-      this.headerBackgroundColor,
-      this.headerTextColor});
+  CountryPicker({@required this.callBackFunction, this.headerText, this.headerBackgroundColor, this.headerTextColor});
 
   final Function callBackFunction;
   final String headerText;
@@ -30,14 +26,12 @@ class _CountryPickerState extends State<CountryPicker> {
   void didChangeDependencies() async {
     if (widget.isInit) {
       widget.isInit = false;
-      final data = await DefaultAssetBundle.of(context)
-          .loadString('assets/countrycodes.json');
+      final data = await DefaultAssetBundle.of(context).loadString('assets/countrycodes.json');
       setState(() {
         countryList = parseJson(data);
         selectedCountryData = countryList[0];
       });
-      widget.callBackFunction(selectedCountryData.name,
-          selectedCountryData.dialCode, selectedCountryData.flag);
+      widget.callBackFunction(selectedCountryData.name, selectedCountryData.dialCode, selectedCountryData.flag);
     }
     super.didChangeDependencies();
   }
@@ -47,12 +41,9 @@ class _CountryPickerState extends State<CountryPicker> {
     if (response == null) {
       return [];
     }
-    final parsed =
-        json.decode(response.toString()).cast<Map<String, dynamic>>();
-    return parsed
-        .map<CountryModel>(
-            (json) => CountryModel.fromJson(json as Map<String, dynamic>))
-        .toList() as List<CountryModel>;
+    final parsed = json.decode(response.toString()).cast<Map<String, dynamic>>();
+    return parsed.map<CountryModel>((json) => CountryModel.fromJson(json as Map<String, dynamic>)).toList()
+        as List<CountryModel>;
   }
 
   //build method for UI render
@@ -143,8 +134,7 @@ class _CustomDialogState extends State<CustomDialog> {
             height: 52,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-                color: widget.headerBackgroundColor ??
-                    Theme.of(context).primaryColor,
+                color: widget.headerBackgroundColor ?? Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(16.0),
                   topRight: Radius.circular(16.0),
@@ -156,9 +146,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   alignment: Alignment.center,
                   child: Text(
                     widget.headerText ?? 'Select Country',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: widget.headerTextColor ?? Colors.white),
+                    style: TextStyle(fontSize: 18, color: widget.headerTextColor ?? Colors.white),
                   ),
                 ),
                 Align(
@@ -189,8 +177,7 @@ class _CustomDialogState extends State<CustomDialog> {
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
                   prefixIcon: Icon(
                     Icons.search,
                     size: 18.0,
@@ -209,12 +196,10 @@ class _CustomDialogState extends State<CustomDialog> {
                     (item) => GestureDetector(
                       onTap: () {
                         Navigator.pop(context, item);
-                        widget.callBackFunction(
-                            item.name, item.dialCode, item.flag);
+                        widget.callBackFunction(item.name, item.dialCode, item.flag);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: Row(
                           // ignore: prefer_const_literals_to_create_immutables
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,8 +247,7 @@ class _CustomDialogState extends State<CustomDialog> {
       // ignore: avoid_function_literals_in_foreach_calls
       widget.searchList.forEach((userDetail) {
         // ignore: always_put_control_body_on_new_line
-        if (userDetail.name.toLowerCase().contains(text.toLowerCase()))
-          tmpList.add(userDetail);
+        if (userDetail.name.toLowerCase().contains(text.toLowerCase())) tmpList.add(userDetail);
       });
     }
     setState(() {});
@@ -292,19 +276,12 @@ class _CustomDialogState extends State<CustomDialog> {
 
 //country model
 class CountryModel {
-  const CountryModel(
-      {@required this.name,
-      @required this.dialCode,
-      @required this.code,
-      @required this.flag});
+  const CountryModel({@required this.name, @required this.dialCode, @required this.code, @required this.flag});
 
   factory CountryModel.fromJson(Map<String, dynamic> json) {
     final flag = CountryModel.getEmojiFlag(json['code'] as String);
     return CountryModel(
-        name: json['name'] as String,
-        dialCode: json['dial_code'] as String,
-        code: json['code'] as String,
-        flag: flag);
+        name: json['name'] as String, dialCode: json['dial_code'] as String, code: json['code'] as String, flag: flag);
   }
 
   final String name, dialCode, code, flag;

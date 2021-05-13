@@ -77,8 +77,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Time Machine',
       author: 'H.G. Wells',
-      imageUrl:
-          'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
+      imageUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
       rating: 4,
     ),
   ];
@@ -117,8 +116,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Time Machine',
       author: 'H.G. Wells',
-      imageUrl:
-          'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
+      imageUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
       rating: 4,
     ),
   ];
@@ -295,8 +293,7 @@ class Books with ChangeNotifier {
     Book(
       title: 'Time Machine',
       author: 'H.G. Wells',
-      imageUrl:
-          'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
+      imageUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
       rating: 4,
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -337,8 +334,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Time Machine',
       author: 'H.G. Wells',
-      imageUrl:
-          'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
+      imageUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327942880l/2493.jpg',
       rating: 4,
     ),
   ];
@@ -514,8 +510,7 @@ class Books with ChangeNotifier {
       http.Response response = await http.get(url + title);
       var resultJson = jsonDecode(response.body);
       if (resultJson != null) {
-        String isbn = resultJson['items'][0]['volumeInfo']
-            ['industryIdentifiers'][1]['identifier'];
+        String isbn = resultJson['items'][0]['volumeInfo']['industryIdentifiers'][1]['identifier'];
         return isbn;
       }
       return null;
@@ -527,8 +522,7 @@ class Books with ChangeNotifier {
   //2.0->Get RecommendedBooks From ISBN
   Future<dynamic> getRecommendedBooks(String title) async {
     //For now we are not using title
-    String recommendedURL =
-        "https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859";
+    String recommendedURL = "https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859";
     try {
       //Get from recommended
       http.Response response = await http.get(recommendedURL);
@@ -541,8 +535,7 @@ class Books with ChangeNotifier {
         for (int i = 0; i < length; i++) {
           // print("Inside for loop: ${i}");
           // print(booksISBNList[i].toString());
-          var responseFromISBN =
-              await getBooksbyISBN(booksISBNList[i].toString());
+          var responseFromISBN = await getBooksbyISBN(booksISBNList[i].toString());
           // var data = responseFromISBN;
           // print("Got response back");
           // print(data);
@@ -571,10 +564,8 @@ class Books with ChangeNotifier {
       String title = result['items'][0]['volumeInfo']['title'];
       String author = result['items'][0]['volumeInfo']['authors'][0];
       String description = result['items'][0]['volumeInfo']['description'];
-      String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][0]
-          ['identifier'];
-      String imageLink =
-          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+      String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][0]['identifier'];
+      String imageLink = result['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
       imageLink = imageLink.replaceFirst("http", "https", 0);
       print(imageLink.length);
       if (imageLink.isEmpty) {

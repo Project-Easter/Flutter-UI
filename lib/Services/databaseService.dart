@@ -1,37 +1,23 @@
-import 'package:books_app/screens/UserPreferences.dart';
+import 'package:books_app/Screens/UserPreferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../Models/message.dart';
 import '../Models/user.dart';
 import '../Models/book.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:books_app/Models/message.dart';
 
-//**Note this Database is for TEST.
-//**Need to migrate this App to REST
-//Using cloud Firestore for this Test
 class DatabaseService {
-  //Get uid from Register/signin
-
   final String uid;
   DatabaseService({this.uid});
-  //collection references here
 
-  //Users collection
-  final CollectionReference userDataCollection =
-      FirebaseFirestore.instance.collection('users');
-  //Books collection
-  final CollectionReference booksCollection =
-      FirebaseFirestore.instance.collection('books');
+  final CollectionReference userDataCollection = FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference chatCollection =
-      FirebaseFirestore.instance.collection('chat');
+  final CollectionReference booksCollection = FirebaseFirestore.instance.collection('books');
+
+  final CollectionReference chatCollection = FirebaseFirestore.instance.collection('chat');
 
   //TODO:Add USERDATA and BOOKS Stream
 
-//TODO:
-  //First Time Users-Add user Data on signup
   Future updateUserData(UserData userData) async {
     return await userDataCollection.doc(uid).set(
       {
@@ -92,8 +78,7 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updateUser(
-      String name, String city, String state, String photoURL) async {
+  Future updateUser(String name, String city, String state, String photoURL) async {
     return await userDataCollection.doc(uid).set({
       "city": city,
       "state": state,
@@ -110,14 +95,9 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updatePreferences(
-      String favAuthor, String favBook, String locationRange) async {
+  Future updatePreferences(String favAuthor, String favBook, String locationRange) async {
     return await userDataCollection.doc(uid).set({
-      "preferences": {
-        "favAuthor": favAuthor,
-        "favBook": favBook,
-        "locationRange": locationRange
-      }
+      "preferences": {"favAuthor": favAuthor, "favBook": favBook, "locationRange": locationRange}
     }, SetOptions(merge: true));
   }
 
@@ -157,11 +137,7 @@ class DatabaseService {
   //TODO:Get 10 and 13 digit.
   Future addBook(Book book) async {
     //GET BOOK FROM API or an existing List
-    return await booksCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .doc(book.isbn)
-        .set({
+    return await booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn).set({
       "rating": book.rating,
       "isbn": book.isbn,
       "isBookMarked": book.isBookMarked,
@@ -195,11 +171,7 @@ class DatabaseService {
 
   //Read from firestore
   Stream<List<Book>> get booksData {
-    return booksCollection
-        .doc(uid)
-        .collection("ownedBooks")
-        .snapshots()
-        .map((_bookFromQuerySnapShot));
+    return booksCollection.doc(uid).collection("ownedBooks").snapshots().map((_bookFromQuerySnapShot));
   }
 
   //*********Updates***************//
@@ -213,8 +185,7 @@ class DatabaseService {
   //2.0->Update BookMark toggle bookmark
   updateBookMark(Book book) {
     //Get
-    var docReference =
-        booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
+    var docReference = booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
     docReference
         .get()
         .then((doc) => {
@@ -230,17 +201,10 @@ class DatabaseService {
         .catchError((e) => print(e.toString()));
   }
 
-  //Delete book
   removeBook(String isbn) {
-    booksCollection
-        .doc(uid)
-        .collection("ownedBooks")
-        .doc(isbn)
-        .delete()
-        .catchError((e) => print(e.toString()));
+    booksCollection.doc(uid).collection("ownedBooks").doc(isbn).delete().catchError((e) => print(e.toString()));
   }
 
-  //Chat and List all Users
 //TODO:Get All users from firebase to a List and display on chat screen
 //   Stream<QuerySnapshot> get getAllUsers {}
 
@@ -256,8 +220,7 @@ class DatabaseService {
 //       LatLng(userLatitude, userLongitude),
 //     );
 //   }
-  double distanceInMeters =
-      Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
+  double distanceInMeters = Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
 
   // Stream<List<Book>> get booksData {
   //   return booksCollection

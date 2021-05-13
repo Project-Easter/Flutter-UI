@@ -1,22 +1,22 @@
 import 'package:books_app/Screens/bookshelf.dart';
-import 'package:books_app/screens/Chat/message_screen.dart';
+import 'package:books_app/Screens/Chat/message_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Screens/Auth/login.dart';
 import 'package:books_app/Screens/add_book.dart';
 import 'package:books_app/Screens/home.dart';
 import 'package:books_app/Screens/initial_screen.dart';
 import 'package:books_app/Services/UserLocation.dart';
-import 'package:books_app/screens/chat_screen.dart';
-import 'package:books_app/screens/settings_screens.dart';
+import 'package:books_app/Screens/chat_screen.dart';
+import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/confirmOTP.dart';
-import 'package:books_app/Screens/Auth/register.dart';
+import 'package:books_app/Screens/Auth/Register.dart';
 import 'package:books_app/Screens/Auth/signup.dart';
 import 'package:books_app/Screens/Auth/confirmemail.dart';
-import '../screens/dashboard/Dashboard.dart';
+import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
-import '../screens/edit_profile.dart';
+import 'package:books_app/Screens/edit_profile.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,8 +28,7 @@ class RouteGenerator {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case confirmOTP:
-        return MaterialPageRoute(
-            builder: (_) => ConfirmScreen(settings.arguments));
+        return MaterialPageRoute(builder: (_) => ConfirmScreen(settings.arguments));
       case registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
       case userName:

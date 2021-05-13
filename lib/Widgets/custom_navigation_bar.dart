@@ -102,8 +102,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
                   color: Colors.black26,
                 )
               ],
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               color: widget.backgroundColor,
             ),
             width: widget.width,
@@ -147,17 +146,13 @@ ItemBuilder _defaultItemBuilder({
             AnimatedContainer(
               duration: Duration(milliseconds: 300),
               decoration: BoxDecoration(
-                  color: currentIndex == items.indexOf(item)
-                      ? selectedBackgroundColor
-                      : backgroundColor,
+                  color: currentIndex == items.indexOf(item) ? selectedBackgroundColor : backgroundColor,
                   borderRadius: BorderRadius.circular(itemBorderRadius)),
               child: InkWell(
                 onTap: () {
                   onTap(items.indexOf(item));
                 },
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                 child: Container(
                   height: 54,
                   width: 54,
@@ -169,17 +164,13 @@ ItemBuilder _defaultItemBuilder({
                     children: <Widget>[
                       Icon(
                         item.icon,
-                        color: currentIndex == items.indexOf(item)
-                            ? selectedItemColor
-                            : unselectedItemColor,
+                        color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
                         size: iconSize,
                       ),
                       Text(
                         '${item.title}',
                         style: TextStyle(
-                          color: currentIndex == items.indexOf(item)
-                              ? selectedItemColor
-                              : unselectedItemColor,
+                          color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
                           fontSize: fontSize,
                         ),
                       )

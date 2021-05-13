@@ -1,18 +1,14 @@
-import 'package:books_app/Models/user.dart';
 import 'package:books_app/Services/databaseService.dart';
 import 'package:books_app/util/config_helper.dart';
 import 'package:books_app/util/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:provider/provider.dart';
-import '../Services/auth.dart';
+import 'package:books_app/Services/Auth.dart';
 
 class GetLocation extends StatelessWidget {
-  var lat, long;
+  double lat;
+  double long;
 
-  ///Shows-Map.
-  //Mapbox also gives users current location.
-  //Update Users location
   final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -21,8 +17,7 @@ class GetLocation extends StatelessWidget {
     return Scaffold(
       body: FutureBuilder(
         future: loadConfig(),
-        builder: (BuildContext buildContext,
-            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        builder: (BuildContext buildContext, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (snapshot.hasData) {
             return MapboxMap(
               accessToken: snapshot.data['mapbox_api_token'],
