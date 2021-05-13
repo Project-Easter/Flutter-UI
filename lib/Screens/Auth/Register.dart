@@ -1,6 +1,7 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Widgets/button.dart';
+import 'package:books_app/util/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,10 +12,9 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final AuthService _authService = AuthService();
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _userEmail = TextEditingController();
-  final TextEditingController _passWord = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             buildLayouts(),
-            // button(context, blackButton, 'Register', confirmEmail),
-            //These buttons don't get the values of the form. Moved this button inside form
-            // CupertinoStyleButton(name: 'Register',color: blackButton,
-            // myfunction: () async {
-            //   Navigator.pushNamed(context, confirmEmail);
-            // },
-            // ),
           ],
         ),
       ),
@@ -71,12 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
                 enableSuggestions: false,
-                validator: (value) {
-                  if (value.isEmpty || !value.contains('@')) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
+                validator: Validator.email,
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
@@ -94,12 +82,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 onSaved: (value) {
                   setState(() {
-                    _userEmail.text = value;
+                    _email.text = value;
                   });
                 },
-                onChanged: (v) {
-                  _userEmail.text = v;
-                  print(_userEmail.text);
+                onChanged: (value) {
+                  _email.text = value;
                 },
               ),
             ),
@@ -112,12 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: TextFormField(
                   key: ValueKey('password'),
                   obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty || value.length < 6) {
-                      return 'Password too short must be at least 6 characters long';
-                    }
-                    return null;
-                  },
+                  validator: Validator.password,
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                     hintText: 'Password',
@@ -134,12 +116,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   onSaved: (value) {
                     setState(() {
-                      _passWord.text = value;
+                      _password.text = value;
                     });
                   },
-                  onChanged: (v) {
-                    _passWord.text = v;
-                    print(_passWord.text);
+                  onChanged: (value) {
+                    _password.text = value;
                   },
                 ),
               ),
@@ -149,15 +130,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             name: 'Register',
             color: blackButton,
             myFunction: () async {
-              print(_userEmail.text);
-              print(_passWord.text);
-              if (_formKey.currentState.validate()) {
-                //Note for Now skipped confirm OTP and username from user.
-                //Register with email and password and direct him to login page.
-                print(_userEmail.text);
-                print(_passWord.text);
-                await _authService.registerWithEmailAndPassword(
-                    _userEmail.text, _passWord.text);
+              var isFormValid = _formKey.currentState.validate();
+
+              if (isFormValid) {
+                await _authService.registerWithEmailAndPassword(_email.text, _password.text);
               }
             },
           ),

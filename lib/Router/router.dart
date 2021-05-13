@@ -10,13 +10,13 @@ import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/confirmOTP.dart';
-import 'package:books_app/Screens/Auth/register.dart';
+import 'package:books_app/Screens/Auth/Register.dart';
 import 'package:books_app/Screens/Auth/signup.dart';
 import 'package:books_app/Screens/Auth/confirmemail.dart';
-import '../Screens/dashboard/Dashboard.dart';
+import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
-import '../Screens/edit_profile.dart';
+import 'package:books_app/Screens/edit_profile.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
