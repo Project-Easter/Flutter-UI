@@ -16,6 +16,6 @@ const String home = '/home';
 const String addBook = '/addBook';
 const String location = '/location';
 const String chatscreen = '/chat_screen';
-const String setscreen = '/settings_screens';
+const String setscreen = '/settings_Screens';
 const String editProfile = '/edit_profile';
 const String messageScreen = '/message_screen';

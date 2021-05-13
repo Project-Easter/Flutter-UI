@@ -1,21 +1,17 @@
-import 'package:books_app/screens/Chat/message_bubble.dart';
+import 'package:books_app/Screens/Chat/message_bubble.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
 import 'package:books_app/Models/user.dart';
-import '../../Models/message.dart';
-import '../../Services/databaseService.dart';
-import '../../util/size_config.dart';
+import 'package:books_app/Models/message.dart';
+import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/util/size_config.dart';
 
 class MessageScreen extends StatelessWidget {
   final UserData receiver;
   MessageScreen({this.receiver});
   @override
   Widget build(BuildContext context) {
-    var now = new DateTime.now();
-    var formatter = new DateFormat.Hm();
-    String formattedDate = formatter.format(now);
     final messageTextController = TextEditingController();
     String messageText;
     final user = FirebaseAuth.instance.currentUser;
@@ -107,20 +103,13 @@ class MessageStream extends StatelessWidget {
             child: Text("Something went wrong."),
           );
         }
-        // final messages = snapshot.data.docs;
+
         final messages = snapshot.data.docs.reversed;
-        // print(messages);
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
           final dateTime = message.data()['createdAt'].toDate();
           final messageText = message.data()['message'];
-          final messageReceiver = message.data()['receiver'];
           final messageSender = message.data()['sender'];
-          // print('DateTime:${dateTime}');
-          // print('messageText:${messageText}');
-          // print('Reciever:${receiver}');
-          // print('Sender:${sender}');
-
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,

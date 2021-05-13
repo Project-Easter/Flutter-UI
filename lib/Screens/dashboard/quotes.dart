@@ -5,7 +5,7 @@ import '../../Constants/Colors.dart';
 
 class Quotes extends StatelessWidget {
   Quotes({Key key}) : super(key: key);
-  Quote quote = Quote().getQuote();
+  final Quote quote = Quote().getQuote();
   @override
   Widget build(BuildContext context) {
     return Center(

@@ -4,10 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:books_app/Widgets/horizontal_list.dart';
 import 'package:provider/provider.dart';
 import 'package:books_app/Models/books.dart';
-import 'package:geolocator/geolocator.dart';
-import '../Services/auth.dart';
-import '../Services/databaseService.dart';
-import '../Models/user.dart';
+import 'package:books_app/Models/user.dart';
 
 class ExploreNearby extends StatefulWidget {
   @override
@@ -15,23 +12,13 @@ class ExploreNearby extends StatefulWidget {
 }
 
 class _ExploreNearbyState extends State<ExploreNearby> {
-  final AuthService _authService = AuthService();
-
   @override
   Widget build(BuildContext context) {
-    final uID = _authService.getUID;
-    final DatabaseService databaseService = DatabaseService(uid: uID);
-    //This is dummy data and is used just for demonstration
-    //Will change with other users data and geolocation
     final within3km = Provider.of<Books>(context).within3km;
     final within5km = Provider.of<Books>(context).within5km;
     final within10km = Provider.of<Books>(context).within10km;
     final within20km = Provider.of<Books>(context).within20km;
     final userData = Provider.of<UserData>(context);
-    // print(userData);
-    // print(userData.latitude);
-    // if (userData.latitude ==  || userData.longitude == "") {}
-    //Display all nearby users.
     return Scaffold(
       body: userData.latitude == 0.0 || userData.longitude == 0.0
           ? Center(

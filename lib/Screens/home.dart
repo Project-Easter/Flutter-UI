@@ -1,21 +1,19 @@
 import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Screens/Chat/new_message.dart';
-import '../screens/dashboard/Dashboard.dart';
+import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
 import 'package:books_app/Services/databaseService.dart';
 import 'package:books_app/Widgets/appBar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
-import '../util/size_config.dart';
-import '../Services/auth.dart';
-import '../Models/user.dart';
-import '../Models/book.dart';
+import 'package:books_app/util/size_config.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Models/user.dart';
+import 'package:books_app/Models/book.dart';
 import 'Chat/wrapper.dart';
 
 class Home extends StatefulWidget {
@@ -25,10 +23,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-  List<Widget> _screens = [
+  final List<Widget> _Screens = [
     DashboardPage(),
     ExploreNearby(),
-    // NewMessage(),
     Wrapper(),
     LibraryPage(),
     PrivateProfile(),
@@ -46,10 +43,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     //Setup Size Config-starting of app
     SizeConfig().init(context);
-    //Get current User
     final uID = _authService.getUID;
     print(uID);
-    //Listen to Stream from Firebase
     return MultiProvider(
       providers: [
         StreamProvider<UserData>.value(
@@ -62,7 +57,7 @@ class _HomeState extends State<Home> {
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
-          body: _screens[_selectedIndex],
+          body: _Screens[_selectedIndex],
           floatingActionButton: Container(
             child: _selectedIndex == 3 || _selectedIndex == 1
                 ? Row(
@@ -116,7 +111,7 @@ class _HomeState extends State<Home> {
     //   value: DatabaseService(uid: uID).userData,
     //   child: Scaffold(
     //       appBar: MyAppBar(context),
-    //       body: _screens[_selectedIndex],
+    //       body: _Screens[_selectedIndex],
     //       floatingActionButton: Container(
     //         child: Row(
     //           mainAxisAlignment: MainAxisAlignment.end,

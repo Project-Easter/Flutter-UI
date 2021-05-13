@@ -5,13 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../Models/books.dart';
-import '../Models/book.dart';
-import '../Services/auth.dart';
-import '../Services/databaseService.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../Models/book.dart';
+import 'package:books_app/Models/books.dart';
+import 'package:books_app/Models/book.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/databaseService.dart';
 
 class AddBook extends StatefulWidget {
   @override
@@ -19,7 +16,6 @@ class AddBook extends StatefulWidget {
 }
 
 class _AddBookState extends State<AddBook> {
-  //
   final AuthService _authService = AuthService();
   final _bookKey = GlobalKey<FormState>();
   final TextEditingController _bookName = TextEditingController();
@@ -28,8 +24,6 @@ class _AddBookState extends State<AddBook> {
 
   Widget build(BuildContext context) {
     final uid = _authService.getUID;
-    print('Add books');
-    //DB
     final DatabaseService _databaseService = DatabaseService(uid: uid);
     final bookList = Provider.of<Books>(context, listen: false);
     return Scaffold(
@@ -46,7 +40,6 @@ class _AddBookState extends State<AddBook> {
                   fontSize: 30),
             ),
           ),
-          // bookDetails(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
@@ -132,12 +125,9 @@ class _AddBookState extends State<AddBook> {
                       color: blackButton,
                       myFunction: () async {
                         if (_bookKey.currentState.validate()) {
-                          print(_isbnCode.text);
-                          //Get book from Google API
                           dynamic result =
                               await bookList.getBooksbyISBN(_isbnCode.text);
                           if (result != null) {
-                            //Make Book
                             Book book = makeBook(result);
                             await _databaseService.addBook(book);
                             Navigator.pop(context);
@@ -276,8 +266,6 @@ class _AddBookState extends State<AddBook> {
       print('Author:' + author);
       print('ImageLink:' + imageLink);
       print('Description' + description);
-      //add ISBN
-      //Converted to a book object
       book = Book(
         isbn: isbn,
         title: title,

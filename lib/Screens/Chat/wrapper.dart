@@ -1,11 +1,6 @@
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/databaseService.dart';
-import 'package:books_app/screens/Chat/chat_room/chat_room.dart';
-import 'package:books_app/screens/book_request.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:books_app/Screens/Chat/chat_room/chat_room.dart';
+import 'package:books_app/Screens/book_request.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({Key key}) : super(key: key);
@@ -13,7 +8,6 @@ class Wrapper extends StatefulWidget {
   _WrapperState createState() => _WrapperState();
 }
 
-///USERS chat will go here.
 class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {

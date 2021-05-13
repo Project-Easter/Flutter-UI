@@ -1,17 +1,17 @@
-import 'package:books_app/screens/confirmemail.dart';
-import 'package:books_app/screens/register.dart';
+import 'package:books_app/Screens/confirm.dart';
+import 'package:books_app/Screens/register.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class ConfirmScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _ConfirmScreenState createState() => _ConfirmScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _ConfirmScreenState extends State<ConfirmScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _confirm = TextEditingController();
+  final TextEditingController _userName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Confirm",
+                "Username",
                 style: Theme.of(context).textTheme.headline4,
               ),
             ),
@@ -64,24 +64,24 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
       child: Column(
         children: [
           TextFormField(
-            key: ValueKey('confirm'),
+            key: ValueKey('username'),
             autocorrect: false,
             textCapitalization: TextCapitalization.none,
             enableSuggestions: false,
             validator: (value) {
               if (value.isEmpty) {
-                return 'Please enter with your confirmation code';
+                return 'Please enter your Username';
               }
               return null;
             },
             decoration: InputDecoration(
-                hintText: 'Enter your confirmation code',
+                hintText: 'Username',
                 focusedBorder:
                     Theme.of(context).inputDecorationTheme.focusedBorder,
                 enabledBorder:
                     Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
-              _confirm.text = value;
+              _userName.text = value;
             },
           ),
           SizedBox(
@@ -96,19 +96,17 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
     return Container(
       height: MediaQuery.of(context).size.height / 13.5,
       width: MediaQuery.of(context).size.width / 1.0,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          primary: Theme.of(context).buttonColor,
-          shape: Theme.of(context).buttonTheme.shape,
-        ),
+      child: MaterialButton(
+        color: Theme.of(context).buttonColor,
         child: new Text(
-          'Continue',
+          'Sign Up',
           style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => ConfirmEmailScreen()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ConfirmScreen()));
         },
+        shape: Theme.of(context).buttonTheme.shape,
       ),
     );
   }
@@ -118,37 +116,41 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       child: Center(
-          child: Text.rich(TextSpan(
-              text: 'By signing up, you agree to Books App ',
-              style: TextStyle(fontSize: 13, color: Colors.black),
-              children: <TextSpan>[
-            TextSpan(
-                text: 'Terms of Service',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.black,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // code to open / launch terms of service link here
-                  }),
-            TextSpan(
-                text: ' and ',
-                style: TextStyle(fontSize: 13, color: Colors.black),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                          decoration: TextDecoration.underline),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // code to open / launch privacy policy link here
-                        })
-                ])
-          ]))),
+        child: Text.rich(
+          TextSpan(
+            text: 'By signing up, you agree to Books App ',
+            style: TextStyle(fontSize: 13, color: Colors.black),
+            children: <TextSpan>[
+              TextSpan(
+                  text: 'Terms of Service',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.black,
+                    decoration: TextDecoration.underline,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      // code to open / launch terms of service link here
+                    }),
+              TextSpan(
+                  text: ' and ',
+                  style: TextStyle(fontSize: 13, color: Colors.black),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Privacy Policy',
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black,
+                            decoration: TextDecoration.underline),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // code to open / launch privacy policy link here
+                          })
+                  ])
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,27 +1,19 @@
-import 'package:books_app/screens/UserPreferences.dart';
+import 'package:books_app/Screens/UserPreferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../Models/message.dart';
 import '../Models/user.dart';
 import '../Models/book.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:books_app/Models/message.dart';
 
-//**Note this Database is for TEST.
-//**Need to migrate this App to REST
-//Using cloud Firestore for this Test
 class DatabaseService {
-  //Get uid from Register/signin
-
   final String uid;
   DatabaseService({this.uid});
-  //collection references here
 
-  //Users collection
+
   final CollectionReference userDataCollection =
       FirebaseFirestore.instance.collection('users');
-  //Books collection
+
   final CollectionReference booksCollection =
       FirebaseFirestore.instance.collection('books');
 
@@ -30,8 +22,6 @@ class DatabaseService {
 
   //TODO:Add USERDATA and BOOKS Stream
 
-//TODO:
-  //First Time Users-Add user Data on signup
   Future updateUserData(UserData userData) async {
     return await userDataCollection.doc(uid).set(
       {
@@ -230,7 +220,6 @@ class DatabaseService {
         .catchError((e) => print(e.toString()));
   }
 
-  //Delete book
   removeBook(String isbn) {
     booksCollection
         .doc(uid)
@@ -240,7 +229,6 @@ class DatabaseService {
         .catchError((e) => print(e.toString()));
   }
 
-  //Chat and List all Users
 //TODO:Get All users from firebase to a List and display on chat screen
 //   Stream<QuerySnapshot> get getAllUsers {}
 

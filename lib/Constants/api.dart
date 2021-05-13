@@ -1,1 +1,1 @@
-final String API_ROUTE = "https://explr-api.herokuapp.com/api/v1";
+const String API_ROUTE = "https://explr-api.herokuapp.com/api/v1";

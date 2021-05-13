@@ -1,12 +1,13 @@
-import 'package:books_app/screens/register.dart';
+import 'package:books_app/Screens/login.dart';
+import 'package:books_app/Screens/signup.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _userEmail = TextEditingController();
@@ -20,8 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white10,
         leading: MaterialButton(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => RegisterScreen()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => LoginScreen()));
             },
             child: Image.asset(
               "images/icon.PNG",
@@ -35,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Log In",
+                "Register",
                 style: Theme.of(context).textTheme.headline4,
               ),
             ),
@@ -46,11 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 20.0,
             ),
-            loginButton(),
+            registerButton(),
             SizedBox(
               height: 20.0,
             ),
-            forgetButton()
           ],
         ),
       ),
@@ -114,36 +114,21 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget loginButton() {
+  Widget registerButton() {
     return Container(
       height: MediaQuery.of(context).size.height / 13.5,
       width: MediaQuery.of(context).size.width / 1.0,
       child: MaterialButton(
         color: Theme.of(context).buttonColor,
         child: new Text(
-          'Log In',
+          'Register',
           style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+              .push(MaterialPageRoute(builder: (context) => SignUpScreen()));
         },
         shape: Theme.of(context).buttonTheme.shape,
-      ),
-    );
-  }
-
-  Widget forgetButton() {
-    return Container(
-      child: MaterialButton(
-        child: Text(
-          "Forgot  your password?",
-          style: TextStyle(color: Color.fromRGBO(224, 39, 20, 1), fontSize: 14),
-        ),
-        onPressed: () async {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
-        },
       ),
     );
   }

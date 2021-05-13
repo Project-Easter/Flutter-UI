@@ -1,12 +1,9 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Screens/UserPreferences.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../Models/books.dart';
-import '../../Models/book.dart';
+import 'package:books_app/Models/books.dart';
+import 'package:books_app/Models/book.dart';
+import 'package:books_app/Models/user.dart';
 import 'book_list.dart';
-import '../../Models/user.dart';
 import 'user_choice.dart';
 import 'quotes.dart';
 
@@ -18,12 +15,8 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    //Books Data From Model
     var discoverNew = Provider.of<Books>(context).discoverNew;
     var recommendedBooks = Provider.of<Books>(context).recommendedBooks;
-    // "favAuthor": favAuthor,
-    // "favBook":favBook,
-    // "locationRange": locationRange
     final userData = Provider.of<UserData>(context);
     print(userData);
     return Scaffold(
@@ -35,43 +28,9 @@ class _DashboardPageState extends State<DashboardPage> {
           children: <Widget>[
             Quotes(),
             UserChoice(),
-            // booksTile('Discover New'),
-            // booksTile('Recommended for you'),
-            //**Added BookList**//
             BookList('Discover New', discoverNew),
             BookList('Recommended for you', recommendedBooks),
             UserChoiceBooks(title: 'Based on your Interest'),
-            //
-            // SizedBox(
-            //   height: 10,
-            // ),
-            // RaisedButton(
-            //   child: Text('Signout'),
-            //   onPressed: () {
-            //     FirebaseAuth.instance.signOut();
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            // RaisedButton(
-            //   child: Text('Signout from Facebook'),
-            //   onPressed: () {
-            //     AuthService().facebookSignout();
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            // RaisedButton(
-            //   child: Text('Signout from Google'),
-            //   onPressed: () {
-            //     AuthService().googleSignout();
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
           ],
         ),
       ),

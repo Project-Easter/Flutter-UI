@@ -1,17 +1,16 @@
-import 'package:books_app/screens/confirm.dart';
-import 'package:books_app/screens/register.dart';
-import 'package:flutter/gestures.dart';
+import 'package:books_app/Screens/register.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _userEmail = TextEditingController();
+  final TextEditingController _passWord = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white10,
-        leading: TextButton(
+        leading: MaterialButton(
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => RegisterScreen()));
@@ -36,7 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Username",
+                "Log In",
                 style: Theme.of(context).textTheme.headline4,
               ),
             ),
@@ -47,11 +46,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(
               height: 20.0,
             ),
-            signUpButton(),
+            loginButton(),
             SizedBox(
               height: 20.0,
             ),
-            privacyPolicyLinkAndTermsOfService()
+            forgetButton()
           ],
         ),
       ),
@@ -64,24 +63,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: Column(
         children: [
           TextFormField(
-            key: ValueKey('username'),
+            key: ValueKey('email'),
             autocorrect: false,
             textCapitalization: TextCapitalization.none,
             enableSuggestions: false,
             validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter your Username';
+              if (value.isEmpty || !value.contains('@')) {
+                return 'Please enter a valid email address';
               }
               return null;
             },
+            keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-                hintText: 'Username',
+                hintText: 'Email',
                 focusedBorder:
                     Theme.of(context).inputDecorationTheme.focusedBorder,
                 enabledBorder:
                     Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
-              _userName.text = value;
+              _userEmail.text = value;
+            },
+          ),
+          SizedBox(
+            height: 12.0,
+          ),
+          TextFormField(
+            key: ValueKey('password'),
+            obscureText: true,
+            validator: (value) {
+              if (value.isEmpty || value.length < 6) {
+                return 'Password too short must be at least 6 characters long';
+              }
+              return null;
+            },
+            decoration: InputDecoration(
+                hintText: 'Password',
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
+            onSaved: (value) {
+              _passWord.text = value;
             },
           ),
           SizedBox(
@@ -92,64 +114,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget signUpButton() {
+  Widget loginButton() {
     return Container(
       height: MediaQuery.of(context).size.height / 13.5,
       width: MediaQuery.of(context).size.width / 1.0,
       child: MaterialButton(
         color: Theme.of(context).buttonColor,
         child: new Text(
-          'Sign Up',
+          'Log In',
           style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ConfirmScreen()));
+              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
         },
         shape: Theme.of(context).buttonTheme.shape,
       ),
     );
   }
 
-  Widget privacyPolicyLinkAndTermsOfService() {
+  Widget forgetButton() {
     return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(10),
-      child: Center(
-        child: Text.rich(
-          TextSpan(
-            text: 'By signing up, you agree to Books App ',
-            style: TextStyle(fontSize: 13, color: Colors.black),
-            children: <TextSpan>[
-              TextSpan(
-                  text: 'Terms of Service',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.black,
-                    decoration: TextDecoration.underline,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      // code to open / launch terms of service link here
-                    }),
-              TextSpan(
-                  text: ' and ',
-                  style: TextStyle(fontSize: 13, color: Colors.black),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: 'Privacy Policy',
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.black,
-                            decoration: TextDecoration.underline),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            // code to open / launch privacy policy link here
-                          })
-                  ])
-            ],
-          ),
+      child: MaterialButton(
+        child: Text(
+          "Forgot  your password?",
+          style: TextStyle(color: Color.fromRGBO(224, 39, 20, 1), fontSize: 14),
         ),
+        onPressed: () async {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+        },
       ),
     );
   }

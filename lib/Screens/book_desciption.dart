@@ -2,15 +2,15 @@ import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/databaseService.dart';
 import 'package:books_app/Widgets/button.dart';
+import 'package:books_app/Models/book.dart';
+import 'package:books_app/Widgets/rating.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
-import '../Models/book.dart';
-import '../Widgets/rating.dart';
-import '../Services/auth.dart';
 
 class BookDescription extends StatefulWidget {
-  Book bookFromList;
+  final Book bookFromList;
   BookDescription({Key key, this.bookFromList}) : super(key: key);
   @override
   _BookDescriptionState createState() => _BookDescriptionState();
@@ -37,9 +37,6 @@ class _BookDescriptionState extends State<BookDescription>
 
   @override
   Widget build(BuildContext context) {
-    // var book = Provider.of<Book>(context);
-    //Go with consumer Later
-    //Database Service
     final uid = _authService.getUID;
     final DatabaseService _databaseService = DatabaseService(uid: uid);
     print(widget.bookFromList.rating);
@@ -154,7 +151,6 @@ class _BookDescriptionState extends State<BookDescription>
       body: NestedScrollView(
         headerSliverBuilder: (context, value) {
           return [
-            // SliverToBoxAdapter(child: bookDisplay(widget.bookFromList)),
             SliverToBoxAdapter(
                 child: Center(
               child: Column(
@@ -193,7 +189,6 @@ class _BookDescriptionState extends State<BookDescription>
                       fontSize: 15,
                     ),
                   ),
-                  //Try Listening with consumer
                   Padding(
                     padding: EdgeInsets.only(left: 100),
                     child: IconButton(
@@ -209,11 +204,8 @@ class _BookDescriptionState extends State<BookDescription>
                           print(e.toString());
                         }
                         print("Book Marked");
-                        //Needs fix
-                        // book.changeBookMark();
                       },
                       icon:
-                          // book.isBookMarked
                           widget.bookFromList.isBookMarked
                               ? Icon(Icons.bookmark)
                               : Icon(Icons.bookmark_outline_rounded),
@@ -284,7 +276,6 @@ class _BookDescriptionState extends State<BookDescription>
                               color: blackButton,
                               name: 'Rate this Book',
                               myFunction: () async {
-                                //Rate from List
                                 int stars = await showDialog(
                                     context: context,
                                     builder: (_) => RatingDialog());
@@ -301,7 +292,6 @@ class _BookDescriptionState extends State<BookDescription>
                               color: blackButton,
                               name: 'Exchange this Book',
                               myFunction: () async {
-                                //Exchange Book
                               }),
                         ),
                   widget.bookFromList.isOwned
@@ -311,7 +301,6 @@ class _BookDescriptionState extends State<BookDescription>
                               color: blackButton,
                               name: 'Remove this Book',
                               myFunction: () async {
-                                //Remove from List
                                 await _databaseService
                                     .removeBook(widget.bookFromList.isbn);
                                 Navigator.of(context).pop();

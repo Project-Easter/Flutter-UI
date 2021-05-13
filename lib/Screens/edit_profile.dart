@@ -1,18 +1,13 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Services/databaseService.dart';
-import 'package:books_app/Widgets/badge.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../Models/user.dart';
 import '../Services/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Widgets/button.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -20,45 +15,29 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  //Form Controllers
-
-  // final TextEditingController _name = TextEditingController();
-  // final TextEditingController _city = TextEditingController();
-  // final TextEditingController _state = TextEditingController();
-  //Setup Stream Higher or a Wrapper around Home to avoid another Listener here
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
-  //Firetorage Instance
   FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-  //Image Picker
   final _imagePicker = ImagePicker();
   PickedFile image;
 
-  //Pick Image Functions:
-
-  //Image via Gallery
-  Future<String> uploadImageGallery(String uID) async {
-    //Select Image
+  Future uploadImageGallery(String uID) async {
     image = await _imagePicker.getImage(source: ImageSource.gallery);
     var file = File(image.path);
     if (image != null) {
-      //Upload to Firebase
       var snapshot =
-          await _firebaseStorage.ref().child("images/${uID}").putFile(file);
+          await _firebaseStorage.ref().child("images/$uID").putFile(file);
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     }
   }
 
-  //Image via Camera
   Future<String> uploadImageCamera(String uID) async {
-    //Select Image
     image = await _imagePicker.getImage(source: ImageSource.camera);
     var file = File(image.path);
     if (image != null) {
-      //Upload to Firebase
       var snapshot =
-          await _firebaseStorage.ref().child("images/${uID}").putFile(file);
+          await _firebaseStorage.ref().child("images/$uID").putFile(file);
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     }
@@ -72,7 +51,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final uID = _authService.getUID;
-    //SET UP STREAM in a wrapper above Home =>
     //TODO:Styling->Remove this StreamBuilder. Stream is already present in parent settings page and Home page?
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: uID).userData,
@@ -110,7 +88,6 @@ class _EditProfileState extends State<EditProfile> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              // color: Colors.yellow,
                               height: 300,
                               width: 300,
                               padding: EdgeInsets.all(5),

@@ -2,34 +2,21 @@ import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../../Models/books.dart';
-import '../../Services/auth.dart';
-import '../../Models/book.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Models/book.dart';
 
 class PrivateProfile extends StatelessWidget {
-  //Init AuthService
   final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
-    // final ownedBooksLength =
-    //     Provider.of<Books>(context).ownedBooks.length.toString();
-    final borrowedBooksLength =
-        Provider.of<Books>(context).borrowedBooks.length.toString();
-    final lentBooksLength =
-        Provider.of<Books>(context).lentBooks.length.toString();
-    //TEST USER Get Data
     final profileData = Provider.of<UserData>(context);
     //TODO:Available user data. Implement live data from firebase and implement Edit Screen
-    //User profile data will be null at first. Check
-    //Redundant code fix this. Just need to get the length of owned Books,borrowed,saved Books
     //TODO:Fix current books length showing wrong. =>
     final booksData = Provider.of<List<Book>>(context) ?? [];
-    //Check booksDataLength
     var ownedBooksLength;
     if (booksData.length == 0) {
       ownedBooksLength = 0;
