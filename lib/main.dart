@@ -9,13 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Models/books.dart';
 
-//TODO LIST FOR YOU
-/*
-- Displaying error messages in a form of red text
-- Removing duplicate files
-- Choosing theme  (https://dev.to/thegeoffstevens/50-vs-code-themes-for-2020-45cc)
- */
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

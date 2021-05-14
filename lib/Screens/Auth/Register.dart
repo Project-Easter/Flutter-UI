@@ -136,15 +136,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               var isFormValid = _formKey.currentState.validate();
 
               if (isFormValid) {
-                var error =
-                    await _authService.register(_email.text, _password.text);
-
+                var error = await _authService.register(_email.text, _password.text);
+                    
                 if (error == null) {
-                  Navigator.pushNamed(context, confirmEmail);
-                } else {
-                  //   Text('Error');
-                  // Display error message in form of a red text
+                  return Navigator.pushNamed(context, confirmEmail);
                 }
+
+                // Display error message in form of a red text
               }
             },
           ),
