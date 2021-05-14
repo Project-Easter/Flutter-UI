@@ -117,13 +117,13 @@ class AuthService {
   }
 
   Future<String> signInWithEmailAndPassword(String email, String password) async {
-    var response = await Api.register(email, password);
+    var response = await Api.signInWithEmailAndPassword(email, password);
 
     if (response.statusCode == 200) return null;
 
     var body = getBodyFromResponse(response);
     var errorId = body['error']['id'];
-
+    
     switch (errorId) {
       case Exception.INVALID_ACCOUNT_TYPE:
         {

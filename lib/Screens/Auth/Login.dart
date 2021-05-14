@@ -94,10 +94,12 @@ class _LoginScreenState extends State<LoginScreen> {
             child: AspectRatio(
               aspectRatio: 343 / 52,
               child: TextFormField(
+                autocorrect: false,
+                textCapitalization: TextCapitalization.none,
+                enableSuggestions: false,
                 key: ValueKey('password'),
                 obscureText: true,
                 validator: Validator.password,
-                keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
                   hintText: 'Password',
@@ -128,12 +130,13 @@ class _LoginScreenState extends State<LoginScreen> {
               var isFormValid = _formKey.currentState.validate();
 
               if (isFormValid) {
-                  var error = await _authService.signInWithEmailAndPassword(_email.text, _password.text);
+                var error = await _authService.signInWithEmailAndPassword(_email.text, _password.text);
 
-                  if (error == null) {
-                    return Navigator.pushNamed(context, home);
-                  }
+                if (error == null) {
+                  return Navigator.pushNamed(context, home);
+                }
 
+                print(error);
                 //TODO: Display error message
               }
             },

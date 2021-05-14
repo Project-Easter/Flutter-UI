@@ -95,30 +95,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
               aspectRatio: 340 / 52,
               child: Container(
                 child: TextFormField(
-                  key: ValueKey('password'),
-                  obscureText: true,
-                  validator: Validator.password,
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                    ),
-                    focusedBorder:
-                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-                    contentPadding: EdgeInsets.all(10),
+                autocorrect: false,
+                textCapitalization: TextCapitalization.none,
+                enableSuggestions: false,
+                key: ValueKey('password'),
+                obscureText: true,
+                validator: Validator.password,
+                textAlign: TextAlign.start,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  hintStyle: GoogleFonts.poppins(
+                    fontSize: 14,
                   ),
-                  onSaved: (value) {
-                    setState(() {
-                      _password.text = value;
-                    });
-                  },
-                  onChanged: (value) {
-                    _password.text = value;
-                  },
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                  contentPadding: EdgeInsets.all(10),
                 ),
+                onSaved: (value) {
+                  setState(() {
+                    _password.text = value;
+                  });
+                },
+                onChanged: (v) {
+                  _password.text = v;
+                },
+              ),
               ),
             ),
           ),
@@ -135,6 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return Navigator.pushNamed(context, confirmEmail);
                 }
 
+                print(error);
                 //TODO: Display error message
               }
             },
