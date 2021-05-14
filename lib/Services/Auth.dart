@@ -1,5 +1,7 @@
+import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/util/Api.dart';
 import 'package:books_app/util/helpers.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:books_app/Models/user.dart';
@@ -44,12 +46,14 @@ class AuthService {
 
   Future<MyAppUser> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final UserCredential authResult = await _auth.signInWithCredential(credential);
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
 
     final User user = authResult.user;
     if (user != null) {
@@ -82,9 +86,11 @@ class AuthService {
   Future<String> signInWithFacebook() async {
     final FacebookLoginResult result = await facebookLogin.logIn();
 
-    final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
+    final FacebookAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.accessToken.token);
 
-    final UserCredential fbAuthResult = await _auth.signInWithCredential(facebookAuthCredential);
+    final UserCredential fbAuthResult =
+        await _auth.signInWithCredential(facebookAuthCredential);
     final User fbUser = fbAuthResult.user;
 
     if (fbUser != null) {
@@ -116,11 +122,12 @@ class AuthService {
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      var response =
-          await http.post(Uri.parse(API_ROUTE + "/auth/email"), body: {"email": email, "password": password});
+      var response = await http.post(Uri.parse(API_ROUTE + "/auth/email"),
+          body: {"email": email, "password": password});
 
       if (response.statusCode == 200) {
         print('Logged in successfully');
+
         //TODO: Redirects user to the homepage
 
       } else {
@@ -128,41 +135,31 @@ class AuthService {
         var errorId = responseBody['error']['id'];
 
         switch (errorId) {
-          case Exception.INVALID_INPUT:
-            {
-              print('Invalid input');
-
-              //TODO: Displays error message: Invalid email or password. Check your input and try once again.
-              //! Too low or too many characters inside password / email
-
-              break;
-            }
-
           case Exception.INVALID_ACCOUNT_TYPE:
             {
-              print('Account type is invalid');
-
-              //TODO: Displays error message: You've already created an account using Google or Facebook
-
-              break;
+              return AlertDialog(
+                  content: Text(
+                      'You have already created an account using Google or Facebook'));
             }
 
           case Exception.INVALID_CREDENTIALS:
             {
               print('Invalid Credentials');
-
-              //TODO: Displays error message: Invalid Credentials. Check your input and try again
-
-              break;
+              return AlertDialog(
+                  content: Text(
+                      'Invalid Credentials. Check your input and try again'));
             }
 
           case Exception.UNCONFIRMED_ACCOUNT:
             {
-              print('Unconfirmed account');
-
-              //TODO: Displays error message: Your account is not confirmed yet. Click here to confirm it.
-
-              break;
+              return AlertDialog(
+                  content: Text(
+                      'Your account is not confirmed yet. Click here to confirm it'));
+            }
+          default:
+            {
+              return AlertDialog(
+                  content: Text('Unknown error occurred. Try again later.'));
             }
         }
       }
@@ -171,25 +168,22 @@ class AuthService {
     }
   }
 
-  Future register(String email, String password) async {
+  Future<String> register(String email, String password) async {
     var response = await Api.register(email, password);
 
-    if (response.statusCode == 201) {
-      return print('Registered successfully');
-    }
+    if (response.statusCode == 201) return null;
 
     var body = getBodyFromResponse(response);
     var errorId = body['error']['id'];
 
     switch (errorId) {
-      case Exception.INVALID_INPUT:
-        {
-          return print('Invalid input');
-        }
-
       case Exception.DUPLICATE_EMAIL:
         {
-          return print('Email already exists');
+          return 'Duplicate email';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
         }
     }
   }

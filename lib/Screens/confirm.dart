@@ -1,5 +1,5 @@
 import 'package:books_app/Screens/confirmemail.dart';
-import 'package:books_app/Screens/register.dart';
+import 'package:books_app/Screens/Auth/Register.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,8 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
         backgroundColor: Colors.white10,
         leading: TextButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => RegisterScreen()));
             },
             child: Image.asset(
               "images/icon.PNG",
@@ -75,8 +76,10 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
             },
             decoration: InputDecoration(
                 hintText: 'Enter your confirmation code',
-                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _confirm.text = value;
             },
@@ -103,7 +106,8 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
           style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConfirmEmailScreen()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => ConfirmEmailScreen()));
         },
       ),
     );
@@ -129,15 +133,21 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                   ..onTap = () {
                     // code to open / launch terms of service link here
                   }),
-            TextSpan(text: ' and ', style: TextStyle(fontSize: 13, color: Colors.black), children: <TextSpan>[
-              TextSpan(
-                  text: 'Privacy Policy',
-                  style: TextStyle(fontSize: 13, color: Colors.black, decoration: TextDecoration.underline),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      // code to open / launch privacy policy link here
-                    })
-            ])
+            TextSpan(
+                text: ' and ',
+                style: TextStyle(fontSize: 13, color: Colors.black),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: 'Privacy Policy',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                          decoration: TextDecoration.underline),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // code to open / launch privacy policy link here
+                        })
+                ])
           ]))),
     );
   }

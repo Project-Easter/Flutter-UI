@@ -1,4 +1,4 @@
-import 'package:books_app/Screens/register.dart';
+import 'Auth/Register.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,7 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white10,
         leading: MaterialButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => RegisterScreen()));
             },
             child: Image.asset(
               "images/icon.PNG",
@@ -75,8 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
                 hintText: 'Email',
-                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _userEmail.text = value;
             },
@@ -95,8 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             decoration: InputDecoration(
                 hintText: 'Password',
-                focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-                enabledBorder: Theme.of(context).inputDecorationTheme.enabledBorder),
+                focusedBorder:
+                    Theme.of(context).inputDecorationTheme.focusedBorder,
+                enabledBorder:
+                    Theme.of(context).inputDecorationTheme.enabledBorder),
             onSaved: (value) {
               _passWord.text = value;
             },
@@ -120,7 +125,8 @@ class _LoginScreenState extends State<LoginScreen> {
           style: Theme.of(context).textTheme.bodyText1,
         ),
         onPressed: () async {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
         },
         shape: Theme.of(context).buttonTheme.shape,
       ),
@@ -135,7 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
           style: TextStyle(color: Color.fromRGBO(224, 39, 20, 1), fontSize: 14),
         ),
         onPressed: () async {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterScreen()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => RegisterScreen()));
         },
       ),
     );
