@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:books_app/util/size_config.dart';
+import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/Models/book.dart';
 import 'package:provider/provider.dart';
 import 'package:books_app/Screens/book_desciption.dart';

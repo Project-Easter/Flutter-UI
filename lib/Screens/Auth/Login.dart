@@ -2,7 +2,7 @@ import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:books_app/util/validator.dart';
+import 'package:books_app/Utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,15 +1,10 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/util/Api.dart';
-import 'package:books_app/util/helpers.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:books_app/Utils/Api.dart';
+import 'package:books_app/Utils/helpers.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'databaseService.dart';
-import 'package:books_app/Constants/api.dart';
 import 'package:books_app/Constants/exception.dart';
 
 class AuthService {
@@ -116,32 +111,23 @@ class AuthService {
     }
   }
 
-  Future<String> signInWithEmailAndPassword(String email, String password) async {
-    var response = await Api.signInWithEmailAndPassword(email, password);
-
-    if (response.statusCode == 200) return null;
-
-    var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
-    
-    switch (errorId) {
-      case Exception.INVALID_ACCOUNT_TYPE:
-        {
-          return 'You have created an account using Google or Facebook. Log in with one of them instead.';
-        }
-      case Exception.INVALID_CREDENTIALS:
-        {
-          return 'Invalid Credentials. Check your input and try again.';
-        }
-      case Exception.UNCONFIRMED_ACCOUNT:
-        {
-          return 'Your account is not confirmed yet. Click here to confirm it';
-        }
-      default:
-        {
-          return 'An unknown error occured. Please try again later';
-        }
-    }
+  UserData makeUserDataFromAuthUser(User user) {
+    //IMP:DO NOT REMOVE THIS URL,this is the default image while signing up.
+    //Change Image as per needed.A valid URL must be provided
+    String photoUrl =
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
+    UserData userData = UserData(
+        //Storing Data For further requirement
+        uid: user.uid,
+        displayName: user.displayName ?? "Your name",
+        email: user.email ?? "your@email.com",
+        //this is not required.Just for test purpose
+        emailVerified: user.emailVerified,
+        phoneNumber: user.phoneNumber ?? "Phone",
+        photoURL: user.photoURL ?? photoUrl,
+        city: "Your city",
+        state: "State");
+    return userData;
   }
 
   Future<String> register(String email, String password) async {
@@ -164,22 +150,55 @@ class AuthService {
     }
   }
 
-  UserData makeUserDataFromAuthUser(User user) {
-    //IMP:DO NOT REMOVE THIS URL,this is the default image while signing up.
-    //Change Image as per needed.A valid URL must be provided
-    String photoUrl =
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
-    UserData userData = UserData(
-        //Storing Data For further requirement
-        uid: user.uid,
-        displayName: user.displayName ?? "Your name",
-        email: user.email ?? "your@email.com",
-        //this is not required.Just for test purpose
-        emailVerified: user.emailVerified,
-        phoneNumber: user.phoneNumber ?? "Phone",
-        photoURL: user.photoURL ?? photoUrl,
-        city: "Your city",
-        state: "State");
-    return userData;
+  Future<String> signInWithEmailAndPassword(String email, String password) async {
+    var response = await Api.signInWithEmailAndPassword(email, password);
+
+    if (response.statusCode == 200) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.INVALID_ACCOUNT_TYPE:
+        {
+          return 'You have created an account using Google or Facebook. Log in with one of them instead.';
+        }
+      case Exception.INVALID_CREDENTIALS:
+        {
+          return 'Invalid Credentials. Check your input and try again.';
+        }
+      case Exception.UNCONFIRMED_ACCOUNT:
+        {
+          return 'Your account is not confirmed yet. Click here to confirm it';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
+  }
+
+  Future<String> confirmEmail(String email, String code) async {
+    var response = await Api.confirmEmail(email, code);
+
+    if (response.statusCode == 204) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.INVALID_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code is invalid.';
+        }
+      case Exception.EXPIRED_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code has been expired. Click here to get a new one.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
   }
 }

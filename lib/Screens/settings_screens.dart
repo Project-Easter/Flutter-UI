@@ -1,8 +1,8 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Models/user.dart';
-import 'package:books_app/util/theme_notifier.dart';
-import 'package:books_app/util/values/theme_switch.dart';
+import 'package:books_app/Utils/theme_notifier.dart';
+import 'package:books_app/Utils/values/theme_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

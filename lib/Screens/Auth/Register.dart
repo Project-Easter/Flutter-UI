@@ -4,7 +4,7 @@ import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:books_app/util/validator.dart';
+import 'package:books_app/Utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -95,33 +95,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
               aspectRatio: 340 / 52,
               child: Container(
                 child: TextFormField(
-                autocorrect: false,
-                textCapitalization: TextCapitalization.none,
-                enableSuggestions: false,
-                key: ValueKey('password'),
-                obscureText: true,
-                validator: Validator.password,
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  hintStyle: GoogleFonts.poppins(
-                    fontSize: 14,
+                  autocorrect: false,
+                  textCapitalization: TextCapitalization.none,
+                  enableSuggestions: false,
+                  key: ValueKey('password'),
+                  obscureText: true,
+                  validator: Validator.password,
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: GoogleFonts.poppins(
+                      fontSize: 14,
+                    ),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                    contentPadding: EdgeInsets.all(10),
                   ),
-                  focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-                  enabledBorder:
-                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-                  contentPadding: EdgeInsets.all(10),
+                  onSaved: (value) {
+                    setState(() {
+                      _password.text = value;
+                    });
+                  },
+                  onChanged: (v) {
+                    _password.text = v;
+                  },
                 ),
-                onSaved: (value) {
-                  setState(() {
-                    _password.text = value;
-                  });
-                },
-                onChanged: (v) {
-                  _password.text = v;
-                },
-              ),
               ),
             ),
           ),
