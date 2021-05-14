@@ -25,4 +25,16 @@ class Api {
 
     return response;
   }
+
+  static Future<Response> confirmEmail(String email, String code) async {
+    var response;
+
+    try {
+      response = await post(Uri.parse(API_ROUTE + "/user/email"), body: {"email": email, "code": code});
+    } catch (error) {
+      print(error.toString());
+    }
+
+    return response;
+  }
 }
