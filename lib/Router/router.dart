@@ -12,7 +12,7 @@ import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/confirmOTP.dart';
 import 'package:books_app/Screens/Auth/Register.dart';
 import 'package:books_app/Screens/Auth/signup.dart';
-import 'package:books_app/Screens/Auth/confirmemail.dart';
+import 'package:books_app/Screens/Auth/ConfirmEmail.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';

@@ -1,19 +1,27 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Utils/validator.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ConfirmEmailScreen extends StatefulWidget {
+  final String email;
+
+  ConfirmEmailScreen({Key key, @required this.email}) : super(key: key);
+
   @override
-  _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState();
+  _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState(email);
 }
 
 class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final AuthService _authService = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _confirmemail = TextEditingController();
+  String email;
+  String _confirmationCode;
+
+  _ConfirmEmailScreenState(this.email);
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +43,33 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
             Padding(
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
-                'Confirm Email',
+                'Email confirmation',
                 style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Continue', userName),
+            CupertinoStyleButton(
+              name: 'Continue',
+              color: blackButton,
+              myFunction: () async {
+                var isFormValid = _formKey.currentState.validate();
+
+                if (isFormValid) {
+                  var error = await _authService.confirmEmail(email, _confirmationCode);
+
+                  if (error == null) {
+                    return print('Email confirmed successfully');
+                    // return Navigator.pushNamed(context, confirmEmail);
+                  }
+
+                  print(error);
+                  //TODO: Display error message
+                }
+              },
+            ),
             SizedBox(
               height: 20.0,
-            ),
-            privacyPolicyLinkAndTermsOfService()
+            )
           ],
         ),
       ),
@@ -59,20 +84,15 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
         child: AspectRatio(
           aspectRatio: 343 / 52,
           child: TextFormField(
-            key: ValueKey('confirmemail'),
+            key: ValueKey('_confirmationCode'),
             autocorrect: false,
             textCapitalization: TextCapitalization.none,
             enableSuggestions: false,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter with your confirmation code';
-              }
-              return null;
-            },
+            validator: Validator.confirmationCode,
             keyboardType: TextInputType.emailAddress,
             textAlign: TextAlign.start,
             decoration: InputDecoration(
-              hintText: 'Enter Confirmation code',
+              hintText: 'Enter your confirmation code',
               hintStyle: GoogleFonts.poppins(
                 fontSize: 14,
               ),
@@ -84,45 +104,15 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
             ),
             onSaved: (value) {
               setState(() {
-                _confirmemail.text = value;
+                _confirmationCode = value;
               });
+            },
+            onChanged: (value) {
+              _confirmationCode = value;
             },
           ),
         ),
       ),
-    );
-  }
-
-  Widget privacyPolicyLinkAndTermsOfService() {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(10),
-      child: Center(
-          child: Text.rich(TextSpan(
-              text: 'By signing up, you agree to Books App ',
-              style: TextStyle(fontSize: 13, color: Colors.black),
-              children: <TextSpan>[
-            TextSpan(
-                text: 'Terms of Service',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.black,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // code to open / launch terms of service link here
-                  }),
-            TextSpan(text: ' and ', style: TextStyle(fontSize: 13, color: Colors.black), children: <TextSpan>[
-              TextSpan(
-                  text: 'Privacy Policy',
-                  style: TextStyle(fontSize: 13, color: Colors.black, decoration: TextDecoration.underline),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      // code to open / launch privacy policy link here
-                    })
-            ])
-          ]))),
     );
   }
 }

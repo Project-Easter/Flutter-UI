@@ -14,8 +14,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final AuthService _authService = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+
+  String _email;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 onSaved: (value) {
                   setState(() {
-                    _email.text = value;
+                    _email = value;
                   });
                 },
-                onChanged: (v) {
-                  _email.text = v;
+                onChanged: (value) {
+                  _email = value;
                 },
               ),
             ),
@@ -114,11 +115,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 onSaved: (value) {
                   setState(() {
-                    _password.text = value;
+                    _password = value;
                   });
                 },
-                onChanged: (v) {
-                  _password.text = v;
+                onChanged: (value) {
+                  _password = value;
                 },
               ),
             ),
@@ -130,10 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
               var isFormValid = _formKey.currentState.validate();
 
               if (isFormValid) {
-                var error = await _authService.signInWithEmailAndPassword(_email.text, _password.text);
+                var error = await _authService.signInWithEmailAndPassword(_email, _password);
 
                 if (error == null) {
-                  return Navigator.pushNamed(context, home);
+                  return print('Logged in successfully');
                 }
 
                 print(error);

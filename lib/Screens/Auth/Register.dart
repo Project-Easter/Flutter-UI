@@ -1,7 +1,5 @@
-import 'dart:math';
-
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Screens/Auth/ConfirmEmail.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/Utils/validator.dart';
@@ -16,8 +14,9 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final AuthService _authService = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+
+  String _email;
+  String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +79,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 onSaved: (value) {
                   setState(() {
-                    _email.text = value;
+                    _email = value;
                   });
                 },
                 onChanged: (value) {
-                  _email.text = value;
+                  _email = value;
                 },
               ),
             ),
@@ -115,11 +114,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   onSaved: (value) {
                     setState(() {
-                      _password.text = value;
+                      _password = value;
                     });
                   },
-                  onChanged: (v) {
-                    _password.text = v;
+                  onChanged: (value) {
+                    _password = value;
                   },
                 ),
               ),
@@ -132,10 +131,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               var isFormValid = _formKey.currentState.validate();
 
               if (isFormValid) {
-                var error = await _authService.register(_email.text, _password.text);
+                var error = await _authService.register(_email, _password);
 
                 if (error == null) {
-                  return Navigator.pushNamed(context, confirmEmail);
+                  return Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => ConfirmEmailScreen(email: _email)));
                 }
 
                 print(error);
