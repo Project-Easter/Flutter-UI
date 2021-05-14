@@ -40,10 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: EdgeInsets.only(left: 8.0, bottom: 20),
               child: Text(
                 "Register",
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 36),
+                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
             buildLayouts(),
@@ -75,12 +72,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 2),
-                      borderRadius: BorderRadius.circular(12)),
+                  focusedBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                  enabledBorder:
+                      OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
@@ -109,12 +104,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2),
-                        borderRadius: BorderRadius.circular(12)),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+                    enabledBorder:
+                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
                     contentPadding: EdgeInsets.all(10),
                   ),
                   onSaved: (value) {
@@ -137,12 +130,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
               if (isFormValid) {
                 var error = await _authService.register(_email.text, _password.text);
-                    
+
                 if (error == null) {
                   return Navigator.pushNamed(context, confirmEmail);
                 }
 
-                // Display error message in form of a red text
+                //TODO: Display error message
               }
             },
           ),

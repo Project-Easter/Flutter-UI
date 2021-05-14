@@ -18,7 +18,7 @@ class Api {
     var response;
 
     try {
-      response = await post(Uri.parse(API_ROUTE + "/auth/new-account"), body: {"email": email, "password": password});
+      response = await post(Uri.parse(API_ROUTE + "/auth/email"), body: {"email": email, "password": password});
     } catch (error) {
       print(error.toString());
     }

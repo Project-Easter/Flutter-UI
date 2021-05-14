@@ -46,14 +46,12 @@ class AuthService {
 
   Future<MyAppUser> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
+    final UserCredential authResult = await _auth.signInWithCredential(credential);
 
     final User user = authResult.user;
     if (user != null) {
@@ -86,11 +84,9 @@ class AuthService {
   Future<String> signInWithFacebook() async {
     final FacebookLoginResult result = await facebookLogin.logIn();
 
-    final FacebookAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(result.accessToken.token);
+    final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
 
-    final UserCredential fbAuthResult =
-        await _auth.signInWithCredential(facebookAuthCredential);
+    final UserCredential fbAuthResult = await _auth.signInWithCredential(facebookAuthCredential);
     final User fbUser = fbAuthResult.user;
 
     if (fbUser != null) {
@@ -120,51 +116,31 @@ class AuthService {
     }
   }
 
-  Future signInWithEmailAndPassword(String email, String password) async {
-    try {
-      var response = await http.post(Uri.parse(API_ROUTE + "/auth/email"),
-          body: {"email": email, "password": password});
+  Future<String> signInWithEmailAndPassword(String email, String password) async {
+    var response = await Api.register(email, password);
 
-      if (response.statusCode == 200) {
-        print('Logged in successfully');
+    if (response.statusCode == 200) return null;
 
-        //TODO: Redirects user to the homepage
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
 
-      } else {
-        var responseBody = jsonDecode(response.body);
-        var errorId = responseBody['error']['id'];
-
-        switch (errorId) {
-          case Exception.INVALID_ACCOUNT_TYPE:
-            {
-              return AlertDialog(
-                  content: Text(
-                      'You have already created an account using Google or Facebook'));
-            }
-
-          case Exception.INVALID_CREDENTIALS:
-            {
-              print('Invalid Credentials');
-              return AlertDialog(
-                  content: Text(
-                      'Invalid Credentials. Check your input and try again'));
-            }
-
-          case Exception.UNCONFIRMED_ACCOUNT:
-            {
-              return AlertDialog(
-                  content: Text(
-                      'Your account is not confirmed yet. Click here to confirm it'));
-            }
-          default:
-            {
-              return AlertDialog(
-                  content: Text('Unknown error occurred. Try again later.'));
-            }
+    switch (errorId) {
+      case Exception.INVALID_ACCOUNT_TYPE:
+        {
+          return 'You have created an account using Google or Facebook. Log in with one of them instead.';
         }
-      }
-    } catch (e) {
-      print(e.toString());
+      case Exception.INVALID_CREDENTIALS:
+        {
+          return 'Invalid Credentials. Check your input and try again.';
+        }
+      case Exception.UNCONFIRMED_ACCOUNT:
+        {
+          return 'Your account is not confirmed yet. Click here to confirm it';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
     }
   }
 

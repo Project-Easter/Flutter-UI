@@ -2,6 +2,7 @@ import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/button.dart';
+import 'package:books_app/util/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,10 +13,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final AuthService _authService = AuthService();
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _userEmail = TextEditingController();
-  final TextEditingController _passWord = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white10,
         leading: TextButton(
             onPressed: () {
-              // Navigator.pop(context);
               Navigator.pushNamed(context, startupPage);
             },
             child: Icon(Icons.arrow_back_rounded)),
@@ -43,7 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             buildLayouts(),
-            // button(context, blackButton, 'Log In', dashboard),
             forgetButton(),
             registerButton(),
           ],
@@ -66,12 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
                 enableSuggestions: false,
-                validator: (value) {
-                  if (value.isEmpty || !value.contains('@')) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
+                validator: Validator.email,
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
@@ -87,12 +80,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 onSaved: (value) {
                   setState(() {
-                    _userEmail.text = value;
+                    _email.text = value;
                   });
                 },
                 onChanged: (v) {
-                  _userEmail.text = v;
-                  print(_userEmail.text);
+                  _email.text = v;
                 },
               ),
             ),
@@ -104,12 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: TextFormField(
                 key: ValueKey('password'),
                 obscureText: true,
-                validator: (value) {
-                  if (value.isEmpty || value.length < 6) {
-                    return 'Password too short must be at least 6 characters long';
-                  }
-                  return null;
-                },
+                validator: Validator.password,
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
@@ -125,12 +112,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 onSaved: (value) {
                   setState(() {
-                    _passWord.text = value;
+                    _password.text = value;
                   });
                 },
                 onChanged: (v) {
-                  _passWord.text = v;
-                  print(_passWord.text);
+                  _password.text = v;
                 },
               ),
             ),
@@ -139,20 +125,16 @@ class _LoginScreenState extends State<LoginScreen> {
             name: 'Sign In',
             color: blackButton,
             myFunction: () async {
-              print(_userEmail.text);
-              print(_passWord.text);
-              if (_formKey.currentState.validate()) {
-                print(_userEmail.text);
-                print(_passWord.text);
-                //Sign in with email and password and direct to home page.
-                try {
-                  dynamic res = await _authService.signInWithEmailAndPassword(_userEmail.text, _passWord.text);
-                  if (res != null) {
-                    Navigator.pushNamed(context, home);
+              var isFormValid = _formKey.currentState.validate();
+
+              if (isFormValid) {
+                  var error = await _authService.signInWithEmailAndPassword(_email.text, _password.text);
+
+                  if (error == null) {
+                    return Navigator.pushNamed(context, home);
                   }
-                } catch (e) {
-                  print(e.toString());
-                }
+
+                //TODO: Display error message
               }
             },
           ),
