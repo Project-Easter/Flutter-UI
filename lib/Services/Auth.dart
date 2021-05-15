@@ -141,7 +141,7 @@ class AuthService {
     switch (errorId) {
       case Exception.DUPLICATE_EMAIL:
         {
-          return 'Duplicate email';
+          return 'Email already exists.';
         }
       default:
         {

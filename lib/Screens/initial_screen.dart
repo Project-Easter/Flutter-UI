@@ -234,7 +234,7 @@ class _InitialScreenState extends State<InitialScreen> {
           color: Colors.white,
         ),
         label: Text(
-          'Sign Up with Email',
+          'Sign up with email',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w500,
             color: Colors.white,

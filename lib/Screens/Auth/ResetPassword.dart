@@ -1,11 +1,13 @@
 import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/States/ConfirmationCodeState.dart';
+import 'package:books_app/States/ErrorState.dart';
+import 'package:books_app/States/PasswordState.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
 import 'package:books_app/Widgets/Auth/AuthButton.dart';
 import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
 import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
 import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
-import 'package:books_app/Widgets/Auth/AuthState.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
 
@@ -18,27 +20,14 @@ class ResetPassword extends StatefulWidget {
   _ResetPasswordState createState() => _ResetPasswordState(email: email);
 }
 
-class _ResetPasswordState extends AuthState<ResetPassword> {
+class _ResetPasswordState extends State<ResetPassword>
+    with PasswordState<ResetPassword>, ConfirmationCodeState<ResetPassword>, ErrorState<ResetPassword> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String email;
-  String password;
-  String confirmationCode;
 
   _ResetPasswordState({this.email});
-
-  void updatePassword(String password) {
-    setState(() {
-      this.password = password;
-    });
-  }
-
-  void updateConfirmationCode(String confirmationCode) {
-    setState(() {
-      this.confirmationCode = confirmationCode;
-    });
-  }
 
   Future<String> onSubmit() async {
     return await this.authService.resetPassword(this.email, this.password, this.confirmationCode);
@@ -59,7 +48,7 @@ class _ResetPasswordState extends AuthState<ResetPassword> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   AuthPageTitle(name: 'Reset password'),
-                  AuthErrorMessage(errorMessage: this.errorMessage),
+                  AuthErrorMessage(errorMessage: this.error),
                   Form(
                     key: this.formKey,
                     child: Column(
