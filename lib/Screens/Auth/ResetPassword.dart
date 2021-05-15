@@ -1,6 +1,7 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Widgets/AuthNavigation.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -40,15 +41,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white10,
-        leading: TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back_rounded)),
-      ),
+      appBar: AuthNavigation.from(context),
       body: Container(
         padding: EdgeInsets.all(10.0),
         child: Column(
@@ -91,7 +84,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       key: _formKey,
       child: Column(
         children: [
-            ConfirmationCodeTextField(onChanged: this._updateConfirmationCode),
+          ConfirmationCodeTextField(onChanged: this._updateConfirmationCode),
           PasswordTextField(onChanged: this._updatePassword)
         ],
       ),
