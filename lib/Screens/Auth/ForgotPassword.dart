@@ -1,4 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
+import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Utils/validator.dart';
 import 'package:books_app/Widgets/button.dart';
@@ -61,7 +62,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 var error = await _authService.sendResetPasswordMail(_email);
 
                 if (error == null) {
-                  return print('Email sent');
+                  return Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => ResetPassword(email: _email)));
                 }
 
                 print(error);

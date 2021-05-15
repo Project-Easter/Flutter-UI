@@ -9,9 +9,7 @@ import 'package:books_app/Services/UserLocation.dart';
 import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Screens/Auth/confirmOTP.dart';
 import 'package:books_app/Screens/Auth/Register.dart';
-import 'package:books_app/Screens/Auth/signup.dart';
 import 'package:books_app/Screens/Auth/ConfirmEmail.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
@@ -27,12 +25,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => EditProfile());
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
-      case confirmOTP:
-        return MaterialPageRoute(builder: (_) => ConfirmScreen(settings.arguments));
       case registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
-      case userName:
-        return MaterialPageRoute(builder: (_) => SignUpScreen());
       case confirmEmail:
         return MaterialPageRoute(builder: (_) => ConfirmEmailScreen());
       case dashboard:

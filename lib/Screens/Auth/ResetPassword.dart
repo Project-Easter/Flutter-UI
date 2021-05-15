@@ -5,15 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResetPassword extends StatefulWidget {
+final String email;
+
+  ResetPassword({Key key, @required this.email}) : super(key: key);
+
   @override
-  _ResetPasswordState createState() => _ResetPasswordState();
+  _ResetPasswordState createState() => _ResetPasswordState(email);
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
   final TextEditingController _newPassword = TextEditingController();
   final TextEditingController _reEnterPassword = TextEditingController();
   final TextEditingController _verificationCode = TextEditingController();
+
+    String email;
+
+    _ResetPasswordState(this.email);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

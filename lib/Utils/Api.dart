@@ -38,6 +38,18 @@ class Api {
     return response;
   }
 
+  static Future<Response> resetPassword(String email, String password, String code) async {
+    var response;
+
+    try {
+      response = await post(Uri.parse(API_ROUTE + "/user/password"), body: {"email": email, "password": password, "code": code});
+    } catch (error) {
+      print(error.toString());
+    }
+
+    return response;
+  }
+
   static Future<Response> confirmEmail(String email, String code) async {
     var response;
 
