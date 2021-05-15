@@ -5,6 +5,7 @@ import 'package:books_app/Widgets/Auth/AuthButton.dart';
 import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
 import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
 import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
+import 'package:books_app/Widgets/Auth/AuthState.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +18,13 @@ class ResetPassword extends StatefulWidget {
   _ResetPasswordState createState() => _ResetPasswordState(email: email);
 }
 
-class _ResetPasswordState extends State<ResetPassword> {
+class _ResetPasswordState extends AuthState<ResetPassword> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String email;
   String password;
   String confirmationCode;
-  String errorMessage;
 
   _ResetPasswordState({this.email});
 
@@ -46,12 +46,6 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   void onSuccess() {
     Navigator.pushNamed(context, Routes.LOGIN);
-  }
-
-  void onError(String error) {
-    setState(() {
-      this.errorMessage = error;
-    });
   }
 
   @override

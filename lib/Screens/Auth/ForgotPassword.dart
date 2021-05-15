@@ -56,6 +56,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     return Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) => ResetPassword(email: _email)));
                   }
+
+                  print(error);
+                  //TODO: Display error message
                 }
               },
             ),
