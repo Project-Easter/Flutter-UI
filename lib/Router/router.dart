@@ -10,9 +10,7 @@ import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/Register.dart';
-import 'package:books_app/Screens/Auth/ConfirmEmail.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
-import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
 import 'package:books_app/Screens/edit_profile.dart';
 
@@ -23,18 +21,14 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => InitialScreen());
       case editProfile:
         return MaterialPageRoute(builder: (_) => EditProfile());
-      case loginRoute:
+      case login:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
-      case confirmEmail:
-        return MaterialPageRoute(builder: (_) => ConfirmEmailScreen());
       case dashboard:
         return MaterialPageRoute(builder: (_) => DashboardPage());
       case forgotPassword:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
-      case resetPassword:
-        return MaterialPageRoute(builder: (_) => ResetPassword());
       case addBook:
         return MaterialPageRoute(builder: (_) => AddBook());
       case home:

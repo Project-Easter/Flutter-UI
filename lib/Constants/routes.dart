@@ -1,4 +1,4 @@
-const String loginRoute = '/login';
+const String login = '/login';
 const String registerRoute = '/register';
 const String confirmOTP = '/otp';
 const String userName = '/signup';
