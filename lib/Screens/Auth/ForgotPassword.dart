@@ -14,7 +14,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final AuthService _authService = AuthService();
-  
+
   String _email;
 
   @override
@@ -44,24 +44,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             buildLayouts(),
             CupertinoStyleButton(
-            name: 'Continue',
-            color: blackButton,
-            myFunction: () async {
-              var isFormValid = _formKey.currentState.validate();
+              name: 'Continue',
+              color: blackButton,
+              myFunction: () async {
+                var isFormValid = _formKey.currentState.validate();
 
-              if (isFormValid) {
-                var error = await _authService.sendResetPasswordMail(_email);
+                if (isFormValid) {
+                  var error = await _authService.sendResetPasswordMail(_email);
 
-                if (error == null) {
-                  return Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => ResetPassword(email: _email)));
+                  if (error == null) {
+                    return Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => ResetPassword(email: _email)));
+                  }
+
+                  print(error);
+                  //TODO: Display error message
                 }
-
-                print(error);
-                //TODO: Display error message
-              }
-            },
-          ),
+              },
+            ),
             SizedBox(
               height: 20.0,
             ),
@@ -98,12 +98,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               contentPadding: EdgeInsets.all(10),
             ),
             onSaved: (value) {
-            setState(() {
+              setState(() {
                 _email = value;
-            });
+              });
             },
             onChanged: (value) {
-            _email = value;
+              _email = value;
             },
           ),
         ),

@@ -205,7 +205,7 @@ class AuthService {
     }
   }
 
-Future<String> resetPassword(String email, String password, String code) async {
+  Future<String> resetPassword(String email, String password, String code) async {
     var response = await Api.resetPassword(email, password, code);
     if (response.statusCode == 204) return null;
 
@@ -217,7 +217,7 @@ Future<String> resetPassword(String email, String password, String code) async {
         {
           return 'Provided confirmation code is invalid';
         }
-    case Exception.EXPIRED_CONFIRMATION_CODE:
+      case Exception.EXPIRED_CONFIRMATION_CODE:
         {
           return 'Provided confirmation code has been expired. Click here to get a new one.';
         }

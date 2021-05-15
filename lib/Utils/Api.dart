@@ -42,7 +42,8 @@ class Api {
     var response;
 
     try {
-      response = await patch(Uri.parse(API_ROUTE + "/user/password"), body: {"email": email, "password": password, "code": code});
+      response = await patch(Uri.parse(API_ROUTE + "/user/password"),
+          body: {"email": email, "password": password, "code": code});
     } catch (error) {
       print(error.toString());
     }
