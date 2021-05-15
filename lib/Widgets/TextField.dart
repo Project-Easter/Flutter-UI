@@ -8,8 +8,9 @@ class TextField extends StatelessWidget {
   final String text;
   final bool obscureText;
   final Function validator;
+  final TextInputType keyboardType;
 
-  TextField({this.onChanged, this.text, this.obscureText, this.validator});
+  TextField({this.onChanged, this.text, this.obscureText, this.validator, this.keyboardType: TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class TextField extends StatelessWidget {
             obscureText: this.obscureText,
             validator: this.validator,
             textAlign: TextAlign.start,
+            keyboardType: this.keyboardType,
             decoration: InputDecoration(
               hintText: this.text,
               hintStyle: GoogleFonts.poppins(
@@ -42,17 +44,22 @@ class TextField extends StatelessWidget {
 }
 
 class EmailTextField extends TextField {
-  EmailTextField({Function onChanged})
-      : super(onChanged: onChanged, text: 'Email Address', obscureText: false, validator: Validator.email);
+  EmailTextField({@required Function onChanged})
+      : super(
+            onChanged: onChanged,
+            text: 'Email Address',
+            obscureText: false,
+            validator: Validator.email,
+            keyboardType: TextInputType.emailAddress);
 }
 
 class PasswordTextField extends TextField {
-  PasswordTextField({Function onChanged})
+  PasswordTextField({@required Function onChanged})
       : super(onChanged: onChanged, text: 'Password', obscureText: true, validator: Validator.password);
 }
 
 class ConfirmationCodeTextField extends TextField {
-  ConfirmationCodeTextField({Function onChanged})
+  ConfirmationCodeTextField({@required Function onChanged})
       : super(
             onChanged: onChanged, text: 'Confirmation code', obscureText: false, validator: Validator.confirmationCode);
 }

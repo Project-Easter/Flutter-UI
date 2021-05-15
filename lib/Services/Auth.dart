@@ -178,8 +178,8 @@ class AuthService {
     }
   }
 
-  Future<String> sendResetPasswordMail(String email) async {
-    var response = await Api.sendResetPasswordMail(email);
+  Future<String> forgotPassword(String email) async {
+    var response = await Api.forgotPassword(email);
     if (response.statusCode == 204) return null;
 
     var body = getBodyFromResponse(response);

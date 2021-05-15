@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
 abstract class AuthState<T extends StatefulWidget> extends State<T> {
-    String errorMessage;
+  String errorMessage;
 
-    void onError(String error) {
+  void onError(String error) {
     setState(() {
       this.errorMessage = error;
     });
