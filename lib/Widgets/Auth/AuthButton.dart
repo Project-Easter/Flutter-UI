@@ -1,6 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:flutter/widgets.dart';
-import 'button.dart';
+import '../button.dart';
 
 class AuthButton extends StatelessWidget {
   final String text;

@@ -1,9 +1,9 @@
 import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
-import 'package:books_app/Widgets/AuthButton.dart';
-import 'package:books_app/Widgets/AuthNavigation.dart';
-import 'package:books_app/Widgets/AuthPageTitle.dart';
+import 'package:books_app/Widgets/Auth/AuthButton.dart';
+import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
+import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
