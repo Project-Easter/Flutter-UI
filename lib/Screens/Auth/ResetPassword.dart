@@ -2,10 +2,10 @@ import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/AuthNavigation.dart';
+import 'package:books_app/Widgets/AuthPageTitle.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ResetPassword extends StatefulWidget {
   final String email;
@@ -47,13 +47,7 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 8.0, bottom: 20),
-              child: Text(
-                "Reset Password",
-                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
-              ),
-            ),
+            AuthPageTitle(name: 'Reset password'),
             buildLayouts(),
             CupertinoStyleButton(
               name: 'Continue',
