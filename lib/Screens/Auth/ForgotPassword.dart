@@ -1,5 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Utils/validator.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,9 +11,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _confirmemail = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +42,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 10, 15),
               child: Text(
-                'Please enter your email ID to receive a verification code to reset your password',
+                'Enter your email address and we\'ll send you a message',
                 textAlign: TextAlign.center,
                 softWrap: true,
                 style: GoogleFonts.muli(color: Colors.black87, fontSize: 15),
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Reset my Password', resetPassword),
+            button(context, blackButton, 'Reset my password', resetPassword),
             SizedBox(
               height: 20.0,
             ),
@@ -71,16 +71,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             autocorrect: false,
             textCapitalization: TextCapitalization.none,
             enableSuggestions: false,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter your Email ID';
-              }
-              return null;
-            },
+            validator: Validator.email,
             keyboardType: TextInputType.emailAddress,
             textAlign: TextAlign.start,
             decoration: InputDecoration(
-              hintText: 'Enter your email ID',
+              hintText: 'Email Address',
               hintStyle: GoogleFonts.poppins(
                 fontSize: 14,
               ),
@@ -92,7 +87,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             onSaved: (value) {
               setState(() {
-                _confirmemail.text = value;
+                _email.text = value;
               });
             },
           ),

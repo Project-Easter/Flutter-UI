@@ -178,6 +178,33 @@ class AuthService {
     }
   }
 
+    Future<String> sendResetPasswordMail(String email) async {
+    var response = await Api.sendResetPasswordMail(email);
+    if (response.statusCode == 204) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.EMAIL_NOT_FOUND:
+        {
+          return 'Provided email does not exist';
+        }
+      case Exception.INVALID_ACCOUNT_TYPE:
+        {
+          return 'Provided email is associated with the account created using Google or Facebook';
+        }
+    case Exception.UNCONFIRMED_ACCOUNT:
+        {
+          return 'Your account is not confirmed yet.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
+  }
+
   Future<String> confirmEmail(String email, String code) async {
     var response = await Api.confirmEmail(email, code);
 

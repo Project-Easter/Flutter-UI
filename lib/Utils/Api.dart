@@ -26,6 +26,18 @@ class Api {
     return response;
   }
 
+    static Future<Response> sendResetPasswordMail(String email) async {
+    var response;
+
+    try {
+      response = await post(Uri.parse(API_ROUTE + "/mail/password-reset"), body: {"email": email});
+    } catch (error) {
+      print(error.toString());
+    }
+
+    return response;
+  }
+
   static Future<Response> confirmEmail(String email, String code) async {
     var response;
 
