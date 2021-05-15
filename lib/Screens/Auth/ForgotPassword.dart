@@ -42,18 +42,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 35),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 15),
-              child: Text(
-                'Enter your email address and we\'ll send you a message',
-                textAlign: TextAlign.center,
-                softWrap: true,
-                style: GoogleFonts.muli(color: Colors.black87, fontSize: 15),
-              ),
-            ),
             buildLayouts(),
             CupertinoStyleButton(
-            name: 'Reset my password',
+            name: 'Continue',
             color: blackButton,
             myFunction: () async {
               var isFormValid = _formKey.currentState.validate();

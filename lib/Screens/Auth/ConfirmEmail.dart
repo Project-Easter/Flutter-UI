@@ -18,10 +18,10 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   final AuthService _authService = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String email;
+  String _email;
   String _confirmationCode;
 
-  _ConfirmEmailScreenState(this.email);
+  _ConfirmEmailScreenState(this._email);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 var isFormValid = _formKey.currentState.validate();
 
                 if (isFormValid) {
-                  var error = await _authService.confirmEmail(email, _confirmationCode);
+                  var error = await _authService.confirmEmail(_email, _confirmationCode);
 
                   if (error == null) {
                     return print('Email confirmed successfully');

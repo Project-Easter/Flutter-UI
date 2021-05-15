@@ -1,5 +1,7 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Utils/validator.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,15 +16,15 @@ final String email;
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+    final AuthService _authService = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
-  final TextEditingController _newPassword = TextEditingController();
-  final TextEditingController _reEnterPassword = TextEditingController();
-  final TextEditingController _verificationCode = TextEditingController();
 
-    String email;
+    String _email;
+    String _password;
+    String _confirmationCode;
 
-    _ResetPasswordState(this.email);
+    _ResetPasswordState(this._email);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,17 +49,25 @@ class _ResetPasswordState extends State<ResetPassword> {
                 style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Please enter the verification code sent to your Email ID and a new password',
-                textAlign: TextAlign.center,
-                softWrap: true,
-                style: GoogleFonts.muli(color: Colors.black87, fontSize: 15),
-              ),
-            ),
             buildLayouts(),
-            button(context, blackButton, 'Continue with Login', loginRoute),
+             CupertinoStyleButton(
+            name: 'Continue',
+            color: blackButton,
+            myFunction: () async {
+              var isFormValid = _formKey.currentState.validate();
+
+              if (isFormValid) {
+                var error = await _authService.resetPassword(_email, _password, _confirmationCode);
+
+                if (error == null) {
+                  return Navigator.pushNamed(context, loginRoute);
+                }
+
+                print(error);
+                //TODO: Display error message
+              }
+            },
+          ),
           ],
         ),
       ),
@@ -78,16 +88,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
                 enableSuggestions: false,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter the verification code correctly';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.emailAddress,
+                obscureText: false,
+                validator: Validator.confirmationCode,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
-                  hintText: 'Enter Verification Code',
+                  hintText: 'Confirmation code',
                   hintStyle: GoogleFonts.poppins(
                     fontSize: 14,
                   ),
@@ -98,10 +103,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                   contentPadding: EdgeInsets.all(10),
                 ),
                 onSaved: (value) {
-                  setState(() {
-                    _verificationCode.text = value;
-                  });
-                },
+                    setState(() {
+                      _confirmationCode = value;
+                    });
+                  },
+                  onChanged: (value) {
+                    _confirmationCode = value;
+                  },
               ),
             ),
           ),
@@ -113,15 +121,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: TextFormField(
                   key: ValueKey('password'),
                   obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty || value.length < 6) {
-                      return 'Password too short must be at least 6 characters long';
-                    }
-                    return null;
-                  },
+                  validator: Validator.password,
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: 'New password',
                     hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
                     ),
@@ -133,43 +136,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                   onSaved: (value) {
                     setState(() {
-                      _newPassword.text = value;
+                      _password = value;
                     });
                   },
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: AspectRatio(
-              aspectRatio: 340 / 52,
-              child: Container(
-                child: TextFormField(
-                  key: ValueKey('Re -enter password'),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty || value.length < 6) {
-                      return 'Password too short must be at least 6 characters long';
-                    }
-                    return null;
-                  },
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    hintText: 'Confirm Password',
-                    hintStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                    ),
-                    focusedBorder:
-                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-                    contentPadding: EdgeInsets.all(10),
-                  ),
-                  onSaved: (value) {
-                    setState(() {
-                      _reEnterPassword.text = value;
-                    });
+                  onChanged: (value) {
+                    _password = value;
                   },
                 ),
               ),
