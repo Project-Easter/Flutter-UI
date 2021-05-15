@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Utils/validator.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,9 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = TextEditingController();
+  final AuthService _authService = AuthService();
+  
+  String _email;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
             ),
             buildLayouts(),
-            button(context, blackButton, 'Reset my password', resetPassword),
+            CupertinoStyleButton(
+            name: 'Reset my password',
+            color: blackButton,
+            myFunction: () async {
+              var isFormValid = _formKey.currentState.validate();
+
+              if (isFormValid) {
+                var error = await _authService.sendResetPasswordMail(_email);
+
+                if (error == null) {
+                  return print('Email sent');
+                }
+
+                print(error);
+                //TODO: Display error message
+              }
+            },
+          ),
             SizedBox(
               height: 20.0,
             ),
@@ -86,9 +105,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               contentPadding: EdgeInsets.all(10),
             ),
             onSaved: (value) {
-              setState(() {
-                _email.text = value;
-              });
+            setState(() {
+                _email = value;
+            });
+            },
+            onChanged: (value) {
+            _email = value;
             },
           ),
         ),

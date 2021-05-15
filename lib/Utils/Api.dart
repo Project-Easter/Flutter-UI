@@ -26,7 +26,7 @@ class Api {
     return response;
   }
 
-    static Future<Response> sendResetPasswordMail(String email) async {
+  static Future<Response> sendResetPasswordMail(String email) async {
     var response;
 
     try {

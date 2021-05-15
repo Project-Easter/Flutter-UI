@@ -178,7 +178,7 @@ class AuthService {
     }
   }
 
-    Future<String> sendResetPasswordMail(String email) async {
+  Future<String> sendResetPasswordMail(String email) async {
     var response = await Api.sendResetPasswordMail(email);
     if (response.statusCode == 204) return null;
 
@@ -194,7 +194,7 @@ class AuthService {
         {
           return 'Provided email is associated with the account created using Google or Facebook';
         }
-    case Exception.UNCONFIRMED_ACCOUNT:
+      case Exception.UNCONFIRMED_ACCOUNT:
         {
           return 'Your account is not confirmed yet.';
         }
