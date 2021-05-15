@@ -6,9 +6,15 @@ class AuthButton extends StatelessWidget {
   final String text;
   final Function onClick;
   final Function onSuccess;
+  final Function onError;
   final GlobalKey<FormState> formKey;
 
-  AuthButton({this.text, this.onClick, this.onSuccess, this.formKey});
+  AuthButton(
+      {@required this.text,
+      @required this.onClick,
+      @required this.onSuccess,
+      @required this.onError,
+      @required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class AuthButton extends StatelessWidget {
             return this.onSuccess();
           }
 
-          print(error);
+          this.onError(error);
         }
       },
     );

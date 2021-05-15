@@ -1,10 +1,12 @@
 import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Utils/Helpers/not_null.dart';
 import 'package:books_app/Widgets/AuthButton.dart';
 import 'package:books_app/Widgets/AuthNavigation.dart';
 import 'package:books_app/Widgets/AuthPageTitle.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ResetPassword extends StatefulWidget {
   final String email;
@@ -16,79 +18,88 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  final AuthService _authService = AuthService();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String email;
   String password;
   String confirmationCode;
+  String errorMessage;
 
   _ResetPasswordState({this.email});
 
-  void _updatePassword(String password) {
+  void updatePassword(String password) {
     setState(() {
       this.password = password;
     });
   }
 
-  void _updateConfirmationCode(String confirmationCode) {
+  void updateConfirmationCode(String confirmationCode) {
     setState(() {
       this.confirmationCode = confirmationCode;
     });
   }
 
   Future<String> onSubmit() async {
-    return await _authService.resetPassword(this.email, this.password, this.confirmationCode);
+    return await this.authService.resetPassword(this.email, this.password, this.confirmationCode);
   }
 
   void onSuccess() {
     Navigator.pushNamed(context, Routes.LOGIN);
   }
 
+  void onError(String error) {
+    setState(() {
+      this.errorMessage = error;
+    });
+  }
+
+  Widget renderErrorMessage() {
+    if (this.errorMessage != null) {
+      return Padding(
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 15),
+        child: Text(
+          this.errorMessage,
+          textAlign: TextAlign.center,
+          softWrap: true,
+          style: GoogleFonts.muli(color: Colors.red, fontSize: 15),
+        ),
+      );
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AuthNavigation.from(context),
-      body: Container(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AuthPageTitle(name: 'Reset password'),
-            Form(
-              key: _formKey,
-              child: Column(
+        appBar: AuthNavigation.from(context),
+        body: Container(
+          padding: EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ConfirmationCodeTextField(onChanged: this._updateConfirmationCode),
-                  PasswordTextField(onChanged: this._updatePassword)
-                ],
-              ),
-            ),
-            AuthButton(
-              text: 'Continue',
-              formKey: this._formKey,
-            )
-            // CupertinoStyleButton(
-            //   name: 'Continue',
-            //   color: blackButton,
-            //   myFunction: () async {
-            //     var isFormValid = _formKey.currentState.validate();
-
-            //     if (isFormValid) {
-            //   var error = await _authService.resetPassword(_email, _password, _confirmationCode);
-
-            //       if (error == null) {
-            //         return Navigator.pushNamed(context, loginRoute);
-            //       }
-
-            //       print(error);
-            //       //TODO: Display error message
-            //     }
-            //   },
-            // ),
-          ],
-        ),
-      ),
-    );
+                  AuthPageTitle(name: 'Reset password'),
+                  this.renderErrorMessage(),
+                  Form(
+                    key: this.formKey,
+                    child: Column(
+                      children: [
+                        ConfirmationCodeTextField(onChanged: this.updateConfirmationCode),
+                        PasswordTextField(onChanged: this.updatePassword)
+                      ],
+                    ),
+                  ),
+                  AuthButton(
+                    text: 'Continue',
+                    formKey: this.formKey,
+                    onClick: this.onSubmit,
+                    onSuccess: this.onSuccess,
+                    onError: this.onError,
+                  )
+                ].where(notNull).toList()),
+          ),
+        ));
   }
 }
