@@ -2,11 +2,11 @@ import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
 import 'package:books_app/Widgets/Auth/AuthButton.dart';
+import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
 import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
 import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ResetPassword extends StatefulWidget {
   final String email;
@@ -54,22 +54,6 @@ class _ResetPasswordState extends State<ResetPassword> {
     });
   }
 
-  Widget renderErrorMessage() {
-    if (this.errorMessage != null) {
-      return Padding(
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 15),
-        child: Text(
-          this.errorMessage,
-          textAlign: TextAlign.center,
-          softWrap: true,
-          style: GoogleFonts.muli(color: Colors.red, fontSize: 15),
-        ),
-      );
-    }
-
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +65,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   AuthPageTitle(name: 'Reset password'),
-                  this.renderErrorMessage(),
+                  AuthErrorMessage(errorMessage: this.errorMessage),
                   Form(
                     key: this.formKey,
                     child: Column(

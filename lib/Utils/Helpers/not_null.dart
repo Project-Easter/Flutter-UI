@@ -1,3 +1,3 @@
 bool notNull(Object object) {
-    return object != null;
+  return object != null;
 }

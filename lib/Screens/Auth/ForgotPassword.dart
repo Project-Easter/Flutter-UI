@@ -12,8 +12,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final AuthService _authService = AuthService();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
 
   String _email;
 
@@ -47,18 +47,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               name: 'Continue',
               color: blackButton,
               myFunction: () async {
-                var isFormValid = _formKey.currentState.validate();
+                var isFormValid = formKey.currentState.validate();
 
                 if (isFormValid) {
-                  var error = await _authService.sendResetPasswordMail(_email);
+                  var error = await authService.sendResetPasswordMail(_email);
 
                   if (error == null) {
                     return Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) => ResetPassword(email: _email)));
                   }
-
-                  print(error);
-                  //TODO: Display error message
                 }
               },
             ),
@@ -73,7 +70,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   Widget buildLayouts() {
     return Form(
-      key: _formKey,
+      key: formKey,
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: AspectRatio(
