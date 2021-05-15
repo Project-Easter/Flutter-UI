@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'databaseService.dart';
-import 'package:books_app/Constants/exception.dart';
+import 'package:books_app/Constants/Exception.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

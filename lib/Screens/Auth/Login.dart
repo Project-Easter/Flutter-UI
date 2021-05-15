@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/Utils/validator.dart';
@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white10,
         leading: TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, startupPage);
+              Navigator.pushNamed(context, Routes.INITIAL_PAGE);
             },
             child: Icon(Icons.arrow_back_rounded)),
       ),
@@ -158,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
               fontWeight: FontWeight.w600,
             )),
         onPressed: () async {
-          Navigator.pushNamed(context, forgotPassword);
+          Navigator.pushNamed(context, Routes.FORGOT_PASSWORD);
         },
       ),
     );
@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
           onPressed: () async {
-            Navigator.pushNamed(context, registerRoute);
+            Navigator.pushNamed(context, Routes.REGISTER);
           },
         ),
       ),

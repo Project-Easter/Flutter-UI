@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/Utils/values/theme_switch.dart';
@@ -95,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, editProfile);
+              Navigator.pushNamed(context, Routes.EDIT_PROFILE);
             },
             child: Container(
               child: Row(

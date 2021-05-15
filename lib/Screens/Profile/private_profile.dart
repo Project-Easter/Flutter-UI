@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +130,7 @@ class PrivateProfile extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        button(context, blackButton, 'Library', libraryPage),
+                        button(context, blackButton, 'Library', Routes.LIBRARY),
                         button(context, greenButton, 'Send Message', ''),
                       ],
                     ),

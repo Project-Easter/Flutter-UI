@@ -1,4 +1,4 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/Utils/values/theme_switch.dart';
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       // theme: themeNotifier.getTheme(),
       debugShowCheckedModeBanner: false,
       title: "Explr", //This is shown when the app is minimized
-      initialRoute: myAppUser == null ? startupPage : home,
+      initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
       // initialRoute: startupPage,
       onGenerateRoute: RouteGenerator.generateRoute,
     );

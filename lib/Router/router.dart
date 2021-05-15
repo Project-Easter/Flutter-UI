@@ -8,7 +8,7 @@ import 'package:books_app/Screens/initial_screen.dart';
 import 'package:books_app/Services/UserLocation.dart';
 import 'package:books_app/Screens/chat_screen.dart';
 import 'package:books_app/Screens/settings_screens.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Screens/Auth/Register.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
@@ -17,32 +17,31 @@ import 'package:books_app/Screens/edit_profile.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case startupPage:
+      case Routes.INITIAL_PAGE:
         return MaterialPageRoute(builder: (_) => InitialScreen());
-      case editProfile:
+      case Routes.EDIT_PROFILE:
         return MaterialPageRoute(builder: (_) => EditProfile());
-      case login:
+      case Routes.LOGIN:
         return MaterialPageRoute(builder: (_) => LoginScreen());
-      case registerRoute:
+      case Routes.REGISTER:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
-      case dashboard:
+      case Routes.DASHBOARD:
         return MaterialPageRoute(builder: (_) => DashboardPage());
-      case forgotPassword:
+      case Routes.FORGOT_PASSWORD:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
-      case addBook:
+      case Routes.ADD_BOOK:
         return MaterialPageRoute(builder: (_) => AddBook());
-      case home:
+      case Routes.HOME:
         return MaterialPageRoute(builder: (_) => Home());
-      case location:
+      case Routes.LOCATION:
         return MaterialPageRoute(builder: (_) => GetLocation());
-      case chatscreen:
+      case Routes.CHAT:
         return MaterialPageRoute(builder: (_) => ChatScreen());
-      //testing the screen
-      case setscreen:
+      case Routes.SETTINGS:
         return MaterialPageRoute(builder: (_) => SettingsScreen());
-      case libraryPage:
+      case Routes.LIBRARY:
         return MaterialPageRoute(builder: (_) => LibraryPage());
-      case messageScreen:
+      case Routes.MESSAGE:
         return MaterialPageRoute(
             builder: (_) => MessageScreen(
                   receiver: settings.arguments,

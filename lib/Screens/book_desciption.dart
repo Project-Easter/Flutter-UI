@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/databaseService.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/Models/book.dart';
@@ -297,7 +297,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                     padding: const EdgeInsets.all(15.0),
                     child: Column(
                       children: [
-                        button(context, blackButton, 'Visit Profile', publicProfile),
+                        button(context, blackButton, 'Visit Profile', Routes.PUBLIC_PROFILE),
                         button(context, greenButton, 'Exchange this Book', ''),
                         ratings(),
                       ],
@@ -356,7 +356,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
   //             onPressed: () {
   //               _databaseService
   //               setState(() {
-  //                 widget.bookFromList.changeBookMark();
+  //                 widget.bookFromLsist.changeBookMark();
   //               });
   //               //Needs fix
   //               // book.changeBookMark();

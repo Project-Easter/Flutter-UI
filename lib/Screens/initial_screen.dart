@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -199,7 +199,7 @@ class _InitialScreenState extends State<InitialScreen> {
           if (_contactEditingController.text.isEmpty) {
             showErrorDialog(context, 'Contact number can\'t be empty.');
           } else {
-            final responseMessage = await Navigator.pushNamed(context, confirmOTP,
+            final responseMessage = await Navigator.pushNamed(context, 'TO_DELETE',
                 arguments: '$_dialCode${_contactEditingController.text}');
             if (responseMessage != null) {
               showErrorDialog(context, responseMessage as String);
@@ -227,7 +227,7 @@ class _InitialScreenState extends State<InitialScreen> {
           primary: Color(0xFF246BFD),
         ),
         onPressed: () async {
-          Navigator.pushNamed(context, loginRoute);
+          Navigator.pushNamed(context, Routes.LOGIN);
         },
         icon: Icon(
           Icons.mail_outline_outlined,
@@ -262,17 +262,12 @@ class _InitialScreenState extends State<InitialScreen> {
                 side: BorderSide(color: Colors.black87),
               ),
               onPressed: () async {
-                //Old Code
-                // await AuthService().signInWithGoogle().whenComplete(() {
-                //   Navigator.pushNamed(context, home);
-                // });
-                print("signing In");
                 try {
                   dynamic res = await _authService.signInWithGoogle();
                   print(res);
                   if (res != null) {
                     print(res);
-                    Navigator.pushNamed(context, home);
+                    Navigator.pushNamed(context, Routes.HOME);
                   }
                 } catch (e) {
                   print(e.toString());
@@ -296,7 +291,7 @@ class _InitialScreenState extends State<InitialScreen> {
               ),
               onPressed: () async {
                 AuthService().signInWithFacebook().whenComplete(() {
-                  Navigator.pushNamed(context, home);
+                  Navigator.pushNamed(context, Routes.HOME);
                 });
               },
               child: Icon(
@@ -316,7 +311,7 @@ class _InitialScreenState extends State<InitialScreen> {
         try {
           dynamic res = await _authService.signInAnonymous();
           if (res != null) {
-            Navigator.pushReplacementNamed(context, home);
+            Navigator.pushReplacementNamed(context, Routes.HOME);
             print("Signed in Anon User ID: ${res.uid}");
           }
         } catch (e) {

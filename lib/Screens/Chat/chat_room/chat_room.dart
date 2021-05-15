@@ -1,7 +1,7 @@
 import 'package:books_app/Services/Auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Constants/routes.dart';
+import '../../../Constants/Routes.dart';
 import '../../../Models/user.dart';
 import '../../../Services/databaseService.dart';
 import 'package:intl/intl.dart';
@@ -123,7 +123,7 @@ class UserTile extends StatelessWidget {
             ],
           ),
           onTap: () {
-            Navigator.pushNamed(context, messageScreen, arguments: userData);
+            Navigator.pushNamed(context, Routes.MESSAGE, arguments: userData);
           },
         ),
       ),

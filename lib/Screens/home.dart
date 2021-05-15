@@ -1,4 +1,4 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                           heroTag: null,
                           child: Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            Navigator.pushNamed(context, addBook);
+                            Navigator.pushNamed(context, Routes.ADD_BOOK);
                           },
                         ),
                       ),
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.blueAccent,
                         onPressed: () async {
                           //Add users Location to DB
-                          await Navigator.pushNamed(context, location);
+                          await Navigator.pushNamed(context, Routes.LOCATION);
                         },
                       ),
                     ],

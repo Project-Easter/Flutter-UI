@@ -1,4 +1,4 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -143,7 +143,7 @@ class PublicProfile extends StatelessWidget {
                   CupertinoStyleButton(
                     text: 'Change Preferences',
                     onpress: () {
-                      Navigator.pushNamed(context, privateProfile);
+                      Navigator.pushNamed(context, Routes.PRIVATE_PROFILE);
                     },
                     color: Color(0xFF0FB269),
                   ),
