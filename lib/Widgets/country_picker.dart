@@ -42,8 +42,7 @@ class _CountryPickerState extends State<CountryPicker> {
       return [];
     }
     final parsed = json.decode(response.toString()).cast<Map<String, dynamic>>();
-    return parsed.map<CountryModel>((json) => CountryModel.fromJson(json as Map<String, dynamic>)).toList()
-        as List<CountryModel>;
+    return parsed.map<CountryModel>((json) => CountryModel.fromJson(json as Map<String, dynamic>)).toList() as List<CountryModel>;
   }
 
   //build method for UI render
@@ -95,12 +94,7 @@ class _CountryPickerState extends State<CountryPicker> {
 // Custom stateful widget dialogue
 
 class CustomDialog extends StatefulWidget {
-  const CustomDialog(
-      {@required this.searchList,
-      @required this.callBackFunction,
-      this.headerText,
-      this.headerBackgroundColor,
-      this.headerTextColor});
+  const CustomDialog({@required this.searchList, @required this.callBackFunction, this.headerText, this.headerBackgroundColor, this.headerTextColor});
 
   final List<CountryModel> searchList;
   final Function callBackFunction;
@@ -280,8 +274,7 @@ class CountryModel {
 
   factory CountryModel.fromJson(Map<String, dynamic> json) {
     final flag = CountryModel.getEmojiFlag(json['code'] as String);
-    return CountryModel(
-        name: json['name'] as String, dialCode: json['dial_code'] as String, code: json['code'] as String, flag: flag);
+    return CountryModel(name: json['name'] as String, dialCode: json['dial_code'] as String, code: json['code'] as String, flag: flag);
   }
 
   final String name, dialCode, code, flag;

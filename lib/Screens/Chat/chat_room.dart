@@ -1,9 +1,8 @@
 import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Constants/routes.dart';
 import '../../Models/user.dart';
-import '../../Services/databaseService.dart';
 import 'package:intl/intl.dart';
 
 class ChatRoom extends StatefulWidget {
@@ -114,7 +113,7 @@ class UserTile extends StatelessWidget {
             ],
           ),
           onTap: () {
-            Navigator.pushNamed(context, messageScreen, arguments: userData);
+            Navigator.pushNamed(context, 'EMPTY: MESSAGE_SCREEN', arguments: userData);
           },
         ),
       ),

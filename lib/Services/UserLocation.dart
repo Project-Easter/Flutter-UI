@@ -1,6 +1,6 @@
-import 'package:books_app/Services/databaseService.dart';
-import 'package:books_app/util/config_helper.dart';
-import 'package:books_app/util/location_helper.dart';
+import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/Utils/config_helper.dart';
+import 'package:books_app/Utils/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:books_app/Services/Auth.dart';
@@ -19,8 +19,7 @@ class GetLocation extends StatelessWidget {
     return Scaffold(
       body: FutureBuilder(
         future: loadConfig(),
-        builder: (BuildContext buildContext,
-            AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        builder: (BuildContext buildContext, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (snapshot.hasData) {
             return MapboxMap(
               accessToken: snapshot.data['mapbox_api_token'],

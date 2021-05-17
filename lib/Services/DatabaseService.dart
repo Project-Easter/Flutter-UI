@@ -9,14 +9,11 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  final CollectionReference userDataCollection =
-      FirebaseFirestore.instance.collection('users');
+  final CollectionReference userDataCollection = FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference booksCollection =
-      FirebaseFirestore.instance.collection('books');
+  final CollectionReference booksCollection = FirebaseFirestore.instance.collection('books');
 
-  final CollectionReference chatCollection =
-      FirebaseFirestore.instance.collection('chat');
+  final CollectionReference chatCollection = FirebaseFirestore.instance.collection('chat');
 
   Future updateUserData(UserData userData) async {
     return await userDataCollection.doc(uid).set(
@@ -25,7 +22,6 @@ class DatabaseService {
         "displayName": userData.displayName,
         "email": userData.email,
         "emailVerified": userData.emailVerified,
-        //this is not required.Just for test purpose
         "isAnonymous": userData.isAnonymous,
         "phoneNumber": userData.phoneNumber,
         "photoURL": userData.photoURL,
@@ -42,11 +38,9 @@ class DatabaseService {
     );
   }
 
-  ///Sends a Stream of custom User UserData Model
   UserData _userDataFromSnapShot(DocumentSnapshot documentSnapshot) {
     return UserData(
       uid: uid,
-      // uid: documentSnapshot.data()['uid'],
       displayName: documentSnapshot.data()['displayName'] ?? "Enter Name",
       email: documentSnapshot.data()['email'] ?? "example@example.com",
       phoneNumber: documentSnapshot.data()['phoneNumber'] ?? "8844883333",
@@ -76,8 +70,7 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updateUser(
-      String name, String city, String state, String photoURL) async {
+  Future updateUser(String name, String city, String state, String photoURL) async {
     return await userDataCollection.doc(uid).set({
       "city": city,
       "state": state,
@@ -92,14 +85,9 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updatePreferences(
-      String favAuthor, String favBook, String locationRange) async {
+  Future updatePreferences(String favAuthor, String favBook, String locationRange) async {
     return await userDataCollection.doc(uid).set({
-      "preferences": {
-        "favAuthor": favAuthor,
-        "favBook": favBook,
-        "locationRange": locationRange
-      }
+      "preferences": {"favAuthor": favAuthor, "favBook": favBook, "locationRange": locationRange}
     }, SetOptions(merge: true));
   }
 
@@ -139,11 +127,7 @@ class DatabaseService {
 
   Future addBook(Book book) async {
     //GET BOOK FROM API or an existing List
-    return await booksCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .doc(book.isbn)
-        .set({
+    return await booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn).set({
       "rating": book.rating,
       "isbn": book.isbn,
       "isBookMarked": book.isBookMarked,
@@ -177,11 +161,7 @@ class DatabaseService {
 
   //Read from firestore
   Stream<List<Book>> get booksData {
-    return booksCollection
-        .doc(uid)
-        .collection("ownedBooks")
-        .snapshots()
-        .map((_bookFromQuerySnapShot));
+    return booksCollection.doc(uid).collection("ownedBooks").snapshots().map((_bookFromQuerySnapShot));
   }
 
   //*********Updates***************//
@@ -195,8 +175,7 @@ class DatabaseService {
   //2.0->Update BookMark toggle bookmark
   updateBookMark(Book book) {
     //Get
-    var docReference =
-        booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
+    var docReference = booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
     docReference
         .get()
         .then((doc) => {
@@ -215,12 +194,7 @@ class DatabaseService {
   }
 
   removeBook(String isbn) {
-    booksCollection
-        .doc(uid)
-        .collection("ownedBooks")
-        .doc(isbn)
-        .delete()
-        .catchError((e) => print(e.toString()));
+    booksCollection.doc(uid).collection("ownedBooks").doc(isbn).delete().catchError((e) => print(e.toString()));
   }
 
   Future sendMessage(Message message) async {
@@ -237,12 +211,7 @@ class DatabaseService {
         .collection('conversation')
         .doc(message.receiver)
         .collection('messages')
-        .add({
-      "sender": message.sender,
-      "receiver": message.receiver,
-      "message": message.message,
-      "createdAt": message.createdAt
-    });
+        .add({"sender": message.sender, "receiver": message.receiver, "message": message.message, "createdAt": message.createdAt});
     // Message(
     //   sender: doc.data()['sender'],
     //   receiver: doc.data()['receiver'],
@@ -255,12 +224,7 @@ class DatabaseService {
         .collection('conversation')
         .doc(message.sender)
         .collection('messages')
-        .add({
-      "sender": message.sender,
-      "receiver": message.receiver,
-      "message": message.message,
-      "createdAt": message.createdAt
-    });
+        .add({"sender": message.sender, "receiver": message.receiver, "message": message.message, "createdAt": message.createdAt});
   }
 
   Stream<QuerySnapshot> getMessageStream(String from, String to) {

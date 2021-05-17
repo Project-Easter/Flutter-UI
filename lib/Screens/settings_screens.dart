@@ -1,15 +1,15 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Models/user.dart';
-import 'package:books_app/util/theme_notifier.dart';
-import 'package:books_app/util/values/theme_switch.dart';
+import 'package:books_app/Utils/theme_notifier.dart';
+import 'package:books_app/Utils/values/theme_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Services/Auth.dart';
-import '../Services/databaseService.dart';
+import '../Services/DatabaseService.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -95,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, editProfile);
+              Navigator.pushNamed(context, Routes.EDIT_PROFILE);
             },
             child: Container(
               child: Row(

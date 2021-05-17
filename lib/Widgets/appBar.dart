@@ -1,4 +1,4 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Widgets/filter_items.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -81,7 +81,7 @@ MyAppBar(BuildContext buildContext) {
           size: 20,
         ),
         onPressed: () {
-          Navigator.pushNamed(buildContext, setscreen);
+          Navigator.pushNamed(buildContext, Routes.SETTINGS);
         },
       ),
     ],

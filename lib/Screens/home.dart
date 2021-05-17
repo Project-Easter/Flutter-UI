@@ -1,16 +1,16 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:books_app/Widgets/appBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/util/size_config.dart';
+import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Models/book.dart';
@@ -23,16 +23,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-  // ignore: non_constant_identifier_names
-  final List<Widget> _Screens = [
+  final List<Widget> _screens = [
     DashboardPage(),
     ExploreNearby(),
     Wrapper(),
     LibraryPage(),
     PrivateProfile(),
   ];
-  TextStyle name = GoogleFonts.muli(
-      color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
+  TextStyle name = GoogleFonts.muli(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   void _selectedTab(int index) {
     setState(() {
       _selectedIndex = index;
@@ -52,12 +50,11 @@ class _HomeState extends State<Home> {
           value: DatabaseService(uid: uID).userData,
           catchError: (_, e) => null,
         ),
-        StreamProvider<List<Book>>.value(
-            value: DatabaseService(uid: uID).booksData),
+        StreamProvider<List<Book>>.value(value: DatabaseService(uid: uID).booksData),
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
-          body: _Screens[_selectedIndex],
+          body: _screens[_selectedIndex],
           floatingActionButton: Container(
             child: _selectedIndex == 3 || _selectedIndex == 1
                 ? Row(
@@ -69,7 +66,7 @@ class _HomeState extends State<Home> {
                           heroTag: null,
                           child: Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            Navigator.pushNamed(context, addBook);
+                            Navigator.pushNamed(context, Routes.ADD_BOOK);
                           },
                         ),
                       ),
@@ -79,7 +76,7 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.blueAccent,
                         onPressed: () async {
                           //Add users Location to DB
-                          await Navigator.pushNamed(context, location);
+                          await Navigator.pushNamed(context, Routes.LOCATION);
                         },
                       ),
                     ],
@@ -97,12 +94,9 @@ class _HomeState extends State<Home> {
                 title: 'Home',
               ),
               FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              FloatingNavbarItem(
-                  icon: Icons.chat_bubble_rounded, title: 'Chats'),
-              FloatingNavbarItem(
-                  icon: Icons.favorite_rounded, title: 'Library'),
-              FloatingNavbarItem(
-                  icon: Icons.account_circle_rounded, title: 'Profile'),
+              FloatingNavbarItem(icon: Icons.chat_bubble_rounded, title: 'Chats'),
+              FloatingNavbarItem(icon: Icons.favorite_rounded, title: 'Library'),
+              FloatingNavbarItem(icon: Icons.account_circle_rounded, title: 'Profile'),
             ],
           )),
     );

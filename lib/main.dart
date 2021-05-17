@@ -1,7 +1,7 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/util/theme_notifier.dart';
-import 'package:books_app/util/values/theme_switch.dart';
+import 'package:books_app/Utils/theme_notifier.dart';
+import 'package:books_app/Utils/values/theme_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
     final myAppUser = _authService.currentUserFromFireBase;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Explr", //This is shown when the app is minimized
-      initialRoute: myAppUser == null ? startupPage : home,
+      title: "Explr",
+      initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

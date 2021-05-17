@@ -1,6 +1,6 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/util/size_config.dart';
+import 'package:books_app/Utils/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -97,25 +97,19 @@ class PublicProfile extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(ownedBooksLength,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(ownedBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Owned Books')
                           ],
                         ),
                         Column(
                           children: [
-                            Text(lentBooksLength,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(lentBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Lent Books')
                           ],
                         ),
                         Column(
                           children: [
-                            Text(borrowedBooksLength,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(borrowedBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Borrowed Books')
                           ],
                         )
@@ -143,7 +137,7 @@ class PublicProfile extends StatelessWidget {
                   CupertinoStyleButton(
                     text: 'Change Preferences',
                     onpress: () {
-                      Navigator.pushNamed(context, privateProfile);
+                      Navigator.pushNamed(context, Routes.PRIVATE_PROFILE);
                     },
                     color: Color(0xFF0FB269),
                   ),

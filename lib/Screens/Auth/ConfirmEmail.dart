@@ -1,8 +1,6 @@
-import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/States/EmailState.dart';
+import 'package:books_app/States/ConfirmationCodeState.dart';
 import 'package:books_app/States/AuthState.dart';
-import 'package:books_app/Utils/Helpers/not_null.dart';
 import 'package:books_app/Widgets/Auth/AuthButton.dart';
 import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
 import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
@@ -10,21 +8,29 @@ import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class ConfirmEmailScreen extends StatefulWidget {
+  final String email;
+
+  ConfirmEmailScreen({Key key, @required this.email}) : super(key: key);
+
   @override
-  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+  _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState(email);
 }
 
-class _ForgotPasswordScreenState extends AuthState<ForgotPasswordScreen> with EmailState<ForgotPasswordScreen> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+class _ConfirmEmailScreenState extends AuthState<ConfirmEmailScreen> with ConfirmationCodeState<ConfirmEmailScreen> {
   final AuthService authService = AuthService();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  String email;
+
+  _ConfirmEmailScreenState(this.email);
 
   Future<String> onSubmit() async {
-    return await this.authService.forgotPassword(this.email);
+    return await authService.confirmEmail(this.email, this.confirmationCode);
   }
 
   void onSuccess() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPasswordScreen(email: this.email)));
+    print('Email confirmed successfully');
   }
 
   @override
@@ -36,14 +42,12 @@ class _ForgotPasswordScreenState extends AuthState<ForgotPasswordScreen> with Em
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            AuthPageTitle(name: 'Reset password'),
+            AuthPageTitle(name: 'Confirm email'),
             AuthErrorMessage(errorMessage: this.error),
             Form(
               key: this.formKey,
               child: Column(
-                children: [
-                  EmailTextField(onChanged: this.updateEmail),
-                ],
+                children: [ConfirmationCodeTextField(onChanged: this.updateConfirmationCode)],
               ),
             ),
             AuthButton(
@@ -52,8 +56,8 @@ class _ForgotPasswordScreenState extends AuthState<ForgotPasswordScreen> with Em
               onClick: this.onSubmit,
               onSuccess: this.onSuccess,
               onError: this.onError,
-            )
-          ].where(notNull).toList(),
+            ),
+          ],
         ),
       ),
     );

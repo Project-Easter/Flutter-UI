@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -62,20 +62,14 @@ class PrivateProfile extends StatelessWidget {
                           child: Text(
                             // 'John Doe',
                             profileData.displayName,
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 36,
-                                fontWeight: FontWeight.w400),
+                            style: GoogleFonts.poppins(color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
                             "${profileData.city},${profileData.state}",
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400),
+                            style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ],
@@ -91,10 +85,7 @@ class PrivateProfile extends StatelessWidget {
                       children: [
                         Text(
                           'User Stats',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w400),
+                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,10 +94,7 @@ class PrivateProfile extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(ownedBooksLength.toString(),
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w400)),
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Owned Books')
                               ],
                             ),
@@ -114,10 +102,7 @@ class PrivateProfile extends StatelessWidget {
                               children: [
                                 Text("0",
                                     // borrowedBooksLength,
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w400)),
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Borrowed Books')
                               ],
                             ),
@@ -125,10 +110,7 @@ class PrivateProfile extends StatelessWidget {
                               children: [
                                 Text("0",
                                     // lentBooksLength,
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w400)),
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Lent Books')
                               ],
                             )
@@ -141,7 +123,7 @@ class PrivateProfile extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        button(context, blackButton, 'Library', libraryPage),
+                        button(context, blackButton, 'Library', Routes.LIBRARY),
                         button(context, greenButton, 'Send Message', ''),
                       ],
                     ),
