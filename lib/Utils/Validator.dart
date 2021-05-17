@@ -1,6 +1,6 @@
-import 'package:books_app/Constants/regex.dart';
-
 class Validator {
+  static const EMAIL_REGEX = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+  
   static String email(String email) {
     if (email.isEmpty || email.length < 5) {
       return 'Email must be at least 5 characters long';

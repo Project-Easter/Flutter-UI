@@ -3,7 +3,7 @@ import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/States/ConfirmationCodeState.dart';
 import 'package:books_app/States/AuthState.dart';
 import 'package:books_app/States/PasswordState.dart';
-import 'package:books_app/Utils/Helpers/not_null.dart';
+import 'package:books_app/Utils/Helpers.dart';
 import 'package:books_app/Widgets/Auth/AuthButton.dart';
 import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
 import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
