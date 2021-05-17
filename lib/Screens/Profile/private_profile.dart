@@ -98,8 +98,7 @@ class PrivateProfile extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(ownedBooksLength.toString(),
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Owned Books')
                               ],
                             ),
@@ -107,8 +106,7 @@ class PrivateProfile extends StatelessWidget {
                               children: [
                                 Text("0",
                                     // borrowedBooksLength,
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Borrowed Books')
                               ],
                             ),
@@ -116,8 +114,7 @@ class PrivateProfile extends StatelessWidget {
                               children: [
                                 Text("0",
                                     // lentBooksLength,
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                                    style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                                 Text('Lent Books')
                               ],
                             )

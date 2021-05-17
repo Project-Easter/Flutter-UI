@@ -16,8 +16,7 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends AuthState<RegisterScreen>
-    with EmailState<RegisterScreen>, PasswordState<RegisterScreen> {
+class _RegisterScreenState extends AuthState<RegisterScreen> with EmailState<RegisterScreen>, PasswordState<RegisterScreen> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -44,10 +43,7 @@ class _RegisterScreenState extends AuthState<RegisterScreen>
                 Form(
                   key: this.formKey,
                   child: Column(
-                    children: [
-                      EmailTextField(onChanged: this.updateEmail),
-                      PasswordTextField(onChanged: this.updatePassword)
-                    ],
+                    children: [EmailTextField(onChanged: this.updateEmail), PasswordTextField(onChanged: this.updatePassword)],
                   ),
                 ),
                 AuthButton(

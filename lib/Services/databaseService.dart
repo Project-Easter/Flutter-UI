@@ -280,12 +280,7 @@ class DatabaseService {
         .collection('conversation')
         .doc(message.receiver)
         .collection('messages')
-        .add({
-      "sender": message.sender,
-      "receiver": message.receiver,
-      "message": message.message,
-      "createdAt": message.createdAt
-    });
+        .add({"sender": message.sender, "receiver": message.receiver, "message": message.message, "createdAt": message.createdAt});
     // Message(
     //   sender: doc.data()['sender'],
     //   receiver: doc.data()['receiver'],
@@ -298,12 +293,7 @@ class DatabaseService {
         .collection('conversation')
         .doc(message.sender)
         .collection('messages')
-        .add({
-      "sender": message.sender,
-      "receiver": message.receiver,
-      "message": message.message,
-      "createdAt": message.createdAt
-    });
+        .add({"sender": message.sender, "receiver": message.receiver, "message": message.message, "createdAt": message.createdAt});
   }
 
   // Stream<List<Book>> get booksData {

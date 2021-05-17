@@ -1,2 +1,2 @@
 format:
-	flutter format lib -l 120
+	flutter format lib -l 150

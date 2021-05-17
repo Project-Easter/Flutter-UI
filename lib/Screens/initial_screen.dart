@@ -199,8 +199,7 @@ class _InitialScreenState extends State<InitialScreen> {
           if (_contactEditingController.text.isEmpty) {
             showErrorDialog(context, 'Contact number can\'t be empty.');
           } else {
-            final responseMessage = await Navigator.pushNamed(context, 'TO_DELETE',
-                arguments: '$_dialCode${_contactEditingController.text}');
+            final responseMessage = await Navigator.pushNamed(context, 'TO_DELETE', arguments: '$_dialCode${_contactEditingController.text}');
             if (responseMessage != null) {
               showErrorDialog(context, responseMessage as String);
             }

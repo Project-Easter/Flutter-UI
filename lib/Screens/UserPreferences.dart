@@ -321,8 +321,7 @@ class _UserPreferenceState extends State<UserPreference> {
                 // print(sliderValue.round());
                 ///
                 //Save Values to DB
-                await _databaseService.updatePreferences(
-                    _book.text, _author.text, sliderValue.round().toString() ?? "");
+                await _databaseService.updatePreferences(_book.text, _author.text, sliderValue.round().toString() ?? "");
                 //API Call To get prefered Book
                 //TODO:Make a future builder in Dashboard and Update UI
                 // try {

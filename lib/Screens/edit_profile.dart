@@ -70,8 +70,7 @@ class _EditProfileState extends State<EditProfile> {
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
                               'Edit Your Profile',
-                              style:
-                                  GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w400, fontSize: 26),
+                              style: GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w400, fontSize: 26),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -89,8 +88,7 @@ class _EditProfileState extends State<EditProfile> {
                               padding: EdgeInsets.all(5),
                               child: CircleAvatar(
                                 radius: 100,
-                                backgroundImage:
-                                    _imageUrl == "" ? NetworkImage(userData.photoURL) : NetworkImage(_imageUrl),
+                                backgroundImage: _imageUrl == "" ? NetworkImage(userData.photoURL) : NetworkImage(_imageUrl),
                               ),
                             ),
                             Container(
@@ -189,11 +187,8 @@ class _EditProfileState extends State<EditProfile> {
                                 } else {
                                   print(_imageUrl);
                                 }
-                                await DatabaseService(uid: uID).updateUser(
-                                    _name ?? userData.displayName,
-                                    _city ?? userData.city,
-                                    _state ?? userData.state,
-                                    _imageUrl == "" ? userData.photoURL : _imageUrl);
+                                await DatabaseService(uid: uID).updateUser(_name ?? userData.displayName, _city ?? userData.city,
+                                    _state ?? userData.state, _imageUrl == "" ? userData.photoURL : _imageUrl);
                               }
                               Navigator.pop(context);
                             },

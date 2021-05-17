@@ -20,8 +20,7 @@ class ResetPassword extends StatefulWidget {
   _ResetPasswordState createState() => _ResetPasswordState(email: email);
 }
 
-class _ResetPasswordState extends AuthState<ResetPassword>
-    with PasswordState<ResetPassword>, ConfirmationCodeState<ResetPassword> {
+class _ResetPasswordState extends AuthState<ResetPassword> with PasswordState<ResetPassword>, ConfirmationCodeState<ResetPassword> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

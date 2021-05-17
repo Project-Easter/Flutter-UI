@@ -97,25 +97,19 @@ class PublicProfile extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(ownedBooksLength,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(ownedBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Owned Books')
                           ],
                         ),
                         Column(
                           children: [
-                            Text(lentBooksLength,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(lentBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Lent Books')
                           ],
                         ),
                         Column(
                           children: [
-                            Text(borrowedBooksLength,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(borrowedBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
                             Text('Borrowed Books')
                           ],
                         )

@@ -9,12 +9,7 @@ class AuthButton extends StatelessWidget {
   final Function onError;
   final GlobalKey<FormState> formKey;
 
-  AuthButton(
-      {@required this.text,
-      @required this.onClick,
-      @required this.onSuccess,
-      @required this.onError,
-      @required this.formKey});
+  AuthButton({@required this.text, @required this.onClick, @required this.onSuccess, @required this.onError, @required this.formKey});
 
   @override
   Widget build(BuildContext context) {

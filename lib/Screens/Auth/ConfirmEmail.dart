@@ -96,10 +96,8 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
               hintStyle: GoogleFonts.poppins(
                 fontSize: 14,
               ),
-              focusedBorder:
-                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-              enabledBorder:
-                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
               contentPadding: EdgeInsets.all(10),
             ),
             onSaved: (value) {

@@ -199,9 +199,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                         }
                         print("Book Marked");
                       },
-                      icon: widget.bookFromList.isBookMarked
-                          ? Icon(Icons.bookmark)
-                          : Icon(Icons.bookmark_outline_rounded),
+                      icon: widget.bookFromList.isBookMarked ? Icon(Icons.bookmark) : Icon(Icons.bookmark_outline_rounded),
                       iconSize: 20,
                     ),
                   ),
@@ -271,8 +269,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                         )
                       : Padding(
                           padding: const EdgeInsets.all(18.0),
-                          child: CupertinoStyleButton(
-                              color: blackButton, name: 'Exchange this Book', myFunction: () async {}),
+                          child: CupertinoStyleButton(color: blackButton, name: 'Exchange this Book', myFunction: () async {}),
                         ),
                   widget.bookFromList.isOwned
                       ? Padding(
@@ -419,8 +416,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                 ),
                 borderRadius: BorderRadius.circular(8)),
             child: Center(
-              child: Text('Action',
-                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w300, fontSize: 14)),
+              child: Text('Action', style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w300, fontSize: 14)),
             ),
           ),
           Container(

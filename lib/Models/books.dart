@@ -12,24 +12,21 @@ class Books with ChangeNotifier {
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
         title: 'The History Of Tom Jones, A FoundLing',
         author: 'Henry Fielding',
-        imageUrl:
-            'https://m.media-amazon.com/images/M/MV5BNjU4ZGUyYjUtYzVlMS00YWFmLWFjM2UtYTk5YjFlZmJhNDQyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg',
+        imageUrl: 'https://m.media-amazon.com/images/M/MV5BNjU4ZGUyYjUtYzVlMS00YWFmLWFjM2UtYTk5YjFlZmJhNDQyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg',
         rating: 5),
     Book(
         description:
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
         title: 'Pride and Prejudice',
         author: 'Jane Austen',
-        imageUrl:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/371px-PrideAndPrejudiceTitlePage.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/371px-PrideAndPrejudiceTitlePage.jpg',
         rating: 5),
     Book(
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'The Red and The Black',
       author: 'Stendhai',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/StendhalRedandBlack04.jpg/220px-StendhalRedandBlack04.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/StendhalRedandBlack04.jpg/220px-StendhalRedandBlack04.jpg',
       rating: 4,
     ),
     Book(
@@ -37,8 +34,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Père Goriot',
       author: 'Honoré de Balzac',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
       rating: 3,
     ),
     Book(
@@ -46,8 +42,7 @@ class Books with ChangeNotifier {
       author: 'Charles Dickens',
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Copperfield_cover_serial.jpg/220px-Copperfield_cover_serial.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Copperfield_cover_serial.jpg/220px-Copperfield_cover_serial.jpg',
       rating: 5,
     ),
   ];
@@ -68,8 +63,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Divine Comedy',
       author: 'Dante',
-      imageUrl:
-          'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
+      imageUrl: 'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
       rating: 5,
     ),
     Book(
@@ -89,8 +83,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Père Goriot',
       author: 'Honoré de Balzac',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
       rating: 3,
     ),
     Book(
@@ -107,8 +100,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Divine Comedy',
       author: 'Dante',
-      imageUrl:
-          'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
+      imageUrl: 'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
       rating: 5,
     ),
     Book(
@@ -230,22 +222,19 @@ class Books with ChangeNotifier {
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
         title: 'The History Of Tom Jones, A FoundLing',
         author: 'Henry Fielding',
-        imageUrl:
-            'https://m.media-amazon.com/images/M/MV5BNjU4ZGUyYjUtYzVlMS00YWFmLWFjM2UtYTk5YjFlZmJhNDQyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg',
+        imageUrl: 'https://m.media-amazon.com/images/M/MV5BNjU4ZGUyYjUtYzVlMS00YWFmLWFjM2UtYTk5YjFlZmJhNDQyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg',
         rating: 5),
     Book(
         title: 'Pride and Prejudice',
         author: 'Jane Austen',
         description:
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
-        imageUrl:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/371px-PrideAndPrejudiceTitlePage.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/371px-PrideAndPrejudiceTitlePage.jpg',
         rating: 5),
     Book(
       title: 'The Red and The Black',
       author: 'Stendhai',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/StendhalRedandBlack04.jpg/220px-StendhalRedandBlack04.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/StendhalRedandBlack04.jpg/220px-StendhalRedandBlack04.jpg',
       rating: 4,
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -253,8 +242,7 @@ class Books with ChangeNotifier {
     Book(
       title: 'Père Goriot',
       author: 'Honoré de Balzac',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
       rating: 3,
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -262,8 +250,7 @@ class Books with ChangeNotifier {
     Book(
       title: 'David Copperfield',
       author: 'Charles Dickens',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Copperfield_cover_serial.jpg/220px-Copperfield_cover_serial.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Copperfield_cover_serial.jpg/220px-Copperfield_cover_serial.jpg',
       rating: 5,
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -284,8 +271,7 @@ class Books with ChangeNotifier {
     Book(
       title: 'Divine Comedy',
       author: 'Dante',
-      imageUrl:
-          'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
+      imageUrl: 'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
       rating: 5,
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -307,8 +293,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Père Goriot',
       author: 'Honoré de Balzac',
-      imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BalzacOldGoriot01.jpg/220px-BalzacOldGoriot01.jpg',
       rating: 3,
     ),
     Book(
@@ -325,8 +310,7 @@ class Books with ChangeNotifier {
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
       title: 'Divine Comedy',
       author: 'Dante',
-      imageUrl:
-          'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
+      imageUrl: 'https://i0.wp.com/theimaginativeconservative.org/wp-content/uploads/2015/07/DivineComedyFresco.jpg?ssl=1',
       rating: 5,
     ),
     Book(
@@ -347,16 +331,14 @@ class Books with ChangeNotifier {
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
         title: 'The History Of Tom Jones, A FoundLing',
         author: 'Henry Fielding',
-        imageUrl:
-            'https://m.media-amazon.com/images/M/MV5BNjU4ZGUyYjUtYzVlMS00YWFmLWFjM2UtYTk5YjFlZmJhNDQyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg',
+        imageUrl: 'https://m.media-amazon.com/images/M/MV5BNjU4ZGUyYjUtYzVlMS00YWFmLWFjM2UtYTk5YjFlZmJhNDQyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg',
         rating: 4),
     Book(
         description:
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
         title: 'Pride and Prejudice',
         author: 'Jane Austen',
-        imageUrl:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/371px-PrideAndPrejudiceTitlePage.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/371px-PrideAndPrejudiceTitlePage.jpg',
         rating: 5),
   ];
 

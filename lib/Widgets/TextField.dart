@@ -29,10 +29,8 @@ class TextField extends StatelessWidget {
               hintStyle: GoogleFonts.poppins(
                 fontSize: 14,
               ),
-              focusedBorder:
-                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-              enabledBorder:
-                  OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
               contentPadding: EdgeInsets.all(10),
             ),
             onChanged: this.onChanged,
@@ -45,21 +43,14 @@ class TextField extends StatelessWidget {
 
 class EmailTextField extends TextField {
   EmailTextField({@required Function onChanged})
-      : super(
-            onChanged: onChanged,
-            text: 'Email Address',
-            obscureText: false,
-            validator: Validator.email,
-            keyboardType: TextInputType.emailAddress);
+      : super(onChanged: onChanged, text: 'Email Address', obscureText: false, validator: Validator.email, keyboardType: TextInputType.emailAddress);
 }
 
 class PasswordTextField extends TextField {
-  PasswordTextField({@required Function onChanged})
-      : super(onChanged: onChanged, text: 'Password', obscureText: true, validator: Validator.password);
+  PasswordTextField({@required Function onChanged}) : super(onChanged: onChanged, text: 'Password', obscureText: true, validator: Validator.password);
 }
 
 class ConfirmationCodeTextField extends TextField {
   ConfirmationCodeTextField({@required Function onChanged})
-      : super(
-            onChanged: onChanged, text: 'Confirmation code', obscureText: false, validator: Validator.confirmationCode);
+      : super(onChanged: onChanged, text: 'Confirmation code', obscureText: false, validator: Validator.confirmationCode);
 }
