@@ -1,5 +1,5 @@
 import 'package:books_app/Services/DatabaseService.dart';
-import 'package:books_app/Utils/config_helper.dart';
+import 'package:books_app/Utils/Config.dart';
 import 'package:books_app/Utils/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -18,7 +18,7 @@ class GetLocation extends StatelessWidget {
     final DatabaseService databaseService = DatabaseService(uid: uID);
     return Scaffold(
       body: FutureBuilder(
-        future: loadConfig(),
+        future: new Config().load(),
         builder: (BuildContext buildContext, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (snapshot.hasData) {
             return MapboxMap(
