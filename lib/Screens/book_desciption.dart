@@ -1,6 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/Models/book.dart';
 import 'package:books_app/Widgets/rating.dart';
@@ -199,9 +199,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                         }
                         print("Book Marked");
                       },
-                      icon: widget.bookFromList.isBookMarked
-                          ? Icon(Icons.bookmark)
-                          : Icon(Icons.bookmark_outline_rounded),
+                      icon: widget.bookFromList.isBookMarked ? Icon(Icons.bookmark) : Icon(Icons.bookmark_outline_rounded),
                       iconSize: 20,
                     ),
                   ),
@@ -271,8 +269,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                         )
                       : Padding(
                           padding: const EdgeInsets.all(18.0),
-                          child: CupertinoStyleButton(
-                              color: blackButton, name: 'Exchange this Book', myFunction: () async {}),
+                          child: CupertinoStyleButton(color: blackButton, name: 'Exchange this Book', myFunction: () async {}),
                         ),
                   widget.bookFromList.isOwned
                       ? Padding(
@@ -297,7 +294,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                     padding: const EdgeInsets.all(15.0),
                     child: Column(
                       children: [
-                        button(context, blackButton, 'Visit Profile', publicProfile),
+                        button(context, blackButton, 'Visit Profile', Routes.PUBLIC_PROFILE),
                         button(context, greenButton, 'Exchange this Book', ''),
                         ratings(),
                       ],
@@ -356,7 +353,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
   //             onPressed: () {
   //               _databaseService
   //               setState(() {
-  //                 widget.bookFromList.changeBookMark();
+  //                 widget.bookFromLsist.changeBookMark();
   //               });
   //               //Needs fix
   //               // book.changeBookMark();
@@ -419,8 +416,7 @@ class _BookDescriptionState extends State<BookDescription> with SingleTickerProv
                 ),
                 borderRadius: BorderRadius.circular(8)),
             child: Center(
-              child: Text('Action',
-                  style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w300, fontSize: 14)),
+              child: Text('Action', style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w300, fontSize: 14)),
             ),
           ),
           Container(

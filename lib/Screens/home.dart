@@ -1,16 +1,16 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:books_app/Widgets/appBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/util/size_config.dart';
+import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Models/book.dart';
@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-  final List<Widget> _Screens = [
+  final List<Widget> _screens = [
     DashboardPage(),
     ExploreNearby(),
     Wrapper(),
@@ -50,12 +50,11 @@ class _HomeState extends State<Home> {
           value: DatabaseService(uid: uID).userData,
           catchError: (_, e) => null,
         ),
-        //TODO:SETUP STREAM PROVIDER For DatabaseService
         StreamProvider<List<Book>>.value(value: DatabaseService(uid: uID).booksData),
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
-          body: _Screens[_selectedIndex],
+          body: _screens[_selectedIndex],
           floatingActionButton: Container(
             child: _selectedIndex == 3 || _selectedIndex == 1
                 ? Row(
@@ -67,7 +66,7 @@ class _HomeState extends State<Home> {
                           heroTag: null,
                           child: Icon(Icons.add_box_rounded),
                           onPressed: () {
-                            Navigator.pushNamed(context, addBook);
+                            Navigator.pushNamed(context, Routes.ADD_BOOK);
                           },
                         ),
                       ),
@@ -77,7 +76,7 @@ class _HomeState extends State<Home> {
                         backgroundColor: Colors.blueAccent,
                         onPressed: () async {
                           //Add users Location to DB
-                          await Navigator.pushNamed(context, location);
+                          await Navigator.pushNamed(context, Routes.LOCATION);
                         },
                       ),
                     ],

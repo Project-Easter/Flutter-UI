@@ -1,14 +1,11 @@
-import 'package:books_app/util/Api.dart';
-import 'package:books_app/util/helpers.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:books_app/Utils/Api.dart';
+import 'package:books_app/Utils/helpers.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'databaseService.dart';
-import 'package:books_app/Constants/api.dart';
-import 'package:books_app/Constants/exception.dart';
+import 'DatabaseService.dart';
+import 'package:books_app/Constants/Exception.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -24,22 +21,6 @@ class AuthService {
 
   dynamic get getUID {
     return _auth.currentUser.uid;
-  }
-
-  Future<MyAppUser> signInAnonymous() async {
-    try {
-      UserCredential result = await _auth.signInAnonymously();
-      User user = result.user;
-
-      UserData userData = makeUserDataFromAuthUser(user);
-
-      await DatabaseService(uid: user.uid).updateUserData(userData);
-      print(user);
-      return _retrieveUserFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
   }
 
   Future<MyAppUser> signInWithGoogle() async {
@@ -114,86 +95,6 @@ class AuthService {
     }
   }
 
-  Future signInWithEmailAndPassword(String email, String password) async {
-    try {
-      var response =
-          await http.post(Uri.parse(API_ROUTE + "/auth/email"), body: {"email": email, "password": password});
-
-      if (response.statusCode == 200) {
-        print('Logged in successfully');
-        //TODO: Redirects user to the homepage
-
-      } else {
-        var responseBody = jsonDecode(response.body);
-        var errorId = responseBody['error']['id'];
-
-        switch (errorId) {
-          case Exception.INVALID_INPUT:
-            {
-              print('Invalid input');
-
-              //TODO: Displays error message: Invalid email or password. Check your input and try once again.
-              //! Too low or too many characters inside password / email
-
-              break;
-            }
-
-          case Exception.INVALID_ACCOUNT_TYPE:
-            {
-              print('Account type is invalid');
-
-              //TODO: Displays error message: You've already created an account using Google or Facebook
-
-              break;
-            }
-
-          case Exception.INVALID_CREDENTIALS:
-            {
-              print('Invalid Credentials');
-
-              //TODO: Displays error message: Invalid Credentials. Check your input and try again
-
-              break;
-            }
-
-          case Exception.UNCONFIRMED_ACCOUNT:
-            {
-              print('Unconfirmed account');
-
-              //TODO: Displays error message: Your account is not confirmed yet. Click here to confirm it.
-
-              break;
-            }
-        }
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Future register(String email, String password) async {
-    var response = await Api.register(email, password);
-
-    if (response.statusCode == 201) {
-      return print('Registered successfully');
-    }
-
-    var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
-
-    switch (errorId) {
-      case Exception.INVALID_INPUT:
-        {
-          return print('Invalid input');
-        }
-
-      case Exception.DUPLICATE_EMAIL:
-        {
-          return print('Email already exists');
-        }
-    }
-  }
-
   UserData makeUserDataFromAuthUser(User user) {
     //IMP:DO NOT REMOVE THIS URL,this is the default image while signing up.
     //Change Image as per needed.A valid URL must be provided
@@ -211,5 +112,127 @@ class AuthService {
         city: "Your city",
         state: "State");
     return userData;
+  }
+
+  Future<String> register(String email, String password) async {
+    var response = await Api.register(email, password);
+
+    if (response.statusCode == 201) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.DUPLICATE_EMAIL:
+        {
+          return 'Email already exists.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
+  }
+
+  Future<String> login(String email, String password) async {
+    var response = await Api.login(email, password);
+
+    if (response.statusCode == 200) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.INVALID_ACCOUNT_TYPE:
+        {
+          return 'You have created an account using Google or Facebook. Log in with one of them instead.';
+        }
+      case Exception.INVALID_CREDENTIALS:
+        {
+          return 'Invalid Credentials. Check your input and try again.';
+        }
+      case Exception.UNCONFIRMED_ACCOUNT:
+        {
+          return 'Your account is not confirmed yet. Click here to confirm it';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
+  }
+
+  Future<String> forgotPassword(String email) async {
+    var response = await Api.forgotPassword(email);
+    if (response.statusCode == 204) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.EMAIL_NOT_FOUND:
+        {
+          return 'Provided email does not exist';
+        }
+      case Exception.INVALID_ACCOUNT_TYPE:
+        {
+          return 'Provided email is associated with the account created using Google or Facebook';
+        }
+      case Exception.UNCONFIRMED_ACCOUNT:
+        {
+          return 'Your account is not confirmed yet.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
+  }
+
+  Future<String> resetPassword(String email, String password, String code) async {
+    var response = await Api.resetPassword(email, password, code);
+    if (response.statusCode == 204) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.INVALID_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code is invalid';
+        }
+      case Exception.EXPIRED_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code has been expired. Click here to get a new one.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
+  }
+
+  Future<String> confirmEmail(String email, String code) async {
+    var response = await Api.confirmEmail(email, code);
+
+    if (response.statusCode == 204) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    switch (errorId) {
+      case Exception.INVALID_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code is invalid.';
+        }
+      case Exception.EXPIRED_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code has been expired. Click here to get a new one.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
   }
 }

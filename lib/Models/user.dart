@@ -1,11 +1,4 @@
 //User is defined in FireBase and user.model showing error
-
-// class User {
-//   final String uid;
-//   User({this.uid});
-// }
-
-//Add this per needed
 class MyAppUser {
   String uid;
   MyAppUser({this.uid});
@@ -19,6 +12,7 @@ class UserData {
   String displayName;
   String email;
   bool emailVerified;
+  String refreshToken;
   //this is not required.Just for test purpose
   bool isAnonymous;
   String phoneNumber;
@@ -43,6 +37,7 @@ class UserData {
       this.photoURL,
       this.city,
       this.state,
+      this.refreshToken,
       this.latitude = 0.0,
       this.longitude = 0.0,
       this.preferences,

@@ -1,7 +1,7 @@
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/util/theme_notifier.dart';
-import 'package:books_app/util/values/theme_switch.dart';
+import 'package:books_app/Utils/theme_notifier.dart';
+import 'package:books_app/Utils/values/theme_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,13 +17,9 @@ void main() async {
       runApp(
         MultiProvider(
           providers: [
-            //Stream from Firebase
-            // StreamProvider<MyAppUser>.value(value: AuthService().user),
-            //Theme
             ChangeNotifierProvider<ThemeNotifier>(
               create: (_) => ThemeNotifier(darkTheme),
             ),
-            //**AppWide Data From Model
             ChangeNotifierProvider(
               create: (_) => Books(),
             ),
@@ -34,7 +30,6 @@ void main() async {
     },
   );
 }
-//TODO:Create a singleton class and use that as global variable instead of making a new Authservice instancee and getting the UID and passing that to DatabaseService..
 
 class MyApp extends StatelessWidget {
   final AuthService _authService = AuthService();
@@ -42,11 +37,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final myAppUser = _authService.currentUserFromFireBase;
     return MaterialApp(
-      // theme: themeNotifier.getTheme(),
       debugShowCheckedModeBanner: false,
-      title: "Explr", //This is shown when the app is minimized
-      initialRoute: myAppUser == null ? startupPage : home,
-      // initialRoute: startupPage,
+      title: "Explr",
+      initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

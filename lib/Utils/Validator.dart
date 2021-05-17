@@ -20,4 +20,12 @@ class Validator {
 
     return null;
   }
+
+  static String confirmationCode(String confirmationCode) {
+    if (confirmationCode.isEmpty || confirmationCode.length != 6) {
+      return 'Confirmation code must be 6 characters long';
+    }
+
+    return null;
+  }
 }

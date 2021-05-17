@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/message.dart';
 import '../Models/user.dart';
 import '../Models/book.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:books_app/Models/message.dart';
 
 class DatabaseService {
@@ -16,8 +15,6 @@ class DatabaseService {
 
   final CollectionReference chatCollection = FirebaseFirestore.instance.collection('chat');
 
-  //TODO:Add USERDATA and BOOKS Stream
-
   Future updateUserData(UserData userData) async {
     return await userDataCollection.doc(uid).set(
       {
@@ -25,7 +22,6 @@ class DatabaseService {
         "displayName": userData.displayName,
         "email": userData.email,
         "emailVerified": userData.emailVerified,
-        //this is not required.Just for test purpose
         "isAnonymous": userData.isAnonymous,
         "phoneNumber": userData.phoneNumber,
         "photoURL": userData.photoURL,
@@ -39,16 +35,12 @@ class DatabaseService {
         "latitude": userData.latitude,
         "longitude": userData.longitude,
       },
-      //TODO:Check How many writes with this
-      // SetOptions(merge: true)
     );
   }
 
-  ///Sends a Stream of custom User UserData Model
   UserData _userDataFromSnapShot(DocumentSnapshot documentSnapshot) {
     return UserData(
       uid: uid,
-      // uid: documentSnapshot.data()['uid'],
       displayName: documentSnapshot.data()['displayName'] ?? "Enter Name",
       email: documentSnapshot.data()['email'] ?? "example@example.com",
       phoneNumber: documentSnapshot.data()['phoneNumber'] ?? "8844883333",
@@ -86,8 +78,6 @@ class DatabaseService {
       "photoURL": photoURL,
     }, SetOptions(merge: true));
   }
-
-  //TODO:Update User Preferences from Dashboard and Settings Page
 
   Future updateGenres(List<String> genres) async {
     return await userDataCollection.doc(uid).set({
@@ -134,7 +124,7 @@ class DatabaseService {
   //8176561061
   //0764526413
   //0136091814
-  //TODO:Get 10 and 13 digit.
+
   Future addBook(Book book) async {
     //GET BOOK FROM API or an existing List
     return await booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn).set({
@@ -198,74 +188,15 @@ class DatabaseService {
               else
                 {addBook(book)}
             })
-        .catchError((e) => print(e.toString()));
+        .catchError((e) {
+      print(e.toString());
+    });
   }
 
   removeBook(String isbn) {
     booksCollection.doc(uid).collection("ownedBooks").doc(isbn).delete().catchError((e) => print(e.toString()));
   }
 
-//TODO:Get All users from firebase to a List and display on chat screen
-//   Stream<QuerySnapshot> get getAllUsers {}
-
-//***********************MAP******************************************//
-//   final CollectionReference locationCollection =
-//       FirebaseFirestore.instance.collection('location');
-
-//Test
-//   double _countDistance(double userLatitude, double userLongitude) {
-//     return Distance().as(
-//       LengthUnit.Kilometer,
-//       LatLng(declaredLocation.latitude, declaredLocation.longitude),
-//       LatLng(userLatitude, userLongitude),
-//     );
-//   }
-  double distanceInMeters = Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
-
-  // Stream<List<Book>> get booksData {
-  //   return booksCollection
-  //       .doc(uid)
-  //       .collection("ownedBooks")
-  //       .snapshots()
-  //       .map((_bookFromQuerySnapShot));
-  // }
-  //
-  // List<Book> _bookFromQuerySnapShot(QuerySnapshot snapshot) {
-  //   return snapshot.docs.map((doc) {
-  //     print(doc.data);
-  //     return Book(
-  //         rating: doc.data()['rating'],
-  //         isOwned: doc.data()['isOwned'],
-  //         isBookMarked: doc.data()['isBookMarked'],
-  //         imageUrl: doc.data()['imageUrl'],
-  //         title: doc.data()['title'],
-  //         isbn: doc.data()['isbn'],
-  //         author: doc.data()['author'],
-  //         description: doc.data()['description']);
-  //   }).toList();
-  // }
-
-  // List<UserData> getAllNearbyUserData(QuerySnapshot querySnapshot) {
-  //   return querySnapshot.docs.where((uid) => uid != uID).map((doc) {
-  //     return UserData(
-  //       // uid: uid,
-  //       uid: doc.data()['uid'],
-  //       displayName: doc.data()['displayName'] ?? "Enter Name",
-  //       email: doc.data()['email'] ?? "example@example.com",
-  //       phoneNumber: doc.data()['phoneNumber'] ?? "8844883333",
-  //       state: doc.data()['state'],
-  //       city: doc.data()['city'],
-  //       photoURL: doc.data()['photoURL'],
-  //       preferences: doc.data()['preferences'],
-  //     );
-  //   }).toList();
-  // }
-  //
-  // Stream<List<UserData>> get allNearbyUsers {
-  //   return userDataCollection.snapshots().map(getAllUserData);
-  // }
-
-//******************CHAT******************//
   Future sendMessage(Message message) async {
     // final newMessage = Message(
     //   from: myUID,
@@ -280,12 +211,7 @@ class DatabaseService {
         .collection('conversation')
         .doc(message.receiver)
         .collection('messages')
-        .add({
-      "sender": message.sender,
-      "receiver": message.receiver,
-      "message": message.message,
-      "createdAt": message.createdAt
-    });
+        .add({"sender": message.sender, "receiver": message.receiver, "message": message.message, "createdAt": message.createdAt});
     // Message(
     //   sender: doc.data()['sender'],
     //   receiver: doc.data()['receiver'],
@@ -298,46 +224,8 @@ class DatabaseService {
         .collection('conversation')
         .doc(message.sender)
         .collection('messages')
-        .add({
-      "sender": message.sender,
-      "receiver": message.receiver,
-      "message": message.message,
-      "createdAt": message.createdAt
-    });
+        .add({"sender": message.sender, "receiver": message.receiver, "message": message.message, "createdAt": message.createdAt});
   }
-
-  // Stream<List<Book>> get booksData {
-  //   return booksCollection
-  //       .doc(uid)
-  //       .collection("ownedBooks")
-  //       .snapshots()
-  //       .map((_bookFromQuerySnapShot));
-  // }
-  // List<UserData> getAllNearbyUserData(QuerySnapshot querySnapshot) {
-  //   return querySnapshot.docs.where((uid) => uid != uID).map((doc) {
-  //     return UserData(
-  //       // uid: uid,
-  //       uid: doc.data()['uid'],
-  //       displayName: doc.data()['displayName'] ?? "Enter Name",
-  //       email: doc.data()['email'] ?? "example@example.com",
-  //       phoneNumber: doc.data()['phoneNumber'] ?? "8844883333",
-  //       state: doc.data()['state'],
-  //       city: doc.data()['city'],
-  //       photoURL: doc.data()['photoURL'],
-  //       preferences: doc.data()['preferences'],
-  //     );
-  //   }).toList();
-  // }
-  // List<Message> _messageFromSnapshot(QuerySnapshot querySnapshot) {
-  //   return querySnapshot.docs.map((doc) {
-  //     return Message(
-  //       sender: doc.data()['sender'],
-  //       receiver: doc.data()['receiver'],
-  //       message: doc.data()['message'],
-  //       createdAt: doc.data()['createdAt'],
-  //     );
-  //   });
-  // }
 
   Stream<QuerySnapshot> getMessageStream(String from, String to) {
     return chatCollection

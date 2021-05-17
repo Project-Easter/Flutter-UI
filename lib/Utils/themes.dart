@@ -17,17 +17,16 @@ ThemeData bookTheme() {
     textTheme: _bookTextTheme(base.textTheme),
 
     //Buttons
-    buttonColor: Color.fromRGBO(36, 107, 253, 1),
+
     buttonTheme: ButtonThemeData(
+      buttonColor: Color.fromRGBO(36, 107, 253, 1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
     ),
     //Textfield frames
     inputDecorationTheme: InputDecorationTheme(
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderSide: BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0), borderRadius: BorderRadius.all(Radius.circular(20))),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0),
-            borderRadius: BorderRadius.all(Radius.circular(20)))),
+            borderSide: BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0), borderRadius: BorderRadius.all(Radius.circular(20)))),
   );
 }

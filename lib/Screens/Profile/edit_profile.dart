@@ -1,10 +1,10 @@
 import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:flutter/material.dart';
-import '../Models/user.dart';
-import '../Services/Auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../Widgets/button.dart';
+import '../../Models/user.dart';
+import '../../Services/Auth.dart';
+import '../../Widgets/button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -49,7 +49,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final uID = _authService.getUID;
-    //TODO:Styling->Remove this StreamBuilder. Stream is already present in parent settings page and Home page?
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: uID).userData,
         builder: (context, snapshot) {
@@ -70,8 +69,7 @@ class _EditProfileState extends State<EditProfile> {
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
                               'Edit Your Profile',
-                              style:
-                                  GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w400, fontSize: 26),
+                              style: GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w400, fontSize: 26),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -89,8 +87,7 @@ class _EditProfileState extends State<EditProfile> {
                               padding: EdgeInsets.all(5),
                               child: CircleAvatar(
                                 radius: 100,
-                                backgroundImage:
-                                    _imageUrl == "" ? NetworkImage(userData.photoURL) : NetworkImage(_imageUrl),
+                                backgroundImage: _imageUrl == "" ? NetworkImage(userData.photoURL) : NetworkImage(_imageUrl),
                               ),
                             ),
                             Container(
@@ -189,11 +186,8 @@ class _EditProfileState extends State<EditProfile> {
                                 } else {
                                   print(_imageUrl);
                                 }
-                                await DatabaseService(uid: uID).updateUser(
-                                    _name ?? userData.displayName,
-                                    _city ?? userData.city,
-                                    _state ?? userData.state,
-                                    _imageUrl == "" ? userData.photoURL : _imageUrl);
+                                await DatabaseService(uid: uID).updateUser(_name ?? userData.displayName, _city ?? userData.city,
+                                    _state ?? userData.state, _imageUrl == "" ? userData.photoURL : _imageUrl);
                               }
                               Navigator.pop(context);
                             },

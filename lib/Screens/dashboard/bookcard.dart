@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:provider/provider.dart';
 import 'package:books_app/Models/book.dart';
 import 'package:books_app/Screens/book_desciption.dart';
@@ -42,7 +42,6 @@ class BookCard extends StatelessWidget {
             ),
           ),
           Flexible(
-            //TODO:Fix Long Text
             child: Text(
               book.title,
               style: GoogleFonts.poppins(

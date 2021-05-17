@@ -1,15 +1,17 @@
-import 'package:books_app/Services/databaseService.dart';
-import 'package:books_app/util/config_helper.dart';
-import 'package:books_app/util/location_helper.dart';
+import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/Utils/config_helper.dart';
+import 'package:books_app/Utils/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:books_app/Services/Auth.dart';
 
+// ignore: must_be_immutable
 class GetLocation extends StatelessWidget {
   double lat;
   double long;
 
   final AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     final uID = _authService.getUID;
@@ -24,6 +26,7 @@ class GetLocation extends StatelessWidget {
               initialCameraPosition: CameraPosition(target: LatLng(45, 45)),
               onMapCreated: (MapboxMapController controller) async {
                 final currLocation = await acquireCurrentLocation();
+
                 lat = currLocation.latitude;
                 long = currLocation.longitude;
                 final animateCameraResult = await controller.animateCamera(

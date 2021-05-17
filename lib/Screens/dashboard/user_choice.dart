@@ -12,7 +12,7 @@ class UserChoice extends StatelessWidget {
     final userData = Provider.of<UserData>(context);
     print("User Choice");
     print(userData);
-    //TODO:Passing Values to User prefs
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Container(
