@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Constants/Routes.dart';
 import '../../../Models/user.dart';
-import '../../../Services/databaseService.dart';
+import '../../../Services/DatabaseService.dart';
 import 'package:intl/intl.dart';
 
 class ChatRoom extends StatefulWidget {

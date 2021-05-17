@@ -306,16 +306,8 @@ class _InitialScreenState extends State<InitialScreen> {
 
   Widget _skipButton() {
     return ElevatedButton(
-      onPressed: () async {
-        try {
-          dynamic res = await _authService.signInAnonymous();
-          if (res != null) {
-            Navigator.pushReplacementNamed(context, Routes.HOME);
-            print("Signed in Anon User ID: ${res.uid}");
-          }
-        } catch (e) {
-          print(e.toString());
-        }
+      onPressed: () {
+        print('Skip button pressed');
       },
       style: ElevatedButton.styleFrom(
         primary: blackButton,

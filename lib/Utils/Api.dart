@@ -14,7 +14,7 @@ class Api {
     return response;
   }
 
-  static Future<Response> signInWithEmailAndPassword(String email, String password) async {
+  static Future<Response> login(String email, String password) async {
     var response;
 
     try {

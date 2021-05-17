@@ -22,11 +22,11 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<String> onSubmit() async {
-    return await this.authService.signInWithEmailAndPassword(this.email, this.password);
+    return await this.authService.login(this.email, this.password);
   }
 
   void onSuccess() {
-    Navigator.pushNamed(this.context, Routes.HOME);
+    print('Logged in successfully');
   }
 
   @override

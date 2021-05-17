@@ -24,7 +24,7 @@ class _ForgotPasswordScreenState extends AuthState<ForgotPasswordScreen> with Em
   }
 
   void onSuccess() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPassword(email: this.email)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPasswordScreen(email: this.email)));
   }
 
   @override

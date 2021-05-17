@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/Models/book.dart';
 
 class PrivateProfile extends StatelessWidget {
-  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     final profileData = Provider.of<UserData>(context);

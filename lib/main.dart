@@ -9,9 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Models/books.dart';
 
-//TODO: Make error state inside Auth state
-//TODO: Change names of the screen widgets
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,7 +20,6 @@ void main() async {
             ChangeNotifierProvider<ThemeNotifier>(
               create: (_) => ThemeNotifier(darkTheme),
             ),
-            //**AppWide Data From Model
             ChangeNotifierProvider(
               create: (_) => Books(),
             ),

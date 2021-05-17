@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:books_app/Models/books.dart';
 import 'package:books_app/Models/book.dart';
 import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 
 class AddBook extends StatefulWidget {
   @override

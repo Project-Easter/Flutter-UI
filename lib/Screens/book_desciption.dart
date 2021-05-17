@@ -1,6 +1,6 @@
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/Routes.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/Models/book.dart';
 import 'package:books_app/Widgets/rating.dart';

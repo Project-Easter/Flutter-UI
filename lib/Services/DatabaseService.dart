@@ -198,7 +198,9 @@ class DatabaseService {
               else
                 {addBook(book)}
             })
-        .catchError((e) => print(e.toString()));
+        .catchError((e) => {
+            print(e.toString())
+        });
   }
 
   removeBook(String isbn) {

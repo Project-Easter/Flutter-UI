@@ -4,7 +4,7 @@ import 'package:books_app/Models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'databaseService.dart';
+import 'DatabaseService.dart';
 import 'package:books_app/Constants/Exception.dart';
 
 class AuthService {
@@ -21,22 +21,6 @@ class AuthService {
 
   dynamic get getUID {
     return _auth.currentUser.uid;
-  }
-
-  Future<MyAppUser> signInAnonymous() async {
-    try {
-      UserCredential result = await _auth.signInAnonymously();
-      User user = result.user;
-
-      UserData userData = makeUserDataFromAuthUser(user);
-
-      await DatabaseService(uid: user.uid).updateUserData(userData);
-      print(user);
-      return _retrieveUserFromFirebaseUser(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
   }
 
   Future<MyAppUser> signInWithGoogle() async {
@@ -150,8 +134,8 @@ class AuthService {
     }
   }
 
-  Future<String> signInWithEmailAndPassword(String email, String password) async {
-    var response = await Api.signInWithEmailAndPassword(email, password);
+  Future<String> login(String email, String password) async {
+    var response = await Api.login(email, password);
 
     if (response.statusCode == 200) return null;
 

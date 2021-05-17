@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Services/Auth.dart';
-import '../Services/databaseService.dart';
+import '../Services/DatabaseService.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override

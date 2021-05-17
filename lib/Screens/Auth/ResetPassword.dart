@@ -11,22 +11,22 @@ import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
 
-class ResetPassword extends StatefulWidget {
+class ResetPasswordScreen extends StatefulWidget {
   final String email;
 
-  ResetPassword({Key key, @required this.email}) : super(key: key);
+  ResetPasswordScreen({Key key, @required this.email}) : super(key: key);
 
   @override
-  _ResetPasswordState createState() => _ResetPasswordState(email: email);
+  _ResetPasswordScreenState createState() => _ResetPasswordScreenState(email: email);
 }
 
-class _ResetPasswordState extends AuthState<ResetPassword> with PasswordState<ResetPassword>, ConfirmationCodeState<ResetPassword> {
+class _ResetPasswordScreenState extends AuthState<ResetPasswordScreen> with PasswordState<ResetPasswordScreen>, ConfirmationCodeState<ResetPasswordScreen> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String email;
 
-  _ResetPasswordState({this.email});
+  _ResetPasswordScreenState({this.email});
 
   Future<String> onSubmit() async {
     return await this.authService.resetPassword(this.email, this.password, this.confirmationCode);

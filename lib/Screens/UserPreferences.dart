@@ -1,7 +1,7 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Constants/genres.dart';
@@ -121,10 +121,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   }
 }
 
-//------------Stack Overflow Code ----------------
+// ignore: must_be_immutable
 class LocationRange extends StatefulWidget {
-  var locationRange;
+  dynamic locationRange;
   LocationRange(this.locationRange);
+
   @override
   _LocationRangeState createState() => _LocationRangeState();
 }

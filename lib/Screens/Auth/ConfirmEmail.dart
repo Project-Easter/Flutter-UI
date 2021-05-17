@@ -1,4 +1,3 @@
-import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/States/ConfirmationCodeState.dart';
 import 'package:books_app/States/AuthState.dart';
@@ -31,7 +30,7 @@ class _ConfirmEmailScreenState extends AuthState<ConfirmEmailScreen> with Confir
   }
 
   void onSuccess() {
-    Navigator.pushNamed(this.context, Routes.HOME);
+    print('Email confirmed successfully');
   }
 
   @override
@@ -43,7 +42,7 @@ class _ConfirmEmailScreenState extends AuthState<ConfirmEmailScreen> with Confir
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            AuthPageTitle(name: 'Confirm your email'),
+            AuthPageTitle(name: 'Confirm email'),
             AuthErrorMessage(errorMessage: this.error),
             Form(
               key: this.formKey,

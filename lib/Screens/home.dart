@@ -3,7 +3,7 @@ import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
-import 'package:books_app/Services/databaseService.dart';
+import 'package:books_app/Services/DatabaseService.dart';
 import 'package:books_app/Widgets/appBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-  final List<Widget> _Screens = [
+  final List<Widget> _screens = [
     DashboardPage(),
     ExploreNearby(),
     Wrapper(),
@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
-          body: _Screens[_selectedIndex],
+          body: _screens[_selectedIndex],
           floatingActionButton: Container(
             child: _selectedIndex == 3 || _selectedIndex == 1
                 ? Row(
