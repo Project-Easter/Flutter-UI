@@ -54,7 +54,7 @@ class MessageScreen extends StatelessWidget {
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Message newMessage = Message(
                         sender: user.uid,

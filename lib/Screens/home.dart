@@ -23,6 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+  // ignore: non_constant_identifier_names
   final List<Widget> _Screens = [
     DashboardPage(),
     ExploreNearby(),
@@ -30,7 +31,8 @@ class _HomeState extends State<Home> {
     LibraryPage(),
     PrivateProfile(),
   ];
-  TextStyle name = GoogleFonts.muli(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
+  TextStyle name = GoogleFonts.muli(
+      color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   void _selectedTab(int index) {
     setState(() {
       _selectedIndex = index;
@@ -50,8 +52,8 @@ class _HomeState extends State<Home> {
           value: DatabaseService(uid: uID).userData,
           catchError: (_, e) => null,
         ),
-        //TODO:SETUP STREAM PROVIDER For DatabaseService
-        StreamProvider<List<Book>>.value(value: DatabaseService(uid: uID).booksData),
+        StreamProvider<List<Book>>.value(
+            value: DatabaseService(uid: uID).booksData),
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -95,9 +97,12 @@ class _HomeState extends State<Home> {
                 title: 'Home',
               ),
               FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              FloatingNavbarItem(icon: Icons.chat_bubble_rounded, title: 'Chats'),
-              FloatingNavbarItem(icon: Icons.favorite_rounded, title: 'Library'),
-              FloatingNavbarItem(icon: Icons.account_circle_rounded, title: 'Profile'),
+              FloatingNavbarItem(
+                  icon: Icons.chat_bubble_rounded, title: 'Chats'),
+              FloatingNavbarItem(
+                  icon: Icons.favorite_rounded, title: 'Library'),
+              FloatingNavbarItem(
+                  icon: Icons.account_circle_rounded, title: 'Profile'),
             ],
           )),
     );

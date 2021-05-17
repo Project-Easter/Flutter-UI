@@ -6,7 +6,7 @@ final darkTheme = ThemeData(
   brightness: Brightness.dark,
   backgroundColor: Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: Color.fromRGBO(18, 19, 33, 1),
-  accentColor: Colors.white,
+  colorScheme: ColorScheme.light(),
   accentIconTheme: IconThemeData(color: Colors.black),
   dividerColor: Colors.black12,
 );
@@ -17,7 +17,7 @@ final lightTheme = ThemeData(
   brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,
-  accentColor: Colors.black,
+  colorScheme: ColorScheme.dark(primary: Colors.black),
   accentIconTheme: IconThemeData(color: Colors.white),
   dividerColor: Colors.white54,
 );

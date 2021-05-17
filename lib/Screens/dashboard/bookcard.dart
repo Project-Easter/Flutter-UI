@@ -28,7 +28,8 @@ class BookCard extends StatelessWidget {
                 decoration: new BoxDecoration(
                     boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 15)],
                     borderRadius: BorderRadius.circular(10),
-                    image: new DecorationImage(image: NetworkImage(book.imageUrl), fit: BoxFit.fill)),
+                    image: new DecorationImage(
+                        image: NetworkImage(book.imageUrl), fit: BoxFit.fill)),
               ),
               onTap: () {
                 Navigator.of(context).push(
@@ -42,7 +43,6 @@ class BookCard extends StatelessWidget {
             ),
           ),
           Flexible(
-            //TODO:Fix Long Text
             child: Text(
               book.title,
               style: GoogleFonts.poppins(
@@ -71,7 +71,9 @@ class BookCard extends StatelessWidget {
                 _databaseService.updateBookMark(book);
                 book.changeBookMark();
               },
-              icon: book.isBookMarked ? Icon(Icons.bookmark) : Icon(Icons.bookmark_outline_rounded),
+              icon: book.isBookMarked
+                  ? Icon(Icons.bookmark)
+                  : Icon(Icons.bookmark_outline_rounded),
               iconSize: 20,
             ),
           ),

@@ -11,12 +11,12 @@ import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/Auth/confirmOTP.dart';
 import 'package:books_app/Screens/Auth/Register.dart';
-import 'package:books_app/Screens/Auth/signup.dart';
+import 'package:books_app/Screens/Auth/username.dart';
 import 'package:books_app/Screens/Auth/confirmemail.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Screens/Auth/ForgotPassword.dart';
-import 'package:books_app/Screens/edit_profile.dart';
+import 'package:books_app/Screens/Profile/edit_profile.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,7 +28,8 @@ class RouteGenerator {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case confirmOTP:
-        return MaterialPageRoute(builder: (_) => ConfirmScreen(settings.arguments));
+        return MaterialPageRoute(
+            builder: (_) => ConfirmScreen(settings.arguments));
       case registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterScreen());
       case userName:

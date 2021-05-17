@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:books_app/Constants/Colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/Auth.dart';
@@ -34,6 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Container(
         padding: EdgeInsets.all(10.0),
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
@@ -142,6 +141,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 if (error == null) {
                   Navigator.pushNamed(context, confirmEmail);
                 } else {
+                  print(error.toString());
+
+                  final snackBar = SnackBar(
+                      content: Text(error),
+                      action: SnackBarAction(
+                        label: 'Dismiss',
+                        onPressed: () {},
+                      ));
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   //   Text('Error');
                   // Display error message in form of a red text
                 }

@@ -3,20 +3,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/message.dart';
 import '../Models/user.dart';
 import '../Models/book.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:books_app/Models/message.dart';
 
 class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  final CollectionReference userDataCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference userDataCollection =
+      FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference booksCollection = FirebaseFirestore.instance.collection('books');
+  final CollectionReference booksCollection =
+      FirebaseFirestore.instance.collection('books');
 
-  final CollectionReference chatCollection = FirebaseFirestore.instance.collection('chat');
-
-  //TODO:Add USERDATA and BOOKS Stream
+  final CollectionReference chatCollection =
+      FirebaseFirestore.instance.collection('chat');
 
   Future updateUserData(UserData userData) async {
     return await userDataCollection.doc(uid).set(
@@ -39,8 +39,6 @@ class DatabaseService {
         "latitude": userData.latitude,
         "longitude": userData.longitude,
       },
-      //TODO:Check How many writes with this
-      // SetOptions(merge: true)
     );
   }
 
@@ -78,7 +76,8 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updateUser(String name, String city, String state, String photoURL) async {
+  Future updateUser(
+      String name, String city, String state, String photoURL) async {
     return await userDataCollection.doc(uid).set({
       "city": city,
       "state": state,
@@ -87,17 +86,20 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  //TODO:Update User Preferences from Dashboard and Settings Page
-
   Future updateGenres(List<String> genres) async {
     return await userDataCollection.doc(uid).set({
       "preferences": {"genres": genres}
     }, SetOptions(merge: true));
   }
 
-  Future updatePreferences(String favAuthor, String favBook, String locationRange) async {
+  Future updatePreferences(
+      String favAuthor, String favBook, String locationRange) async {
     return await userDataCollection.doc(uid).set({
-      "preferences": {"favAuthor": favAuthor, "favBook": favBook, "locationRange": locationRange}
+      "preferences": {
+        "favAuthor": favAuthor,
+        "favBook": favBook,
+        "locationRange": locationRange
+      }
     }, SetOptions(merge: true));
   }
 
@@ -134,10 +136,14 @@ class DatabaseService {
   //8176561061
   //0764526413
   //0136091814
-  //TODO:Get 10 and 13 digit.
+
   Future addBook(Book book) async {
     //GET BOOK FROM API or an existing List
-    return await booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn).set({
+    return await booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(book.isbn)
+        .set({
       "rating": book.rating,
       "isbn": book.isbn,
       "isBookMarked": book.isBookMarked,
@@ -171,7 +177,11 @@ class DatabaseService {
 
   //Read from firestore
   Stream<List<Book>> get booksData {
-    return booksCollection.doc(uid).collection("ownedBooks").snapshots().map((_bookFromQuerySnapShot));
+    return booksCollection
+        .doc(uid)
+        .collection("ownedBooks")
+        .snapshots()
+        .map((_bookFromQuerySnapShot));
   }
 
   //*********Updates***************//
@@ -185,7 +195,8 @@ class DatabaseService {
   //2.0->Update BookMark toggle bookmark
   updateBookMark(Book book) {
     //Get
-    var docReference = booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
+    var docReference =
+        booksCollection.doc(uid).collection("ownedBooks").doc(book.isbn);
     docReference
         .get()
         .then((doc) => {
@@ -198,74 +209,20 @@ class DatabaseService {
               else
                 {addBook(book)}
             })
-        .catchError((e) => print(e.toString()));
+        .catchError((e) {
+      print(e.toString());
+    });
   }
 
   removeBook(String isbn) {
-    booksCollection.doc(uid).collection("ownedBooks").doc(isbn).delete().catchError((e) => print(e.toString()));
+    booksCollection
+        .doc(uid)
+        .collection("ownedBooks")
+        .doc(isbn)
+        .delete()
+        .catchError((e) => print(e.toString()));
   }
 
-//TODO:Get All users from firebase to a List and display on chat screen
-//   Stream<QuerySnapshot> get getAllUsers {}
-
-//***********************MAP******************************************//
-//   final CollectionReference locationCollection =
-//       FirebaseFirestore.instance.collection('location');
-
-//Test
-//   double _countDistance(double userLatitude, double userLongitude) {
-//     return Distance().as(
-//       LengthUnit.Kilometer,
-//       LatLng(declaredLocation.latitude, declaredLocation.longitude),
-//       LatLng(userLatitude, userLongitude),
-//     );
-//   }
-  double distanceInMeters = Geolocator.distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
-
-  // Stream<List<Book>> get booksData {
-  //   return booksCollection
-  //       .doc(uid)
-  //       .collection("ownedBooks")
-  //       .snapshots()
-  //       .map((_bookFromQuerySnapShot));
-  // }
-  //
-  // List<Book> _bookFromQuerySnapShot(QuerySnapshot snapshot) {
-  //   return snapshot.docs.map((doc) {
-  //     print(doc.data);
-  //     return Book(
-  //         rating: doc.data()['rating'],
-  //         isOwned: doc.data()['isOwned'],
-  //         isBookMarked: doc.data()['isBookMarked'],
-  //         imageUrl: doc.data()['imageUrl'],
-  //         title: doc.data()['title'],
-  //         isbn: doc.data()['isbn'],
-  //         author: doc.data()['author'],
-  //         description: doc.data()['description']);
-  //   }).toList();
-  // }
-
-  // List<UserData> getAllNearbyUserData(QuerySnapshot querySnapshot) {
-  //   return querySnapshot.docs.where((uid) => uid != uID).map((doc) {
-  //     return UserData(
-  //       // uid: uid,
-  //       uid: doc.data()['uid'],
-  //       displayName: doc.data()['displayName'] ?? "Enter Name",
-  //       email: doc.data()['email'] ?? "example@example.com",
-  //       phoneNumber: doc.data()['phoneNumber'] ?? "8844883333",
-  //       state: doc.data()['state'],
-  //       city: doc.data()['city'],
-  //       photoURL: doc.data()['photoURL'],
-  //       preferences: doc.data()['preferences'],
-  //     );
-  //   }).toList();
-  // }
-  //
-  // Stream<List<UserData>> get allNearbyUsers {
-  //   return userDataCollection.snapshots().map(getAllUserData);
-  // }
-
-//******************CHAT******************//
   Future sendMessage(Message message) async {
     // final newMessage = Message(
     //   from: myUID,
@@ -305,39 +262,6 @@ class DatabaseService {
       "createdAt": message.createdAt
     });
   }
-
-  // Stream<List<Book>> get booksData {
-  //   return booksCollection
-  //       .doc(uid)
-  //       .collection("ownedBooks")
-  //       .snapshots()
-  //       .map((_bookFromQuerySnapShot));
-  // }
-  // List<UserData> getAllNearbyUserData(QuerySnapshot querySnapshot) {
-  //   return querySnapshot.docs.where((uid) => uid != uID).map((doc) {
-  //     return UserData(
-  //       // uid: uid,
-  //       uid: doc.data()['uid'],
-  //       displayName: doc.data()['displayName'] ?? "Enter Name",
-  //       email: doc.data()['email'] ?? "example@example.com",
-  //       phoneNumber: doc.data()['phoneNumber'] ?? "8844883333",
-  //       state: doc.data()['state'],
-  //       city: doc.data()['city'],
-  //       photoURL: doc.data()['photoURL'],
-  //       preferences: doc.data()['preferences'],
-  //     );
-  //   }).toList();
-  // }
-  // List<Message> _messageFromSnapshot(QuerySnapshot querySnapshot) {
-  //   return querySnapshot.docs.map((doc) {
-  //     return Message(
-  //       sender: doc.data()['sender'],
-  //       receiver: doc.data()['receiver'],
-  //       message: doc.data()['message'],
-  //       createdAt: doc.data()['createdAt'],
-  //     );
-  //   });
-  // }
 
   Stream<QuerySnapshot> getMessageStream(String from, String to) {
     return chatCollection

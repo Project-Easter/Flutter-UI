@@ -1,4 +1,3 @@
-import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/util/Api.dart';
 import 'package:books_app/util/helpers.dart';
 import 'package:flutter/material.dart';
@@ -127,9 +126,6 @@ class AuthService {
 
       if (response.statusCode == 200) {
         print('Logged in successfully');
-
-        //TODO: Redirects user to the homepage
-
       } else {
         var responseBody = jsonDecode(response.body);
         var errorId = responseBody['error']['id'];

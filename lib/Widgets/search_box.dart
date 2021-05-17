@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-//TODO:3.Add actual search functionality
-
-//On focus release,make color transparent
 class SearchBox extends StatefulWidget {
   @override
   _SearchBoxState createState() => _SearchBoxState();
