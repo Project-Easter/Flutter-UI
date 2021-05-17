@@ -1,7 +1,7 @@
 import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/States/ConfirmationCodeState.dart';
-import 'package:books_app/States/ErrorState.dart';
+import 'package:books_app/States/AuthState.dart';
 import 'package:books_app/States/PasswordState.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
 import 'package:books_app/Widgets/Auth/AuthButton.dart';
@@ -20,8 +20,8 @@ class ResetPassword extends StatefulWidget {
   _ResetPasswordState createState() => _ResetPasswordState(email: email);
 }
 
-class _ResetPasswordState extends State<ResetPassword>
-    with PasswordState<ResetPassword>, ConfirmationCodeState<ResetPassword>, ErrorState<ResetPassword> {
+class _ResetPasswordState extends AuthState<ResetPassword>
+    with PasswordState<ResetPassword>, ConfirmationCodeState<ResetPassword> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

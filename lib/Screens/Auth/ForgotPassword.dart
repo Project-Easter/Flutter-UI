@@ -1,12 +1,12 @@
 import 'package:books_app/Screens/Auth/ResetPassword.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/States/EmailState.dart';
+import 'package:books_app/States/AuthState.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
 import 'package:books_app/Widgets/Auth/AuthButton.dart';
 import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
 import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
 import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
-import 'package:books_app/States/ErrorState.dart';
 import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +15,7 @@ class ForgotPasswordScreen extends StatefulWidget {
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
-    with EmailState<ForgotPasswordScreen>, ErrorState<ForgotPasswordScreen> {
+class _ForgotPasswordScreenState extends AuthState<ForgotPasswordScreen> with EmailState<ForgotPasswordScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final AuthService authService = AuthService();
 

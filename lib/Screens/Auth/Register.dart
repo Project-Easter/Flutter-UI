@@ -1,7 +1,7 @@
 import 'package:books_app/Screens/Auth/ConfirmEmail.dart';
 import 'package:books_app/Services/Auth.dart';
 import 'package:books_app/States/EmailState.dart';
-import 'package:books_app/States/ErrorState.dart';
+import 'package:books_app/States/AuthState.dart';
 import 'package:books_app/States/PasswordState.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
 import 'package:books_app/Widgets/Auth/AuthButton.dart';
@@ -16,9 +16,8 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen>
-    with EmailState<RegisterScreen>, PasswordState<RegisterScreen>, ErrorState<RegisterScreen> {
-        
+class _RegisterScreenState extends AuthState<RegisterScreen>
+    with EmailState<RegisterScreen>, PasswordState<RegisterScreen> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -33,33 +32,34 @@ class _RegisterScreenState extends State<RegisterScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AuthNavigation.from(context),
-      body: Container(
-        padding: EdgeInsets.all(10.0),
-        child: SingleChildScrollView(child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AuthPageTitle(name: 'Register'),
-            AuthErrorMessage(errorMessage: this.error),
-            Form(
-              key: this.formKey,
-              child: Column(
-                children: [
-                  EmailTextField(onChanged: this.updateEmail),
-                  PasswordTextField(onChanged: this.updatePassword)
-                ],
-              ),
+        appBar: AuthNavigation.from(context),
+        body: Container(
+          padding: EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AuthPageTitle(name: 'Register'),
+                AuthErrorMessage(errorMessage: this.error),
+                Form(
+                  key: this.formKey,
+                  child: Column(
+                    children: [
+                      EmailTextField(onChanged: this.updateEmail),
+                      PasswordTextField(onChanged: this.updatePassword)
+                    ],
+                  ),
+                ),
+                AuthButton(
+                  text: 'Sign up',
+                  formKey: this.formKey,
+                  onClick: this.onSubmit,
+                  onSuccess: this.onSuccess,
+                  onError: this.onError,
+                )
+              ].where(notNull).toList(),
             ),
-            AuthButton(
-              text: 'Sign up',
-              formKey: this.formKey,
-              onClick: this.onSubmit,
-              onSuccess: this.onSuccess,
-              onError: this.onError,
-            )
-          ].where(notNull).toList(),
-        ),
-      ),)
-    );
+          ),
+        ));
   }
 }
