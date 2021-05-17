@@ -1,12 +1,13 @@
-import 'package:books_app/Constants/api.dart';
 import 'package:http/http.dart';
 
 class Api {
+  static const String BASE_ROUTE = "https://explr-api.herokuapp.com/api/v1";
+
   static Future<Response> register(String email, String password) async {
     var response;
 
     try {
-      response = await post(Uri.parse(API_ROUTE + "/auth/new-account"), body: {"email": email, "password": password});
+      response = await post(Uri.parse(BASE_ROUTE + "/auth/new-account"), body: {"email": email, "password": password});
     } catch (error) {
       print(error.toString());
     }
@@ -18,7 +19,7 @@ class Api {
     var response;
 
     try {
-      response = await post(Uri.parse(API_ROUTE + "/auth/email"), body: {"email": email, "password": password});
+      response = await post(Uri.parse(BASE_ROUTE + "/auth/email"), body: {"email": email, "password": password});
     } catch (error) {
       print(error.toString());
     }
@@ -30,7 +31,7 @@ class Api {
     var response;
 
     try {
-      response = await post(Uri.parse(API_ROUTE + "/mail/password-reset"), body: {"email": email});
+      response = await post(Uri.parse(BASE_ROUTE + "/mail/password-reset"), body: {"email": email});
     } catch (error) {
       print(error.toString());
     }
@@ -42,7 +43,7 @@ class Api {
     var response;
 
     try {
-      response = await patch(Uri.parse(API_ROUTE + "/user/password"), body: {"email": email, "password": password, "code": code});
+      response = await patch(Uri.parse(BASE_ROUTE + "/user/password"), body: {"email": email, "password": password, "code": code});
     } catch (error) {
       print(error.toString());
     }
@@ -54,7 +55,7 @@ class Api {
     var response;
 
     try {
-      response = await post(Uri.parse(API_ROUTE + "/user/email"), body: {"email": email, "code": code});
+      response = await post(Uri.parse(BASE_ROUTE + "/user/email"), body: {"email": email, "code": code});
     } catch (error) {
       print(error.toString());
     }
