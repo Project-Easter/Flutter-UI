@@ -1,9 +1,13 @@
-import 'package:books_app/Constants/Colors.dart';
+import 'package:books_app/Constants/Routes.dart';
 import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Utils/validator.dart';
-import 'package:books_app/Widgets/button.dart';
+import 'package:books_app/States/ConfirmationCodeState.dart';
+import 'package:books_app/States/AuthState.dart';
+import 'package:books_app/Widgets/Auth/AuthButton.dart';
+import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
+import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
+import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
+import 'package:books_app/Widgets/TextField.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ConfirmEmailScreen extends StatefulWidget {
   final String email;
@@ -14,101 +18,47 @@ class ConfirmEmailScreen extends StatefulWidget {
   _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState(email);
 }
 
-class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
-  final AuthService _authService = AuthService();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+class _ConfirmEmailScreenState extends AuthState<ConfirmEmailScreen> with ConfirmationCodeState<ConfirmEmailScreen> {
+  final AuthService authService = AuthService();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String _email;
-  String _confirmationCode;
+  String email;
 
-  _ConfirmEmailScreenState(this._email);
+  _ConfirmEmailScreenState(this.email);
+
+  Future<String> onSubmit() async {
+    return await authService.confirmEmail(this.email, this.confirmationCode);
+  }
+
+  void onSuccess() {
+    Navigator.pushNamed(this.context, Routes.HOME);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white10,
-        leading: TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back_rounded)),
-      ),
+      appBar: AuthNavigation.from(context),
       body: Container(
         padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 8.0, bottom: 20),
-              child: Text(
-                'Email confirmation',
-                style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 36),
+            AuthPageTitle(name: 'Confirm your email'),
+            AuthErrorMessage(errorMessage: this.error),
+            Form(
+              key: this.formKey,
+              child: Column(
+                children: [ConfirmationCodeTextField(onChanged: this.updateConfirmationCode)],
               ),
             ),
-            buildLayouts(),
-            CupertinoStyleButton(
-              name: 'Continue',
-              color: blackButton,
-              myFunction: () async {
-                var isFormValid = _formKey.currentState.validate();
-
-                if (isFormValid) {
-                  var error = await _authService.confirmEmail(_email, _confirmationCode);
-
-                  if (error == null) {
-                    return print('Email confirmed successfully');
-                    // return Navigator.pushNamed(context, confirmEmail);
-                  }
-
-                  print(error);
-                  //TODO: Display error message
-                }
-              },
+            AuthButton(
+              text: 'Continue',
+              formKey: this.formKey,
+              onClick: this.onSubmit,
+              onSuccess: this.onSuccess,
+              onError: this.onError,
             ),
-            SizedBox(
-              height: 20.0,
-            )
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildLayouts() {
-    return Form(
-      key: _formKey,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: AspectRatio(
-          aspectRatio: 343 / 52,
-          child: TextFormField(
-            key: ValueKey('_confirmationCode'),
-            autocorrect: false,
-            textCapitalization: TextCapitalization.none,
-            enableSuggestions: false,
-            validator: Validator.confirmationCode,
-            keyboardType: TextInputType.emailAddress,
-            textAlign: TextAlign.start,
-            decoration: InputDecoration(
-              hintText: 'Enter your confirmation code',
-              hintStyle: GoogleFonts.poppins(
-                fontSize: 14,
-              ),
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 2), borderRadius: BorderRadius.circular(12)),
-              contentPadding: EdgeInsets.all(10),
-            ),
-            onSaved: (value) {
-              setState(() {
-                _confirmationCode = value;
-              });
-            },
-            onChanged: (value) {
-              _confirmationCode = value;
-            },
-          ),
         ),
       ),
     );

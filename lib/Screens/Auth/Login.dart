@@ -26,7 +26,7 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
   }
 
   void onSuccess() {
-    Navigator.pushNamed(context, Routes.HOME);
+    Navigator.pushNamed(this.context, Routes.HOME);
   }
 
   @override
@@ -73,7 +73,7 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
               fontWeight: FontWeight.w600,
             )),
         onPressed: () {
-          Navigator.pushNamed(context, Routes.FORGOT_PASSWORD);
+          Navigator.pushNamed(this.context, Routes.FORGOT_PASSWORD);
         },
       ),
     );
@@ -102,7 +102,7 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
             ],
           ),
           onPressed: () {
-            Navigator.pushNamed(context, Routes.REGISTER);
+            Navigator.pushNamed(this.context, Routes.REGISTER);
           },
         ),
       ),
