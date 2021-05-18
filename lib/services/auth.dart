@@ -129,9 +129,8 @@ Future loginWithGoogle() async {
     if (user == null) return null;
 
     var idToken = await user.getIdToken(true);
-
     try {
-      var token = loginWithSocialMedia(idToken);
+      var token = await loginWithSocialMedia(idToken);
       print(token);
     } catch (error) {
       print(error.toString());
@@ -140,13 +139,11 @@ Future loginWithGoogle() async {
 
   Future<String> loginWithSocialMedia(String idToken) async {
     var response = await Api.loginWithSocialMedia(idToken);
-
-    if (response.statusCode == 200) return null;
-
     var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
 
-    if (body.token != null) return body.token;
+    if (response.statusCode == 200) return body['token'];
+
+    var errorId = body['error']['id'];
 
     switch (errorId) {
       case Error.INVALID_ACCOUNT_TYPE:

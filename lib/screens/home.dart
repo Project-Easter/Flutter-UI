@@ -3,7 +3,7 @@ import 'package:books_app/screens/chat/wrapper.dart';
 import 'package:books_app/screens/dashboard/dashboard.dart';
 import 'package:books_app/screens/bookshelf.dart';
 import 'package:books_app/screens/explore_nearby.dart';
-import 'package:books_app/screens/Profile/private_profile.dart';
+import 'package:books_app/screens/profile/private_profile.dart';
 import 'package:books_app/services/database.dart';
 import 'package:books_app/widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +40,6 @@ class _HomeState extends State<Home> {
   final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
-    //Setup Size Config-starting of app
     SizeConfig().init(context);
     final uID = _authService.getUID;
     print(uID);
