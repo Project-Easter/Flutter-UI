@@ -24,6 +24,10 @@ class Api {
     return sendRequest(() => post(Uri.parse(BASE_ROUTE + "/auth/email"), body: {"email": email, "password": password}));
   }
 
+  static Future<Response> loginWithSocialMedia(String idToken) async {
+    return sendRequest(() => post(Uri.parse(BASE_ROUTE + "/auth/social"), body: {"idToken": idToken}));
+  }
+
   static Future<Response> forgotPassword(String email) async {
     return sendRequest(() => post(Uri.parse(BASE_ROUTE + "/mail/password-reset"), body: {"email": email}));
   }

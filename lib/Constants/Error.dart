@@ -1,4 +1,4 @@
-class Exception {
+class Error {
   static const int DEFAULT = 0;
   static const int INVALID_INPUT = 100;
   static const int UNAUTHORIZED = 101;

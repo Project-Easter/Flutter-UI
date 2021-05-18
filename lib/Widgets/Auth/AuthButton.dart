@@ -19,14 +19,13 @@ class AuthButton extends StatelessWidget {
       myFunction: () async {
         var isFormValid = this.formKey.currentState.validate();
 
-        if (isFormValid) {
-          var error = await this.onClick();
+        if (!isFormValid) return;
 
-          if (error == null) {
-            return this.onSuccess();
-          }
-
-          this.onError(error);
+        try {
+          await this.onClick();
+          return this.onSuccess();
+        } catch (error) {
+          this.onError(error.toString().replaceFirst('Exception: ', ''));
         }
       },
     );

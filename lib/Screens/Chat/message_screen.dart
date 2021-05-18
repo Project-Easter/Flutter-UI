@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Models/message.dart';
 import 'package:books_app/Services/DatabaseService.dart';
-import 'package:books_app/Utils/size_config.dart';
+import 'package:books_app/Utils/SizeConfig.dart';
 
 class MessageScreen extends StatelessWidget {
   final UserData receiver;

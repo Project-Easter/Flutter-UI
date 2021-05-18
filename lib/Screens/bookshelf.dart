@@ -1,5 +1,5 @@
 import 'package:books_app/Models/book.dart';
-import 'package:books_app/Utils/size_config.dart';
+import 'package:books_app/Utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

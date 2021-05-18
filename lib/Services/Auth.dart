@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'DatabaseService.dart';
-import 'package:books_app/Constants/Exception.dart';
+import 'package:books_app/Constants/Error.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -38,13 +38,6 @@ class AuthService {
       assert(await user.getIdToken() != null);
       final User currentUser = _auth.currentUser;
       assert(user.uid == currentUser.uid);
-      String token = await user.getIdToken(true);
-      while (token.length > 0) {
-        int initLength = (token.length >= 500 ? 500 : token.length);
-        print(token.substring(0, initLength));
-        int endLength = token.length;
-        token = token.substring(initLength, endLength);
-      }
 
       UserData userData = makeUserDataFromAuthUser(user);
 
@@ -105,7 +98,6 @@ class AuthService {
         uid: user.uid,
         displayName: user.displayName ?? "Your name",
         email: user.email ?? "your@email.com",
-        //this is not required.Just for test purpose
         emailVerified: user.emailVerified,
         phoneNumber: user.phoneNumber ?? "Phone",
         photoURL: user.photoURL ?? photoUrl,
@@ -114,26 +106,72 @@ class AuthService {
     return userData;
   }
 
-  Future<String> register(String email, String password) async {
+  Future register(String email, String password) async {
     var response = await Api.register(email, password);
 
-    if (response.statusCode == 201) return null;
+    if (response.statusCode == 201) return;
 
     var body = getBodyFromResponse(response);
     var errorId = body['error']['id'];
 
     switch (errorId) {
-      case Exception.DUPLICATE_EMAIL:
+      case Error.DUPLICATE_EMAIL:
         {
-          return 'Email already exists.';
+          throw new Exception('Email already exists.');
         }
       default:
         {
-          return 'An unknown error occured. Please try again later';
+          throw new Exception('An unknown error occured. Please try again later');
         }
     }
   }
 
+Future loginWithGoogle() async {
+    var attempt = await GoogleSignIn().signIn();
+    var authentication = await attempt.authentication;
+
+    var credential = GoogleAuthProvider.credential(
+      accessToken: authentication.accessToken,
+      idToken: authentication.idToken,
+    );
+
+    var result = await _auth.signInWithCredential(credential);
+    var user = result.user;
+
+    if (user == null) return null;
+
+    var idToken = await user.getIdToken(true);
+
+    try {
+      var token = loginWithSocialMedia(idToken);
+      print(token);
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  Future<String> loginWithSocialMedia(String idToken) async {
+    var response = await Api.loginWithSocialMedia(idToken);
+
+    if (response.statusCode == 200) return null;
+
+    var body = getBodyFromResponse(response);
+    var errorId = body['error']['id'];
+
+    if (body.token != null) return body.token;
+
+    switch (errorId) {
+      case Error.INVALID_ACCOUNT_TYPE:
+        {
+          throw new Exception("Provided email is associated with a regular account. Log in with email and password instead.");
+        }
+      default:
+        {
+          throw new Exception('An unknown error occured. Please try again later');
+        }
+    }
+  }
+  
   Future<String> login(String email, String password) async {
     var response = await Api.login(email, password);
 
@@ -143,95 +181,95 @@ class AuthService {
     var errorId = body['error']['id'];
 
     switch (errorId) {
-      case Exception.INVALID_ACCOUNT_TYPE:
+      case Error.INVALID_ACCOUNT_TYPE:
         {
-          return 'You have created an account using Google or Facebook. Log in with one of them instead.';
+          throw new Exception('You have created an account using Google or Facebook. Log in with one of them instead.');
         }
-      case Exception.INVALID_CREDENTIALS:
+      case Error.INVALID_CREDENTIALS:
         {
-          return 'Invalid Credentials. Check your input and try again.';
+          throw new Exception('Invalid Credentials. Check your input and try again.');
         }
-      case Exception.UNCONFIRMED_ACCOUNT:
+      case Error.UNCONFIRMED_ACCOUNT:
         {
-          return 'Your account is not confirmed yet. Click here to confirm it';
+          throw new Exception('Your account is not confirmed yet. Click here to confirm it');
         }
       default:
         {
-          return 'An unknown error occured. Please try again later';
+          throw new Exception('An unknown error occured. Please try again later');
         }
     }
   }
 
-  Future<String> forgotPassword(String email) async {
+  Future forgotPassword(String email) async {
     var response = await Api.forgotPassword(email);
-    if (response.statusCode == 204) return null;
+    if (response.statusCode == 204) return;
 
     var body = getBodyFromResponse(response);
     var errorId = body['error']['id'];
 
     switch (errorId) {
-      case Exception.EMAIL_NOT_FOUND:
+      case Error.EMAIL_NOT_FOUND:
         {
-          return 'Provided email does not exist';
+          throw new Exception('Provided email does not exist');
         }
-      case Exception.INVALID_ACCOUNT_TYPE:
+      case Error.INVALID_ACCOUNT_TYPE:
         {
-          return 'Provided email is associated with the account created using Google or Facebook';
+          throw new Exception('Provided email is associated with the account created using Google or Facebook');
         }
-      case Exception.UNCONFIRMED_ACCOUNT:
+      case Error.UNCONFIRMED_ACCOUNT:
         {
-          return 'Your account is not confirmed yet.';
+          throw new Exception('Your account is not confirmed yet.');
         }
       default:
         {
-          return 'An unknown error occured. Please try again later';
+          throw new Exception('An unknown error occured. Please try again later');
         }
     }
   }
 
-  Future<String> resetPassword(String email, String password, String code) async {
+  Future resetPassword(String email, String password, String code) async {
     var response = await Api.resetPassword(email, password, code);
-    if (response.statusCode == 204) return null;
+    if (response.statusCode == 204) return;
 
     var body = getBodyFromResponse(response);
     var errorId = body['error']['id'];
 
     switch (errorId) {
-      case Exception.INVALID_CONFIRMATION_CODE:
+      case Error.INVALID_CONFIRMATION_CODE:
         {
-          return 'Provided confirmation code is invalid';
+          throw new Exception('Provided confirmation code is invalid');
         }
-      case Exception.EXPIRED_CONFIRMATION_CODE:
+      case Error.EXPIRED_CONFIRMATION_CODE:
         {
-          return 'Provided confirmation code has been expired. Click here to get a new one.';
+          throw new Exception('Provided confirmation code has been expired. Click here to get a new one.');
         }
       default:
         {
-          return 'An unknown error occured. Please try again later';
+          throw new Exception('An unknown error occured. Please try again later');
         }
     }
   }
 
-  Future<String> confirmEmail(String email, String code) async {
+  Future confirmEmail(String email, String code) async {
     var response = await Api.confirmEmail(email, code);
 
-    if (response.statusCode == 204) return null;
+    if (response.statusCode == 204) return;
 
     var body = getBodyFromResponse(response);
     var errorId = body['error']['id'];
 
     switch (errorId) {
-      case Exception.INVALID_CONFIRMATION_CODE:
+      case Error.INVALID_CONFIRMATION_CODE:
         {
-          return 'Provided confirmation code is invalid.';
+          throw new Exception('Provided confirmation code is invalid.');
         }
-      case Exception.EXPIRED_CONFIRMATION_CODE:
+      case Error.EXPIRED_CONFIRMATION_CODE:
         {
-          return 'Provided confirmation code has been expired. Click here to get a new one.';
+          throw new Exception('Provided confirmation code has been expired. Click here to get a new one.');
         }
       default:
         {
-          return 'An unknown error occured. Please try again later';
+          throw new Exception('An unknown error occured. Please try again later');
         }
     }
   }
