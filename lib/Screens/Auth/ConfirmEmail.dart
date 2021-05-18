@@ -1,11 +1,11 @@
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/States/ConfirmationCodeState.dart';
-import 'package:books_app/States/AuthState.dart';
-import 'package:books_app/Widgets/Auth/AuthButton.dart';
-import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
-import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
-import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
-import 'package:books_app/Widgets/TextField.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/states/ConfirmationCodeState.dart';
+import 'package:books_app/states/AuthState.dart';
+import 'package:books_app/widgets/Auth/AuthButton.dart';
+import 'package:books_app/widgets/Auth/AuthErrorMessage.dart';
+import 'package:books_app/widgets/Auth/AuthNavigation.dart';
+import 'package:books_app/widgets/Auth/AuthPageTitle.dart';
+import 'package:books_app/widgets/TextField.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmEmailScreen extends StatefulWidget {

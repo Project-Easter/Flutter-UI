@@ -1,9 +1,9 @@
-import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/constants/Routes.dart';
+import 'package:books_app/models/user.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/services/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Constants/Routes.dart';
-import '../../../Models/user.dart';
-import '../../../Services/DatabaseService.dart';
 import 'package:intl/intl.dart';
 
 class ChatRoom extends StatefulWidget {
@@ -13,11 +13,6 @@ class ChatRoom extends StatefulWidget {
 
 class _ChatRoomState extends State<ChatRoom> {
   final AuthService _authService = AuthService();
-
-  // return StreamBuilder<UserData>(
-  // stream: DatabaseService(uid: uID).userData,
-  // builder: (context, snapshot) {
-  // if (snapshot.hasData) {
 
   List<UserData> allUser = [];
   @override

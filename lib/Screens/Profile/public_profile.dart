@@ -1,10 +1,10 @@
-import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/constants/Routes.dart';
+import 'package:books_app/models/books.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/Utils/SizeConfig.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import '../../Models/books.dart';
 
 class PublicProfile extends StatelessWidget {
   @override
@@ -125,18 +125,18 @@ class PublicProfile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CupertinoStyleButton(
-                    text: 'My Library',
-                    onpress: () {},
+                    name: 'My Library',
+                    myFunction: () {},
                     color: Color(0xFF06070D),
                   ),
                   CupertinoStyleButton(
-                    text: 'Edit Profile',
-                    onpress: () {},
+                    name: 'Edit Profile',
+                    myFunction: () {},
                     color: Color(0xFF0FB269),
                   ),
                   CupertinoStyleButton(
-                    text: 'Change Preferences',
-                    onpress: () {
+                    name: 'Change Preferences',
+                    myFunction: () {
                       Navigator.pushNamed(context, Routes.PRIVATE_PROFILE);
                     },
                     color: Color(0xFF0FB269),
@@ -146,31 +146,6 @@ class PublicProfile extends StatelessWidget {
               flex: 25,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CupertinoStyleButton extends StatelessWidget {
-  final String text;
-  final Function onpress;
-  final Color color;
-  CupertinoStyleButton({this.text, this.onpress, this.color});
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: getProportionateScreenWidth(345.0),
-      height: getProportionateScreenHeight(52.0),
-      child: MaterialButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        color: color,
-        onPressed: onpress,
-        child: Text(
-          text,
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
     );

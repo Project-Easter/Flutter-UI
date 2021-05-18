@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/services/DatabaseService.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Models/book.dart';
+import 'package:books_app/models/book.dart';
 import 'package:books_app/Screens/book_desciption.dart';
 import 'package:google_fonts/google_fonts.dart';
 

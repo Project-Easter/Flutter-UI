@@ -1,10 +1,10 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/constants/Colors.dart';
+import 'package:books_app/models/user.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/services/DatabaseService.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../Models/user.dart';
-import '../../Services/Auth.dart';
-import '../../Widgets/button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';

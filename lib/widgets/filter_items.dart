@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Models/books.dart';
+import 'package:books_app/models/books.dart';
 import 'package:provider/provider.dart';
 
 class FilterItems extends StatefulWidget {

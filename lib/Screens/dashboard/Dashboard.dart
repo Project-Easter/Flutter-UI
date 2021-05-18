@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Models/books.dart';
-import 'package:books_app/Models/book.dart';
-import 'package:books_app/Models/user.dart';
+import 'package:books_app/models/books.dart';
+import 'package:books_app/models/book.dart';
+import 'package:books_app/models/user.dart';
 import 'book_list.dart';
 import 'user_choice.dart';
 import 'quotes.dart';

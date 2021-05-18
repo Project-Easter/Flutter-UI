@@ -1,6 +1,6 @@
+import 'package:books_app/services/DatabaseService.dart';
 import 'package:flutter/material.dart';
-import '../../Services/DatabaseService.dart';
-import 'package:books_app/Models/message.dart';
+import 'package:books_app/models/message.dart';
 
 class NewMessage extends StatefulWidget {
   final String from;
@@ -16,7 +16,6 @@ class _NewMessageState extends State<NewMessage> {
 
   void sendMessage() async {
     FocusScope.of(context).unfocus();
-    // await FirebaseApi.uploadMessage(widget.idUser, message);
     final Message messageData = Message(sender: widget.from, receiver: widget.to, message: message, createdAt: DateTime.now());
     await DatabaseService(uid: widget.from).sendMessage(messageData);
     _controller.clear();

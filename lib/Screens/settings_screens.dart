@@ -1,15 +1,15 @@
-import 'package:books_app/Common/Themes.dart';
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/Routes.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Utils/theme_notifier.dart';
+import 'package:books_app/common/themes.dart';
+import 'package:books_app/constants/Colors.dart';
+import 'package:books_app/constants/Routes.dart';
+import 'package:books_app/models/user.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/services/DatabaseService.dart';
+import 'package:books_app/utils/theme_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Services/Auth.dart';
-import '../Services/DatabaseService.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override

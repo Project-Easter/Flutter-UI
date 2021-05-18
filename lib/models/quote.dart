@@ -5,7 +5,6 @@ class Quote {
   String author;
   Quote({this.text, this.author});
 
-  //Get a single quote
   Quote getQuote() {
     Random random = new Random();
     int randomNumber = random.nextInt(7);

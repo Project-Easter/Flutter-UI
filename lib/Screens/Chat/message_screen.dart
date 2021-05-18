@@ -2,10 +2,10 @@ import 'package:books_app/Screens/Chat/message_bubble.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Models/message.dart';
-import 'package:books_app/Services/DatabaseService.dart';
-import 'package:books_app/Utils/SizeConfig.dart';
+import 'package:books_app/models/user.dart';
+import 'package:books_app/models/message.dart';
+import 'package:books_app/services/DatabaseService.dart';
+import 'package:books_app/utils/SizeConfig.dart';
 
 class MessageScreen extends StatelessWidget {
   final UserData receiver;

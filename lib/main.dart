@@ -1,13 +1,13 @@
-import 'package:books_app/Constants/Routes.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Utils/theme_notifier.dart';
+import 'package:books_app/common/themes.dart';
+import 'package:books_app/constants/Routes.dart';
+import 'package:books_app/models/books.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/utils/theme_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/Router/router.dart';
+import 'package:books_app/utils/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Common/Themes.dart';
-import 'Models/books.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

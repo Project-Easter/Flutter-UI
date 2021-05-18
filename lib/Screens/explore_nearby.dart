@@ -1,10 +1,10 @@
-import 'package:books_app/Utils/SizeConfig.dart';
+import 'package:books_app/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Widgets/horizontal_list.dart';
+import 'package:books_app/widgets/horizontal_list.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Models/books.dart';
-import 'package:books_app/Models/user.dart';
+import 'package:books_app/models/books.dart';
+import 'package:books_app/models/user.dart';
 
 class ExploreNearby extends StatefulWidget {
   @override

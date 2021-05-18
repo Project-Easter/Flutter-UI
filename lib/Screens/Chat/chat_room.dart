@@ -1,8 +1,8 @@
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/models/user.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/services/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Models/user.dart';
 import 'package:intl/intl.dart';
 
 class ChatRoom extends StatefulWidget {

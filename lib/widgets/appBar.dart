@@ -1,5 +1,5 @@
-import 'package:books_app/Constants/Routes.dart';
-import 'package:books_app/Widgets/filter_items.dart';
+import 'package:books_app/constants/Routes.dart';
+import 'package:books_app/widgets/filter_items.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

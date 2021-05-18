@@ -1,9 +1,10 @@
+import 'package:books_app/constants/Colors.dart';
+import 'package:books_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Models/user.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../UserPreferences.dart';
-import '../../Constants/Colors.dart';
 
 class UserChoice extends StatelessWidget {
   const UserChoice({Key key}) : super(key: key);

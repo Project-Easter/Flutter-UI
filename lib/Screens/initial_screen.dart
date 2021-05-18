@@ -1,14 +1,14 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/constants/Colors.dart';
+import 'package:books_app/constants/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/painting.dart';
-import 'package:books_app/Widgets/country_picker.dart';
+import 'package:books_app/widgets/country_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Utils/SizeConfig.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/utils/SizeConfig.dart';
 
 class InitialScreen extends StatefulWidget {
   @override

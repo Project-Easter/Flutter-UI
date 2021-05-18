@@ -1,9 +1,8 @@
 import 'package:books_app/Screens/UserPreferences.dart';
+import 'package:books_app/models/book.dart';
+import 'package:books_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../Models/message.dart';
-import '../Models/user.dart';
-import '../Models/book.dart';
-import 'package:books_app/Models/message.dart';
+import 'package:books_app/models/message.dart';
 
 class DatabaseService {
   final String uid;

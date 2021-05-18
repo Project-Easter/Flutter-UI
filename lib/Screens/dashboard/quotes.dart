@@ -1,7 +1,7 @@
+import 'package:books_app/constants/Colors.dart';
+import 'package:books_app/models/quote.dart';
 import 'package:flutter/material.dart';
-import '../../Models/quote.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../Constants/Colors.dart';
 
 class Quotes extends StatelessWidget {
   Quotes({Key key}) : super(key: key);

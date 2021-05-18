@@ -1,19 +1,19 @@
-import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/constants/Routes.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
-import 'package:books_app/Services/DatabaseService.dart';
-import 'package:books_app/Widgets/appBar.dart';
+import 'package:books_app/services/DatabaseService.dart';
+import 'package:books_app/widgets/appBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Widgets/custom_navigation_bar.dart';
+import 'package:books_app/widgets/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Utils/SizeConfig.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Models/book.dart';
+import 'package:books_app/utils/SizeConfig.dart';
+import 'package:books_app/services/Auth.dart';
+import 'package:books_app/models/user.dart';
+import 'package:books_app/models/book.dart';
 import 'Chat/wrapper.dart';
 
 class Home extends StatefulWidget {

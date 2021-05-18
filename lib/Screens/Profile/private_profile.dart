@@ -1,12 +1,12 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/Routes.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Widgets/button.dart';
+import 'package:books_app/constants/Colors.dart';
+import 'package:books_app/constants/Routes.dart';
+import 'package:books_app/models/user.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Models/book.dart';
+import 'package:books_app/models/book.dart';
 
 class PrivateProfile extends StatelessWidget {
   @override

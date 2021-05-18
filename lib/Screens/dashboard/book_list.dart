@@ -1,8 +1,8 @@
+import 'package:books_app/Screens/dashboard/bookcard.dart';
+import 'package:books_app/models/book.dart';
 import 'package:flutter/material.dart';
-import '../../Models/book.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'bookcard.dart';
 
 class BookList extends StatelessWidget {
   final String title;

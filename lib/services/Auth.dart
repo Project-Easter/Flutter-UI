@@ -1,14 +1,14 @@
-import 'package:books_app/Utils/Api.dart';
-import 'package:books_app/Utils/Helpers.dart';
-import 'package:books_app/Models/user.dart';
+import 'package:books_app/utils/Api.dart';
+import 'package:books_app/utils/Helpers.dart';
+import 'package:books_app/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'DatabaseService.dart';
-import 'package:books_app/Constants/Error.dart';
+import 'package:books_app/constants/Error.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FacebookLogin facebookLogin = FacebookLogin();
 
   MyAppUser _retrieveUserFromFirebaseUser(User user) {
@@ -16,11 +16,11 @@ class AuthService {
   }
 
   dynamic get currentUserFromFireBase {
-    return _auth.currentUser;
+    return firebaseAuth.currentUser;
   }
 
   dynamic get getUID {
-    return _auth.currentUser.uid;
+    return firebaseAuth.currentUser.uid;
   }
 
   Future<MyAppUser> signInWithGoogle() async {
@@ -30,13 +30,13 @@ class AuthService {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final UserCredential authResult = await _auth.signInWithCredential(credential);
+    final UserCredential authResult = await firebaseAuth.signInWithCredential(credential);
 
     final User user = authResult.user;
     if (user != null) {
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
-      final User currentUser = _auth.currentUser;
+      final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
 
       UserData userData = makeUserDataFromAuthUser(user);
@@ -49,8 +49,7 @@ class AuthService {
 
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();
-    await _auth.signOut();
-    print("User Signed Out");
+    await firebaseAuth.signOut();
   }
 
   Future<String> signInWithFacebook() async {
@@ -58,13 +57,13 @@ class AuthService {
 
     final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
 
-    final UserCredential fbAuthResult = await _auth.signInWithCredential(facebookAuthCredential);
+    final UserCredential fbAuthResult = await firebaseAuth.signInWithCredential(facebookAuthCredential);
     final User fbUser = fbAuthResult.user;
 
     if (fbUser != null) {
       assert(!fbUser.isAnonymous);
       assert(await fbUser.getIdToken() != null);
-      final User currentUser = _auth.currentUser;
+      final User currentUser = firebaseAuth.currentUser;
       assert(fbUser.uid == currentUser.uid);
 
       print('Facebook SignIn succeeded: $fbUser');
@@ -75,26 +74,15 @@ class AuthService {
   }
 
   Future<void> facebookSignout() async {
-    await _auth.signOut().then((onValue) {
+    await firebaseAuth.signOut().then((onValue) {
       facebookLogin.logOut();
     });
   }
 
-  Future<void> signOutNormal() async {
-    try {
-      await _auth.signOut();
-    } catch (e) {
-      e.toString();
-    }
-  }
-
   UserData makeUserDataFromAuthUser(User user) {
-    //IMP:DO NOT REMOVE THIS URL,this is the default image while signing up.
-    //Change Image as per needed.A valid URL must be provided
     String photoUrl =
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
     UserData userData = UserData(
-        //Storing Data For further requirement
         uid: user.uid,
         displayName: user.displayName ?? "Your name",
         email: user.email ?? "your@email.com",
@@ -135,7 +123,7 @@ Future loginWithGoogle() async {
       idToken: authentication.idToken,
     );
 
-    var result = await _auth.signInWithCredential(credential);
+    var result = await firebaseAuth.signInWithCredential(credential);
     var user = result.user;
 
     if (user == null) return null;
@@ -171,7 +159,7 @@ Future loginWithGoogle() async {
         }
     }
   }
-  
+
   Future<String> login(String email, String password) async {
     var response = await Api.login(email, password);
 
