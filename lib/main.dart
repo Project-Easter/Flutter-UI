@@ -1,7 +1,7 @@
 import 'package:books_app/common/themes.dart';
-import 'package:books_app/constants/Routes.dart';
+import 'package:books_app/constants/routes.dart';
 import 'package:books_app/models/books.dart';
-import 'package:books_app/services/Auth.dart';
+import 'package:books_app/services/auth.dart';
 import 'package:books_app/utils/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/utils/router.dart';

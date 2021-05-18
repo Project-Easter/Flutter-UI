@@ -1,18 +1,18 @@
-import 'package:books_app/Screens/bookshelf.dart';
-import 'package:books_app/Screens/Chat/message_screen.dart';
+import 'package:books_app/screens/bookshelf.dart';
+import 'package:books_app/screens/chat/message_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:books_app/Screens/Auth/Login.dart';
-import 'package:books_app/Screens/add_book.dart';
-import 'package:books_app/Screens/home.dart';
-import 'package:books_app/Screens/initial_screen.dart';
-import 'package:books_app/services/UserLocation.dart';
-import 'package:books_app/Screens/chat_screen.dart';
-import 'package:books_app/Screens/settings_screens.dart';
-import 'package:books_app/constants/Routes.dart';
-import 'package:books_app/Screens/Auth/Register.dart';
-import 'package:books_app/Screens/dashboard/Dashboard.dart';
-import 'package:books_app/Screens/Auth/ForgotPassword.dart';
-import 'package:books_app/Screens/Profile/edit_profile.dart';
+import 'package:books_app/screens/auth/login.dart';
+import 'package:books_app/screens/add_book.dart';
+import 'package:books_app/screens/home.dart';
+import 'package:books_app/screens/initial_screen.dart';
+import 'package:books_app/services/user_location.dart';
+import 'package:books_app/screens/chat_screen.dart';
+import 'package:books_app/screens/settings_screens.dart';
+import 'package:books_app/constants/routes.dart';
+import 'package:books_app/screens/auth/register.dart';
+import 'package:books_app/screens/dashboard/dashboard.dart';
+import 'package:books_app/screens/auth/forgot_password.dart';
+import 'package:books_app/screens/profile/edit_profile.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
