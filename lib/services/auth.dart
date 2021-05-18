@@ -23,55 +23,55 @@ class AuthService {
     return firebaseAuth.currentUser.uid;
   }
 
-  Future<MyAppUser> signInWithGoogle() async {
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    final UserCredential authResult = await firebaseAuth.signInWithCredential(credential);
+//   Future<MyAppUser> signInWithGoogle() async {
+//     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+//     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+//     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+//       accessToken: googleAuth.accessToken,
+//       idToken: googleAuth.idToken,
+//     );
+//     final UserCredential authResult = await firebaseAuth.signInWithCredential(credential);
 
-    final User user = authResult.user;
-    if (user != null) {
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-      final User currentUser = firebaseAuth.currentUser;
-      assert(user.uid == currentUser.uid);
+//     final User user = authResult.user;
+//     if (user != null) {
+//       assert(!user.isAnonymous);
+//       assert(await user.getIdToken() != null);
+//       final User currentUser = firebaseAuth.currentUser;
+//       assert(user.uid == currentUser.uid);
 
-      UserData userData = makeUserDataFromAuthUser(user);
+//       UserData userData = makeUserDataFromAuthUser(user);
 
-      await DatabaseService(uid: user.uid).updateUserData(userData);
-      return _retrieveUserFromFirebaseUser(currentUser);
-    }
-    return null;
-  }
+//       await DatabaseService(uid: user.uid).updateUserData(userData);
+//       return _retrieveUserFromFirebaseUser(currentUser);
+//     }
+//     return null;
+//   }
 
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();
     await firebaseAuth.signOut();
   }
 
-  Future<String> signInWithFacebook() async {
-    final FacebookLoginResult result = await facebookLogin.logIn();
+//   Future<String> signInWithFacebook() async {
+//     final FacebookLoginResult result = await facebookLogin.logIn();
 
-    final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
+//     final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
 
-    final UserCredential fbAuthResult = await firebaseAuth.signInWithCredential(facebookAuthCredential);
-    final User fbUser = fbAuthResult.user;
+//     final UserCredential fbAuthResult = await firebaseAuth.signInWithCredential(facebookAuthCredential);
+//     final User fbUser = fbAuthResult.user;
 
-    if (fbUser != null) {
-      assert(!fbUser.isAnonymous);
-      assert(await fbUser.getIdToken() != null);
-      final User currentUser = firebaseAuth.currentUser;
-      assert(fbUser.uid == currentUser.uid);
+//     if (fbUser != null) {
+//       assert(!fbUser.isAnonymous);
+//       assert(await fbUser.getIdToken() != null);
+//       final User currentUser = firebaseAuth.currentUser;
+//       assert(fbUser.uid == currentUser.uid);
 
-      print('Facebook SignIn succeeded: $fbUser');
+//       print('Facebook SignIn succeeded: $fbUser');
 
-      return '$fbUser';
-    }
-    return null;
-  }
+//       return '$fbUser';
+//     }
+//     return null;
+//   }
 
   Future<void> facebookSignout() async {
     await firebaseAuth.signOut().then((onValue) {
@@ -114,7 +114,7 @@ class AuthService {
     }
   }
 
-Future loginWithGoogle() async {
+Future signInWithGoogle() async {
     var attempt = await GoogleSignIn().signIn();
     var authentication = await attempt.authentication;
 
@@ -129,6 +129,7 @@ Future loginWithGoogle() async {
     if (user == null) return null;
 
     var idToken = await user.getIdToken(true);
+
     try {
       var token = await loginWithSocialMedia(idToken);
       print(token);
@@ -137,6 +138,25 @@ Future loginWithGoogle() async {
     }
   }
 
+Future signInWithFacebook() async {
+    var attempt = await facebookLogin.logIn();
+    var credential = FacebookAuthProvider.credential(attempt.accessToken.token);
+    var result = await firebaseAuth.signInWithCredential(credential);
+
+    var user = result.user;
+
+    if (user == null) return null;
+
+    var idToken = await user.getIdToken(true);
+    
+    try {
+      var token = await loginWithSocialMedia(idToken);
+      print(token);
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+  
   Future<String> loginWithSocialMedia(String idToken) async {
     var response = await Api.loginWithSocialMedia(idToken);
     var body = getBodyFromResponse(response);

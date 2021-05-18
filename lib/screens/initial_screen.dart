@@ -262,7 +262,7 @@ class _InitialScreenState extends State<InitialScreen> {
               ),
               onPressed: () async {
                 try {
-                  dynamic res = await _authService.loginWithGoogle();
+                  dynamic res = await _authService.signInWithGoogle();
                   print(res);
                   if (res != null) {
                     print(res);
