@@ -4,7 +4,6 @@ import 'package:books_app/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'database.dart';
 import 'package:books_app/constants/error.dart';
 
 class AuthService {
@@ -47,11 +46,6 @@ class AuthService {
 //     return null;
 //   }
 
-  Future<void> googleSignout() async {
-    GoogleSignIn().disconnect();
-    await firebaseAuth.signOut();
-  }
-
 //   Future<String> signInWithFacebook() async {
 //     final FacebookLoginResult result = await facebookLogin.logIn();
 
@@ -72,6 +66,11 @@ class AuthService {
 //     }
 //     return null;
 //   }
+
+  Future<void> googleSignout() async {
+    GoogleSignIn().disconnect();
+    await firebaseAuth.signOut();
+  }
 
   Future<void> facebookSignout() async {
     await firebaseAuth.signOut().then((onValue) {
@@ -114,7 +113,7 @@ class AuthService {
     }
   }
 
-Future signInWithGoogle() async {
+  Future signInWithGoogle() async {
     var attempt = await GoogleSignIn().signIn();
     var authentication = await attempt.authentication;
 
@@ -138,7 +137,7 @@ Future signInWithGoogle() async {
     }
   }
 
-Future signInWithFacebook() async {
+  Future signInWithFacebook() async {
     var attempt = await facebookLogin.logIn();
     var credential = FacebookAuthProvider.credential(attempt.accessToken.token);
     var result = await firebaseAuth.signInWithCredential(credential);
@@ -148,7 +147,7 @@ Future signInWithFacebook() async {
     if (user == null) return null;
 
     var idToken = await user.getIdToken(true);
-    
+
     try {
       var token = await loginWithSocialMedia(idToken);
       print(token);
@@ -156,7 +155,7 @@ Future signInWithFacebook() async {
       print(error.toString());
     }
   }
-  
+
   Future<String> loginWithSocialMedia(String idToken) async {
     var response = await Api.loginWithSocialMedia(idToken);
     var body = getBodyFromResponse(response);
@@ -179,10 +178,10 @@ Future signInWithFacebook() async {
 
   Future<String> login(String email, String password) async {
     var response = await Api.login(email, password);
-
-    if (response.statusCode == 200) return null;
-
     var body = getBodyFromResponse(response);
+
+    if (response.statusCode == 200) return body['token'];
+
     var errorId = body['error']['id'];
 
     switch (errorId) {

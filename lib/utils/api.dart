@@ -39,4 +39,8 @@ class Api {
   static Future<Response> confirmEmail(String email, String code) async {
     return sendRequest(() => post(Uri.parse(BASE_ROUTE + "/user/email"), body: {"email": email, "code": code}));
   }
+
+  static Future<Response> getUserData(String token) async {
+    return sendRequest(() => get(Uri.parse(BASE_ROUTE + "/user/data"), headers: {"authorization": token}));
+  }
 }

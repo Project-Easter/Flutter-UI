@@ -1,4 +1,5 @@
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/models/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/states/auth_state.dart';
 import 'package:books_app/states/email_state.dart';
@@ -11,6 +12,7 @@ import 'package:books_app/widgets/auth/auth_page_title.dart';
 import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -21,12 +23,13 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Future<String> onSubmit() async {
-    return await this.authService.login(this.email, this.password);
+  Future onSubmit() async {
+    var token = await this.authService.login(this.email, this.password);
+    await Provider.of<UserModel>(context, listen: false).fetchUserData(token);
   }
 
   void onSuccess() {
-    print('Logged in successfully');
+    var id = Provider.of<UserModel>(context, listen: false).id;
   }
 
   @override

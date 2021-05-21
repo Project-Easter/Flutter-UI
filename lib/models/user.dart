@@ -1,11 +1,49 @@
-//User is defined in FireBase and user.model showing error
+import 'package:books_app/utils/api.dart';
+import 'package:books_app/utils/helpers.dart';
+import 'package:flutter/widgets.dart';
+
+class UserModel extends ChangeNotifier {
+  String _id;
+  String _email;
+  String _firstName;
+  String _lastName;
+  String _joinedAt;
+  String _avatar;
+  bool _isAuthenticated;
+
+  String get id => _id;
+  String get email => _email;
+  String get firstName => _firstName;
+  String get lastName => _lastName;
+  String get joinedAt => _joinedAt;
+  String get avatar => _avatar;
+  bool get isAuthenticated => _isAuthenticated;
+
+  Future fetchUserData(String token) async {
+    var response = await Api.getUserData(token);
+    var body = getBodyFromResponse(response);
+
+    if (body['id'] == null) {
+      this._isAuthenticated = false;
+      return;
+    }
+
+    this._id = body['id'];
+    this._email = body['email'];
+    this._firstName = body['firstName'];
+    this._lastName = body['lastName'];
+    this._joinedAt = body['joinedAt'];
+    this._avatar = body['avatar'];
+    this._isAuthenticated = true;
+
+    notifyListeners();
+  }
+}
+
 class MyAppUser {
   String uid;
   MyAppUser({this.uid});
 }
-
-//Example of User from firebase Object
-//User(displayName: null, email: null, emailVerified: false, isAnonymous: true, metadata: UserMetadata(creationTime: 2021-03-17 11:07:16.592, lastSignInTime: 2021-03-17 11:07:16.592), phoneNumber: null, photoURL: null, providerData, [], refreshToken: , tenantId: null, uid: OS17XNHPeOdC33SOU4nh8tZ9PfD3)
 
 class UserData {
   String uid;
@@ -13,19 +51,14 @@ class UserData {
   String email;
   bool emailVerified;
   String refreshToken;
-  //this is not required.Just for test purpose
   bool isAnonymous;
   String phoneNumber;
   String photoURL;
-  //**Add additional information on User preferences,favBook,author,location etc here
   String city;
   String state;
-  // Map<String, dynamic> location;
-  // Region:MH,City:Nagpur,lat:68.68778,lon:68.977
   double latitude;
   double longitude;
   double locationRange;
-  //Preferences
   Map<String, dynamic> preferences;
   UserData(
       {this.uid,
@@ -42,5 +75,4 @@ class UserData {
       this.longitude = 0.0,
       this.preferences,
       this.locationRange});
-//Add Refresh Token Later
 }
