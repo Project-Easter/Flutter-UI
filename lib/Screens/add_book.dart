@@ -1,14 +1,14 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Widgets/appBar.dart';
+import 'package:books_app/Constants/colors.dart';
+import 'package:books_app/Models/book.dart';
+import 'package:books_app/Models/books.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/database_service.dart';
+import 'package:books_app/Widgets/app_bar.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Models/books.dart';
-import 'package:books_app/Models/book.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/DatabaseService.dart';
 
 class AddBook extends StatefulWidget {
   @override
@@ -17,24 +17,28 @@ class AddBook extends StatefulWidget {
 
 class _AddBookState extends State<AddBook> {
   final AuthService _authService = AuthService();
-  final _bookKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _bookKey = GlobalKey<FormState>();
   final TextEditingController _bookName = TextEditingController();
   final TextEditingController _authorName = TextEditingController();
   final TextEditingController _isbnCode = TextEditingController();
 
   Widget build(BuildContext context) {
-    final uid = _authService.getUID;
-    final DatabaseService _databaseService = DatabaseService(uid: uid);
+    final dynamic uid = _authService.getUID;
+    final DatabaseService _databaseService =
+        DatabaseService(uid: uid as String);
     final bookList = Provider.of<Books>(context, listen: false);
     return Scaffold(
-      appBar: MyAppBar(context),
+      appBar: MyAppBar(context) as PreferredSizeWidget,
       body: Column(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: Text(
               'Add your Book',
-              style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 30),
+              style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 30),
             ),
           ),
           Padding(
@@ -45,18 +49,18 @@ class _AddBookState extends State<AddBook> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextFormField(
                       autocorrect: false,
                       controller: _bookName,
-                      key: ValueKey('Book Name'),
+                      key: const ValueKey<String>('Book Name'),
                       decoration: InputDecoration(
                         hintText: 'Enter Book Name',
                         hintStyle: GoogleFonts.poppins(
                           fontSize: 14,
                         ),
                       ),
-                      onSaved: (value) {
+                      onSaved: (String value) {
                         setState(() {
                           _bookName.text = value;
                         });
@@ -64,18 +68,19 @@ class _AddBookState extends State<AddBook> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                     child: TextFormField(
                       autocorrect: false,
                       controller: _authorName,
-                      key: ValueKey('Author Name'),
+                      key: const ValueKey<String>('Author Name'),
                       decoration: InputDecoration(
                         hintText: 'Enter Author Name',
                         hintStyle: GoogleFonts.poppins(
                           fontSize: 14,
                         ),
                       ),
-                      onSaved: (value) {
+                      onSaved: (String value) {
                         setState(() {
                           _authorName.text = value;
                         });
@@ -83,10 +88,11 @@ class _AddBookState extends State<AddBook> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                     child: TextFormField(
                       controller: _isbnCode,
-                      validator: (value) {
+                      validator: (String value) {
                         if (value.isEmpty) {
                           return 'Please enter a valid ISBN value';
                         }
@@ -97,14 +103,14 @@ class _AddBookState extends State<AddBook> {
                       },
                       keyboardType: TextInputType.number,
                       autocorrect: false,
-                      key: ValueKey('ISBN Code'),
+                      key: const ValueKey<String>('ISBN Code'),
                       decoration: InputDecoration(
                         hintText: 'Enter ISBN Code of the book',
                         hintStyle: GoogleFonts.poppins(
                           fontSize: 14,
                         ),
                       ),
-                      onSaved: (value) {
+                      onSaved: (String value) {
                         setState(() {
                           _isbnCode.text = value;
                         });
@@ -122,9 +128,10 @@ class _AddBookState extends State<AddBook> {
                       color: blackButton,
                       myFunction: () async {
                         if (_bookKey.currentState.validate()) {
-                          dynamic result = await bookList.getBooksbyISBN(_isbnCode.text);
+                          final dynamic result =
+                              await bookList.getBooksbyISBN(_isbnCode.text);
                           if (result != null) {
-                            Book book = makeBook(result);
+                            final Book book = makeBook(result);
                             await _databaseService.addBook(book);
                             Navigator.pop(context);
                           }
@@ -245,15 +252,19 @@ class _AddBookState extends State<AddBook> {
     Book book;
     if (result != null) {
       //Deserialize
-      String title = result['items'][0]['volumeInfo']['title'];
-      String author = result['items'][0]['volumeInfo']['authors'][0];
-      String description = result['items'][0]['volumeInfo']['description'];
-      String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][0]['identifier'];
-      String imageLink = result['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
-      imageLink = imageLink.replaceFirst("http", "https", 0);
+      final String title = result['items'][0]['volumeInfo']['title'] as String;
+      final String author =
+          result['items'][0]['volumeInfo']['authors'][0] as String;
+      final String description =
+          result['items'][0]['volumeInfo']['description'] as String;
+      final String isbn = result['items'][0]['volumeInfo']
+          ['industryIdentifiers'][0]['identifier'] as String;
+      String imageLink =
+          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'] as String;
+      imageLink = imageLink.replaceFirst('http', 'https', 0);
       print(imageLink.length);
       if (imageLink.isEmpty) {
-        print("imageLink is empty");
+        print('imageLink is empty');
       }
       print('ISBN' + isbn);
       print('Title:' + title);

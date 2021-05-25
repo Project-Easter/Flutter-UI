@@ -1,4 +1,4 @@
-import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/Constants/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,9 +9,12 @@ import '../../Models/books.dart';
 class PublicProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ownedBooksLength = Provider.of<Books>(context).ownedBooks.length.toString();
-    final borrowedBooksLength = Provider.of<Books>(context).borrowedBooks.length.toString();
-    final lentBooksLength = Provider.of<Books>(context).lentBooks.length.toString();
+    final ownedBooksLength =
+        Provider.of<Books>(context).ownedBooks.length.toString();
+    final borrowedBooksLength =
+        Provider.of<Books>(context).borrowedBooks.length.toString();
+    final lentBooksLength =
+        Provider.of<Books>(context).lentBooks.length.toString();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 16, right: 16),
@@ -23,18 +26,24 @@ class PublicProfile extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.settings,
                       size: 24.0,
                       color: Color(0xFF200E32),
                     ),
                     Text(
                       'My Profile',
-                      style: GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w300, fontSize: 26),
+                      style: GoogleFonts.poppins(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 26),
                     ),
                     Text(
                       'Logout',
-                      style: GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w400, fontSize: 13),
+                      style: GoogleFonts.poppins(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13),
                     )
                   ],
                 ),
@@ -58,7 +67,10 @@ class PublicProfile extends StatelessWidget {
                       child: Container(
                         child: Text(
                           'John Doe',
-                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: 36,
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
                       flex: 15,
@@ -68,7 +80,10 @@ class PublicProfile extends StatelessWidget {
                         margin: EdgeInsets.only(top: 5),
                         child: Text(
                           'SAN FRANCISCO,CA',
-                          style: GoogleFonts.poppins(color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400),
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
                       flex: 15,
@@ -89,7 +104,10 @@ class PublicProfile extends StatelessWidget {
                   children: [
                     Text(
                       'User Stats',
-                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400),
+                      style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w400),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,19 +115,31 @@ class PublicProfile extends StatelessWidget {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(ownedBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(ownedBooksLength,
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w400)),
                             Text('Owned Books')
                           ],
                         ),
                         Column(
                           children: [
-                            Text(lentBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(lentBooksLength,
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w400)),
                             Text('Lent Books')
                           ],
                         ),
                         Column(
                           children: [
-                            Text(borrowedBooksLength, style: GoogleFonts.poppins(color: Colors.black, fontSize: 30, fontWeight: FontWeight.w400)),
+                            Text(borrowedBooksLength,
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w400)),
                             Text('Borrowed Books')
                           ],
                         )
@@ -154,7 +184,7 @@ class PublicProfile extends StatelessWidget {
 
 class CupertinoStyleButton extends StatelessWidget {
   final String text;
-  final Function onpress;
+  final VoidCallback onpress;
   final Color color;
   CupertinoStyleButton({this.text, this.onpress, this.color});
   @override
@@ -170,7 +200,8 @@ class CupertinoStyleButton extends StatelessWidget {
         onPressed: onpress,
         child: Text(
           text,
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+          style: GoogleFonts.poppins(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
     );

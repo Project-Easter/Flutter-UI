@@ -2,6 +2,7 @@ class Routes {
   static const String LOGIN = '/login';
   static const String REGISTER = '/register';
   static const String INITIAL_PAGE = '/initial';
+  static const String CONFIRM_EMAIL = '/confirm-email';
   static const String DASHBOARD = '/dashboard';
   static const String PREFERENCES = '/preferences';
   static const String RESET_PASSWORD = '/reset-password';

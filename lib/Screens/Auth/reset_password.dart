@@ -1,14 +1,14 @@
-import 'package:books_app/Constants/Routes.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/States/ConfirmationCodeState.dart';
-import 'package:books_app/States/AuthState.dart';
-import 'package:books_app/States/PasswordState.dart';
+import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/States/confirmation_code_state.dart';
+import 'package:books_app/States/auth_state.dart';
+import 'package:books_app/States/password_state.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
-import 'package:books_app/Widgets/Auth/AuthButton.dart';
-import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
-import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
-import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
-import 'package:books_app/Widgets/TextField.dart';
+import 'package:books_app/Widgets/Auth/auth_button.dart';
+import 'package:books_app/Widgets/Auth/auth_error_message.dart';
+import 'package:books_app/Widgets/Auth/auth_navigation.dart';
+import 'package:books_app/Widgets/Auth/auth_page_title.dart';
+import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -17,11 +17,14 @@ class ResetPasswordScreen extends StatefulWidget {
   ResetPasswordScreen({Key key, @required this.email}) : super(key: key);
 
   @override
-  _ResetPasswordScreenState createState() => _ResetPasswordScreenState(email: email);
+  _ResetPasswordScreenState createState() =>
+      _ResetPasswordScreenState(email: email);
 }
 
 class _ResetPasswordScreenState extends AuthState<ResetPasswordScreen>
-    with PasswordState<ResetPasswordScreen>, ConfirmationCodeState<ResetPasswordScreen> {
+    with
+        PasswordState<ResetPasswordScreen>,
+        ConfirmationCodeState<ResetPasswordScreen> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -30,7 +33,9 @@ class _ResetPasswordScreenState extends AuthState<ResetPasswordScreen>
   _ResetPasswordScreenState({this.email});
 
   Future<String> onSubmit() async {
-    return await this.authService.resetPassword(this.email, this.password, this.confirmationCode);
+    return await this
+        .authService
+        .resetPassword(this.email, this.password, this.confirmationCode);
   }
 
   void onSuccess() {
@@ -53,7 +58,8 @@ class _ResetPasswordScreenState extends AuthState<ResetPasswordScreen>
                     key: this.formKey,
                     child: Column(
                       children: [
-                        ConfirmationCodeTextField(onChanged: this.updateConfirmationCode),
+                        ConfirmationCodeTextField(
+                            onChanged: this.updateConfirmationCode),
                         PasswordTextField(onChanged: this.updatePassword)
                       ],
                     ),

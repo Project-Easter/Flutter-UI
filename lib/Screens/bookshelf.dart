@@ -28,13 +28,14 @@ class _LibraryPageState extends State<LibraryPage> {
       }
     });
 
-    if (savedBooks != [] && ownedBooks != []) {}
+    // ignore: always_specify_types
+    if (savedBooks != <Book>[] && ownedBooks != <Book>[]) {}
 
     return Scaffold(
       body: Container(
         width: double.infinity,
         color: Colors.white,
-        margin: EdgeInsets.only(left: 15, right: 15),
+        margin: const EdgeInsets.only(left: 15, right: 15),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,9 +52,9 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   void openDialog() {
-    showDialog(
+    showDialog<Text>(
       context: context,
-      builder: (ctx) {
+      builder: (BuildContext ctx) {
         return AlertDialog(
           actions: <Widget>[
             TextButton(
@@ -62,7 +63,10 @@ class _LibraryPageState extends State<LibraryPage> {
               },
               child: Text(
                 'CANCEL',
-                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300),
               ),
             ),
             TextButton(
@@ -71,10 +75,14 @@ class _LibraryPageState extends State<LibraryPage> {
               },
               child: Text(
                 'OK',
-                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300),
               ),
             )
           ],
+          // ignore: sized_box_for_whitespace
           content: Container(
             width: 350,
             height: 200,
@@ -88,6 +96,7 @@ class _LibraryPageState extends State<LibraryPage> {
   Widget headingText(String text) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
+      // ignore: sized_box_for_whitespace
       child: Container(
         height: getProportionateScreenHeight(36.0),
         child: Text(

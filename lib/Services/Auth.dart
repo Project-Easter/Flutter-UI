@@ -1,11 +1,12 @@
+import 'package:books_app/Constants/exceptions.dart';
+import 'package:books_app/Models/user.dart';
 import 'package:books_app/Utils/Api.dart';
 import 'package:books_app/Utils/helpers.dart';
-import 'package:books_app/Models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'DatabaseService.dart';
-import 'package:books_app/Constants/Exception.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/src/response.dart';
+import 'package:books_app/Services/database_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,12 +26,14 @@ class AuthService {
 
   Future<MyAppUser> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final UserCredential authResult = await _auth.signInWithCredential(credential);
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
 
     final User user = authResult.user;
     if (user != null) {
@@ -39,14 +42,14 @@ class AuthService {
       final User currentUser = _auth.currentUser;
       assert(user.uid == currentUser.uid);
       String token = await user.getIdToken(true);
-      while (token.length > 0) {
-        int initLength = (token.length >= 500 ? 500 : token.length);
+      while (token.isNotEmpty) {
+        final int initLength = token.length >= 500 ? 500 : token.length;
         print(token.substring(0, initLength));
-        int endLength = token.length;
+        final int endLength = token.length;
         token = token.substring(initLength, endLength);
       }
 
-      UserData userData = makeUserDataFromAuthUser(user);
+      final UserData userData = makeUserDataFromAuthUser(user);
 
       await DatabaseService(uid: user.uid).updateUserData(userData);
       return _retrieveUserFromFirebaseUser(currentUser);
@@ -57,15 +60,17 @@ class AuthService {
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();
     await _auth.signOut();
-    print("User Signed Out");
+    print('User Signed Out');
   }
 
   Future<String> signInWithFacebook() async {
     final FacebookLoginResult result = await facebookLogin.logIn();
 
-    final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.accessToken.token);
 
-    final UserCredential fbAuthResult = await _auth.signInWithCredential(facebookAuthCredential);
+    final UserCredential fbAuthResult =
+        await _auth.signInWithCredential(facebookAuthCredential);
     final User fbUser = fbAuthResult.user;
 
     if (fbUser != null) {
@@ -98,29 +103,29 @@ class AuthService {
   UserData makeUserDataFromAuthUser(User user) {
     //IMP:DO NOT REMOVE THIS URL,this is the default image while signing up.
     //Change Image as per needed.A valid URL must be provided
-    String photoUrl =
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
-    UserData userData = UserData(
+    const String photoUrl =
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
+    final UserData userData = UserData(
         //Storing Data For further requirement
         uid: user.uid,
-        displayName: user.displayName ?? "Your name",
-        email: user.email ?? "your@email.com",
+        displayName: user.displayName ?? 'Your name',
+        email: user.email ?? 'your@email.com',
         //this is not required.Just for test purpose
         emailVerified: user.emailVerified,
-        phoneNumber: user.phoneNumber ?? "Phone",
+        phoneNumber: user.phoneNumber ?? 'Phone',
         photoURL: user.photoURL ?? photoUrl,
-        city: "Your city",
-        state: "State");
+        city: 'Your city',
+        state: 'State');
     return userData;
   }
 
   Future<String> register(String email, String password) async {
-    var response = await Api.register(email, password);
+    final Response response = await Api.register(email, password);
 
     if (response.statusCode == 201) return null;
 
-    var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
 
     switch (errorId) {
       case Exception.DUPLICATE_EMAIL:
@@ -135,12 +140,12 @@ class AuthService {
   }
 
   Future<String> login(String email, String password) async {
-    var response = await Api.login(email, password);
+    final Response response = await Api.login(email, password);
 
     if (response.statusCode == 200) return null;
 
-    var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
 
     switch (errorId) {
       case Exception.INVALID_ACCOUNT_TYPE:
@@ -163,11 +168,11 @@ class AuthService {
   }
 
   Future<String> forgotPassword(String email) async {
-    var response = await Api.forgotPassword(email);
+    final Response response = await Api.forgotPassword(email);
     if (response.statusCode == 204) return null;
 
-    var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
 
     switch (errorId) {
       case Exception.EMAIL_NOT_FOUND:
@@ -189,12 +194,13 @@ class AuthService {
     }
   }
 
-  Future<String> resetPassword(String email, String password, String code) async {
-    var response = await Api.resetPassword(email, password, code);
+  Future<String> resetPassword(
+      String email, String password, String code) async {
+    final Response response = await Api.resetPassword(email, password, code);
     if (response.statusCode == 204) return null;
 
-    var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
 
     switch (errorId) {
       case Exception.INVALID_CONFIRMATION_CODE:
@@ -213,12 +219,12 @@ class AuthService {
   }
 
   Future<String> confirmEmail(String email, String code) async {
-    var response = await Api.confirmEmail(email, code);
+    final Response response = await Api.confirmEmail(email, code);
 
     if (response.statusCode == 204) return null;
 
-    var body = getBodyFromResponse(response);
-    var errorId = body['error']['id'];
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
 
     switch (errorId) {
       case Exception.INVALID_CONFIRMATION_CODE:

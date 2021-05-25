@@ -1,17 +1,17 @@
-import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Screens/dashboard/Dashboard.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/explore_nearby.dart';
 import 'package:books_app/Screens/Profile/private_profile.dart';
-import 'package:books_app/Services/DatabaseService.dart';
-import 'package:books_app/Widgets/appBar.dart';
+import 'package:books_app/Services/database_service.dart';
+import 'package:books_app/Widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:books_app/Utils/size_config.dart';
-import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Models/book.dart';
 import 'Chat/wrapper.dart';
@@ -30,7 +30,8 @@ class _HomeState extends State<Home> {
     LibraryPage(),
     PrivateProfile(),
   ];
-  TextStyle name = GoogleFonts.muli(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
+  TextStyle name = GoogleFonts.muli(
+      color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   void _selectedTab(int index) {
     setState(() {
       _selectedIndex = index;
@@ -42,15 +43,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     //Setup Size Config-starting of app
     SizeConfig().init(context);
-    final uID = _authService.getUID;
+    final dynamic uID = _authService.getUID;
     print(uID);
     return MultiProvider(
       providers: [
         StreamProvider<UserData>.value(
-          value: DatabaseService(uid: uID).userData,
+          value: DatabaseService(uid: uID as String).userData,
           catchError: (_, e) => null,
         ),
-        StreamProvider<List<Book>>.value(value: DatabaseService(uid: uID).booksData),
+        StreamProvider<List<Book>>.value(
+            value: DatabaseService(uid: uID as String).booksData),
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -94,9 +96,12 @@ class _HomeState extends State<Home> {
                 title: 'Home',
               ),
               FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              FloatingNavbarItem(icon: Icons.chat_bubble_rounded, title: 'Chats'),
-              FloatingNavbarItem(icon: Icons.favorite_rounded, title: 'Library'),
-              FloatingNavbarItem(icon: Icons.account_circle_rounded, title: 'Profile'),
+              FloatingNavbarItem(
+                  icon: Icons.chat_bubble_rounded, title: 'Chats'),
+              FloatingNavbarItem(
+                  icon: Icons.favorite_rounded, title: 'Library'),
+              FloatingNavbarItem(
+                  icon: Icons.account_circle_rounded, title: 'Profile'),
             ],
           )),
     );

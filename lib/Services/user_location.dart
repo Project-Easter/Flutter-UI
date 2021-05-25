@@ -1,9 +1,9 @@
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/config_helper.dart';
 import 'package:books_app/Utils/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:books_app/Services/Auth.dart';
 
 // ignore: must_be_immutable
 class GetLocation extends StatelessWidget {
@@ -14,22 +14,24 @@ class GetLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final uID = _authService.getUID;
-    final DatabaseService databaseService = DatabaseService(uid: uID);
+    final dynamic uID = _authService.getUID;
+    final DatabaseService databaseService = DatabaseService(uid: uID as String);
     return Scaffold(
       body: FutureBuilder(
         future: loadConfig(),
-        builder: (BuildContext buildContext, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        builder: (BuildContext buildContext,
+            AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (snapshot.hasData) {
             return MapboxMap(
-              accessToken: snapshot.data['mapbox_api_token'],
-              initialCameraPosition: CameraPosition(target: LatLng(45, 45)),
+              accessToken: snapshot.data['mapbox_api_token'].toString(),
+              initialCameraPosition:
+                  const CameraPosition(target: LatLng(45, 45)),
               onMapCreated: (MapboxMapController controller) async {
-                final currLocation = await acquireCurrentLocation();
+                final LatLng currLocation = await acquireCurrentLocation();
 
                 lat = currLocation.latitude;
                 long = currLocation.longitude;
-                final animateCameraResult = await controller.animateCamera(
+                final bool animateCameraResult = await controller.animateCamera(
                   CameraUpdate.newCameraPosition(
                     CameraPosition(zoom: 3, target: currLocation),
                   ),
@@ -47,7 +49,7 @@ class GetLocation extends StatelessWidget {
               onStyleLoadedCallback: () {},
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

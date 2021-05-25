@@ -1,11 +1,13 @@
+// ignore: file_names
+import 'package:books_app/Models/book.dart';
+import 'package:books_app/Models/books.dart';
+import 'package:books_app/Models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Models/books.dart';
-import 'package:books_app/Models/book.dart';
-import 'package:books_app/Models/user.dart';
+
 import 'book_list.dart';
-import 'user_choice.dart';
 import 'quotes.dart';
+import 'user_choice.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -17,7 +19,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     // var discoverNew = Provider.of<Books>(context).discoverNew;
     // var recommendedBooks = Provider.of<Books>(context).recommendedBooks;
-    final userData = Provider.of<UserData>(context);
+    final UserData userData = Provider.of<UserData>(context);
     print(userData);
     return Scaffold(
       body: SingleChildScrollView(
@@ -27,11 +29,11 @@ class _DashboardPageState extends State<DashboardPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Quotes(),
-            UserChoice(),
+            const UserChoice(),
             // BookList('Discover New', discoverNew),
             // BookList('Recommended for you', recommendedBooks),
             UserChoiceBooks(title: 'Based on your Interest'),
-            UserChoiceBooks(title: 'Discover New '),
+            const UserChoiceBooks(title: 'Discover New '),
             UserChoiceBooks(title: 'Recommended for you'),
           ],
         ),
@@ -42,12 +44,13 @@ class _DashboardPageState extends State<DashboardPage> {
 
 class UserChoiceBooks extends StatelessWidget {
   final String title;
-  UserChoiceBooks({Key key, this.title}) : super(key: key);
+  const UserChoiceBooks({Key key, this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: Provider.of<Books>(context, listen: false).getRecommendedBooks("test"),
-        builder: (ctx, snapshot) {
+    return FutureBuilder<dynamic>(
+        future: Provider.of<Books>(context, listen: false)
+            .getRecommendedBooks('test'),
+        builder: (BuildContext ctx, snapshot) {
           // Checking if future is resolved
           if (snapshot.connectionState == ConnectionState.done) {
             // If we got an error
@@ -61,7 +64,7 @@ class UserChoiceBooks extends StatelessWidget {
               // if we got our data
             } else if (snapshot.hasData) {
               // Extracting data from snapshot object
-              final List<Book> recommendedBooksML = snapshot.data;
+              final List<Book> recommendedBooksML = snapshot.data as List<Book>;
               return BookList(title, recommendedBooksML);
             } else {
               return SizedBox.shrink();

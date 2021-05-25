@@ -1,5 +1,5 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/Constants/colors.dart';
+import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/Utils/values/theme_switch.dart';
@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../Services/Auth.dart';
-import '../Services/DatabaseService.dart';
+import '../Services/auth.dart';
+import '../Services/database_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -25,13 +25,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     _darkTheme = (themeNotifier.getTheme() == darkTheme);
-    final uID = _authService.getUID;
+    final dynamic uID = _authService.getUID;
     print(uID);
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: uID).userData,
+        stream: DatabaseService(uid: uID as String).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print("Setting Page");
+            print('Setting Page');
             print(snapshot.data.photoURL);
             UserData userData = snapshot.data;
             return Scaffold(
@@ -60,7 +60,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
                           userData.displayName,
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400, fontSize: 18),
                         ),
                       )
                     ],
@@ -68,29 +69,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 body: SingleChildScrollView(
                   child: Column(
-                    children: [_accountSettingsDetails(themeNotifier), _moreWidget()],
+                    children: [
+                      _accountSettingsDetails(themeNotifier),
+                      _moreWidget()
+                    ],
                   ),
                 ));
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
         });
   }
 
-  Widget _accountSettingsDetails(tNotifier) {
+  Widget _accountSettingsDetails(ThemeNotifier tNotifier) {
     return Container(
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey[300]))),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey[300]))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Account Settings",
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+            'Account Settings',
+            style:
+                GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           GestureDetector(
@@ -102,8 +108,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      "Edit Profile",
-                      style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                      'Edit Profile',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400, fontSize: 18),
                     ),
                   ),
                   Icon(
@@ -122,8 +129,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "Change password",
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                    'Change password',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 18),
                   ),
                 ),
                 Icon(
@@ -141,8 +149,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "Change User Preferences",
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                    'Change User Preferences',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 18),
                   ),
                 ),
                 Icon(
@@ -160,8 +169,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "Push notifications",
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                    'Push notifications',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 18),
                   ),
                 ),
                 Transform.scale(
@@ -186,8 +196,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               Expanded(
                 child: Text(
-                  "Dark mode",
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                  'Dark mode',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
                 ),
               ),
               Transform.scale(
@@ -220,8 +231,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "More",
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+            'More',
+            style:
+                GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
           ),
           SizedBox(
             height: 15,
@@ -231,8 +243,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "About us",
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                    'About us',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 18),
                   ),
                 ),
                 Icon(
@@ -250,8 +263,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "Privacy policy",
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                    'Privacy policy',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 18),
                   ),
                 ),
                 Icon(
@@ -269,8 +283,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    "Terms and conditions",
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                    'Terms and conditions',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 18),
                   ),
                 ),
                 Icon(
@@ -312,7 +327,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   // }
 
   void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
-    (value) ? themeNotifier.setTheme(darkTheme) : themeNotifier.setTheme(lightTheme);
+    (value)
+        ? themeNotifier.setTheme(darkTheme)
+        : themeNotifier.setTheme(lightTheme);
     var prefs = await SharedPreferences.getInstance();
     prefs.setBool('darkMode', value);
   }

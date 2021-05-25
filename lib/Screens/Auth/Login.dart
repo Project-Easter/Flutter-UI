@@ -1,14 +1,14 @@
-import 'package:books_app/Constants/Routes.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/States/AuthState.dart';
-import 'package:books_app/States/EmailState.dart';
-import 'package:books_app/States/PasswordState.dart';
+import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/States/auth_state.dart';
+import 'package:books_app/States/email_state.dart';
+import 'package:books_app/States/password_state.dart';
 import 'package:books_app/Utils/Helpers/not_null.dart';
-import 'package:books_app/Widgets/Auth/AuthButton.dart';
-import 'package:books_app/Widgets/Auth/AuthErrorMessage.dart';
-import 'package:books_app/Widgets/Auth/AuthNavigation.dart';
-import 'package:books_app/Widgets/Auth/AuthPageTitle.dart';
-import 'package:books_app/Widgets/TextField.dart';
+import 'package:books_app/Widgets/Auth/auth_button.dart';
+import 'package:books_app/Widgets/Auth/auth_error_message.dart';
+import 'package:books_app/Widgets/Auth/auth_navigation.dart';
+import 'package:books_app/Widgets/Auth/auth_page_title.dart';
+import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,12 +17,13 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScreen>, PasswordState<LoginScreen> {
+class _LoginScreenState extends AuthState<LoginScreen>
+    with EmailState<LoginScreen>, PasswordState<LoginScreen> {
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<String> onSubmit() async {
-    return await this.authService.login(this.email, this.password);
+    return await authService.login(email, password);
   }
 
   void onSuccess() {
@@ -34,25 +35,28 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
     return Scaffold(
       appBar: AuthNavigation.from(context),
       body: Container(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AuthPageTitle(name: 'Log in'),
-            AuthErrorMessage(errorMessage: this.error),
+            AuthErrorMessage(errorMessage: error),
             Form(
-              key: this.formKey,
+              key: formKey,
               child: Column(
-                children: [EmailTextField(onChanged: this.updateEmail), PasswordTextField(onChanged: this.updatePassword)],
+                children: [
+                  EmailTextField(onChanged: updateEmail),
+                  PasswordTextField(onChanged: updatePassword)
+                ],
               ),
             ),
             AuthButton(
               text: 'Sign in',
-              formKey: this.formKey,
-              onClick: this.onSubmit,
-              onSuccess: this.onSuccess,
-              onError: this.onError,
+              formKey: formKey,
+              onClick: onSubmit,
+              onSuccess: onSuccess,
+              onError: onError,
             ),
             buildForgotPasswordButton(),
             buildRegisterButton(),
@@ -66,14 +70,14 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
     return Align(
       alignment: Alignment.topRight,
       child: TextButton(
-        child: Text("Forgot password?",
+        child: Text('Forgot password?',
             style: GoogleFonts.muli(
-              color: Color.fromRGBO(224, 39, 20, 1),
+              color: const Color.fromRGBO(224, 39, 20, 1),
               fontSize: 14,
               fontWeight: FontWeight.w600,
             )),
         onPressed: () {
-          Navigator.pushNamed(this.context, Routes.FORGOT_PASSWORD);
+          Navigator.pushNamed(context, Routes.FORGOT_PASSWORD);
         },
       ),
     );
@@ -92,17 +96,20 @@ class _LoginScreenState extends AuthState<LoginScreen> with EmailState<LoginScre
                 'Dont have an account?',
                 style: GoogleFonts.muli(color: Colors.black, fontSize: 18),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 4,
               ),
               Text(
                 'Register',
-                style: GoogleFonts.muli(color: Color.fromRGBO(224, 39, 20, 1), fontSize: 18, fontWeight: FontWeight.w600),
+                style: GoogleFonts.muli(
+                    color: const Color.fromRGBO(224, 39, 20, 1),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
               ),
             ],
           ),
           onPressed: () {
-            Navigator.pushNamed(this.context, Routes.REGISTER);
+            Navigator.pushNamed(context, Routes.REGISTER);
           },
         ),
       ),

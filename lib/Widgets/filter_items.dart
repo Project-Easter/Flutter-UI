@@ -1,6 +1,6 @@
+import 'package:books_app/Models/books.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Models/books.dart';
 import 'package:provider/provider.dart';
 
 class FilterItems extends StatefulWidget {
@@ -14,12 +14,14 @@ class _FilterItemsState extends State<FilterItems> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       children: <Widget>[
         buildFilterItems('Sort title A-Z', Provider.of<Books>(context).sortAZ),
         buildFilterItems('Sort title Z-A', Provider.of<Books>(context).sortZA),
-        buildFilterItems('Sort by author', Provider.of<Books>(context).sortAuthor),
-        buildFilterItems('Sort by rating', Provider.of<Books>(context).sortRating),
+        buildFilterItems(
+            'Sort by author', Provider.of<Books>(context).sortAuthor),
+        buildFilterItems(
+            'Sort by rating', Provider.of<Books>(context).sortRating),
       ],
     );
   }
@@ -50,10 +52,10 @@ class _FilterItemsState extends State<FilterItems> {
                 value: text,
                 groupValue: selectedValue,
                 activeColor: selectedValue == text ? Colors.black87 : null,
-                onChanged: (s) {
+                onChanged: (dynamic s) {
                   sort();
                   setState(() {
-                    selectedValue = s;
+                    selectedValue = s as String;
                   });
                   // Navigator.pop(context);
                 }),

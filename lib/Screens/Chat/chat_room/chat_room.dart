@@ -1,9 +1,9 @@
-import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Constants/Routes.dart';
+import '../../../Constants/routes.dart';
 import '../../../Models/user.dart';
-import '../../../Services/DatabaseService.dart';
+import '../../../Services/database_service.dart';
 import 'package:intl/intl.dart';
 
 class ChatRoom extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ChatRoomState extends State<ChatRoom> {
   List<UserData> allUser = [];
   @override
   Widget build(BuildContext context) {
-    final uID = _authService.getUID;
+    final String uID = _authService.getUID as String;
     final currentUser = Provider.of<UserData>(context);
     return Scaffold(
       //TODO:Remove this stream.This is dummy stream for chat. Replace this with conversations stream

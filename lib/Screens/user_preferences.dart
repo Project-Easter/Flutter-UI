@@ -1,12 +1,12 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:books_app/Models/user.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Constants/genres.dart';
 
-String uID = AuthService().getUID;
+String uID = AuthService().getUID as String;
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
 double sliderValue = 10.0;
@@ -18,7 +18,8 @@ class MultiSelectDialogItem<V> {
 }
 
 class MultiSelectDialog<V> extends StatefulWidget {
-  MultiSelectDialog({Key key, this.items, this.initialSelectedValues}) : super(key: key);
+  const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
+      : super(key: key);
 
   final List<MultiSelectDialogItem<V>> items;
   final Set<V> initialSelectedValues;
@@ -28,8 +29,9 @@ class MultiSelectDialog<V> extends StatefulWidget {
 }
 
 class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
-  final _selectedValues = Set<V>();
+  final Set<V> _selectedValues = <V>{};
 
+  @override
   void initState() {
     super.initState();
     if (widget.initialSelectedValues != null) {
@@ -52,15 +54,15 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   }
 
   void _onSubmitTap(Set<V> selectedItems) async {
-    List items = selectedItems.toList();
+    final List items = selectedItems.toList();
     items.removeRange(0, 1);
     print(items);
-    List<String> selectedGenres = [];
-    items.forEach((element) {
-      var x = element.toString();
+    final List<String> selectedGenres = [];
+    for (final dynamic element in items) {
+      final String x = element.toString();
       print(genres[int.parse(x)]);
       selectedGenres.add(genres[int.parse(x)]);
-    });
+    }
 
     print(selectedGenres);
     await _databaseService.updateGenres(selectedGenres);
@@ -69,7 +71,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
 
   @override
   Widget build(BuildContext context) {
-    print("Select genres");
+    print('Select genres');
     print(uID);
     return AlertDialog(
       title: Text('Select Genres'),
@@ -132,7 +134,7 @@ class _LocationRangeState extends State<LocationRange> {
         ),
         Slider(
           label: _currentSlidervalue.round().toString(),
-          value: widget.locationRange ?? _currentSlidervalue,
+          value: widget.locationRange as double ?? _currentSlidervalue,
           min: 0,
           max: 40,
           onChanged: (double value) {
@@ -173,7 +175,7 @@ class _LocationRangeState extends State<LocationRange> {
 
 class UserPreference extends StatefulWidget {
   final UserData userData;
-  UserPreference(this.userData);
+  const UserPreference(this.userData);
   @override
   _UserPreferenceState createState() => _UserPreferenceState();
 }
@@ -185,14 +187,15 @@ class _UserPreferenceState extends State<UserPreference> {
     final selectedValues = await showDialog<Set<int>>(
       context: context,
       builder: (BuildContext context) {
-        print("Building Items");
+        print('Building Items');
         i = 0;
         j = 1;
         return MultiSelectDialog(
           items: genres.map<MultiSelectDialogItem<String>>((String val) {
-            return MultiSelectDialogItem<String>((i++).toString(), val.toString());
+            return MultiSelectDialogItem<String>(
+                (i++).toString(), val.toString());
           }).toList(),
-          initialSelectedValues: [1, j].toSet(),
+          initialSelectedValues: {1, j},
         );
       },
     );
@@ -204,10 +207,11 @@ class _UserPreferenceState extends State<UserPreference> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    String favBook = widget.userData.preferences["favBook"];
-    String favAuthor = widget.userData.preferences["favAuthor"];
-    String location = widget.userData.preferences["locationRange"];
-    double locationRange = double.parse(location);
+    final String favBook = widget.userData.preferences['favBook'] as String;
+    final String favAuthor = widget.userData.preferences['favAuthor'] as String;
+    final String location =
+        widget.userData.preferences['locationRange'] as String;
+    final double locationRange = double.parse(location);
     final _author = TextEditingController(text: favAuthor);
     final _book = TextEditingController(text: favBook);
     return Form(
@@ -219,14 +223,16 @@ class _UserPreferenceState extends State<UserPreference> {
             style: GoogleFonts.muli(),
           ),
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        // ignore: sized_box_for_whitespace
         content: Container(
           height: 300,
           width: 250,
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 LocationRange(locationRange),
@@ -239,7 +245,7 @@ class _UserPreferenceState extends State<UserPreference> {
                     hintText: 'Favourite Book',
                     hintStyle: GoogleFonts.muli(),
                   ),
-                  validator: (value) {
+                  validator: (String value) {
                     if (value.isEmpty) {
                       return 'Book name cannot be empty';
                     }
@@ -248,11 +254,11 @@ class _UserPreferenceState extends State<UserPreference> {
                   onChanged: (v) {
                     print(v);
                   },
-                  onSaved: (val) {
+                  onSaved: (String val) {
                     _book.text = val;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFormField(
@@ -260,18 +266,20 @@ class _UserPreferenceState extends State<UserPreference> {
                   controller: _author,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.start,
-                  decoration: InputDecoration(hintText: 'Favourite Author', hintStyle: GoogleFonts.muli()),
-                  onSaved: (val) {
+                  decoration: InputDecoration(
+                      hintText: 'Favourite Author',
+                      hintStyle: GoogleFonts.muli()),
+                  onSaved: (String val) {
                     _author.text = val;
                   },
-                  validator: (value) {
+                  validator: (String value) {
                     if (value.isEmpty) {
                       return 'Author cannot be empty';
                     }
                     return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ButtonTheme(
@@ -279,7 +287,8 @@ class _UserPreferenceState extends State<UserPreference> {
                   height: 40,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(11)),
                       primary: Colors.blue,
                     ),
                     onPressed: () {
@@ -287,7 +296,10 @@ class _UserPreferenceState extends State<UserPreference> {
                     },
                     child: Text(
                       'Select Book Genres',
-                      style: GoogleFonts.muli(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+                      style: GoogleFonts.muli(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -307,7 +319,8 @@ class _UserPreferenceState extends State<UserPreference> {
                 // print(sliderValue.round());
                 ///
                 //Save Values to DB
-                await _databaseService.updatePreferences(_book.text, _author.text, sliderValue.round().toString() ?? "");
+                await _databaseService.updatePreferences(_book.text,
+                    _author.text, sliderValue.round().toString() ?? '');
                 //API Call To get prefered Book
                 //TODO:Make a future builder in Dashboard and Update UI
                 // try {

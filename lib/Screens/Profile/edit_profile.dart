@@ -1,9 +1,9 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/Constants/colors.dart';
+import 'package:books_app/Services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../Models/user.dart';
-import '../../Services/Auth.dart';
+import '../../Services/auth.dart';
 import '../../Widgets/button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -25,7 +25,8 @@ class _EditProfileState extends State<EditProfile> {
     image = await _imagePicker.getImage(source: ImageSource.gallery);
     var file = File(image.path);
     if (image != null) {
-      var snapshot = await _firebaseStorage.ref().child("images/$uID").putFile(file);
+      var snapshot =
+          await _firebaseStorage.ref().child("images/$uID").putFile(file);
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     }
@@ -35,7 +36,8 @@ class _EditProfileState extends State<EditProfile> {
     image = await _imagePicker.getImage(source: ImageSource.camera);
     var file = File(image.path);
     if (image != null) {
-      var snapshot = await _firebaseStorage.ref().child("images/$uID").putFile(file);
+      var snapshot =
+          await _firebaseStorage.ref().child("images/$uID").putFile(file);
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     }
@@ -48,7 +50,7 @@ class _EditProfileState extends State<EditProfile> {
   String _imageUrl = "";
   @override
   Widget build(BuildContext context) {
-    final uID = _authService.getUID;
+    final String uID = _authService.getUID as String;
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: uID).userData,
         builder: (context, snapshot) {
@@ -69,7 +71,10 @@ class _EditProfileState extends State<EditProfile> {
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
                               'Edit Your Profile',
-                              style: GoogleFonts.poppins(color: Colors.black87, fontWeight: FontWeight.w400, fontSize: 26),
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 26),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -87,17 +92,21 @@ class _EditProfileState extends State<EditProfile> {
                               padding: EdgeInsets.all(5),
                               child: CircleAvatar(
                                 radius: 100,
-                                backgroundImage: _imageUrl == "" ? NetworkImage(userData.photoURL) : NetworkImage(_imageUrl),
+                                backgroundImage: _imageUrl == ""
+                                    ? NetworkImage(userData.photoURL)
+                                    : NetworkImage(_imageUrl),
                               ),
                             ),
                             Container(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   IconButton(
                                     icon: Icon(Icons.photo_camera, size: 30),
                                     onPressed: () async {
-                                      String imageFromFirebase = await uploadImageCamera(uID);
+                                      String imageFromFirebase =
+                                          await uploadImageCamera(uID);
                                       setState(() {
                                         _imageUrl = imageFromFirebase;
                                       });
@@ -106,7 +115,9 @@ class _EditProfileState extends State<EditProfile> {
                                   IconButton(
                                     icon: Icon(Icons.photo_library, size: 30),
                                     onPressed: () async {
-                                      String imageFromFirebase = await uploadImageGallery(uID);
+                                      String imageFromFirebase =
+                                          await uploadImageGallery(uID)
+                                              as String;
                                       setState(() {
                                         _imageUrl = imageFromFirebase;
                                       });
@@ -120,9 +131,13 @@ class _EditProfileState extends State<EditProfile> {
                               child: Column(
                                 children: <Widget>[
                                   TextFormField(
-                                    decoration: InputDecoration(hintText: 'John Doe', labelText: 'Enter your name'),
+                                    decoration: InputDecoration(
+                                        hintText: 'John Doe',
+                                        labelText: 'Enter your name'),
                                     initialValue: userData.displayName,
-                                    validator: (val) => val.isEmpty ? 'Please enter a name' : null,
+                                    validator: (val) => val.isEmpty
+                                        ? 'Please enter a name'
+                                        : null,
                                     onSaved: (value) {
                                       setState(() {
                                         _name = value;
@@ -133,9 +148,13 @@ class _EditProfileState extends State<EditProfile> {
                                     },
                                   ),
                                   TextFormField(
-                                    decoration: InputDecoration(hintText: 'Pune', labelText: 'Enter your City'),
+                                    decoration: InputDecoration(
+                                        hintText: 'Pune',
+                                        labelText: 'Enter your City'),
                                     initialValue: userData.city,
-                                    validator: (val) => val.isEmpty ? 'Please enter a value' : null,
+                                    validator: (val) => val.isEmpty
+                                        ? 'Please enter a value'
+                                        : null,
                                     onSaved: (value) {
                                       setState(() {
                                         _city = value;
@@ -146,9 +165,13 @@ class _EditProfileState extends State<EditProfile> {
                                     },
                                   ),
                                   TextFormField(
-                                    decoration: InputDecoration(hintText: 'Maharashtra', labelText: 'Enter your State'),
+                                    decoration: InputDecoration(
+                                        hintText: 'Maharashtra',
+                                        labelText: 'Enter your State'),
                                     initialValue: userData.state,
-                                    validator: (val) => val.isEmpty ? 'Please enter a value' : null,
+                                    validator: (val) => val.isEmpty
+                                        ? 'Please enter a value'
+                                        : null,
                                     onSaved: (value) {
                                       setState(() {
                                         _state = value;
@@ -186,8 +209,13 @@ class _EditProfileState extends State<EditProfile> {
                                 } else {
                                   print(_imageUrl);
                                 }
-                                await DatabaseService(uid: uID).updateUser(_name ?? userData.displayName, _city ?? userData.city,
-                                    _state ?? userData.state, _imageUrl == "" ? userData.photoURL : _imageUrl);
+                                await DatabaseService(uid: uID).updateUser(
+                                    _name ?? userData.displayName,
+                                    _city ?? userData.city,
+                                    _state ?? userData.state,
+                                    _imageUrl == ""
+                                        ? userData.photoURL
+                                        : _imageUrl);
                               }
                               Navigator.pop(context);
                             },

@@ -1,5 +1,5 @@
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/Services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../Models/user.dart';
@@ -14,19 +14,19 @@ class _ChatRoomState extends State<ChatRoom> {
   List<UserData> allUser = [];
   @override
   Widget build(BuildContext context) {
-    final uID = AuthService().getUID;
-    final currentUser = Provider.of<UserData>(context);
+    final dynamic uID = AuthService().getUID;
+    final UserData currentUser = Provider.of<UserData>(context);
 
-    if (currentUser.isAnonymous) {
+    if (currentUser.isAnonymous == true) {
       return Scaffold(
         body: Center(
-          child: Text('Login to cintinue'),
+          child: Text('Login to continue'),
         ),
       );
     }
     return Scaffold(
       body: StreamBuilder<List<UserData>>(
-          stream: DatabaseService(uid: uID).allUsers,
+          stream: DatabaseService(uid: uID as String).allUsers,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               allUser = snapshot.data;
@@ -113,7 +113,8 @@ class UserTile extends StatelessWidget {
             ],
           ),
           onTap: () {
-            Navigator.pushNamed(context, 'EMPTY: MESSAGE_SCREEN', arguments: userData);
+            Navigator.pushNamed(context, 'EMPTY: MESSAGE_SCREEN',
+                arguments: userData);
           },
         ),
       ),

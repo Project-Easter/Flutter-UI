@@ -1,14 +1,14 @@
-import 'package:books_app/Constants/Routes.dart';
+import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Widgets/filter_items.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: non_constant_identifier_names
-MyAppBar(BuildContext buildContext) {
+AppBar MyAppBar(BuildContext buildContext) {
   void openDialog() {
-    showDialog(
+    showDialog<Text>(
       context: buildContext,
-      builder: (ctx) {
+      builder: (BuildContext ctx) {
         return AlertDialog(
           actions: <Widget>[
             TextButton(
@@ -17,7 +17,10 @@ MyAppBar(BuildContext buildContext) {
               },
               child: Text(
                 'CANCEL',
-                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300),
               ),
             ),
             TextButton(
@@ -26,7 +29,10 @@ MyAppBar(BuildContext buildContext) {
               },
               child: Text(
                 'Ok',
-                style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w300),
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300),
               ),
             ),
           ],
@@ -46,7 +52,7 @@ MyAppBar(BuildContext buildContext) {
     titleSpacing: 5,
     elevation: 0.0,
     backgroundColor: Colors.white,
-    leading: Icon(
+    leading: const Icon(
       Icons.book_outlined,
       color: Colors.black,
     ),
@@ -56,7 +62,7 @@ MyAppBar(BuildContext buildContext) {
     ),
     actions: <Widget>[
       IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.search_rounded,
           color: Colors.black,
           size: 20,
@@ -64,7 +70,7 @@ MyAppBar(BuildContext buildContext) {
         onPressed: () {},
       ),
       IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.filter_list_alt,
           color: Colors.black,
           size: 20,
@@ -75,7 +81,7 @@ MyAppBar(BuildContext buildContext) {
         },
       ),
       IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.settings,
           color: Colors.black,
           size: 20,

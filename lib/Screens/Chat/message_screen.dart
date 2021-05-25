@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:books_app/Models/user.dart';
 import 'package:books_app/Models/message.dart';
-import 'package:books_app/Services/DatabaseService.dart';
+import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/size_config.dart';
 
 class MessageScreen extends StatelessWidget {
@@ -107,9 +107,10 @@ class MessageStream extends StatelessWidget {
         final messages = snapshot.data.docs.reversed;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
-          final dateTime = message.data()['createdAt'].toDate();
-          final messageText = message.data()['message'];
-          final messageSender = message.data()['sender'];
+          final DateTime dateTime =
+              message.data()['createdAt'].toDate() as DateTime;
+          final String messageText = message.data()['message'] as String;
+          final String messageSender = message.data()['sender'] as String;
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,

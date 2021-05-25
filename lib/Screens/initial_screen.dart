@@ -1,29 +1,33 @@
-import 'package:books_app/Constants/Colors.dart';
-import 'package:books_app/Constants/Routes.dart';
+import 'dart:ffi';
+
+import 'package:books_app/Constants/colors.dart';
+import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/States/email_state.dart';
+import 'package:books_app/States/password_state.dart';
+import 'package:books_app/Utils/Helpers/not_null.dart';
+import 'package:books_app/Utils/size_config.dart';
+import 'package:books_app/Widgets/Auth/auth_button.dart';
+import 'package:books_app/Widgets/text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/painting.dart';
-import 'package:books_app/Widgets/country_picker.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:books_app/Services/Auth.dart';
-import 'package:books_app/Utils/size_config.dart';
+import 'package:books_app/Services/auth.dart';
+import 'package:books_app/States/auth_state.dart';
 
 class InitialScreen extends StatefulWidget {
   @override
   _InitialScreenState createState() => _InitialScreenState();
 }
 
-class _InitialScreenState extends State<InitialScreen> {
-  final _contactEditingController = new TextEditingController();
-  String _dialCode = '';
+class _InitialScreenState extends AuthState<InitialScreen>
+    with EmailState<InitialScreen>, PasswordState<InitialScreen> {
   //Init AuthService
-  final AuthService _authService = AuthService();
 
-  void _callBackFunction(String name, String dialCode, String flag) {
-    _dialCode = dialCode;
-  }
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   //Alert dialogue to show error and response
   void showErrorDialog(BuildContext context, String message) {
@@ -42,12 +46,21 @@ class _InitialScreenState extends State<InitialScreen> {
       ],
     );
     // show the dialog
-    showDialog(
+    showDialog<dynamic>(
       context: context,
       builder: (BuildContext context) {
         return alert;
       },
     );
+  }
+
+  void onSuccess() {
+    print('Logged in successfully');
+  }
+
+  Future<String> onSubmit() async {
+    return await AuthService()
+        .login(_emailController.text, _passwordController.text);
   }
 
   @override
@@ -58,54 +71,59 @@ class _InitialScreenState extends State<InitialScreen> {
       height: double.infinity,
       width: double.infinity,
       child: Container(
-        color: Color.fromRGBO(157, 206, 255, 1),
+        // color: Color.fromRGBO(40, 175, 176, 1),
+        color: Color.fromRGBO(88, 188, 130, 1),
         child: Center(
           child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Image.asset('assets/library-01.png'),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 20, right: 15.0),
-                        child: _skipButton(),
-                      ),
-                    ),
-                  ],
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 30, right: 15.0),
+                    child: _skipButton(),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Welcome to',
-                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 26, fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Explr',
-                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 26, fontWeight: FontWeight.w700),
-                    ),
-                  ],
+                SizedBox(
+                  height: 15,
+                ),
+                Image.asset(
+                  'assets/Explr Logo.png',
+                  scale: 1.4,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  'Easiest way to exchange your books',
-                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                  'Explr',
+                  style: GoogleFonts.muli(
+                      color: blackButton,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600),
                 ),
-                Text(
-                  'with others',
-                  style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                SizedBox(
+                  height: 25,
                 ),
-                SizedBox(height: 20),
-                _enterMobileNo(),
+                Form(
+                  key: this.formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      EmailTextField(onChanged: this.updateEmail),
+                      PasswordTextField(onChanged: this.updatePassword)
+                    ],
+                  ),
+                ),
+                buildForgotPasswordButton(),
+                AuthButton(
+                  text: 'Sign in',
+                  formKey: this.formKey,
+                  onClick: this.onSubmit,
+                  onSuccess: this.onSuccess,
+                  onError: this.onError,
+                ),
                 SizedBox(height: 10),
-                _sendOTP(),
-                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -132,7 +150,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 SizedBox(height: 10),
                 _socialMediaHandles(),
                 SizedBox(height: 40),
-              ],
+              ].where(notNull).toList(),
             ),
           ),
         ),
@@ -140,78 +158,20 @@ class _InitialScreenState extends State<InitialScreen> {
     ));
   }
 
-  Widget _enterMobileNo() {
-    return Container(
-      alignment: Alignment.center,
-      height: 44,
-      width: 260,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6.0,
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          CountryPicker(
-            callBackFunction: _callBackFunction,
-            headerText: 'Select Country',
-            headerTextColor: Colors.black,
-            headerBackgroundColor: Colors.black,
-          ),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter your Mobile',
-                hintStyle: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                contentPadding: EdgeInsets.all(7),
-              ),
-              controller: _contactEditingController,
-              keyboardType: TextInputType.number,
-              inputFormatters: [LengthLimitingTextInputFormatter(10)],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _sendOTP() {
-    return ButtonTheme(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size(260, 44),
-          elevation: 0.2,
-          primary: Color(0xFF246BFD),
-          onPrimary: Colors.white10,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        ),
-        onPressed: () async {
-          print('$_dialCode${_contactEditingController.text}');
-          if (_contactEditingController.text.isEmpty) {
-            showErrorDialog(context, 'Contact number can\'t be empty.');
-          } else {
-            final responseMessage = await Navigator.pushNamed(context, 'TO_DELETE', arguments: '$_dialCode${_contactEditingController.text}');
-            if (responseMessage != null) {
-              showErrorDialog(context, responseMessage as String);
-            }
-          }
+  Widget buildForgotPasswordButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: TextButton(
+        child: Text("Forgot password?",
+            textAlign: TextAlign.center,
+            style: GoogleFonts.muli(
+              color: Color.fromRGBO(224, 39, 20, 1),
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            )),
+        onPressed: () {
+          Navigator.pushNamed(this.context, Routes.FORGOT_PASSWORD);
         },
-        child: Text(
-          'Send OTP',
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-        ),
       ),
     );
   }
@@ -222,11 +182,13 @@ class _InitialScreenState extends State<InitialScreen> {
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          primary: Color(0xFF246BFD),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          // primary: Color(0xFF246BFD),
+          primary: blackButton,
         ),
         onPressed: () async {
-          Navigator.pushNamed(context, Routes.LOGIN);
+          Navigator.popAndPushNamed(context, Routes.REGISTER);
         },
         icon: Icon(
           Icons.mail_outline_outlined,
@@ -262,7 +224,7 @@ class _InitialScreenState extends State<InitialScreen> {
               ),
               onPressed: () async {
                 try {
-                  dynamic res = await _authService.signInWithGoogle();
+                  dynamic res = await AuthService().signInWithGoogle();
                   print(res);
                   if (res != null) {
                     print(res);
@@ -317,7 +279,8 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       child: Text(
         'Skip',
-        style: GoogleFonts.poppins(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
+        style: GoogleFonts.poppins(
+            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
       ),
     );
   }

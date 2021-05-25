@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Models/quote.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../Constants/Colors.dart';
+import '../../Constants/colors.dart';
 
 class Quotes extends StatelessWidget {
   Quotes({Key key}) : super(key: key);
@@ -17,7 +17,8 @@ class Quotes extends StatelessWidget {
             softWrap: true,
             maxLines: 3,
             overflow: TextOverflow.visible,
-            style: GoogleFonts.lato(color: blackButton, fontSize: 23, fontStyle: FontStyle.italic),
+            style: GoogleFonts.lato(
+                color: blackButton, fontSize: 23, fontStyle: FontStyle.italic),
           ),
           SizedBox(
             height: 15,
