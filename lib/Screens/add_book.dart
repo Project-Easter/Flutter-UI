@@ -12,6 +12,7 @@ import '../Widgets/app_bar.dart';
 import '../Widgets/button.dart';
 
 class AddBook extends StatefulWidget {
+  const AddBook({Key key}) : super(key: key);
   @override
   _AddBookState createState() => _AddBookState();
 }

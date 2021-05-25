@@ -31,13 +31,13 @@ class _RegisterScreenState extends AuthState<RegisterScreen>
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+              children: <Widget>[
                 AuthPageTitle(name: 'Register'),
                 AuthErrorMessage(errorMessage: error),
                 Form(
                   key: formKey,
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       EmailTextField(onChanged: updateEmail),
                       PasswordTextField(onChanged: updatePassword)
                     ],
@@ -57,7 +57,7 @@ class _RegisterScreenState extends AuthState<RegisterScreen>
   }
 
   Future<String> onSubmit() async {
-    return await authService.register(email, password);
+    return authService.register(email, password);
   }
 
   void onSuccess() {

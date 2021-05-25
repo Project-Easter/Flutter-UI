@@ -14,11 +14,11 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Builder(builder: (context) {
+      child: Builder(builder: (BuildContext context) {
         print('Current Index: ${DefaultTabController.of(context).index}');
         return Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
+            preferredSize: const Size.fromHeight(kToolbarHeight),
             child: Container(
               height: 50.0,
               child: TabBar(
@@ -26,23 +26,23 @@ class _WrapperState extends State<Wrapper> {
                   print(value);
                 },
                 tabs: [
-                  Tab(
+                  const Tab(
                     icon: Icon(
                       Icons.message,
                       color: Colors.grey,
                     ),
                   ),
-                  Tab(
+                  const Tab(
                     icon: Icon(Icons.book, color: Colors.grey),
                   ),
                 ],
                 //
-                indicator: BoxDecoration(
+                indicator: const BoxDecoration(
                   color: Colors.white,
                 ),
-                unselectedLabelColor: Color(0xffff00a8),
-                indicatorColor: Color(0xffff00a8),
-                labelColor: Color(0xffffffff),
+                unselectedLabelColor: const Color(0xffff00a8),
+                indicatorColor: const Color(0xffff00a8),
+                labelColor: const Color(0xffffffff),
               ),
             ),
           ),

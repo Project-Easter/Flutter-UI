@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:books_app/Models/book.dart';
 import 'package:books_app/Models/books.dart';
 import 'package:books_app/Models/user.dart';
@@ -22,7 +21,7 @@ class UserChoiceBooks extends StatelessWidget {
     return FutureBuilder<dynamic>(
         future: Provider.of<Books>(context, listen: false)
             .getRecommendedBooks('test'),
-        builder: (BuildContext ctx, snapshot) {
+        builder: (BuildContext ctx, AsyncSnapshot snapshot) {
           // Checking if future is resolved
           if (snapshot.connectionState == ConnectionState.done) {
             // If we got an error
@@ -59,6 +58,7 @@ class _DashboardPageState extends State<DashboardPage> {
     print(userData);
     return Scaffold(
       body: SingleChildScrollView(
+        // ignore: prefer_const_constructors
         physics: AlwaysScrollableScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

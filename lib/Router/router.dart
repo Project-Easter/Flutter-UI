@@ -38,7 +38,7 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(
             builder: (_) => ForgotPasswordScreen());
       case Routes.ADD_BOOK:
-        return MaterialPageRoute<dynamic>(builder: (_) => AddBook());
+        return MaterialPageRoute<dynamic>(builder: (_) => const AddBook());
       case Routes.HOME:
         return MaterialPageRoute<dynamic>(builder: (_) => Home());
       case Routes.LOCATION:

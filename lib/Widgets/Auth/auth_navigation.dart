@@ -10,7 +10,7 @@ class AuthNavigation {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_rounded)),
+          child: const Icon(Icons.arrow_back_rounded)),
     );
   }
 }
