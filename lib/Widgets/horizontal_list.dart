@@ -1,60 +1,10 @@
-import 'package:books_app/Models/book.dart';
-import 'package:books_app/Screens/book_desciption.dart';
-import 'package:books_app/Utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class HorizontalList extends StatelessWidget {
-  const HorizontalList(this.height, this.bookList, this.headingText);
-  final String headingText;
-  final double height;
-  final List<Book> bookList;
-
-  @override
-  Widget build(BuildContext context) {
-    if (bookList.isEmpty) {
-      return const SizedBox();
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //Heading text
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: getProportionateScreenHeight(36.0),
-              child: Text(
-                headingText,
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: getProportionateScreenHeight(height),
-            color: Colors.white,
-            child: ListView.builder(
-              // shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) =>
-                  ChangeNotifierProvider<Book>.value(
-                value: bookList[index],
-                child: CustomCard(),
-              ),
-              itemCount: bookList.length,
-            ),
-          ),
-          SizedBox(
-            height: getProportionateScreenHeight(15.0),
-          ),
-        ],
-      );
-    }
-  }
-}
+import '../Models/book.dart';
+import '../Screens/book_desciption.dart';
+import '../Utils/size_config.dart';
 
 class CustomCard extends StatelessWidget {
   @override
@@ -108,5 +58,56 @@ class CustomCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class HorizontalList extends StatelessWidget {
+  final String headingText;
+  final double height;
+  final List<Book> bookList;
+  const HorizontalList(this.height, this.bookList, this.headingText);
+
+  @override
+  Widget build(BuildContext context) {
+    if (bookList.isEmpty) {
+      return const SizedBox();
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //Heading text
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: getProportionateScreenHeight(36.0),
+              child: Text(
+                headingText,
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            height: getProportionateScreenHeight(height),
+            color: Colors.white,
+            child: ListView.builder(
+              // shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) =>
+                  ChangeNotifierProvider<Book>.value(
+                value: bookList[index],
+                child: CustomCard(),
+              ),
+              itemCount: bookList.length,
+            ),
+          ),
+          SizedBox(
+            height: getProportionateScreenHeight(15.0),
+          ),
+        ],
+      );
+    }
   }
 }

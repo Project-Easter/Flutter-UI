@@ -1,70 +1,15 @@
-import 'package:books_app/Services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../../../Constants/routes.dart';
 import '../../../Models/user.dart';
+import '../../../Services/auth.dart';
 import '../../../Services/database_service.dart';
-import 'package:intl/intl.dart';
 
 class ChatRoom extends StatefulWidget {
   @override
   _ChatRoomState createState() => _ChatRoomState();
-}
-
-class _ChatRoomState extends State<ChatRoom> {
-  final AuthService _authService = AuthService();
-
-  // return StreamBuilder<UserData>(
-  // stream: DatabaseService(uid: uID).userData,
-  // builder: (context, snapshot) {
-  // if (snapshot.hasData) {
-
-  List<UserData> allUser = [];
-  @override
-  Widget build(BuildContext context) {
-    final String uID = _authService.getUID as String;
-    final currentUser = Provider.of<UserData>(context);
-    return Scaffold(
-      //TODO:Remove this stream.This is dummy stream for chat. Replace this with conversations stream
-      body: StreamBuilder<List<UserData>>(
-          stream: DatabaseService(uid: uID).allUsers,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              allUser = snapshot.data;
-              return SingleChildScrollView(
-                child: Container(
-                  child: ListView.builder(
-                    //Fix unbounded Height
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    primary: false,
-                    //
-                    itemBuilder: (context, index) {
-                      for (UserData users in allUser) {
-                        if (users.uid != currentUser.uid) {
-                          // print(users.uid);
-                          // print(allUser[index].longitude);
-                          // print(allUser[index].latitude);
-                        }
-                      }
-                      return allUser[index].uid != uID
-                          ? UserTile(
-                              userData: allUser[index],
-                            )
-                          : SizedBox.shrink();
-                    },
-                    itemCount: allUser.length,
-                  ),
-                ),
-              );
-            } else {
-              return Center(
-                child: Text("Nothing here"),
-              );
-            }
-          }),
-    );
-  }
 }
 
 class UserTile extends StatelessWidget {
@@ -127,6 +72,62 @@ class UserTile extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class _ChatRoomState extends State<ChatRoom> {
+  final AuthService _authService = AuthService();
+
+  // return StreamBuilder<UserData>(
+  // stream: DatabaseService(uid: uID).userData,
+  // builder: (context, snapshot) {
+  // if (snapshot.hasData) {
+
+  List<UserData> allUser = [];
+  @override
+  Widget build(BuildContext context) {
+    final String uID = _authService.getUID as String;
+    final currentUser = Provider.of<UserData>(context);
+    return Scaffold(
+      //TODO:Remove this stream.This is dummy stream for chat. Replace this with conversations stream
+      body: StreamBuilder<List<UserData>>(
+          stream: DatabaseService(uid: uID).allUsers,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              allUser = snapshot.data;
+              return SingleChildScrollView(
+                child: Container(
+                  child: ListView.builder(
+                    //Fix unbounded Height
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    primary: false,
+                    //
+                    itemBuilder: (context, index) {
+                      for (UserData users in allUser) {
+                        if (users.uid != currentUser.uid) {
+                          // print(users.uid);
+                          // print(allUser[index].longitude);
+                          // print(allUser[index].latitude);
+                        }
+                      }
+                      return allUser[index].uid != uID
+                          ? UserTile(
+                              userData: allUser[index],
+                            )
+                          : SizedBox.shrink();
+                    },
+                    itemCount: allUser.length,
+                  ),
+                ),
+              );
+            } else {
+              return Center(
+                child: Text("Nothing here"),
+              );
+            }
+          }),
     );
   }
 }

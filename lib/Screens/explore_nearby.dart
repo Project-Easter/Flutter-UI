@@ -1,10 +1,11 @@
-import 'package:books_app/Utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Widgets/horizontal_list.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Models/books.dart';
-import 'package:books_app/Models/user.dart';
+
+import '../Models/books.dart';
+import '../Models/user.dart';
+import '../Utils/size_config.dart';
+import '../Widgets/horizontal_list.dart';
 
 class ExploreNearby extends StatefulWidget {
   @override
@@ -37,7 +38,10 @@ class _ExploreNearbyState extends State<ExploreNearby> {
                     // ),
                     Text(
                       'Explore Nearby',
-                      style: GoogleFonts.poppins(color: Colors.black, fontSize: 26, fontWeight: FontWeight.w400),
+                      style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w400),
                     ),
                     SizedBox(
                       height: getProportionateScreenHeight(25),

@@ -1,14 +1,15 @@
-import 'package:books_app/Screens/Auth/reset_password.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/States/auth_state.dart';
-import 'package:books_app/States/email_state.dart';
-import 'package:books_app/Utils/Helpers/not_null.dart';
-import 'package:books_app/Widgets/Auth/auth_button.dart';
-import 'package:books_app/Widgets/Auth/auth_error_message.dart';
-import 'package:books_app/Widgets/Auth/auth_navigation.dart';
-import 'package:books_app/Widgets/Auth/auth_page_title.dart';
-import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/material.dart';
+
+import '../../Services/auth.dart';
+import '../../States/auth_state.dart';
+import '../../States/email_state.dart';
+import '../../Utils/Helpers/not_null.dart';
+import '../../Widgets/Auth/auth_button.dart';
+import '../../Widgets/Auth/auth_error_message.dart';
+import '../../Widgets/Auth/auth_navigation.dart';
+import '../../Widgets/Auth/auth_page_title.dart';
+import '../../Widgets/text_field.dart';
+import 'reset_password.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -19,15 +20,6 @@ class _ForgotPasswordScreenState extends AuthState<ForgotPasswordScreen>
     with EmailState<ForgotPasswordScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final AuthService authService = AuthService();
-
-  Future<String> onSubmit() async {
-    return await this.authService.forgotPassword(this.email);
-  }
-
-  void onSuccess() {
-    Navigator.of(context).push<dynamic>(MaterialPageRoute<dynamic>(
-        builder: (context) => ResetPasswordScreen(email: this.email)));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,5 +51,14 @@ class _ForgotPasswordScreenState extends AuthState<ForgotPasswordScreen>
         ),
       ),
     );
+  }
+
+  Future<String> onSubmit() async {
+    return await this.authService.forgotPassword(this.email);
+  }
+
+  void onSuccess() {
+    Navigator.of(context).push<dynamic>(MaterialPageRoute<dynamic>(
+        builder: (context) => ResetPasswordScreen(email: this.email)));
   }
 }

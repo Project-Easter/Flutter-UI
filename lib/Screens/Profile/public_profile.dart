@@ -1,10 +1,37 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:flutter/material.dart';
-import 'package:books_app/Utils/size_config.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../Constants/routes.dart';
 import '../../Models/books.dart';
+import '../../Utils/size_config.dart';
+
+class CupertinoStyleButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onpress;
+  final Color color;
+  CupertinoStyleButton({this.text, this.onpress, this.color});
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: getProportionateScreenWidth(345.0),
+      height: getProportionateScreenHeight(52.0),
+      child: MaterialButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        color: color,
+        onPressed: onpress,
+        child: Text(
+          text,
+          style: GoogleFonts.poppins(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+      ),
+    );
+  }
+}
 
 class PublicProfile extends StatelessWidget {
   @override
@@ -176,32 +203,6 @@ class PublicProfile extends StatelessWidget {
               flex: 25,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CupertinoStyleButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onpress;
-  final Color color;
-  CupertinoStyleButton({this.text, this.onpress, this.color});
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: getProportionateScreenWidth(345.0),
-      height: getProportionateScreenHeight(52.0),
-      child: MaterialButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        color: color,
-        onPressed: onpress,
-        child: Text(
-          text,
-          style: GoogleFonts.poppins(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
     );

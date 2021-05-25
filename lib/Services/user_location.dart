@@ -1,9 +1,10 @@
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Utils/config_helper.dart';
-import 'package:books_app/Utils/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+
+import '../Utils/config_helper.dart';
+import '../Utils/location_helper.dart';
+import 'auth.dart';
+import 'database_service.dart';
 
 // ignore: must_be_immutable
 class GetLocation extends StatelessWidget {

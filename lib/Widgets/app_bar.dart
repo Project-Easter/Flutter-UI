@@ -1,7 +1,8 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Widgets/filter_items.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../Constants/routes.dart';
+import 'filter_items.dart';
 
 // ignore: non_constant_identifier_names
 AppBar MyAppBar(BuildContext buildContext) {

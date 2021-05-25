@@ -1,9 +1,36 @@
-import 'dart:ffi';
-
-import 'package:books_app/Utils/Validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../Utils/Validator.dart';
+
+class ConfirmationCodeTextField extends TextField {
+  ConfirmationCodeTextField({@required void Function(String) onChanged})
+      : super(
+            onChanged: onChanged,
+            text: 'Confirmation code',
+            obscureText: false,
+            validator: Validator.confirmationCode);
+}
+
+class EmailTextField extends TextField {
+  EmailTextField({@required void Function(String) onChanged})
+      : super(
+            onChanged: onChanged,
+            text: 'Email Address',
+            obscureText: false,
+            validator: Validator.email,
+            keyboardType: TextInputType.emailAddress);
+}
+
+class PasswordTextField extends TextField {
+  PasswordTextField({@required void Function(String) onChanged})
+      : super(
+            onChanged: onChanged,
+            text: 'Password',
+            obscureText: true,
+            validator: Validator.password);
+}
 
 class TextField extends StatelessWidget {
   final void Function(String) onChanged;
@@ -53,32 +80,4 @@ class TextField extends StatelessWidget {
       ),
     );
   }
-}
-
-class EmailTextField extends TextField {
-  EmailTextField({@required void Function(String) onChanged})
-      : super(
-            onChanged: onChanged,
-            text: 'Email Address',
-            obscureText: false,
-            validator: Validator.email,
-            keyboardType: TextInputType.emailAddress);
-}
-
-class PasswordTextField extends TextField {
-  PasswordTextField({@required void Function(String) onChanged})
-      : super(
-            onChanged: onChanged,
-            text: 'Password',
-            obscureText: true,
-            validator: Validator.password);
-}
-
-class ConfirmationCodeTextField extends TextField {
-  ConfirmationCodeTextField({@required void Function(String) onChanged})
-      : super(
-            onChanged: onChanged,
-            text: 'Confirmation code',
-            obscureText: false,
-            validator: Validator.confirmationCode);
 }

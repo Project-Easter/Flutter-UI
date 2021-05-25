@@ -1,21 +1,22 @@
-import 'package:books_app/Constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../Constants/colors.dart';
+
 class AuthButton extends StatelessWidget {
+  final String text;
+
+  final Function onClick;
+  final Function onSuccess;
+  final Function onError;
+  final GlobalKey<FormState> formKey;
   const AuthButton(
       {@required this.text,
       @required this.onClick,
       @required this.onSuccess,
       @required this.onError,
       @required this.formKey});
-
-  final String text;
-  final Function onClick;
-  final Function onSuccess;
-  final Function onError;
-  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {

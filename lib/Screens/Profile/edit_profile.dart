@@ -1,13 +1,15 @@
-import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/Services/database_service.dart';
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../Constants/colors.dart';
 import '../../Models/user.dart';
 import '../../Services/auth.dart';
+import '../../Services/database_service.dart';
 import '../../Widgets/button.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -21,31 +23,10 @@ class _EditProfileState extends State<EditProfile> {
   final _imagePicker = ImagePicker();
   PickedFile image;
 
-  Future uploadImageGallery(String uID) async {
-    image = await _imagePicker.getImage(source: ImageSource.gallery);
-    var file = File(image.path);
-    if (image != null) {
-      var snapshot =
-          await _firebaseStorage.ref().child("images/$uID").putFile(file);
-      String downloadUrl = await snapshot.ref.getDownloadURL();
-      return downloadUrl;
-    }
-  }
-
-  Future<String> uploadImageCamera(String uID) async {
-    image = await _imagePicker.getImage(source: ImageSource.camera);
-    var file = File(image.path);
-    if (image != null) {
-      var snapshot =
-          await _firebaseStorage.ref().child("images/$uID").putFile(file);
-      String downloadUrl = await snapshot.ref.getDownloadURL();
-      return downloadUrl;
-    }
-    return null;
-  }
-
   String _name;
+
   String _city;
+
   String _state;
   String _imageUrl = "";
   @override
@@ -235,5 +216,28 @@ class _EditProfileState extends State<EditProfile> {
             );
           }
         });
+  }
+
+  Future<String> uploadImageCamera(String uID) async {
+    image = await _imagePicker.getImage(source: ImageSource.camera);
+    var file = File(image.path);
+    if (image != null) {
+      var snapshot =
+          await _firebaseStorage.ref().child("images/$uID").putFile(file);
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    }
+    return null;
+  }
+
+  Future uploadImageGallery(String uID) async {
+    image = await _imagePicker.getImage(source: ImageSource.gallery);
+    var file = File(image.path);
+    if (image != null) {
+      var snapshot =
+          await _firebaseStorage.ref().child("images/$uID").putFile(file);
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    }
   }
 }

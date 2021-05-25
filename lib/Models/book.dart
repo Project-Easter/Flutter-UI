@@ -14,6 +14,7 @@ class Book with ChangeNotifier {
   bool isLent;
   bool isBorrowed;
   final String pages;
+  // ignore: sort_constructors_first
   Book({
     this.id,
     this.isbn,

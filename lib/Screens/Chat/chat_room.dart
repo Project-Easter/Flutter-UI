@@ -1,60 +1,14 @@
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../Models/user.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user.dart';
+import '../../Services/auth.dart';
+import '../../Services/database_service.dart';
 
 class ChatRoom extends StatefulWidget {
   @override
   _ChatRoomState createState() => _ChatRoomState();
-}
-
-class _ChatRoomState extends State<ChatRoom> {
-  List<UserData> allUser = [];
-  @override
-  Widget build(BuildContext context) {
-    final dynamic uID = AuthService().getUID;
-    final UserData currentUser = Provider.of<UserData>(context);
-
-    if (currentUser.isAnonymous == true) {
-      return Scaffold(
-        body: Center(
-          child: Text('Login to continue'),
-        ),
-      );
-    }
-    return Scaffold(
-      body: StreamBuilder<List<UserData>>(
-          stream: DatabaseService(uid: uID as String).allUsers,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              allUser = snapshot.data;
-              return SingleChildScrollView(
-                child: Container(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (context, index) {
-                      return allUser[index].uid != uID
-                          ? UserTile(
-                              userData: allUser[index],
-                            )
-                          : SizedBox.shrink();
-                    },
-                    itemCount: allUser.length,
-                  ),
-                ),
-              );
-            } else {
-              return Center(
-                child: Text("Nothing here"),
-              );
-            }
-          }),
-    );
-  }
 }
 
 class UserTile extends StatelessWidget {
@@ -118,6 +72,53 @@ class UserTile extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class _ChatRoomState extends State<ChatRoom> {
+  List<UserData> allUser = [];
+  @override
+  Widget build(BuildContext context) {
+    final dynamic uID = AuthService().getUID;
+    final UserData currentUser = Provider.of<UserData>(context);
+
+    if (currentUser.isAnonymous == true) {
+      return Scaffold(
+        body: Center(
+          child: Text('Login to continue'),
+        ),
+      );
+    }
+    return Scaffold(
+      body: StreamBuilder<List<UserData>>(
+          stream: DatabaseService(uid: uID as String).allUsers,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              allUser = snapshot.data;
+              return SingleChildScrollView(
+                child: Container(
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    primary: false,
+                    itemBuilder: (context, index) {
+                      return allUser[index].uid != uID
+                          ? UserTile(
+                              userData: allUser[index],
+                            )
+                          : SizedBox.shrink();
+                    },
+                    itemCount: allUser.length,
+                  ),
+                ),
+              );
+            } else {
+              return Center(
+                child: Text("Nothing here"),
+              );
+            }
+          }),
     );
   }
 }

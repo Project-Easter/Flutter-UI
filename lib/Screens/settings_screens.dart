@@ -1,15 +1,16 @@
-import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Utils/theme_notifier.dart';
-import 'package:books_app/Utils/values/theme_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Constants/colors.dart';
+import '../Constants/routes.dart';
+import '../Models/user.dart';
 import '../Services/auth.dart';
 import '../Services/database_service.dart';
+import '../Utils/theme_notifier.dart';
+import '../Utils/values/theme_switch.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -81,6 +82,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             );
           }
         });
+  }
+
+  void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
+    (value)
+        ? themeNotifier.setTheme(darkTheme)
+        : themeNotifier.setTheme(lightTheme);
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool('darkMode', value);
   }
 
   Widget _accountSettingsDetails(ThemeNotifier tNotifier) {
@@ -224,6 +233,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  // Widget dayNightWidget(themeNotifier) {
+  //   return ListView(
+  //     children: <Widget>[
+  //       ListTile(
+  //         title: Text('Dark Theme'),
+  //         contentPadding: const EdgeInsets.only(left: 16.0),
+  //         trailing: Transform.scale(
+  //           scale: 0.4,
+  //           child: DayNightSwitch(
+  //             value: _darkTheme,
+  //             onChanged: (val) {
+  //               setState(() {
+  //                 _darkTheme = val;
+  //               });
+  //               onThemeChanged(val, themeNotifier);
+  //             },
+  //           ),
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
+
   Widget _moreWidget() {
     return Container(
       padding: EdgeInsets.all(15),
@@ -301,36 +333,5 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
-  }
-
-  // Widget dayNightWidget(themeNotifier) {
-  //   return ListView(
-  //     children: <Widget>[
-  //       ListTile(
-  //         title: Text('Dark Theme'),
-  //         contentPadding: const EdgeInsets.only(left: 16.0),
-  //         trailing: Transform.scale(
-  //           scale: 0.4,
-  //           child: DayNightSwitch(
-  //             value: _darkTheme,
-  //             onChanged: (val) {
-  //               setState(() {
-  //                 _darkTheme = val;
-  //               });
-  //               onThemeChanged(val, themeNotifier);
-  //             },
-  //           ),
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
-
-  void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
-    (value)
-        ? themeNotifier.setTheme(darkTheme)
-        : themeNotifier.setTheme(lightTheme);
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setBool('darkMode', value);
   }
 }

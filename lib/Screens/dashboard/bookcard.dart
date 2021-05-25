@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:provider/provider.dart';
-import 'package:books_app/Models/book.dart';
-import 'package:books_app/Screens/book_desciption.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/book.dart';
+import '../../Services/auth.dart';
+import '../book_desciption.dart';
 
 class BookCard extends StatelessWidget {
   final AuthService _authService = AuthService();
@@ -21,10 +22,12 @@ class BookCard extends StatelessWidget {
             child: Container(
               height: 192,
               width: 135,
-              decoration: new BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 15)],
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    const BoxShadow(color: Colors.grey, blurRadius: 15)
+                  ],
                   borderRadius: BorderRadius.circular(10),
-                  image: new DecorationImage(
+                  image: DecorationImage(
                       image: NetworkImage(book.imageUrl), fit: BoxFit.fill)),
             ),
             onTap: () {

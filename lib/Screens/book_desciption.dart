@@ -1,13 +1,14 @@
-import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Models/book.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Widgets/button.dart';
-import 'package:books_app/Widgets/rating.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
+
+import '../Constants/colors.dart';
+import '../Constants/routes.dart';
+import '../Models/book.dart';
+import '../Services/auth.dart';
+import '../Services/database_service.dart';
+import '../Widgets/button.dart';
+import '../Widgets/rating.dart';
 
 class BookDescription extends StatefulWidget {
   final Book bookFromList;
@@ -23,16 +24,38 @@ class _BookDescriptionState extends State<BookDescription>
   TabController _tabController;
   bool fixedScroll;
 
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  Widget bookDescription(String description) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
+          child: Text(
+            'Description',
+            style: GoogleFonts.poppins(
+                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(15, 0, 10, 10),
+          child: ReadMoreText(
+            widget.bookFromList.description,
+            // "",
+            // description,
+            style: GoogleFonts.poppins(
+                color: Colors.blueGrey,
+                fontWeight: FontWeight.w500,
+                fontSize: 14),
+            trimLines: 6,
+            colorClickableText: Colors.pink,
+            trimMode: TrimMode.Line,
+            trimCollapsedText: 'Read more',
+            trimExpandedText: 'Read less',
+            moreStyle: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
+          ),
+        ),
+      ],
+    );
   }
 
   @override
@@ -332,6 +355,12 @@ class _BookDescriptionState extends State<BookDescription>
     );
   }
 
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   // bookDisplay(Book book) {
   //   return Center(
   //     child: Column(
@@ -394,40 +423,6 @@ class _BookDescriptionState extends State<BookDescription>
   //   );
   // }
 
-  Widget bookDescription(String description) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(15, 10, 0, 10),
-          child: Text(
-            'Description',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 15),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.fromLTRB(15, 0, 10, 10),
-          child: ReadMoreText(
-            widget.bookFromList.description,
-            // "",
-            // description,
-            style: GoogleFonts.poppins(
-                color: Colors.blueGrey,
-                fontWeight: FontWeight.w500,
-                fontSize: 14),
-            trimLines: 6,
-            colorClickableText: Colors.pink,
-            trimMode: TrimMode.Line,
-            trimCollapsedText: 'Read more',
-            trimExpandedText: 'Read less',
-            moreStyle: GoogleFonts.poppins(color: Colors.red, fontSize: 12),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget genre() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -471,6 +466,12 @@ class _BookDescriptionState extends State<BookDescription>
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 2, vsync: this);
+    super.initState();
   }
 
   Widget ownerDetails() {

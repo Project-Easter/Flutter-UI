@@ -1,6 +1,14 @@
-import 'package:books_app/Constants/regex.dart';
+import '../Constants/regex.dart';
 
 class Validator {
+  static String confirmationCode(String confirmationCode) {
+    if (confirmationCode.isEmpty || confirmationCode.length != 6) {
+      return 'Confirmation code must be 6 characters long';
+    }
+
+    return null;
+  }
+
   static String email(String email) {
     if (email.isEmpty || email.length < 5) {
       return 'Email must be at least 5 characters long';
@@ -16,14 +24,6 @@ class Validator {
   static String password(String password) {
     if (password.isEmpty || password.length < 6) {
       return 'Password must be at least 6 characters long';
-    }
-
-    return null;
-  }
-
-  static String confirmationCode(String confirmationCode) {
-    if (confirmationCode.isEmpty || confirmationCode.length != 6) {
-      return 'Confirmation code must be 6 characters long';
     }
 
     return null;

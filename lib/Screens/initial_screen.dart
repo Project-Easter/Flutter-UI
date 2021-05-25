@@ -1,20 +1,19 @@
-import 'dart:ffi';
-
-import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/States/email_state.dart';
-import 'package:books_app/States/password_state.dart';
-import 'package:books_app/Utils/Helpers/not_null.dart';
-import 'package:books_app/Utils/size_config.dart';
-import 'package:books_app/Widgets/Auth/auth_button.dart';
-import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/painting.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/States/auth_state.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../Constants/colors.dart';
+import '../Constants/routes.dart';
+import '../Services/auth.dart';
+import '../States/auth_state.dart';
+import '../States/email_state.dart';
+import '../States/password_state.dart';
+import '../Utils/Helpers/not_null.dart';
+import '../Utils/size_config.dart';
+import '../Widgets/Auth/auth_button.dart';
+import '../Widgets/text_field.dart';
 
 class InitialScreen extends StatefulWidget {
   @override
@@ -30,39 +29,6 @@ class _InitialScreenState extends AuthState<InitialScreen>
   final formKey = GlobalKey<FormState>();
 
   //Alert dialogue to show error and response
-  void showErrorDialog(BuildContext context, String message) {
-    // set up the AlertDialog
-    final CupertinoAlertDialog alert = CupertinoAlertDialog(
-      title: const Text('Error'),
-      content: Text('\n$message'),
-      actions: <Widget>[
-        CupertinoDialogAction(
-          isDefaultAction: true,
-          child: const Text('Yes'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    );
-    // show the dialog
-    showDialog<dynamic>(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  void onSuccess() {
-    print('Logged in successfully');
-  }
-
-  Future<String> onSubmit() async {
-    return await AuthService()
-        .login(_emailController.text, _passwordController.text);
-  }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -176,6 +142,39 @@ class _InitialScreenState extends AuthState<InitialScreen>
     );
   }
 
+  Future<String> onSubmit() async {
+    return await AuthService()
+        .login(_emailController.text, _passwordController.text);
+  }
+
+  void onSuccess() {
+    print('Logged in successfully');
+  }
+
+  void showErrorDialog(BuildContext context, String message) {
+    // set up the AlertDialog
+    final CupertinoAlertDialog alert = CupertinoAlertDialog(
+      title: const Text('Error'),
+      content: Text('\n$message'),
+      actions: <Widget>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          child: const Text('Yes'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        )
+      ],
+    );
+    // show the dialog
+    showDialog<dynamic>(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   Widget _signUpwithEmail() {
     return SizedBox(
       height: 44,
@@ -201,6 +200,25 @@ class _InitialScreenState extends AuthState<InitialScreen>
             color: Colors.white,
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _skipButton() {
+    return ElevatedButton(
+      onPressed: () {
+        print('Skip button pressed');
+      },
+      style: ElevatedButton.styleFrom(
+        primary: blackButton,
+        onPrimary: Colors.white12,
+        minimumSize: Size(55, 24.75),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      ),
+      child: Text(
+        'Skip',
+        style: GoogleFonts.poppins(
+            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
       ),
     );
   }
@@ -262,25 +280,6 @@ class _InitialScreenState extends AuthState<InitialScreen>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _skipButton() {
-    return ElevatedButton(
-      onPressed: () {
-        print('Skip button pressed');
-      },
-      style: ElevatedButton.styleFrom(
-        primary: blackButton,
-        onPrimary: Colors.white12,
-        minimumSize: Size(55, 24.75),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      ),
-      child: Text(
-        'Skip',
-        style: GoogleFonts.poppins(
-            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
       ),
     );
   }

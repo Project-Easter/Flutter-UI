@@ -4,6 +4,7 @@ class Message {
   final String message;
   final DateTime createdAt;
 
+  // ignore: sort_constructors_first
   Message({
     this.sender,
     this.receiver,

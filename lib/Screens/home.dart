@@ -1,20 +1,21 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Screens/dashboard/Dashboard.dart';
-import 'package:books_app/Screens/bookshelf.dart';
-import 'package:books_app/Screens/explore_nearby.dart';
-import 'package:books_app/Screens/Profile/private_profile.dart';
-import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Utils/size_config.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Models/book.dart';
+
+import '../Constants/routes.dart';
+import '../Models/book.dart';
+import '../Models/user.dart';
+import '../Services/auth.dart';
+import '../Services/database_service.dart';
+import '../Utils/size_config.dart';
+import '../Widgets/app_bar.dart';
+import '../Widgets/custom_navigation_bar.dart';
 import 'Chat/wrapper.dart';
+import 'Profile/private_profile.dart';
+import 'bookshelf.dart';
+import 'dashboard/Dashboard.dart';
+import 'explore_nearby.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -32,13 +33,8 @@ class _HomeState extends State<Home> {
   ];
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
-  void _selectedTab(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   final AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     //Setup Size Config-starting of app
@@ -156,5 +152,11 @@ class _HomeState extends State<Home> {
     //         ],
     //       )),
     // );
+  }
+
+  void _selectedTab(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 }

@@ -14,34 +14,6 @@ class DashboardPage extends StatefulWidget {
   _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
-  @override
-  Widget build(BuildContext context) {
-    // var discoverNew = Provider.of<Books>(context).discoverNew;
-    // var recommendedBooks = Provider.of<Books>(context).recommendedBooks;
-    final UserData userData = Provider.of<UserData>(context);
-    print(userData);
-    return Scaffold(
-      body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Quotes(),
-            const UserChoice(),
-            // BookList('Discover New', discoverNew),
-            // BookList('Recommended for you', recommendedBooks),
-            UserChoiceBooks(title: 'Based on your Interest'),
-            const UserChoiceBooks(title: 'Discover New '),
-            UserChoiceBooks(title: 'Recommended for you'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class UserChoiceBooks extends StatelessWidget {
   final String title;
   const UserChoiceBooks({Key key, this.title}) : super(key: key);
@@ -75,5 +47,33 @@ class UserChoiceBooks extends StatelessWidget {
         }
         //  ... some code here
         );
+  }
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  @override
+  Widget build(BuildContext context) {
+    // var discoverNew = Provider.of<Books>(context).discoverNew;
+    // var recommendedBooks = Provider.of<Books>(context).recommendedBooks;
+    final UserData userData = Provider.of<UserData>(context);
+    print(userData);
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Quotes(),
+            const UserChoice(),
+            // BookList('Discover New', discoverNew),
+            // BookList('Recommended for you', recommendedBooks),
+            const UserChoiceBooks(title: 'Based on your Interest'),
+            const UserChoiceBooks(title: 'Discover New '),
+            UserChoiceBooks(title: 'Recommended for you'),
+          ],
+        ),
+      ),
+    );
   }
 }

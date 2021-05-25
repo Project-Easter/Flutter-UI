@@ -1,35 +1,28 @@
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/States/auth_state.dart';
-import 'package:books_app/States/confirmation_code_state.dart';
-import 'package:books_app/Widgets/Auth/auth_button.dart';
-import 'package:books_app/Widgets/Auth/auth_error_message.dart';
-import 'package:books_app/Widgets/Auth/auth_navigation.dart';
-import 'package:books_app/Widgets/Auth/auth_page_title.dart';
-import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
+import '../../Services/auth.dart';
+import '../../States/auth_state.dart';
+import '../../States/confirmation_code_state.dart';
+import '../../Widgets/Auth/auth_button.dart';
+import '../../Widgets/Auth/auth_error_message.dart';
+import '../../Widgets/Auth/auth_navigation.dart';
+import '../../Widgets/Auth/auth_page_title.dart';
+import '../../Widgets/text_field.dart';
+
 class ConfirmEmailScreen extends StatefulWidget {
-  const ConfirmEmailScreen({Key key, @required this.email}) : super(key: key);
   final String email;
+  const ConfirmEmailScreen({Key key, @required this.email}) : super(key: key);
   @override
   _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState(email);
 }
 
 class _ConfirmEmailScreenState extends AuthState<ConfirmEmailScreen>
     with ConfirmationCodeState<ConfirmEmailScreen> {
-  _ConfirmEmailScreenState(this.email);
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   String email;
-  Future<String> onSubmit() async {
-    return authService.confirmEmail(email, confirmationCode);
-  }
 
-  void onSuccess() {
-    print('Email confirmed successfully');
-  }
-
+  _ConfirmEmailScreenState(this.email);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,5 +53,13 @@ class _ConfirmEmailScreenState extends AuthState<ConfirmEmailScreen>
         ),
       ),
     );
+  }
+
+  Future<String> onSubmit() async {
+    return authService.confirmEmail(email, confirmationCode);
+  }
+
+  void onSuccess() {
+    print('Email confirmed successfully');
   }
 }

@@ -1,10 +1,11 @@
-import 'package:books_app/Models/book.dart';
-import 'package:books_app/Utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:books_app/Widgets/horizontal_list.dart';
-import 'package:books_app/Widgets/filter_items.dart';
+
+import '../Models/book.dart';
+import '../Utils/size_config.dart';
+import '../Widgets/filter_items.dart';
+import '../Widgets/horizontal_list.dart';
 
 class LibraryPage extends StatefulWidget {
   @override
@@ -51,6 +52,23 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 
+  Widget headingText(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      // ignore: sized_box_for_whitespace
+      child: Container(
+        height: getProportionateScreenHeight(36.0),
+        child: Text(
+          text,
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
   void openDialog() {
     showDialog<Text>(
       context: context,
@@ -90,23 +108,6 @@ class _LibraryPageState extends State<LibraryPage> {
           ),
         );
       },
-    );
-  }
-
-  Widget headingText(String text) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      // ignore: sized_box_for_whitespace
-      child: Container(
-        height: getProportionateScreenHeight(36.0),
-        child: Text(
-          text,
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
-        ),
-      ),
     );
   }
 }

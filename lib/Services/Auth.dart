@@ -1,20 +1,17 @@
-import 'package:books_app/Constants/exceptions.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Utils/Api.dart';
-import 'package:books_app/Utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/src/response.dart';
-import 'package:books_app/Services/database_service.dart';
+
+import '../Constants/exceptions.dart';
+import '../Models/user.dart';
+import '../Utils/Api.dart';
+import '../Utils/helpers.dart';
+import 'database_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FacebookLogin facebookLogin = FacebookLogin();
-
-  MyAppUser _retrieveUserFromFirebaseUser(User user) {
-    return user != null ? MyAppUser(uid: user.uid) : null;
-  }
 
   dynamic get currentUserFromFireBase {
     return _auth.currentUser;
@@ -24,66 +21,28 @@ class AuthService {
     return _auth.currentUser.uid;
   }
 
-  Future<MyAppUser> signInWithGoogle() async {
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
+  Future<String> confirmEmail(String email, String code) async {
+    final Response response = await Api.confirmEmail(email, code);
 
-    final User user = authResult.user;
-    if (user != null) {
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-      final User currentUser = _auth.currentUser;
-      assert(user.uid == currentUser.uid);
-      String token = await user.getIdToken(true);
-      while (token.isNotEmpty) {
-        final int initLength = token.length >= 500 ? 500 : token.length;
-        print(token.substring(0, initLength));
-        final int endLength = token.length;
-        token = token.substring(initLength, endLength);
-      }
+    if (response.statusCode == 204) return null;
 
-      final UserData userData = makeUserDataFromAuthUser(user);
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
 
-      await DatabaseService(uid: user.uid).updateUserData(userData);
-      return _retrieveUserFromFirebaseUser(currentUser);
+    switch (errorId) {
+      case Exception.INVALID_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code is invalid.';
+        }
+      case Exception.EXPIRED_CONFIRMATION_CODE:
+        {
+          return 'Provided confirmation code has been expired. Click here to get a new one.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
     }
-    return null;
-  }
-
-  Future<void> googleSignout() async {
-    GoogleSignIn().disconnect();
-    await _auth.signOut();
-    print('User Signed Out');
-  }
-
-  Future<String> signInWithFacebook() async {
-    final FacebookLoginResult result = await facebookLogin.logIn();
-
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(result.accessToken.token);
-
-    final UserCredential fbAuthResult =
-        await _auth.signInWithCredential(facebookAuthCredential);
-    final User fbUser = fbAuthResult.user;
-
-    if (fbUser != null) {
-      assert(!fbUser.isAnonymous);
-      assert(await fbUser.getIdToken() != null);
-      final User currentUser = _auth.currentUser;
-      assert(fbUser.uid == currentUser.uid);
-
-      print('Facebook SignIn succeeded: $fbUser');
-
-      return '$fbUser';
-    }
-    return null;
   }
 
   Future<void> facebookSignout() async {
@@ -92,11 +51,64 @@ class AuthService {
     });
   }
 
-  Future<void> signOutNormal() async {
-    try {
-      await _auth.signOut();
-    } catch (e) {
-      e.toString();
+  Future<String> forgotPassword(String email) async {
+    final Response response = await Api.forgotPassword(email);
+    if (response.statusCode == 204) return null;
+
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
+
+    switch (errorId) {
+      case Exception.EMAIL_NOT_FOUND:
+        {
+          return 'Provided email does not exist';
+        }
+      case Exception.INVALID_ACCOUNT_TYPE:
+        {
+          return 'Provided email is associated with the account created using Google or Facebook';
+        }
+      case Exception.UNCONFIRMED_ACCOUNT:
+        {
+          return 'Your account is not confirmed yet.';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
+    }
+  }
+
+  Future<void> googleSignout() async {
+    GoogleSignIn().disconnect();
+    await _auth.signOut();
+    print('User Signed Out');
+  }
+
+  Future<String> login(String email, String password) async {
+    final Response response = await Api.login(email, password);
+
+    if (response.statusCode == 200) return null;
+
+    final dynamic body = getBodyFromResponse(response);
+    final int errorId = body['error']['id'] as int;
+
+    switch (errorId) {
+      case Exception.INVALID_ACCOUNT_TYPE:
+        {
+          return 'You have created an account using Google or Facebook. Log in with one of them instead.';
+        }
+      case Exception.INVALID_CREDENTIALS:
+        {
+          return 'Invalid Credentials. Check your input and try again.';
+        }
+      case Exception.UNCONFIRMED_ACCOUNT:
+        {
+          return 'Your account is not confirmed yet. Click here to confirm it';
+        }
+      default:
+        {
+          return 'An unknown error occured. Please try again later';
+        }
     }
   }
 
@@ -139,61 +151,6 @@ class AuthService {
     }
   }
 
-  Future<String> login(String email, String password) async {
-    final Response response = await Api.login(email, password);
-
-    if (response.statusCode == 200) return null;
-
-    final dynamic body = getBodyFromResponse(response);
-    final int errorId = body['error']['id'] as int;
-
-    switch (errorId) {
-      case Exception.INVALID_ACCOUNT_TYPE:
-        {
-          return 'You have created an account using Google or Facebook. Log in with one of them instead.';
-        }
-      case Exception.INVALID_CREDENTIALS:
-        {
-          return 'Invalid Credentials. Check your input and try again.';
-        }
-      case Exception.UNCONFIRMED_ACCOUNT:
-        {
-          return 'Your account is not confirmed yet. Click here to confirm it';
-        }
-      default:
-        {
-          return 'An unknown error occured. Please try again later';
-        }
-    }
-  }
-
-  Future<String> forgotPassword(String email) async {
-    final Response response = await Api.forgotPassword(email);
-    if (response.statusCode == 204) return null;
-
-    final dynamic body = getBodyFromResponse(response);
-    final int errorId = body['error']['id'] as int;
-
-    switch (errorId) {
-      case Exception.EMAIL_NOT_FOUND:
-        {
-          return 'Provided email does not exist';
-        }
-      case Exception.INVALID_ACCOUNT_TYPE:
-        {
-          return 'Provided email is associated with the account created using Google or Facebook';
-        }
-      case Exception.UNCONFIRMED_ACCOUNT:
-        {
-          return 'Your account is not confirmed yet.';
-        }
-      default:
-        {
-          return 'An unknown error occured. Please try again later';
-        }
-    }
-  }
-
   Future<String> resetPassword(
       String email, String password, String code) async {
     final Response response = await Api.resetPassword(email, password, code);
@@ -218,27 +175,71 @@ class AuthService {
     }
   }
 
-  Future<String> confirmEmail(String email, String code) async {
-    final Response response = await Api.confirmEmail(email, code);
+  Future<String> signInWithFacebook() async {
+    final FacebookLoginResult result = await facebookLogin.logIn();
 
-    if (response.statusCode == 204) return null;
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.accessToken.token);
 
-    final dynamic body = getBodyFromResponse(response);
-    final int errorId = body['error']['id'] as int;
+    final UserCredential fbAuthResult =
+        await _auth.signInWithCredential(facebookAuthCredential);
+    final User fbUser = fbAuthResult.user;
 
-    switch (errorId) {
-      case Exception.INVALID_CONFIRMATION_CODE:
-        {
-          return 'Provided confirmation code is invalid.';
-        }
-      case Exception.EXPIRED_CONFIRMATION_CODE:
-        {
-          return 'Provided confirmation code has been expired. Click here to get a new one.';
-        }
-      default:
-        {
-          return 'An unknown error occured. Please try again later';
-        }
+    if (fbUser != null) {
+      assert(!fbUser.isAnonymous);
+      assert(await fbUser.getIdToken() != null);
+      final User currentUser = _auth.currentUser;
+      assert(fbUser.uid == currentUser.uid);
+
+      print('Facebook SignIn succeeded: $fbUser');
+
+      return '$fbUser';
     }
+    return null;
+  }
+
+  Future<MyAppUser> signInWithGoogle() async {
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+
+    final User user = authResult.user;
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+      String token = await user.getIdToken(true);
+      while (token.isNotEmpty) {
+        final int initLength = token.length >= 500 ? 500 : token.length;
+        print(token.substring(0, initLength));
+        final int endLength = token.length;
+        token = token.substring(initLength, endLength);
+      }
+
+      final UserData userData = makeUserDataFromAuthUser(user);
+
+      await DatabaseService(uid: user.uid).updateUserData(userData);
+      return _retrieveUserFromFirebaseUser(currentUser);
+    }
+    return null;
+  }
+
+  Future<void> signOutNormal() async {
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      e.toString();
+    }
+  }
+
+  MyAppUser _retrieveUserFromFirebaseUser(User user) {
+    return user != null ? MyAppUser(uid: user.uid) : null;
   }
 }

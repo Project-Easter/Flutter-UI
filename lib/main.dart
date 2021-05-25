@@ -1,14 +1,14 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Router/router.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Utils/theme_notifier.dart';
-import 'package:books_app/Utils/values/theme_switch.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Constants/routes.dart';
 import 'Models/books.dart';
+import 'Router/router.dart';
+import 'Services/auth.dart';
+import 'Utils/theme_notifier.dart';
+import 'Utils/values/theme_switch.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +34,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final AuthService _authService = AuthService();
+  MyApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final dynamic myAppUser = _authService.currentUserFromFireBase;

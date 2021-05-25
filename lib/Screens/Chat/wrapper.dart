@@ -1,6 +1,7 @@
-import 'package:books_app/Screens/Chat/chat_room.dart';
-import 'package:books_app/Screens/book_request.dart';
 import 'package:flutter/material.dart';
+
+import '../book_request.dart';
+import 'chat_room.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({Key key}) : super(key: key);

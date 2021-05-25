@@ -1,15 +1,16 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/States/confirmation_code_state.dart';
-import 'package:books_app/States/auth_state.dart';
-import 'package:books_app/States/password_state.dart';
-import 'package:books_app/Utils/Helpers/not_null.dart';
-import 'package:books_app/Widgets/Auth/auth_button.dart';
-import 'package:books_app/Widgets/Auth/auth_error_message.dart';
-import 'package:books_app/Widgets/Auth/auth_navigation.dart';
-import 'package:books_app/Widgets/Auth/auth_page_title.dart';
-import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/material.dart';
+
+import '../../Constants/routes.dart';
+import '../../Services/auth.dart';
+import '../../States/auth_state.dart';
+import '../../States/confirmation_code_state.dart';
+import '../../States/password_state.dart';
+import '../../Utils/Helpers/not_null.dart';
+import '../../Widgets/Auth/auth_button.dart';
+import '../../Widgets/Auth/auth_error_message.dart';
+import '../../Widgets/Auth/auth_navigation.dart';
+import '../../Widgets/Auth/auth_page_title.dart';
+import '../../Widgets/text_field.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String email;
@@ -31,16 +32,6 @@ class _ResetPasswordScreenState extends AuthState<ResetPasswordScreen>
   String email;
 
   _ResetPasswordScreenState({this.email});
-
-  Future<String> onSubmit() async {
-    return await this
-        .authService
-        .resetPassword(this.email, this.password, this.confirmationCode);
-  }
-
-  void onSuccess() {
-    Navigator.pushNamed(context, Routes.LOGIN);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,5 +65,15 @@ class _ResetPasswordScreenState extends AuthState<ResetPasswordScreen>
                 ].where(notNull).toList()),
           ),
         ));
+  }
+
+  Future<String> onSubmit() async {
+    return await this
+        .authService
+        .resetPassword(this.email, this.password, this.confirmationCode);
+  }
+
+  void onSuccess() {
+    Navigator.pushNamed(context, Routes.LOGIN);
   }
 }

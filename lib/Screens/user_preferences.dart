@@ -1,120 +1,47 @@
-import 'package:books_app/Constants/genres.dart';
-import 'package:books_app/Models/user.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../Constants/genres.dart';
 
-String uID = AuthService().getUID as String;
-DatabaseService _databaseService = DatabaseService(uid: uID);
+import '../Constants/genres.dart';
+import '../Models/user.dart';
+import '../Services/auth.dart';
+import '../Services/database_service.dart';
 
 double sliderValue = 10.0;
+String uID = AuthService().getUID as String;
 
-class MultiSelectDialogItem<V> {
-  const MultiSelectDialogItem(this.value, this.label);
-  final V value;
-  final String label;
-}
+DatabaseService _databaseService = DatabaseService(uid: uID);
 
-class MultiSelectDialog<V> extends StatefulWidget {
-  const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
-      : super(key: key);
-
-  final List<MultiSelectDialogItem<V>> items;
-  final Set<V> initialSelectedValues;
-
-  @override
-  State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
-}
-
-class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
-  final Set<V> _selectedValues = <V>{};
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.initialSelectedValues != null) {
-      _selectedValues.addAll(widget.initialSelectedValues);
-    }
-  }
-
-  void _onItemCheckedChange(V itemValue, bool checked) {
-    setState(() {
-      if (checked) {
-        _selectedValues.add(itemValue);
-      } else {
-        _selectedValues.remove(itemValue);
-      }
-    });
-  }
-
-  void _onCancelTap() {
-    Navigator.of(context).pop();
-  }
-
-  void _onSubmitTap(Set<V> selectedItems) async {
-    final List items = selectedItems.toList();
-    items.removeRange(0, 1);
-    print(items);
-    final List<String> selectedGenres = [];
-    for (final dynamic element in items) {
-      final String x = element.toString();
-      print(genres[int.parse(x)]);
-      selectedGenres.add(genres[int.parse(x)]);
-    }
-
-    print(selectedGenres);
-    await _databaseService.updateGenres(selectedGenres);
-    Navigator.of(context).pop();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print('Select genres');
-    print(uID);
-    return AlertDialog(
-      title: Text('Select Genres'),
-      contentPadding: EdgeInsets.only(top: 12.0),
-      content: SingleChildScrollView(
-        child: ListTileTheme(
-          contentPadding: EdgeInsets.fromLTRB(14.0, 0.0, 24.0, 0.0),
-          child: ListBody(
-            children: widget.items.map(_buildItem).toList(),
-          ),
-        ),
-      ),
-      actions: <Widget>[
-        MaterialButton(
-          child: Text('CANCEL'),
-          onPressed: _onCancelTap,
-        ),
-        MaterialButton(
-          child: Text('OK'),
-          onPressed: () => _onSubmitTap(_selectedValues),
-        )
-      ],
-    );
-  }
-
-  Widget _buildItem(MultiSelectDialogItem<V> item) {
-    final checked = _selectedValues.contains(item.value);
-    return CheckboxListTile(
-      value: checked,
-      title: Text(item.label),
-      controlAffinity: ListTileControlAffinity.leading,
-      onChanged: (checked) => _onItemCheckedChange(item.value, checked),
-    );
-  }
-}
-
-// ignore: must_be_immutable
 class LocationRange extends StatefulWidget {
   dynamic locationRange;
   LocationRange(this.locationRange);
 
   @override
   _LocationRangeState createState() => _LocationRangeState();
+}
+
+class MultiSelectDialog<V> extends StatefulWidget {
+  final List<MultiSelectDialogItem<V>> items;
+
+  final Set<V> initialSelectedValues;
+  const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
+}
+
+class MultiSelectDialogItem<V> {
+  final V value;
+  final String label;
+  const MultiSelectDialogItem(this.value, this.label);
+}
+
+// ignore: must_be_immutable
+class UserPreference extends StatefulWidget {
+  final UserData userData;
+  const UserPreference(this.userData);
+  @override
+  _UserPreferenceState createState() => _UserPreferenceState();
 }
 
 class _LocationRangeState extends State<LocationRange> {
@@ -173,38 +100,89 @@ class _LocationRangeState extends State<LocationRange> {
 
 //Form Builder
 
-class UserPreference extends StatefulWidget {
-  final UserData userData;
-  const UserPreference(this.userData);
+class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
+  final Set<V> _selectedValues = <V>{};
+
   @override
-  _UserPreferenceState createState() => _UserPreferenceState();
+  Widget build(BuildContext context) {
+    print('Select genres');
+    print(uID);
+    return AlertDialog(
+      title: Text('Select Genres'),
+      contentPadding: EdgeInsets.only(top: 12.0),
+      content: SingleChildScrollView(
+        child: ListTileTheme(
+          contentPadding: EdgeInsets.fromLTRB(14.0, 0.0, 24.0, 0.0),
+          child: ListBody(
+            children: widget.items.map(_buildItem).toList(),
+          ),
+        ),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          child: Text('CANCEL'),
+          onPressed: _onCancelTap,
+        ),
+        MaterialButton(
+          child: Text('OK'),
+          onPressed: () => _onSubmitTap(_selectedValues),
+        )
+      ],
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialSelectedValues != null) {
+      _selectedValues.addAll(widget.initialSelectedValues);
+    }
+  }
+
+  Widget _buildItem(MultiSelectDialogItem<V> item) {
+    final checked = _selectedValues.contains(item.value);
+    return CheckboxListTile(
+      value: checked,
+      title: Text(item.label),
+      controlAffinity: ListTileControlAffinity.leading,
+      onChanged: (checked) => _onItemCheckedChange(item.value, checked),
+    );
+  }
+
+  void _onCancelTap() {
+    Navigator.of(context).pop();
+  }
+
+  void _onItemCheckedChange(V itemValue, bool checked) {
+    setState(() {
+      if (checked) {
+        _selectedValues.add(itemValue);
+      } else {
+        _selectedValues.remove(itemValue);
+      }
+    });
+  }
+
+  void _onSubmitTap(Set<V> selectedItems) async {
+    final List items = selectedItems.toList();
+    items.removeRange(0, 1);
+    print(items);
+    final List<String> selectedGenres = [];
+    for (final dynamic element in items) {
+      final String x = element.toString();
+      print(genres[int.parse(x)]);
+      selectedGenres.add(genres[int.parse(x)]);
+    }
+
+    print(selectedGenres);
+    await _databaseService.updateGenres(selectedGenres);
+    Navigator.of(context).pop();
+  }
 }
 
 class _UserPreferenceState extends State<UserPreference> {
-  void _showMultiSelect(BuildContext context) async {
-    int i = 0;
-    int j = i;
-    final selectedValues = await showDialog<Set<int>>(
-      context: context,
-      builder: (BuildContext context) {
-        print('Building Items');
-        i = 0;
-        j = 1;
-        return MultiSelectDialog(
-          items: genres.map<MultiSelectDialogItem<String>>((String val) {
-            return MultiSelectDialogItem<String>(
-                (i++).toString(), val.toString());
-          }).toList(),
-          initialSelectedValues: {1, j},
-        );
-      },
-    );
-    //Tried Ressting the values
-
-    print(selectedValues);
-  }
-
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final String favBook = widget.userData.preferences['favBook'] as String;
@@ -350,5 +328,28 @@ class _UserPreferenceState extends State<UserPreference> {
         ],
       ),
     );
+  }
+
+  void _showMultiSelect(BuildContext context) async {
+    int i = 0;
+    int j = i;
+    final selectedValues = await showDialog<Set<int>>(
+      context: context,
+      builder: (BuildContext context) {
+        print('Building Items');
+        i = 0;
+        j = 1;
+        return MultiSelectDialog(
+          items: genres.map<MultiSelectDialogItem<String>>((String val) {
+            return MultiSelectDialogItem<String>(
+                (i++).toString(), val.toString());
+          }).toList(),
+          initialSelectedValues: {1, j},
+        );
+      },
+    );
+    //Tried Ressting the values
+
+    print(selectedValues);
   }
 }
