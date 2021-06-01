@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:books_app/utils/api.dart';
 import 'package:books_app/utils/helpers.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class UserProvider extends ChangeNotifier {
   String _id;
@@ -11,30 +12,30 @@ class UserProvider extends ChangeNotifier {
   String _avatar;
   bool _isAuthenticated = false;
 
-  String get id => _id;
+  String get avatar => _avatar;
   String get email => _email;
   String get firstName => _firstName;
-  String get lastName => _lastName;
-  String get joinedAt => _joinedAt;
-  String get avatar => _avatar;
+  String get id => _id;
   bool get isAuthenticated => _isAuthenticated;
+  String get joinedAt => _joinedAt;
+  String get lastName => _lastName;
 
-  Future fetchUserData(String token) async {
-    var response = await Api.getUserData(token);
-    var body = getBodyFromResponse(response);
+  Future<dynamic> fetchUserData(String token) async {
+    final Response response = await Api.getUserData(token);
+    final dynamic body = getBodyFromResponse(response);
 
     if (body['id'] == null) {
-      this._isAuthenticated = false;
+      _isAuthenticated = false;
       return;
     }
 
-    this._id = body['id'];
-    this._email = body['email'];
-    this._firstName = body['firstName'];
-    this._lastName = body['lastName'];
-    this._joinedAt = body['joinedAt'];
-    this._avatar = body['avatar'];
-    this._isAuthenticated = true;
+    _id = body['id'] as String;
+    _email = body['email'] as String;
+    _firstName = body['firstName'] as String;
+    _lastName = body['lastName'] as String;
+    _joinedAt = body['joinedAt'] as String;
+    _avatar = body['avatar'] as String;
+    _isAuthenticated = true;
 
     notifyListeners();
   }

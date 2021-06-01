@@ -8,7 +8,7 @@ import 'book.dart';
 class Books with ChangeNotifier {
   //Note:These lists will change and these are dummy data. This is just for filtering demo
   //Owned Books
-  final List<Book> _ownedBooks = [
+  final List<Book> _ownedBooks = <Book>[
     Book(
         description:
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -55,7 +55,7 @@ class Books with ChangeNotifier {
   ];
 
   //Lent Books
-  final List<Book> _lentBooks = [
+  final List<Book> _lentBooks = <Book>[
     Book(
       title: 'Alice in Wonderland',
       author: ' Lewis Carrol',
@@ -86,7 +86,7 @@ class Books with ChangeNotifier {
   ];
 
   //Borrowed Books
-  final List<Book> _borrowedBooks = [
+  final List<Book> _borrowedBooks = <Book>[
     Book(
       description:
           'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -127,7 +127,7 @@ class Books with ChangeNotifier {
 
   //Saved Books
 
-  List<Book> _savedBooks = [
+  List<Book> _savedBooks = <Book>[
     // Book(
     //     description:
     //         'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -147,7 +147,7 @@ class Books with ChangeNotifier {
   ];
 
   //Getters for Book List
-  final List<Book> _within3km = [
+  final List<Book> _within3km = <Book>[
     Book(
         description:
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -193,7 +193,7 @@ class Books with ChangeNotifier {
     ),
   ];
 
-  final List<Book> _within5km = [
+  final List<Book> _within5km = <Book>[
     Book(
       title: 'Alice in Wonderland',
       author: ' Lewis Carrol',
@@ -273,7 +273,7 @@ class Books with ChangeNotifier {
   //   return allBooks;
   // }
 
-  final List<Book> _within20km = [
+  final List<Book> _within20km = <Book>[
     Book(
         description:
             'Labore sunt veniam amet est. Minim nisi dolor eu ad incididunt cillum elit ex ut. Dolore exercitation nulla tempor consequat aliquip occaecat. Nisi id ipsum irure aute. Deserunt sit aute irure quis nulla eu consequat fugiat Lorem sunt magna et consequat labore. Laboris incididunt id Lorem est duis deserunt nisi dolore eiusmod culpa.',
@@ -294,7 +294,7 @@ class Books with ChangeNotifier {
 
   //Filtering Functions
   //A-Z
-  final List<Book> _recommendedBooks = [
+  final List<Book> _recommendedBooks = <Book>[
     Book(
       isbn: '2v5oRbptWcoYa0fCVcZA',
       rating: 4,
@@ -326,7 +326,7 @@ class Books with ChangeNotifier {
   ];
 
   //Z-A
-  final List<Book> _discoverNew = [
+  final List<Book> _discoverNew = <Book>[
     Book(
       isbn: 'BTmNFEote7etfANyG3aN',
       rating: 5,
@@ -364,7 +364,7 @@ class Books with ChangeNotifier {
 
   //Ratings highest to lowest
   List<Book> get discoverNew {
-    return [..._discoverNew];
+    return <Book>[..._discoverNew];
   }
 
   //********EXPLORE NEARBY TO BE IMPLEMENTED*******///
@@ -380,45 +380,45 @@ class Books with ChangeNotifier {
 
 //Borrowed Books
   List<Book> get recommendedBooks {
-    return [..._recommendedBooks];
+    return <Book>[..._recommendedBooks];
   }
 
 //Saved Books
 
   List<Book> get savedBooks {
     //***Need to initialize null,as it does not get the reference of _savedBooks
-    _savedBooks = [];
+    _savedBooks = <Book>[];
     print('Getter SavedBooks called');
-    _recommendedBooks.forEach((book) {
+    for (final Book book in _recommendedBooks) {
       if (book.isBookMarked) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
-    });
-    _discoverNew.forEach((book) {
+    }
+    for (final Book book in _discoverNew) {
       if (book.isBookMarked) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
-    });
+    }
     return _savedBooks;
   }
 
 //*******GETTERS
   List<Book> get within10km {
-    return [..._within10km];
+    return <Book>[..._within10km];
   }
 
   List<Book> get within20km {
-    return [..._within20km];
+    return <Book>[..._within20km];
   }
 
   List<Book> get within3km {
-    return [..._within3km];
+    return <Book>[..._within3km];
   }
 
   List<Book> get within5km {
-    return [..._within5km];
+    return <Book>[..._within5km];
   }
 
   //*****RECOMMENDED BOOKS*******//
@@ -470,7 +470,7 @@ class Books with ChangeNotifier {
         final dynamic booksISBNList = json.decode(response.body);
         final int length = booksISBNList.length as int;
         // print(length);
-        final List<Book> recommendedBooks = [];
+        final List<Book> recommendedBooks = <Book>[];
         for (int i = 0; i < length; i++) {
           // print("Inside for loop: ${i}");
           // print(booksISBNList[i].toString());
@@ -545,10 +545,10 @@ class Books with ChangeNotifier {
 
   //Helper-Get Book ISBN From Name
   void sortAZ() {
-    _within3km.sort((a, b) => a.title.compareTo(b.title));
-    _within5km.sort((a, b) => a.title.compareTo(b.title));
-    _within10km.sort((a, b) => a.title.compareTo(b.title));
-    _within20km.sort((a, b) => a.title.compareTo(b.title));
+    _within3km.sort((Book a, Book b) => a.title.compareTo(b.title));
+    _within5km.sort((Book a, Book b) => a.title.compareTo(b.title));
+    _within10km.sort((Book a, Book b) => a.title.compareTo(b.title));
+    _within20km.sort((Book a, Book b) => a.title.compareTo(b.title));
     notifyListeners();
   }
 
@@ -564,10 +564,10 @@ class Books with ChangeNotifier {
 //This Function is to Make Books FROM JSON result
 //Add Book Driver
   void sortZA() {
-    _within3km.sort((b, a) => a.title.compareTo(b.title));
-    _within5km.sort((b, a) => a.title.compareTo(b.title));
-    _within10km.sort((b, a) => a.title.compareTo(b.title));
-    _within20km.sort((b, a) => a.title.compareTo(b.title));
+    _within3km.sort((Book b, Book a) => a.title.compareTo(b.title));
+    _within5km.sort((Book b, Book a) => a.title.compareTo(b.title));
+    _within10km.sort((Book b, Book a) => a.title.compareTo(b.title));
+    _within20km.sort((Book b, Book a) => a.title.compareTo(b.title));
     notifyListeners();
   }
 

@@ -1,18 +1,76 @@
 import 'package:flutter/material.dart';
 
-class FloatingNavbarItem {
-  final String title;
-  final IconData icon;
-  final Widget customWidget;
-
-  FloatingNavbarItem({
-    @required this.icon,
-    @required this.title,
-    this.customWidget = const SizedBox(),
-  });
+ItemBuilder _defaultItemBuilder({
+  Function(int val) onTap,
+  List<FloatingNavbarItem> items,
+  int currentIndex,
+  Color selectedBackgroundColor,
+  Color selectedItemColor,
+  Color unselectedItemColor,
+  Color backgroundColor,
+  double fontSize,
+  double iconSize,
+  double itemBorderRadius,
+  double borderRadius,
+  bool showSelectedLabels,
+  bool showUnselectedLabels,
+}) {
+  return (BuildContext context, FloatingNavbarItem item) => Expanded(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              decoration: BoxDecoration(
+                  color: currentIndex == items.indexOf(item)
+                      ? selectedBackgroundColor
+                      : backgroundColor,
+                  borderRadius: BorderRadius.circular(itemBorderRadius)),
+              child: InkWell(
+                onTap: () {
+                  onTap(items.indexOf(item));
+                },
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+                child: Container(
+                  height: 54,
+                  width: 54,
+                  padding: const EdgeInsets.all(4),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        item.icon,
+                        color: currentIndex == items.indexOf(item)
+                            ? selectedItemColor
+                            : unselectedItemColor,
+                        size: iconSize,
+                      ),
+                      Text(
+                        item.title,
+                        style: TextStyle(
+                          color: currentIndex == items.indexOf(item)
+                              ? selectedItemColor
+                              : unselectedItemColor,
+                          fontSize: fontSize,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
-typedef Widget ItemBuilder(BuildContext context, FloatingNavbarItem items);
+typedef ItemBuilder = Widget Function(
+    BuildContext context, FloatingNavbarItem items);
 
 class FloatingNavbar extends StatefulWidget {
   final List<FloatingNavbarItem> items;
@@ -80,6 +138,18 @@ class FloatingNavbar extends StatefulWidget {
   _FloatingNavbarState createState() => _FloatingNavbarState();
 }
 
+class FloatingNavbarItem {
+  final String title;
+  final IconData icon;
+  final Widget customWidget;
+
+  FloatingNavbarItem({
+    @required this.icon,
+    @required this.title,
+    this.customWidget = const SizedBox(),
+  });
+}
+
 class _FloatingNavbarState extends State<FloatingNavbar> {
   List<FloatingNavbarItem> get items => widget.items;
 
@@ -95,14 +165,15 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
             height: 70,
             padding: widget.padding,
             decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
+              boxShadow: <BoxShadow>[
+                const BoxShadow(
                   spreadRadius: 0,
                   blurRadius: 20,
                   color: Colors.black26,
                 )
               ],
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               color: widget.backgroundColor,
             ),
             width: widget.width,
@@ -111,7 +182,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.max,
-                children: items.map((f) {
+                children: items.map((FloatingNavbarItem f) {
                   return widget.itemBuilder(context, f);
                 }).toList(),
               ),
@@ -121,65 +192,4 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
       ),
     );
   }
-}
-
-ItemBuilder _defaultItemBuilder({
-  Function(int val) onTap,
-  List<FloatingNavbarItem> items,
-  int currentIndex,
-  Color selectedBackgroundColor,
-  Color selectedItemColor,
-  Color unselectedItemColor,
-  Color backgroundColor,
-  double fontSize,
-  double iconSize,
-  double itemBorderRadius,
-  double borderRadius,
-  bool showSelectedLabels,
-  bool showUnselectedLabels,
-}) {
-  return (BuildContext context, FloatingNavbarItem item) => Expanded(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              decoration: BoxDecoration(
-                  color: currentIndex == items.indexOf(item) ? selectedBackgroundColor : backgroundColor,
-                  borderRadius: BorderRadius.circular(itemBorderRadius)),
-              child: InkWell(
-                onTap: () {
-                  onTap(items.indexOf(item));
-                },
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-                child: Container(
-                  height: 54,
-                  width: 54,
-                  padding: EdgeInsets.all(4),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        item.icon,
-                        color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
-                        size: iconSize,
-                      ),
-                      Text(
-                        '${item.title}',
-                        style: TextStyle(
-                          color: currentIndex == items.indexOf(item) ? selectedItemColor : unselectedItemColor,
-                          fontSize: fontSize,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
 }

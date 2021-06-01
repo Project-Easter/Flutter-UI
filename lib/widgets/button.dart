@@ -7,20 +7,17 @@ Widget button(
     padding: const EdgeInsets.all(5.0),
     child: AspectRatio(
       aspectRatio: 343 / 52,
-      child: Container(
-        child: MaterialButton(
-          color: buttonColor,
-          child: new Text(
-            name,
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
-          ),
-          onPressed: () async {
-            Navigator.pushNamed(context, pageRoute);
-          },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: MaterialButton(
+        color: buttonColor,
+        child: Text(
+          name,
+          style: GoogleFonts.poppins(
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
         ),
+        onPressed: () async {
+          Navigator.pushNamed(context, pageRoute);
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
   );

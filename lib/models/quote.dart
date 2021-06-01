@@ -1,6 +1,6 @@
 import 'dart:math';
 
-List<Quote> quotesList = [
+List<Quote> quotesList = <Quote>[
   Quote(
       text:
           'Genius is one percent inspiration and ninety-nine percent perspiration.',

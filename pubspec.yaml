@@ -3,7 +3,7 @@ description: Flutter Application based on book exchange
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,17 +24,17 @@ dependencies:
   font_awesome_flutter: ^8.11.0
   flutter:
     sdk: flutter
-   
+
   firebase_core: ^0.7.0
   firebase_analytics: ^7.0.1
   firebase_auth: ^0.20.0+1
   cloud_firestore: ^0.16.0
   firebase_storage: ^7.0.0
-  readmore: ^1.0.0
+  readmore: ^2.0.0
   google_fonts: ^1.1.1
   google_sign_in: "^4.5.1"
   flutter_login_facebook: ^0.4.2+3
-  
+
   mapbox_gl: ^0.10.0
   location: ^3.2.4
   provider: ^4.3.3
@@ -50,7 +50,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.8.1
-    
+
 flutter_icons:
   android: true
   ios: true
@@ -63,5 +63,5 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-      - assets/
-      - assets/placeholder.PNG
+    - assets/
+    - assets/placeholder.PNG

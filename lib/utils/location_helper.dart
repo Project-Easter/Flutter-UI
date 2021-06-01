@@ -3,7 +3,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 
 class LocationHelper {
   Future<LatLng> getCurrentLocation() async {
-    Location location = new Location();
+    final Location location = Location();
 
     bool serviceEnabled;
     PermissionStatus permissionGranted;

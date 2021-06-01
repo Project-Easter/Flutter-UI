@@ -80,7 +80,7 @@ class AuthService {
 //       assert(!fbUser.isAnonymous);
 //       assert(await fbUser.getIdToken() != null);
 //       final User currentUser = firebaseAuth.currentUser;
-//       assert(fbUser.uid == currentUser.uid);
+//       assert(fbUsaer.uid == currentUser.uid);
 
 //       print('Facebook SignIn succeeded: $fbUser');
 

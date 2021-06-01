@@ -8,25 +8,10 @@ class RatingDialog extends StatefulWidget {
 class _RatingDialogState extends State<RatingDialog> {
   int _stars = 0;
 
-  Widget _buildStar(int starCount) {
-    return InkWell(
-      child: Icon(
-        Icons.star,
-        // size: 30.0,
-        color: _stars >= starCount ? Colors.orange : Colors.grey,
-      ),
-      onTap: () {
-        setState(() {
-          _stars = starCount;
-        });
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Center(
+      title: const Center(
         child: Text('Rate this book'),
       ),
       content: Row(
@@ -41,16 +26,31 @@ class _RatingDialogState extends State<RatingDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
           onPressed: Navigator.of(context).pop,
         ),
         TextButton(
-          child: Text('OK'),
+          child: const Text('OK'),
           onPressed: () {
             Navigator.of(context).pop(_stars);
           },
         )
       ],
+    );
+  }
+
+  Widget _buildStar(int starCount) {
+    return InkWell(
+      child: Icon(
+        Icons.star,
+        // size: 30.0,
+        color: _stars >= starCount ? Colors.orange : Colors.grey,
+      ),
+      onTap: () {
+        setState(() {
+          _stars = starCount;
+        });
+      },
     );
   }
 }
