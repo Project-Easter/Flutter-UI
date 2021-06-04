@@ -1,4 +1,4 @@
-import 'package:books_app/Services/Auth.dart';
+import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/config.dart';
 import 'package:books_app/Utils/location_helper.dart';
@@ -10,11 +10,9 @@ class GetLocation extends StatelessWidget {
   double lat;
   double long;
 
-  final AuthService _authService = AuthService();
-
   @override
   Widget build(BuildContext context) {
-    final dynamic uID = _authService.getUID;
+    final dynamic uID = AuthService().getUID;
     final DatabaseService databaseService =
         DatabaseService(uid: uID.toString());
     return Scaffold(
@@ -25,8 +23,6 @@ class GetLocation extends StatelessWidget {
           if (snapshot.hasData) {
             return MapboxMap(
               accessToken: snapshot.data['mapbox_api_token'].toString(),
-              initialCameraPosition:
-                  const CameraPosition(target: LatLng(45, 45)),
               onMapCreated: (MapboxMapController controller) async {
                 final dynamic currLocation =
                     await LocationHelper().getCurrentLocation();
@@ -48,6 +44,8 @@ class GetLocation extends StatelessWidget {
                   ));
                 }
               },
+              initialCameraPosition:
+                  const CameraPosition(target: LatLng(45, 45)),
               onStyleLoadedCallback: () {},
             );
           } else {

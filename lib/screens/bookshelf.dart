@@ -39,7 +39,7 @@ class _LibraryPageState extends State<LibraryPage> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               HorizontalList(170, ownedBooks, 'Owned Books'),
               // HorizontalList(170, lentBooks, 'Lent Books'),
               // HorizontalList(170, borrowedBooks, 'Borrowed Books'),

@@ -267,7 +267,7 @@ class _BookDescriptionState extends State<BookDescription>
         },
         body: TabBarView(
           controller: _tabController,
-          children: [
+          children: <Widget>[
             ListView(
               physics: const ClampingScrollPhysics(),
               children: <Widget>[
@@ -534,7 +534,7 @@ class _BookDescriptionState extends State<BookDescription>
                       color: Colors.grey,
                       fontSize: 14,
                     )),
-                onSubmitted: (value) {
+                onSubmitted: (String value) {
                   setState(() {
                     _commentController.text = value;
                   });

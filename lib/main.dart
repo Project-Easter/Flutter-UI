@@ -32,10 +32,9 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
-    final dynamic myAppUser = _authService.currentUserFromFireBase;
+    final dynamic myAppUser = AuthService().currentUserFromFireBase;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Explr',

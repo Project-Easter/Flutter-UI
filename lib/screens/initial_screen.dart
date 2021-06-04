@@ -11,7 +11,6 @@ import 'package:books_app/Widgets/Auth/auth_button.dart';
 import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -32,23 +31,23 @@ class _InitialScreenState extends State<InitialScreen>
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  //Alert dialogue to show error and response
-  @override
-  // TODO: implement context
-  BuildContext get context => throw UnimplementedError();
+  // //Alert dialogue to show error and response
+  // @override
+  // // TODO: implement context
+  // BuildContext get context => throw UnimplementedError();
 
-  @override
-  // TODO: implement mounted
-  bool get mounted => throw UnimplementedError();
+  // @override
+  // // TODO: implement mounted
+  // bool get mounted => throw UnimplementedError();
 
-  @override
-  // TODO: implement widget
-  InitialScreen get widget => throw UnimplementedError();
+  // @override
+  // // TODO: implement widget
+  // InitialScreen get widget => throw UnimplementedError();
 
-  @override
-  void activate() {
-    // TODO: implement activate
-  }
+  // @override
+  // void activate() {
+  //   // TODO: implement activate
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -166,35 +165,39 @@ class _InitialScreenState extends State<InitialScreen>
     );
   }
 
-  @override
-  void deactivate() {
-    // TODO: implement deactivate
-  }
+  // @override
+  // void deactivate() {
+  //   super.deactivate();
+  //   // TODO: implement deactivate
+  // }
 
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    // TODO: implement debugFillProperties
-  }
+  // @override
+  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  //   super.debugFillProperties(properties);
+  //   // TODO: implement debugFillProperties
+  // }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   // TODO: implement didChangeDependencies
+  // }
 
-  @override
-  void didUpdateWidget(covariant InitialScreen oldWidget) {
-    // TODO: implement didUpdateWidget
-  }
+  // @override
+  // void didUpdateWidget(covariant InitialScreen oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   // TODO: implement didUpdateWidget
+  // }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   Future<String> onSubmit() async {
     return AuthService().login(_emailController.text, _passwordController.text);
@@ -204,15 +207,17 @@ class _InitialScreenState extends State<InitialScreen>
     print('Logged in successfully');
   }
 
-  @override
-  void reassemble() {
-    // TODO: implement reassemble
-  }
+  // @override
+  // void reassemble() {
+  //   super.reassemble();
+  //   // TODO: implement reassemble
+  // }
 
-  @override
-  void setState(VoidCallback fn) {
-    // TODO: implement setState
-  }
+  // @override
+  // void setState(VoidCallback fn) {
+  //   super.setState(() {});
+  //   // TODO: implement setState
+  // }
 
   void showErrorDialog(BuildContext context, String message) {
     // set up the AlertDialog
@@ -238,17 +243,17 @@ class _InitialScreenState extends State<InitialScreen>
     );
   }
 
-  @override
-  DiagnosticsNode toDiagnosticsNode({String name, DiagnosticsTreeStyle style}) {
-    // TODO: implement toDiagnosticsNode
-    throw UnimplementedError();
-  }
+  // @override
+  // DiagnosticsNode toDiagnosticsNode({String name, DiagnosticsTreeStyle style}) {
+  //   // TODO: implement toDiagnosticsNode
+  //   throw UnimplementedError();
+  // }
 
-  @override
-  String toStringShort() {
-    // TODO: implement toStringShort
-    throw UnimplementedError();
-  }
+  // @override
+  // String toStringShort() {
+  //   // TODO: implement toStringShort
+  //   throw UnimplementedError();
+  // }
 
   Widget _signUpwithEmail() {
     return SizedBox(

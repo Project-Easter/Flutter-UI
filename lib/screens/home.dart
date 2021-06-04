@@ -51,33 +51,29 @@ class _HomeState extends State<Home> {
       child: Scaffold(
           appBar: MyAppBar(context),
           body: _screens[_selectedIndex],
-          floatingActionButton: Container(
-            child: _selectedIndex == 3 || _selectedIndex == 1
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FloatingActionButton(
-                          heroTag: null,
-                          child: const Icon(Icons.add_box_rounded),
-                          onPressed: () {
-                            Navigator.pushNamed(context, Routes.ADD_BOOK);
-                          },
-                        ),
-                      ),
-                      FloatingActionButton(
-                        heroTag: 'map',
-                        child: const Icon(Icons.location_on),
-                        backgroundColor: Colors.blueAccent,
-                        onPressed: () async {
-                          //Add users Location to DB
-                          await Navigator.pushNamed(context, Routes.LOCATION);
-                        },
-                      ),
-                    ],
-                  )
-                : const SizedBox.shrink(),
+          floatingActionButton: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton(
+                  heroTag: null,
+                  child: const Icon(Icons.add_box_rounded),
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.ADD_BOOK);
+                  },
+                ),
+              ),
+              FloatingActionButton(
+                heroTag: 'map',
+                child: const Icon(Icons.location_on),
+                backgroundColor: Colors.blueAccent,
+                onPressed: () async {
+                  //Add users Location to DB
+                  await Navigator.pushNamed(context, Routes.LOCATION);
+                },
+              ),
+            ],
           ),
           bottomNavigationBar: FloatingNavbar(
             showSelectedLabels: true,

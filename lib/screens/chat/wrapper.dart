@@ -1,4 +1,4 @@
-import 'package:books_app/Screens/Chat/chat_room/chat_room.dart';
+import 'package:books_app/Screens/Chat/chat_room.dart';
 import 'package:books_app/Screens/book_request.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +18,14 @@ class _WrapperState extends State<Wrapper> {
         return Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: Container(
+            child: SizedBox(
               height: 50.0,
               child: TabBar(
-                onTap: (value) {
+                onTap: (int value) {
                   print(value);
                 },
-                tabs: [
+                // ignore: prefer_const_literals_to_create_immutables
+                tabs: <Widget>[
                   const Tab(
                     icon: Icon(
                       Icons.message,
@@ -46,7 +47,7 @@ class _WrapperState extends State<Wrapper> {
             ),
           ),
           body: TabBarView(
-            children: [
+            children: <Widget>[
               ChatRoom(),
               BookRequest(),
             ],

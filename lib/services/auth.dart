@@ -1,3 +1,4 @@
+import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/error.dart';
 import 'package:books_app/models/user.dart';
 import 'package:books_app/utils/api.dart';
@@ -276,28 +277,27 @@ class AuthService {
 
     if (user != null) {
       assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-      assert(user.uid == getUID);
+      print('The user here is $user');
 
+      final User currentUser = firebaseAuth.currentUser;
+      assert(user.uid == currentUser.uid);
+
+      UserData userData = makeUserDataFromAuthUser(user);
+
+      await DatabaseService(uid: user.uid).updateUserData(userData);
       return _retrieveUserFromFirebaseUser(currentUserFromFireBase as User);
-//       final User currentUser = firebaseAuth.currentUser;
-//       assert(user.uid == currentUser.uid);
-
-//       UserData userData = makeUserDataFromAuthUser(user);
-
-//       await DatabaseService(uid: user.uid).updateUserData(userData);
-//       return _retrieveUserFromFirebaseUser(currentUser);
-
     }
 
     final String idToken = await user.getIdToken(true);
 
     print(user);
+    print('Current user of Firebase is below:');
     print(currentUserFromFireBase);
     // _retrieveUserFromFirebaseUser(user);
     try {
       final String token = await loginWithSocialMedia(idToken);
-      print(token);
+      print('The token here is $token');
+      return user;
       // return _retrieveUserFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());

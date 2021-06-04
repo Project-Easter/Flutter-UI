@@ -22,7 +22,7 @@ class BookCard extends StatelessWidget {
               height: 192,
               width: 135,
               decoration: BoxDecoration(
-                  boxShadow: [
+                  boxShadow: <BoxShadow>[
                     const BoxShadow(color: Colors.grey, blurRadius: 15)
                   ],
                   borderRadius: BorderRadius.circular(10),

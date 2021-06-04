@@ -16,67 +16,65 @@ class UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var now = new DateTime.now();
-    var formatter = new DateFormat.Hm();
-    String formattedDate = formatter.format(now);
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat.Hm();
+    final String formattedDate = formatter.format(now);
     // print(formattedDate); // 2016-01-25
-    return Container(
-      child: Card(
-        child: ListTile(
-          title: Text(userData.displayName),
-          subtitle: Text(userData.city),
-          leading: CircleAvatar(
-            radius: 30,
-            backgroundImage: NetworkImage(
-              userData.photoURL,
-            ),
+    return Card(
+      child: ListTile(
+        title: Text(userData.displayName),
+        subtitle: Text(userData.city),
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundImage: NetworkImage(
+            userData.photoURL,
           ),
-          trailing: Column(
-            children: <Widget>[
-              Text(
-                // chat.time,
-                formattedDate,
+        ),
+        trailing: Column(
+          children: <Widget>[
+            Text(
+              // chat.time,
+              formattedDate,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5.0),
+            // chat.unread
+            //     ?
+            Container(
+              width: 40.0,
+              height: 20.0,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              alignment: Alignment.center,
+              child: const Text(
+                'NEW',
                 style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15.0,
+                  color: Colors.white,
+                  fontSize: 12.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 5.0),
-              // chat.unread
-              //     ?
-              Container(
-                width: 40.0,
-                height: 20.0,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                alignment: Alignment.center,
-                child: const Text(
-                  'NEW',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              // : Text(''),
-            ],
-          ),
-          onTap: () {
-            Navigator.pushNamed(context, 'EMPTY: MESSAGE_SCREEN',
-                arguments: userData);
-          },
+            ),
+            // : Text(''),
+          ],
         ),
+        onTap: () {
+          Navigator.pushNamed(context, 'EMPTY: MESSAGE_SCREEN',
+              arguments: userData);
+        },
       ),
     );
   }
 }
 
 class _ChatRoomState extends State<ChatRoom> {
-  List<UserData> allUser = [];
+  List<UserData> allUser = <UserData>[];
   @override
   Widget build(BuildContext context) {
     final dynamic uID = AuthService().getUID;
@@ -92,24 +90,23 @@ class _ChatRoomState extends State<ChatRoom> {
     return Scaffold(
       body: StreamBuilder<List<UserData>>(
           stream: DatabaseService(uid: uID as String).allUsers,
-          builder: (context, snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<List<UserData>> snapshot) {
             if (snapshot.hasData) {
               allUser = snapshot.data;
               return SingleChildScrollView(
-                child: Container(
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (context, index) {
-                      return allUser[index].uid != uID
-                          ? UserTile(
-                              userData: allUser[index],
-                            )
-                          : SizedBox.shrink();
-                    },
-                    itemCount: allUser.length,
-                  ),
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  primary: false,
+                  itemBuilder: (BuildContext context, int index) {
+                    return allUser[index].uid != uID
+                        ? UserTile(
+                            userData: allUser[index],
+                          )
+                        : const SizedBox.shrink();
+                  },
+                  itemCount: allUser.length,
                 ),
               );
             } else {
