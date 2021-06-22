@@ -20,6 +20,7 @@ class UserChoiceBooks extends StatelessWidget {
     return FutureBuilder<dynamic>(
         future: Provider.of<Books>(context, listen: false)
             .getRecommendedBooks('test'),
+        // ignore: always_specify_types
         builder: (BuildContext ctx, AsyncSnapshot snapshot) {
           // Checking if future is resolved
           if (snapshot.connectionState == ConnectionState.done) {

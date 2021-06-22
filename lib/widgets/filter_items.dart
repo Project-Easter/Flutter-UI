@@ -36,31 +36,29 @@ class _FilterItemsState extends State<FilterItems> {
         });
         // Navigator.pop(context);
       },
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              text,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.normal,
-                fontSize: 18,
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            text,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.normal,
+              fontSize: 18,
             ),
-            Radio(
-                value: text,
-                groupValue: selectedValue,
-                activeColor: selectedValue == text ? Colors.black87 : null,
-                onChanged: (dynamic s) {
-                  sort();
-                  setState(() {
-                    selectedValue = s as String;
-                  });
-                  // Navigator.pop(context);
-                }),
-          ],
-        ),
+          ),
+          Radio(
+              value: text,
+              groupValue: selectedValue,
+              activeColor: selectedValue == text ? Colors.black87 : null,
+              onChanged: (dynamic s) {
+                sort();
+                setState(() {
+                  selectedValue = s as String;
+                });
+                // Navigator.pop(context);
+              }),
+        ],
       ),
     );
   }

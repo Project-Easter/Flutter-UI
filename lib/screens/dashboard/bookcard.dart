@@ -1,16 +1,13 @@
 import 'package:books_app/Screens/book_desciption.dart';
-import 'package:books_app/Services/auth.dart';
 import 'package:books_app/models/book.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class BookCard extends StatelessWidget {
-  final AuthService _authService = AuthService();
-
   @override
   Widget build(BuildContext context) {
-    final String uid = _authService.getUID as String;
+    // final String uid = _authService.getUID as String;
     // final DatabaseService _databaseService = DatabaseService(uid: uid);
     final Book book = Provider.of<Book>(context);
     return Column(

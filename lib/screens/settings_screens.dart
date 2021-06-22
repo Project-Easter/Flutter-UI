@@ -83,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         });
   }
 
-  void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
+  Future<void> onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
     value
         ? themeNotifier.setTheme(darkTheme)
         : themeNotifier.setTheme(lightTheme);

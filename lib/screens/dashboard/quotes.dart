@@ -13,7 +13,7 @@ class Quotes extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: Column(children: <Widget>[
           Text(
-            '\"${quote.text}\"',
+            '"${quote.text}"',
             softWrap: true,
             maxLines: 3,
             overflow: TextOverflow.visible,
