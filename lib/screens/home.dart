@@ -23,7 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-  final List<Widget> _screens = <Widget>[
+  List<Widget> _screens = <Widget>[
     DashboardPage(),
     ExploreNearby(),
     const Wrapper(),
@@ -33,7 +33,6 @@ class _HomeState extends State<Home> {
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   final AuthService _authService = AuthService();
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

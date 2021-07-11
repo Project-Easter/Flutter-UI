@@ -1,4 +1,3 @@
-import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/models/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -89,32 +88,32 @@ class _ChatRoomState extends State<ChatRoom> {
     }
     return Scaffold(
       body: StreamBuilder<List<UserData>>(
-          stream: DatabaseService(uid: uID as String).allUsers,
+          // stream: DatabaseService(uid: uID as String).allUsers,
           builder:
               (BuildContext context, AsyncSnapshot<List<UserData>> snapshot) {
-            if (snapshot.hasData) {
-              allUser = snapshot.data;
-              return SingleChildScrollView(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  primary: false,
-                  itemBuilder: (BuildContext context, int index) {
-                    return allUser[index].uid != uID
-                        ? UserTile(
-                            userData: allUser[index],
-                          )
-                        : const SizedBox.shrink();
-                  },
-                  itemCount: allUser.length,
-                ),
-              );
-            } else {
-              return const Center(
-                child: Text('Nothing here'),
-              );
-            }
-          }),
+        if (snapshot.hasData) {
+          allUser = snapshot.data;
+          return SingleChildScrollView(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              primary: false,
+              itemBuilder: (BuildContext context, int index) {
+                return allUser[index].uid != uID
+                    ? UserTile(
+                        userData: allUser[index],
+                      )
+                    : const SizedBox.shrink();
+              },
+              itemCount: allUser.length,
+            ),
+          );
+        } else {
+          return const Center(
+            child: Text('Nothing here'),
+          );
+        }
+      }),
     );
   }
 }

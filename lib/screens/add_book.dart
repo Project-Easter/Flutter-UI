@@ -134,7 +134,7 @@ class _AddBookState extends State<AddBook> {
                               await bookList.getBooksbyISBN(_isbnCode.text);
                           if (result != null) {
                             final Book book = makeBook(result);
-                            await _databaseService.addBook(book);
+                            // await _databaseService.addBook(book);
                             Navigator.pop(context);
                           }
                         }
@@ -148,104 +148,6 @@ class _AddBookState extends State<AddBook> {
         ],
       ),
     );
-
-    // bookDetails() {
-    //   return Padding(
-    //     padding: const EdgeInsets.all(8.0),
-    //     child: Form(
-    //       key: _bookKey,
-    //       child: Column(
-    //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //         children: <Widget>[
-    //           Container(
-    //             padding: EdgeInsets.symmetric(horizontal: 15),
-    //             child: TextFormField(
-    //               autocorrect: false,
-    //               controller: _bookName,
-    //               key: ValueKey('Book Name'),
-    //               decoration: InputDecoration(
-    //                 hintText: 'Enter Book Name',
-    //                 hintStyle: GoogleFonts.poppins(
-    //                   fontSize: 14,
-    //                 ),
-    //               ),
-    //               onSaved: (value) {
-    //                 setState(() {
-    //                   _bookName.text = value;
-    //                 });
-    //               },
-    //             ),
-    //           ),
-    //           Container(
-    //             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-    //             child: TextFormField(
-    //               autocorrect: false,
-    //               controller: _authorName,
-    //               key: ValueKey('Author Name'),
-    //               decoration: InputDecoration(
-    //                 hintText: 'Enter Author Name',
-    //                 hintStyle: GoogleFonts.poppins(
-    //                   fontSize: 14,
-    //                 ),
-    //               ),
-    //               onSaved: (value) {
-    //                 setState(() {
-    //                   _authorName.text = value;
-    //                 });
-    //               },
-    //             ),
-    //           ),
-    //           Container(
-    //             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-    //             child: TextFormField(
-    //               controller: _isbnCode,
-    //               validator: (value) {
-    //                 if (value.isEmpty) {
-    //                   return 'Please enter a valid ISBN value';
-    //                 }
-    //                 if (value.length < 13) {
-    //                   return 'Please enter a 13 digit value';
-    //                 }
-    //                 return null;
-    //               },
-    //               keyboardType: TextInputType.number,
-    //               autocorrect: false,
-    //               key: ValueKey('ISBN Code'),
-    //               decoration: InputDecoration(
-    //                 hintText: 'Enter ISBN Code of the book',
-    //                 hintStyle: GoogleFonts.poppins(
-    //                   fontSize: 14,
-    //                 ),
-    //               ),
-    //               onSaved: (value) {
-    //                 setState(() {
-    //                   _isbnCode.text = value;
-    //                 });
-    //               },
-    //               // onChanged: (value) {
-    //               //   _isbnCode.text = value;
-    //               // },
-    //             ),
-    //           ),
-    //           Padding(
-    //             padding: const EdgeInsets.all(10.0),
-    //             // child: button(context, blackButton, 'Add your Book', ''),
-    //             child: CupertinoStyleButton(
-    //               name: 'Add your Book',
-    //               color: blackButton,
-    //               myFunction: () {
-    //                 if (_bookKey.currentState.validate()) {
-    //                   print(_isbnCode.text);
-    //                   Navigator.pop(context);
-    //                 }
-    //               },
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // }
   }
 
 //This Function is to Make Books FROM JSON result

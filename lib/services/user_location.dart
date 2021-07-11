@@ -1,5 +1,4 @@
 import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/config.dart';
 import 'package:books_app/Utils/location_helper.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,8 @@ class GetLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamic uID = AuthService().getUID;
-    final DatabaseService databaseService =
-        DatabaseService(uid: uID.toString());
+    // final DatabaseService databaseService =
+    //     DatabaseService(uid: uID.toString());
     return Scaffold(
       body: FutureBuilder<Map<String, dynamic>>(
         future: Config().load(),
@@ -36,7 +35,7 @@ class GetLocation extends StatelessWidget {
                   ),
                 );
 
-                await databaseService.updateUserLocation(lat, long);
+                // await databaseService.updateUserLocation(lat, long);
                 if (animateCameraResult) {
                   controller.addCircle(CircleOptions(
                     circleColor: '#333333',
