@@ -1,7 +1,7 @@
 import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/config.dart';
 import 'package:books_app/Utils/location_helper.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
@@ -24,14 +24,15 @@ class GetLocation extends StatelessWidget {
             return MapboxMap(
               accessToken: snapshot.data['mapbox_api_token'].toString(),
               onMapCreated: (MapboxMapController controller) async {
-                final dynamic currLocation =
+                final LatLng currLocation =
                     await LocationHelper().getCurrentLocation();
-
-                lat = currLocation.latitude as double;
-                long = currLocation.longitude as double;
+                final LatLng l = currLocation;
+                // lat = currLocation.latitude as double;
+                // long = currLocation.longitude as double;
                 final bool animateCameraResult = await controller.animateCamera(
                   CameraUpdate.newCameraPosition(
-                    CameraPosition(zoom: 3, target: currLocation as LatLng),
+                    CameraPosition(zoom: 10, target: l),
+                    //currLocation as LatLng
                   ),
                 );
 
@@ -40,7 +41,7 @@ class GetLocation extends StatelessWidget {
                   controller.addCircle(CircleOptions(
                     circleColor: '#333333',
                     circleRadius: 4,
-                    geometry: currLocation as LatLng,
+                    geometry: l,
                   ));
                 }
               },

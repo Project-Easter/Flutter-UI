@@ -16,7 +16,8 @@ class PrivateProfile extends StatelessWidget {
     if (booksData.isEmpty) {
       ownedBooksLength = 0;
     } else {
-      ownedBooksLength = booksData.where((Book book) => book.isOwned).length;
+      ownedBooksLength =
+          booksData.where((Book book) => book.isOwned == true).length;
     }
     // List<Book> ownedBooks = [];
     // booksData.forEach((book) {

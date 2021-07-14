@@ -16,7 +16,7 @@ class AuthService {
     return firebaseAuth.currentUser;
   }
 
-  dynamic get getUID {
+  String get getUID {
     return firebaseAuth.currentUser.uid;
   }
 
@@ -44,51 +44,6 @@ class AuthService {
         }
     }
   }
-
-//   Future<MyAppUser> signInWithGoogle() async {
-//     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-//     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-//     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-//       accessToken: googleAuth.accessToken,
-//       idToken: googleAuth.idToken,
-//     );
-//     final UserCredential authResult = await firebaseAuth.signInWithCredential(credential);
-
-//     final User user = authResult.user;
-//     if (user != null) {
-//       assert(!user.isAnonymous);
-//       assert(await user.getIdToken() != null);
-//       final User currentUser = firebaseAuth.currentUser;
-//       assert(user.uid == currentUser.uid);
-
-//       UserData userData = makeUserDataFromAuthUser(user);
-
-//       await DatabaseService(uid: user.uid).updateUserData(userData);
-//       return _retrieveUserFromFirebaseUser(currentUser);
-//     }
-//     return null;
-//   }
-
-//   Future<String> signInWithFacebook() async {
-//     final FacebookLoginResult result = await facebookLogin.logIn();
-
-//     final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
-
-//     final UserCredential fbAuthResult = await firebaseAuth.signInWithCredential(facebookAuthCredential);
-//     final User fbUser = fbAuthResult.user;
-
-//     if (fbUser != null) {
-//       assert(!fbUser.isAnonymous);
-//       assert(await fbUser.getIdToken() != null);
-//       final User currentUser = firebaseAuth.currentUser;
-//       assert(fbUsaer.uid == currentUser.uid);
-
-//       print('Facebook SignIn succeeded: $fbUser');
-
-//       return '$fbUser';
-//     }
-//     return null;
-//   }
 
   Future<void> facebookSignout() async {
     await firebaseAuth.signOut().then((void onValue) {

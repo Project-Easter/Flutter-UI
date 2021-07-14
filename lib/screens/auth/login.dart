@@ -11,7 +11,6 @@ import 'package:books_app/Widgets/Auth/auth_navigation.dart';
 import 'package:books_app/Widgets/Auth/auth_page_title.dart';
 import 'package:books_app/Widgets/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -28,22 +27,22 @@ class _LoginScreenState extends State<LoginScreen>
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  @override
-  // TODO: implement context
-  BuildContext get context => throw UnimplementedError();
+  // @override
+  // // TODO: implement context
+  // BuildContext get context => throw UnimplementedError();
 
-  @override
-  // TODO: implement mounted
-  bool get mounted => throw UnimplementedError();
+  // @override
+  // // TODO: implement mounted
+  // bool get mounted => throw UnimplementedError();
 
-  @override
-  // TODO: implement widget
-  LoginScreen get widget => throw UnimplementedError();
+  // @override
+  // // TODO: implement widget
+  // LoginScreen get widget => throw UnimplementedError();
 
-  @override
-  void activate() {
-    // TODO: implement activate
-  }
+  // @override
+  // void activate() {
+  //   // TODO: implement activate
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen>
             Form(
               key: formKey,
               child: Column(
-                children: [
+                children: <Widget>[
                   EmailTextField(onChanged: updateEmail),
                   PasswordTextField(onChanged: updatePassword)
                 ],
@@ -106,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen>
         child: TextButton(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Text(
                 'Dont have an account?',
                 style: GoogleFonts.muli(color: Colors.black, fontSize: 18),
@@ -131,63 +130,63 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  @override
-  void deactivate() {
-    // TODO: implement deactivate
-  }
+  // @override
+  // void deactivate() {
+  //   // TODO: implement deactivate
+  // }
 
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    // TODO: implement debugFillProperties
-  }
+  // @override
+  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  //   // TODO: implement debugFillProperties
+  // }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  // }
 
-  @override
-  void didUpdateWidget(covariant LoginScreen oldWidget) {
-    // TODO: implement didUpdateWidget
-  }
+  // @override
+  // void didUpdateWidget(covariant LoginScreen oldWidget) {
+  //   // TODO: implement didUpdateWidget
+  // }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  // }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  // }
 
   Future<String> onSubmit() async {
-    return await authService.login(email, password);
+    return authService.login(email, password);
   }
 
   void onSuccess() {
     print('Logged in successfully');
   }
 
-  @override
-  void reassemble() {
-    // TODO: implement reassemble
-  }
+  // @override
+  // void reassemble() {
+  //   // TODO: implement reassemble
+  // }
 
-  @override
-  void setState(VoidCallback fn) {
-    // TODO: implement setState
-  }
+  // @override
+  // void setState(VoidCallback fn) {
+  //   // TODO: implement setState
+  // }
 
-  @override
-  DiagnosticsNode toDiagnosticsNode({String name, DiagnosticsTreeStyle style}) {
-    // TODO: implement toDiagnosticsNode
-    throw UnimplementedError();
-  }
+  // @override
+  // DiagnosticsNode toDiagnosticsNode({String name, DiagnosticsTreeStyle style}) {
+  //   // TODO: implement toDiagnosticsNode
+  //   throw UnimplementedError();
+  // }
 
-  @override
-  String toStringShort() {
-    // TODO: implement toStringShort
-    throw UnimplementedError();
-  }
+  // @override
+  // String toStringShort() {
+  //   // TODO: implement toStringShort
+  //   throw UnimplementedError();
+  // }
 }

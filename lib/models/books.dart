@@ -458,7 +458,7 @@ class Books with ChangeNotifier {
     }
   }
 
-  Future<dynamic> getRecommendedBooks(String title) async {
+  Future<dynamic> getRecommendedBooks() async {
     //For now we are not using title
     const String recommendedURL =
         'https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859';
@@ -469,7 +469,7 @@ class Books with ChangeNotifier {
       if (result != null) {
         final dynamic booksISBNList = json.decode(response.body);
         final int length = booksISBNList.length as int;
-        // print(length);
+        print(response.body);
         final List<Book> recommendedBooks = <Book>[];
         for (int i = 0; i < length; i++) {
           // print("Inside for loop: ${i}");
@@ -479,6 +479,7 @@ class Books with ChangeNotifier {
           // var data = responseFromISBN;
           // print("Got response back");
           // print(data);
+          // final Book book = makeBook(responseFromISBN);
           final Book book = makeBook(responseFromISBN);
           recommendedBooks.add(book);
           // if (data != null) {
@@ -489,7 +490,7 @@ class Books with ChangeNotifier {
         }
         return recommendedBooks;
       }
-      return null;
+      return const Text('Result is null');
     } catch (e) {
       print(e.toString());
     }
@@ -497,31 +498,30 @@ class Books with ChangeNotifier {
 
   Book makeBook(dynamic result) {
     Book book;
+    // final int len = result.length as int;
     if (result != null) {
       //Deserialize
-      final String title = result['items'][0]['volumeInfo']['title'].toString();
-      final String author =
-          result['items'][0]['volumeInfo']['authors'][0].toString();
-      final String description =
-          result['items'][0]['volumeInfo']['description'].toString();
-      final String isbn = result['items'][0]['volumeInfo']
-              ['industryIdentifiers'][0]['identifier']
+
+      final String title = result['volumeInfo']['title'].toString();
+      final String author = result['volumeInfo']['authors'][0].toString();
+      final String description = result['volumeInfo']['description'].toString();
+      final String isbn = result['volumeInfo']['industryIdentifiers'][0]
+              ['identifier']
           .toString();
-      String imageLink = result['items'][0]['volumeInfo']['imageLinks']
-              ['thumbnail']
-          .toString();
-      imageLink = imageLink.replaceFirst('http', 'https', 0);
+
+      String imageLink;
+      try {
+        imageLink = result['volumeInfo']['imageLinks']['thumbnail'].toString();
+        imageLink = imageLink.replaceFirst('http', 'https', 0);
+      } catch (e) {
+        imageLink =
+            'https://images.unsplash.com/photo-1573488721809-e0f256ad3ad8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NTV8fG5vdmVsfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60';
+      }
       print(imageLink.length);
       if (imageLink.isEmpty) {
         print('imageLink is empty');
       }
-      // print('ISBN' + isbn);
-      // print('Title:' + title);
-      // print('Author:' + author);
-      // print('ImageLink:' + imageLink);
-      // print('Description' + description);
-      //add ISBN
-      //Converted to a book object
+
       book = Book(
         isbn: isbn,
         title: title,
@@ -529,6 +529,15 @@ class Books with ChangeNotifier {
         imageUrl: imageLink,
         author: author,
       );
+
+      // print('ISBN' + isbn);
+      // print('Title:' + title);
+      // print('Author:' + author);
+      // print('ImageLink:' + imageLink);
+      // print('Description' + description);
+      //add ISBN
+      //Converted to a book object
+
     }
     return book;
   }
@@ -541,9 +550,6 @@ class Books with ChangeNotifier {
     notifyListeners();
   }
 
-  //1.1 Convert Response to a Book Object
-
-  //Helper-Get Book ISBN From Name
   void sortAZ() {
     _within3km.sort((Book a, Book b) => a.title.compareTo(b.title));
     _within5km.sort((Book a, Book b) => a.title.compareTo(b.title));
@@ -552,7 +558,6 @@ class Books with ChangeNotifier {
     notifyListeners();
   }
 
-  //2.0->Get RecommendedBooks From ISBN
   void sortRating() {
     _within3km.sort((Book b, Book a) => a.rating.compareTo(b.rating));
     _within5km.sort((Book b, Book a) => a.rating.compareTo(b.rating));
@@ -561,8 +566,9 @@ class Books with ChangeNotifier {
     notifyListeners();
   }
 
-//This Function is to Make Books FROM JSON result
-//Add Book Driver
+  //1.1 Convert Response to a Book Object
+
+  //Helper-Get Book ISBN From Name
   void sortZA() {
     _within3km.sort((Book b, Book a) => a.title.compareTo(b.title));
     _within5km.sort((Book b, Book a) => a.title.compareTo(b.title));
@@ -571,6 +577,37 @@ class Books with ChangeNotifier {
     notifyListeners();
   }
 
-  //Change this with our REST API Database
-  //***************End of class************//
+  Future<dynamic> topBooks() async {
+    const String recommendedURL =
+        'https://www.googleapis.com/books/v1/volumes?q=isbn';
+
+    try {
+      final http.Response response = await http.get(recommendedURL);
+      final dynamic result = jsonDecode(response.body);
+      print('result is $result');
+      final List list = result['items'] as List;
+      // list.forEach((dynamic element) {
+      //   print(element['volumeInfo']['title']);
+      // });
+
+      if (result != null) {
+        // final dynamic booksISBNList = jsonDecode(response.body);
+        // final int length = list.length as int;
+        // print('Length is $length');
+
+        final List<Book> recommendedBooks = <Book>[];
+        // for (int i = 0; i < length; i++) {
+        //   final Book book = makeBook(booksISBNList);
+        //   recommendedBooks.add(book);
+        // }
+        for (var value in list) {
+          recommendedBooks.add(makeBook(value));
+        }
+        return recommendedBooks;
+      }
+      return const Text('Result is null');
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

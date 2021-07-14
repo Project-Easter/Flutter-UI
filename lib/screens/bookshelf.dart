@@ -23,7 +23,7 @@ class _LibraryPageState extends State<LibraryPage> {
     }
     final List<Book> savedBooks = <Book>[];
     for (final Book book in booksData) {
-      if (book.isBookMarked) {
+      if (book.isBookMarked == true) {
         savedBooks.add(book);
       }
     }
@@ -33,7 +33,7 @@ class _LibraryPageState extends State<LibraryPage> {
 
     return Scaffold(
       body: Container(
-        width: double.infinity,
+        width: SizeConfig.screenWidth,
         color: Colors.white,
         margin: const EdgeInsets.only(left: 15, right: 15),
         child: SingleChildScrollView(
