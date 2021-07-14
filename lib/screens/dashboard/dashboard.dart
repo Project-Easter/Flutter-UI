@@ -18,12 +18,12 @@ class UserChoiceBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-        future: Provider.of<Books>(context, listen: false)
-            .getRecommendedBooks('test'),
+        future: Provider.of<Books>(context, listen: false).topBooks(),
         // ignore: always_specify_types
         builder: (ctx, snapshot) {
           // Checking if future is resolved
           if (snapshot.connectionState == ConnectionState.done) {
+            print(snapshot.toString());
             // If we got an error
             if (snapshot.hasError) {
               return Center(
@@ -34,14 +34,19 @@ class UserChoiceBooks extends StatelessWidget {
               );
               // if we got our data
             } else if (snapshot.hasData) {
+              print(snapshot);
               // Extracting data from snapshot object
               final List<Book> recommendedBooksML = snapshot.data as List<Book>;
               return BookList(title, recommendedBooksML);
             } else {
-              return const SizedBox.shrink();
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
           } else {
-            return Container();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         }
         //  ... some code here
@@ -70,7 +75,7 @@ class _DashboardPageState extends State<DashboardPage> {
             // BookList('Recommended for you', recommendedBooks),
             const UserChoiceBooks(title: 'Based on your Interest'),
             const UserChoiceBooks(title: 'Discover New '),
-            const UserChoiceBooks(title: 'Recommended for you'),
+            // const UserChoiceBooks(title: 'Recommended for you'),
           ],
         ),
       ),

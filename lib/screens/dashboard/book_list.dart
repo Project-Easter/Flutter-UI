@@ -1,3 +1,4 @@
+import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/screens/dashboard/bookcard.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ class BookList extends StatelessWidget {
   const BookList(this.title, this.bookList);
   @override
   Widget build(BuildContext context) {
+    print('BookList length is $bookList.length');
+    SizeConfig().init(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,13 +27,18 @@ class BookList extends StatelessWidget {
                   fontWeight: FontWeight.w600)),
         ),
         SizedBox(
-          height: 320,
+          height: getProportionateScreenHeight(300),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: bookList.length,
-            itemBuilder: (BuildContext context, int index) =>
-                ChangeNotifierProvider<Book>.value(
-                    value: bookList[index], child: BookCard()),
+            itemBuilder: (BuildContext context, int index) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ChangeNotifierProvider<Book>.value(
+                // value: bookList[index], child: BookCard()
+
+                value: bookList[index], child: BookCard(),
+              ),
+            ),
           ),
         ),
       ],

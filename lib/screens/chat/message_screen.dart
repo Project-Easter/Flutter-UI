@@ -2,6 +2,7 @@ import 'package:books_app/Screens/Chat/message_bubble.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/models/message.dart';
 import 'package:books_app/models/user.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class MessageScreen extends StatelessWidget {
     String messageText;
     final User user = FirebaseAuth.instance.currentUser;
     print(user.uid);
-    // final DatabaseService _databaseService = DatabaseService(uid: user.uid);
+    final DatabaseService _databaseService = DatabaseService(uid: user.uid);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -96,7 +97,7 @@ class MessageScreen extends StatelessWidget {
                         createdAt: DateTime.now(),
                       );
                       messageTextController.clear();
-                      // _databaseService.sendMessage(newMessage);
+                      _databaseService.sendMessage(newMessage);
                     },
                     child: const Text(
                       'Send',
@@ -120,9 +121,9 @@ class MessageStream extends StatelessWidget {
   const MessageStream({this.sender, this.receiver});
   @override
   Widget build(BuildContext context) {
-    // final DatabaseService _databaseService = DatabaseService(uid: sender);
+    final DatabaseService _databaseService = DatabaseService(uid: sender);
     return StreamBuilder<QuerySnapshot>(
-      // stream: _databaseService.getMessageStream(sender, receiver),
+      stream: _databaseService.getMessageStream(sender, receiver),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return const Center(

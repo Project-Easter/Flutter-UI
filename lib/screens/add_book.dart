@@ -31,121 +31,123 @@ class _AddBookState extends State<AddBook> {
     final Books bookList = Provider.of<Books>(context, listen: false);
     return Scaffold(
       appBar: MyAppBar(context),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Text(
-              'Add your Book',
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 30),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _bookKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: TextFormField(
-                      autocorrect: false,
-                      controller: _bookName,
-                      key: const ValueKey<String>('Book Name'),
-                      decoration: InputDecoration(
-                        hintText: 'Enter Book Name',
-                        hintStyle: GoogleFonts.poppins(
-                          fontSize: 14,
-                        ),
-                      ),
-                      onSaved: (String value) {
-                        setState(() {
-                          _bookName.text = value;
-                        });
-                      },
-                    ),
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-                    child: TextFormField(
-                      autocorrect: false,
-                      controller: _authorName,
-                      key: const ValueKey<String>('Author Name'),
-                      decoration: InputDecoration(
-                        hintText: 'Enter Author Name',
-                        hintStyle: GoogleFonts.poppins(
-                          fontSize: 14,
-                        ),
-                      ),
-                      onSaved: (String value) {
-                        setState(() {
-                          _authorName.text = value;
-                        });
-                      },
-                    ),
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-                    child: TextFormField(
-                      controller: _isbnCode,
-                      validator: (String value) {
-                        if (value.isEmpty) {
-                          return 'Please enter a valid ISBN value';
-                        }
-                        if (value.length < 10 || value.length > 13) {
-                          return 'Please enter a 10 or 13 digit value';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.number,
-                      autocorrect: false,
-                      key: const ValueKey<String>('ISBN Code'),
-                      decoration: InputDecoration(
-                        hintText: 'Enter ISBN Code of the book',
-                        hintStyle: GoogleFonts.poppins(
-                          fontSize: 14,
-                        ),
-                      ),
-                      onSaved: (String value) {
-                        setState(() {
-                          _isbnCode.text = value;
-                        });
-                      },
-                      // onChanged: (value) {
-                      //   _isbnCode.text = value;
-                      // },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    // child: button(context, blackButton, 'Add your Book', ''),
-                    child: CupertinoStyleButton(
-                      name: 'Add your Book',
-                      color: blackButton,
-                      myFunction: () async {
-                        if (_bookKey.currentState.validate()) {
-                          final dynamic result =
-                              await bookList.getBooksbyISBN(_isbnCode.text);
-                          if (result != null) {
-                            final Book book = makeBook(result);
-                            // await _databaseService.addBook(book);
-                            Navigator.pop(context);
-                          }
-                        }
-                      },
-                    ),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Text(
+                'Add your Book',
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 30),
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Form(
+                key: _bookKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: TextFormField(
+                        autocorrect: false,
+                        controller: _bookName,
+                        key: const ValueKey<String>('Book Name'),
+                        decoration: InputDecoration(
+                          hintText: 'Enter Book Name',
+                          hintStyle: GoogleFonts.poppins(
+                            fontSize: 14,
+                          ),
+                        ),
+                        onSaved: (String value) {
+                          setState(() {
+                            _bookName.text = value;
+                          });
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 3),
+                      child: TextFormField(
+                        autocorrect: false,
+                        controller: _authorName,
+                        key: const ValueKey<String>('Author Name'),
+                        decoration: InputDecoration(
+                          hintText: 'Enter Author Name',
+                          hintStyle: GoogleFonts.poppins(
+                            fontSize: 14,
+                          ),
+                        ),
+                        onSaved: (String value) {
+                          setState(() {
+                            _authorName.text = value;
+                          });
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 3),
+                      child: TextFormField(
+                        controller: _isbnCode,
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return 'Please enter a valid ISBN value';
+                          }
+                          if (value.length < 10 || value.length > 13) {
+                            return 'Please enter a 10 or 13 digit value';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        autocorrect: false,
+                        key: const ValueKey<String>('ISBN Code'),
+                        decoration: InputDecoration(
+                          hintText: 'Enter ISBN Code of the book',
+                          hintStyle: GoogleFonts.poppins(
+                            fontSize: 14,
+                          ),
+                        ),
+                        onSaved: (String value) {
+                          setState(() {
+                            _isbnCode.text = value;
+                          });
+                        },
+                        // onChanged: (value) {
+                        //   _isbnCode.text = value;
+                        // },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      // child: button(context, blackButton, 'Add your Book', ''),
+                      child: CupertinoStyleButton(
+                        name: 'Add your Book',
+                        color: blackButton,
+                        myFunction: () async {
+                          if (_bookKey.currentState.validate()) {
+                            final dynamic result =
+                                await bookList.getBooksbyISBN(_isbnCode.text);
+                            if (result != null) {
+                              final Book book = makeBook(result);
+                              await _databaseService.addBook(book);
+                              Navigator.pop(context);
+                            }
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

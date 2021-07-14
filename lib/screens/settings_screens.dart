@@ -4,6 +4,7 @@ import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/common/themes.dart';
 import 'package:books_app/models/user.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,59 +28,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final dynamic uID = _authService.getUID;
     print(uID);
     return StreamBuilder<UserData>(
-        // stream: DatabaseService(uid: uID as String).userData,
+        stream: DatabaseService(uid: uID as String).userData,
         builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
-      if (snapshot.hasData) {
-        print('Setting Page');
-        print(snapshot.data.photoURL);
-        final UserData userData = snapshot.data;
-        return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              elevation: 0.0,
-              toolbarHeight: 90,
-              bottom: PreferredSize(
-                  child: Container(
-                    color: silverDivisor,
-                    height: 1.0,
+          if (snapshot.hasData) {
+            print('Setting Page');
+            print(snapshot.data.photoURL);
+            final UserData userData = snapshot.data;
+            return Scaffold(
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+                  elevation: 0.0,
+                  toolbarHeight: 90,
+                  bottom: PreferredSize(
+                      child: Container(
+                        color: silverDivisor,
+                        height: 1.0,
+                      ),
+                      preferredSize: const Size.fromHeight(1.0)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // ClipRRect(
+                      //     borderRadius: BorderRadius.circular(50.0),
+                      //     child: Image.network(userData.photoURL,
+                      //         height: 60, fit: BoxFit.fill)),
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(userData.photoURL),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          userData.displayName,
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w400, fontSize: 18),
+                        ),
+                      )
+                    ],
                   ),
-                  preferredSize: const Size.fromHeight(1.0)),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // ClipRRect(
-                  //     borderRadius: BorderRadius.circular(50.0),
-                  //     child: Image.network(userData.photoURL,
-                  //         height: 60, fit: BoxFit.fill)),
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: NetworkImage(userData.photoURL),
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      _accountSettingsDetails(themeNotifier),
+                      _moreWidget()
+                    ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      userData.displayName,
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400, fontSize: 18),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  _accountSettingsDetails(themeNotifier),
-                  _moreWidget()
-                ],
-              ),
-            ));
-      } else {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    });
+                ));
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 
   Future<void> onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
