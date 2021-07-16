@@ -22,9 +22,11 @@ class UserData {
   double latitude;
   double longitude;
   double locationRange;
+  String countryName;
   Map<String, dynamic> preferences;
   UserData(
       {this.uid,
+      this.countryName,
       this.displayName,
       this.email,
       this.emailVerified,

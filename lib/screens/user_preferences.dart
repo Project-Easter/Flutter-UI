@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 double sliderValue = 10.0;
-String uID = AuthService().getUID as String;
+String uID = AuthService().getUID;
 
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
@@ -62,7 +62,7 @@ class _LocationRangeState extends State<LocationRange> {
           label: _currentSlidervalue.round().toString(),
           value: widget.locationRange as double ?? _currentSlidervalue,
           min: 0,
-          max: 40,
+          max: 50,
           onChanged: (double value) {
             setState(() {
               widget.locationRange = value;

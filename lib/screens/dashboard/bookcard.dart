@@ -41,23 +41,27 @@ class BookCard extends StatelessWidget {
             },
           ),
           Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text(
-                book.title,
-                textWidthBasis: TextWidthBasis.parent,
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+              Container(
+                padding: const EdgeInsets.all(5),
+                width: getProportionateScreenWidth(100),
+                child: Text(
+                  book.title,
+                  softWrap: true,
+                  textWidthBasis: TextWidthBasis.parent,
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                // maxLines: 2,
-                softWrap: true,
               ),
               Text(
                 book.author,
+                textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
                   color: Colors.black.withOpacity(0.5),
                   fontWeight: FontWeight.w500,
@@ -67,33 +71,6 @@ class BookCard extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.visible,
               ),
-              // Row(
-              //   // mainAxisAlignment: MainAxisAlignment.center,
-              //   // crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: <Widget>[
-              //     Text(
-              //       book.author,
-              //       style: GoogleFonts.poppins(
-              //         color: Colors.black.withOpacity(0.5),
-              //         fontWeight: FontWeight.w500,
-              //         fontSize: 12,
-              //       ),
-              //       softWrap: true,
-              //       maxLines: 2,
-              //       overflow: TextOverflow.visible,
-              //     ),
-              //     // IconButton(
-              //     //   onPressed: () {
-              //     //     _databaseService.updateBookMark(book);
-              //     //     book.changeBookMark();
-              //     //   },
-              //     //   icon: book.isBookMarked
-              //     //       ? const Icon(Icons.bookmark)
-              //     //       : const Icon(Icons.bookmark_outline_rounded),
-              //     //   iconSize: 20,
-              //     // ),
-              //   ],
-              // ),
             ],
           ),
         ],

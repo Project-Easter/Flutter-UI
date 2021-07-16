@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:http/http.dart';
 
-dynamic getBodyFromResponse(Response response) {
-  return jsonDecode(response.body);
+Future<dynamic> getBodyFromResponse(Response response) async {
+  return await jsonDecode(response.body);
 }
 
 bool notNull(Object object) {

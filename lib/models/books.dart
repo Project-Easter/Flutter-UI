@@ -472,21 +472,11 @@ class Books with ChangeNotifier {
         print(response.body);
         final List<Book> recommendedBooks = <Book>[];
         for (int i = 0; i < length; i++) {
-          // print("Inside for loop: ${i}");
-          // print(booksISBNList[i].toString());
           final Future<dynamic> responseFromISBN =
               getBooksbyISBN(booksISBNList[i].toString());
-          // var data = responseFromISBN;
-          // print("Got response back");
-          // print(data);
-          // final Book book = makeBook(responseFromISBN);
+
           final Book book = makeBook(responseFromISBN);
           recommendedBooks.add(book);
-          // if (data != null) {
-          //   Map<String, dynamic> json = data;
-          //   print(json);
-          // }
-          // print(data);
         }
         return recommendedBooks;
       }
@@ -582,25 +572,15 @@ class Books with ChangeNotifier {
         'https://www.googleapis.com/books/v1/volumes?q=isbn';
 
     try {
-      final http.Response response = await http.get(recommendedURL);
+      final http.Response response = await http.get(Uri.parse(recommendedURL));
       final dynamic result = jsonDecode(response.body);
       print('result is $result');
       final List list = result['items'] as List;
-      // list.forEach((dynamic element) {
-      //   print(element['volumeInfo']['title']);
-      // });
 
       if (result != null) {
-        // final dynamic booksISBNList = jsonDecode(response.body);
-        // final int length = list.length as int;
-        // print('Length is $length');
-
         final List<Book> recommendedBooks = <Book>[];
-        // for (int i = 0; i < length; i++) {
-        //   final Book book = makeBook(booksISBNList);
-        //   recommendedBooks.add(book);
-        // }
-        for (var value in list) {
+
+        for (dynamic value in list) {
           recommendedBooks.add(makeBook(value));
         }
         return recommendedBooks;

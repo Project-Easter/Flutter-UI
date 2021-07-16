@@ -42,7 +42,6 @@ class UserChoice extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
               ),
-              //-----------------
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: AspectRatio(
@@ -57,7 +56,6 @@ class UserChoice extends StatelessWidget {
                           fontSize: 16),
                     ),
                     onPressed: () async {
-                      // userPreferences(context);
                       await showGeneralDialog(
                           barrierColor: Colors.black.withOpacity(0.5),
                           barrierLabel: 'Animation',

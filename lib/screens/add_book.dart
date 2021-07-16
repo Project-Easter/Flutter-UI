@@ -63,7 +63,7 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                           ),
                         ),
-                        onSaved: (String value) {
+                        onChanged: (String value) {
                           setState(() {
                             _bookName.text = value;
                           });
@@ -83,7 +83,7 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                           ),
                         ),
-                        onSaved: (String value) {
+                        onChanged: (String value) {
                           setState(() {
                             _authorName.text = value;
                           });
@@ -113,7 +113,7 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                           ),
                         ),
-                        onSaved: (String value) {
+                        onFieldSubmitted: (String value) {
                           setState(() {
                             _isbnCode.text = value;
                           });
@@ -131,11 +131,13 @@ class _AddBookState extends State<AddBook> {
                         color: blackButton,
                         myFunction: () async {
                           if (_bookKey.currentState.validate()) {
+                            _bookKey.currentState.save();
                             final dynamic result =
                                 await bookList.getBooksbyISBN(_isbnCode.text);
                             if (result != null) {
                               final Book book = makeBook(result);
                               await _databaseService.addBook(book);
+
                               Navigator.pop(context);
                             }
                           }
@@ -188,19 +190,4 @@ class _AddBookState extends State<AddBook> {
     }
     return book;
   }
-
-  //Signup with email and password dummy
-  // Future signup() async {
-  //   String email = "asdsfffa@asdf.com";
-  //   String password = "asdf12345";
-  //   var url = 'https://explr-api.herokuapp.com/api/v1/auth/new-account';
-  //   var response =
-  //       await http.post(url, body: {'email': email, 'password': password});
-  //   print('Response status: ${response.statusCode}');
-  //   // print(jsonDecode(response.body));
-  //   // print('Response body: ${response.body.length}');
-  //   //Response iis null.
-  //get token
-  //   print(response.body);
-  // }
 }

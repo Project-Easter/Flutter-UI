@@ -1,6 +1,7 @@
 import 'package:books_app/models/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
+import 'package:books_app/widgets/empty_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -110,9 +111,7 @@ class _ChatRoomState extends State<ChatRoom> {
                 ),
               );
             } else {
-              return const Center(
-                child: Text('Nothing here'),
-              );
+              return const EmptyPageWidget(headline: 'No Chats');
             }
           }),
     );

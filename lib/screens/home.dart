@@ -23,6 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+
   List<Widget> _screens = <Widget>[
     DashboardPage(),
     ExploreNearby(),
@@ -94,6 +95,12 @@ class _HomeState extends State<Home> {
             ],
           )),
     );
+  }
+
+  @override
+  void initState() {
+    // Api.getUserData(AuthService().getUID);
+    super.initState();
   }
 
   void _selectedTab(int index) {

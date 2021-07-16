@@ -27,23 +27,6 @@ class _LoginScreenState extends State<LoginScreen>
   final AuthService authService = AuthService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // @override
-  // // TODO: implement context
-  // BuildContext get context => throw UnimplementedError();
-
-  // @override
-  // // TODO: implement mounted
-  // bool get mounted => throw UnimplementedError();
-
-  // @override
-  // // TODO: implement widget
-  // LoginScreen get widget => throw UnimplementedError();
-
-  // @override
-  // void activate() {
-  //   // TODO: implement activate
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,63 +113,12 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  // @override
-  // void deactivate() {
-  //   // TODO: implement deactivate
-  // }
-
-  // @override
-  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  //   // TODO: implement debugFillProperties
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  // }
-
-  // @override
-  // void didUpdateWidget(covariant LoginScreen oldWidget) {
-  //   // TODO: implement didUpdateWidget
-  // }
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  // }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  // }
-
   Future<String> onSubmit() async {
     return authService.login(email, password);
   }
 
-  void onSuccess() {
+  Future<Object> onSuccess() {
     print('Logged in successfully');
+    return Navigator.pushNamed(context, Routes.DASHBOARD);
   }
-
-  // @override
-  // void reassemble() {
-  //   // TODO: implement reassemble
-  // }
-
-  // @override
-  // void setState(VoidCallback fn) {
-  //   // TODO: implement setState
-  // }
-
-  // @override
-  // DiagnosticsNode toDiagnosticsNode({String name, DiagnosticsTreeStyle style}) {
-  //   // TODO: implement toDiagnosticsNode
-  //   throw UnimplementedError();
-  // }
-
-  // @override
-  // String toStringShort() {
-  //   // TODO: implement toStringShort
-  //   throw UnimplementedError();
-  // }
 }

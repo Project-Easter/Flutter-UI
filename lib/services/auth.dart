@@ -20,6 +20,14 @@ class AuthService {
     return firebaseAuth.currentUser.uid;
   }
 
+  String get token {
+    String s;
+    firebaseAuth.currentUser.getIdToken(true).then((String val) {
+      s = val;
+    }).toString();
+    return s;
+  }
+
   Future confirmEmail(String email, String code) async {
     final Response response = await Api.confirmEmail(email, code);
 
@@ -85,8 +93,9 @@ class AuthService {
   }
 
   Future<String> login(String email, String password) async {
-    final response = await Api.login(email, password);
+    final Response response = await Api.login(email, password);
     final dynamic body = getBodyFromResponse(response);
+    print(body + 'is the body');
 
     if (response.statusCode == 200) return body['token'] as String;
 
@@ -137,37 +146,41 @@ class AuthService {
   }
 
   UserData makeUserDataFromAuthUser(User user) {
-    const String photoUrl =
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
+    const String photoUrl = 'assets/Explr Logo.png';
     final UserData userData = UserData(
-        uid: user.uid,
-        displayName: user.displayName ?? 'Your name',
-        email: user.email ?? 'your@email.com',
-        emailVerified: user.emailVerified,
-        phoneNumber: user.phoneNumber ?? 'Phone',
-        photoURL: user.photoURL ?? photoUrl,
-        city: 'Your city',
-        state: 'State');
+      uid: user.uid,
+      displayName: user.displayName ?? 'Your name',
+      email: user.email ?? 'your@email.com',
+      emailVerified: user.emailVerified,
+      phoneNumber: user.phoneNumber ?? 'Phone',
+      photoURL: user.photoURL ?? photoUrl,
+      city: null,
+      state: null,
+      countryName: null,
+    );
     return userData;
   }
 
-  Future<void> register(String email, String password) async {
+  Future register(String email, String password) async {
     final Response response = await Api.register(email, password);
 
     if (response.statusCode == 201) return;
 
-    final dynamic body = getBodyFromResponse(response);
-    final int errorId = body['error']['id'] as int;
+    final dynamic body = await getBodyFromResponse(response);
+    print(body.toString() + ' is the response body');
+    if (body['error']['id'] != null) {
+      final dynamic errorId = body['error']['id'];
 
-    switch (errorId) {
-      case Error.DUPLICATE_EMAIL:
-        {
-          throw Exception('Email already exists.');
-        }
-      default:
-        {
-          throw Exception('An unknown error occured. Please try again later');
-        }
+      switch (errorId as int) {
+        case Error.DUPLICATE_EMAIL:
+          {
+            throw Exception('Email already exists.');
+          }
+        default:
+          {
+            throw Exception('An unknown error occured. Please try again later');
+          }
+      }
     }
   }
 
@@ -237,7 +250,7 @@ class AuthService {
       final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
 
-      UserData userData = makeUserDataFromAuthUser(user);
+      final UserData userData = makeUserDataFromAuthUser(user);
 
       await DatabaseService(uid: user.uid).updateUserData(userData);
       return _retrieveUserFromFirebaseUser(currentUserFromFireBase as User);

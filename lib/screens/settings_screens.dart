@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final ThemeNotifier themeNotifier = Provider.of<ThemeNotifier>(context);
-    _darkTheme = themeNotifier.getTheme() == lightTheme;
+    _darkTheme = themeNotifier.getTheme() == darkTheme;
     final dynamic uID = _authService.getUID;
     print(uID);
     return StreamBuilder<UserData>(

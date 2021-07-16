@@ -26,12 +26,13 @@ class GetLocation extends StatelessWidget {
               onMapCreated: (MapboxMapController controller) async {
                 final LatLng currLocation =
                     await LocationHelper().getCurrentLocation();
-                final LatLng l = currLocation;
-                // lat = currLocation.latitude as double;
-                // long = currLocation.longitude as double;
+                // final LatLng l = currLocation;
+
+                lat = currLocation.latitude;
+                long = currLocation.longitude;
                 final bool animateCameraResult = await controller.animateCamera(
                   CameraUpdate.newCameraPosition(
-                    CameraPosition(zoom: 10, target: l),
+                    CameraPosition(zoom: 10, target: LatLng(lat, long)),
                     //currLocation as LatLng
                   ),
                 );
@@ -39,10 +40,9 @@ class GetLocation extends StatelessWidget {
                 await databaseService.updateUserLocation(lat, long);
                 if (animateCameraResult) {
                   controller.addCircle(CircleOptions(
-                    circleColor: '#333333',
-                    circleRadius: 4,
-                    geometry: l,
-                  ));
+                      circleColor: '#333333',
+                      circleRadius: 4,
+                      geometry: LatLng(lat, long)));
                 }
               },
               initialCameraPosition:

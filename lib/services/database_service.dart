@@ -1,3 +1,4 @@
+import 'package:books_app/Utils/location_helper.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/models/message.dart';
 import 'package:books_app/models/user.dart';
@@ -146,16 +147,6 @@ class DatabaseService {
       print(e.toString());
     });
   }
-  // Stream<QuerySnapshot> get allUsers {
-  //   return userDataCollection.snapshots();
-  // }
-  //**********************//*********Books***********//******************************//
-
-  //Add Book to collection
-  // Sample 10 digit ISBN to ADD
-  //8176561061
-  //0764526413
-  //0136091814
 
   Future<void> updateGenres(List<String> genres) async {
     return userDataCollection.doc(uid).set(<String, dynamic>{
@@ -217,6 +208,7 @@ class DatabaseService {
         'photoURL': userData.photoURL,
         'city': userData.city,
         'state': userData.state,
+        'country': userData.countryName,
         // ignore: always_specify_types
         'preferences': {
           'favAuthor': '',
@@ -229,10 +221,16 @@ class DatabaseService {
     );
   }
 
-  Future updateUserLocation(double latitude, double longititude) async {
+  Future updateUserLocation(double latitude, double longitude) async {
+    List<String> addresses =
+        await LocationHelper().getAddressFromLatLng(latitude, longitude);
+
     return userDataCollection.doc(uid).set(<String, dynamic>{
+      'city': addresses[0],
+      'state': addresses[1],
+      'country': addresses[2],
       'latitude': latitude,
-      'longitude': longititude,
+      'longitude': longitude,
     }, SetOptions(merge: true));
   }
 

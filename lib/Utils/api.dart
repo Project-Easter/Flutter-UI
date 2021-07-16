@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:books_app/Utils/helpers.dart';
 import 'package:http/http.dart';
 
 class Api {
@@ -14,6 +15,21 @@ class Api {
     return sendRequest(() => post(
         Uri.parse(BASE_ROUTE + '/mail/password-reset'),
         body: {'email': email}));
+  }
+
+  static Future<dynamic> getQuote(String token) async {
+    // return sendRequest(() => get(Uri.parse(BASE_ROUTE + '/quote'),
+    //     headers: {'authorization': token}));
+    try {
+      final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
+          headers: {'authorization': token});
+      // final dynamic result = jsonDecode(response.body);
+      final dynamic result = getBodyFromResponse(response);
+      if (response.statusCode == 200) return result['token'] as String;
+      // if (result != null) return result['token'] as String;
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   static Future<Response> getUserData(String token) async {
