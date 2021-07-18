@@ -1,8 +1,6 @@
 import 'package:books_app/Screens/book_desciption.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/models/book.dart';
-import 'package:books_app/services/auth.dart';
-import 'package:books_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +9,6 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final String uid = AuthService().getUID;
-    final DatabaseService _databaseService = DatabaseService(uid: uid);
     final Book book = Provider.of<Book>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -23,8 +19,8 @@ class BookCard extends StatelessWidget {
               height: getProportionateScreenHeight(200),
               width: getProportionateScreenWidth(100),
               decoration: BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    const BoxShadow(color: Colors.grey, blurRadius: 15)
+                  boxShadow: const <BoxShadow>[
+                    BoxShadow(color: Colors.grey, blurRadius: 15)
                   ],
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(

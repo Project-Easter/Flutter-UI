@@ -138,7 +138,18 @@ class _AddBookState extends State<AddBook> {
                               final Book book = makeBook(result);
                               await _databaseService.addBook(book);
 
-                              Navigator.pop(context);
+                              final SnackBar snackbar = SnackBar(
+                                content: const Text('Your book has been added'),
+                                action: SnackBarAction(
+                                  label: 'Close',
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                  },
+                                ),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackbar);
                             }
                           }
                         },

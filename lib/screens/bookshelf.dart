@@ -17,6 +17,9 @@ class _LibraryPageState extends State<LibraryPage> {
   Widget build(BuildContext context) {
     final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
     final List<Book> ownedBooks = <Book>[];
+    final List<Book> lentBooks = <Book>[];
+    final List<Book> borrowedBooks = <Book>[];
+
     for (final Book book in booksData) {
       if (book.isOwned == true) {
         ownedBooks.add(book);
@@ -30,42 +33,58 @@ class _LibraryPageState extends State<LibraryPage> {
     }
 
     // ignore: always_specify_types
-    if (savedBooks != <Book>[] && ownedBooks != <Book>[]) {
+    if (savedBooks.isEmpty && ownedBooks.isEmpty) {
       return const EmptyPageWidget(
         headline: 'This page will contain all the your book data ',
       );
-    }
-
-    return Scaffold(
-      body: Container(
-        width: SizeConfig.screenWidth,
-        color: Colors.white,
-        margin: const EdgeInsets.only(left: 15, right: 15),
-        child: SingleChildScrollView(
+    } else {
+      return Scaffold(
+        body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.start,
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               if (ownedBooks.isNotEmpty)
                 BookList('Owned Books', ownedBooks)
               else
-                null,
-              if (savedBooks != <Book>[])
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: EmptyPageWidget(headline: 'No books owned'),
+                ),
+              if (savedBooks.isNotEmpty)
                 BookList('Saved Books', savedBooks)
               else
-                null,
-              if (ownedBooks != <Book>[])
-                BookList('Owned Books', ownedBooks)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: EmptyPageWidget(headline: 'No saved books right now'),
+                ),
+
+              if (lentBooks.isNotEmpty)
+                BookList('Lent Books', lentBooks)
               else
-                null,
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: EmptyPageWidget(headline: 'No books lent'),
+                ),
+
+              if (borrowedBooks.isNotEmpty)
+                BookList('Borrowed', borrowedBooks)
+              else
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: EmptyPageWidget(headline: 'No books borrowed'),
+                ),
+
+              // if (ownedBooks != <Book>[]) BookList('Owned Books', ownedBooks)
+
               // HorizontalList(170, lentBooks, 'Lent Books'),
               // HorizontalList(170, borrowedBooks, 'Borrowed Books'),
               // HorizontalList(170, savedBooks, 'Saved Books'),
             ],
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   Widget headingText(String text) {

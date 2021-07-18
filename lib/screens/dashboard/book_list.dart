@@ -36,7 +36,7 @@ class _BookListState extends State<BookList> {
           ),
         ),
         SizedBox(
-          height: getProportionateScreenHeight(400),
+          height: getProportionateScreenHeight(350),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: widget.bookList.length,

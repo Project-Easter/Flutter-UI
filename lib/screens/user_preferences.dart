@@ -10,6 +10,7 @@ String uID = AuthService().getUID;
 
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
+// ignore: must_be_immutable
 class LocationRange extends StatefulWidget {
   dynamic locationRange;
   LocationRange(this.locationRange);
@@ -150,7 +151,7 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     final List<dynamic> items = selectedItems.toList();
     items.removeRange(0, 1);
     print(items);
-    final List<String> selectedGenres = [];
+    final List<String> selectedGenres = <String>[];
     for (final dynamic element in items) {
       final String x = element.toString();
       print(genres[int.parse(x)]);

@@ -1,6 +1,8 @@
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/error.dart';
 import 'package:books_app/models/user.dart';
+import 'package:books_app/screens/dashboard/dashboard.dart';
+import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:books_app/utils/api.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,14 +20,6 @@ class AuthService {
 
   String get getUID {
     return firebaseAuth.currentUser.uid;
-  }
-
-  String get token {
-    String s;
-    firebaseAuth.currentUser.getIdToken(true).then((String val) {
-      s = val;
-    }).toString();
-    return s;
   }
 
   Future confirmEmail(String email, String code) async {
@@ -253,23 +247,30 @@ class AuthService {
       final UserData userData = makeUserDataFromAuthUser(user);
 
       await DatabaseService(uid: user.uid).updateUserData(userData);
+      final String token = await loginWithSocialMedia(authentication.idToken);
+      print('The access token is $token');
+      Quotes(token);
+      DashboardPage(
+        token,
+      );
       return _retrieveUserFromFirebaseUser(currentUserFromFireBase as User);
     }
-
-    final String idToken = await user.getIdToken(true);
 
     print(user);
     print('Current user of Firebase is below:');
     print(currentUserFromFireBase);
     // _retrieveUserFromFirebaseUser(user);
-    try {
-      final String token = await loginWithSocialMedia(idToken);
-      print('The token here is $token');
-      return user;
-      // return _retrieveUserFromFirebaseUser(user);
-    } catch (error) {
-      print(error.toString());
-    }
+    // try {
+    //   // final String idtoken = await loginWithSocialMedia(authentication.idToken);
+    //   final String accessToken =
+    //       await loginWithSocialMedia(authentication.idToken);
+    //   // print('The idtoken here is $idtoken');
+    //   print('The access token here is $accessToken');
+    //   return user;
+    //   // return _retrieveUserFromFirebaseUser(user);
+    // } catch (error) {
+    //   print(error.toString());
+    // }
   }
 
   MyAppUser _retrieveUserFromFirebaseUser(User user) {

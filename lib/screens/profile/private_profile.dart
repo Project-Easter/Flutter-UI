@@ -20,7 +20,7 @@ class PrivateProfile extends StatelessWidget {
       ownedBooksLength =
           booksData.where((Book book) => book.isOwned == true).length;
     }
-    List<Book> ownedBooks = [];
+    final List<Book> ownedBooks = [];
     booksData.forEach((Book book) {
       if (book.isOwned == true) {
         ownedBooks.add(book);
@@ -63,9 +63,9 @@ class PrivateProfile extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
-                      profileData.city.isNotEmpty &&
-                              profileData.state.isNotEmpty &&
-                              profileData.countryName.isNotEmpty
+                      (profileData.city != null ||
+                              profileData.state != null ||
+                              profileData.countryName != null)
                           ? '${profileData.city} , ${profileData.state}, ${profileData.countryName}'
                           : 'Update your location',
                       style: GoogleFonts.poppins(

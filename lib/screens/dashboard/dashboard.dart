@@ -7,13 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
+  final String quotetoken;
+
+  const DashboardPage([this.quotetoken]);
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
 
 class GoogleBooks extends StatefulWidget {
   final String title;
-  const GoogleBooks({Key key, this.title}) : super(key: key);
+  const GoogleBooks({this.title});
 
   @override
   _GoogleBooksState createState() => _GoogleBooksState();
@@ -28,8 +31,8 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const <Widget>[
-            Quotes(),
+          children: <Widget>[
+            Quotes(accesstoken: widget.quotetoken),
             UserChoice(),
             GoogleBooks(title: 'Discover New '),
           ],

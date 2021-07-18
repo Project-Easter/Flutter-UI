@@ -214,25 +214,25 @@ class _InitialScreenState extends State<InitialScreen>
     );
   }
 
-  Widget _skipButton() {
-    return ElevatedButton(
-      onPressed: () {
-        print('Skip button pressed');
-        Navigator.pushNamed(context, Routes.DASHBOARD);
-      },
-      style: ElevatedButton.styleFrom(
-        primary: blackButton,
-        onPrimary: Colors.white12,
-        minimumSize: const Size(55, 24.75),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      ),
-      child: Text(
-        'Skip',
-        style: GoogleFonts.poppins(
-            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
-      ),
-    );
-  }
+  // Widget _skipButton() {
+  //   return ElevatedButton(
+  //     onPressed: () {
+  //       print('Skip button pressed');
+  //       Navigator.pushNamed(context, Routes.DASHBOARD);
+  //     },
+  //     style: ElevatedButton.styleFrom(
+  //       primary: blackButton,
+  //       onPrimary: Colors.white12,
+  //       minimumSize: const Size(55, 24.75),
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+  //     ),
+  //     child: Text(
+  //       'Skip',
+  //       style: GoogleFonts.poppins(
+  //           color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
+  //     ),
+  //   );
+  // }
 
   Widget _socialMediaHandles() {
     return SizedBox(

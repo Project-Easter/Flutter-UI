@@ -1,7 +1,6 @@
 import 'package:books_app/Utils/api.dart';
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,11 +8,16 @@ class Quote {
   final String quote;
   final String author;
 
-  Quote(this.quote, this.author);
+  Quote(
+    this.quote,
+    this.author,
+  );
 }
 
 class Quotes extends StatefulWidget {
-  const Quotes({Key key}) : super(key: key);
+  final String accesstoken;
+
+  const Quotes(String token, {this.accesstoken});
 
   @override
   _QuotesState createState() => _QuotesState();
@@ -36,9 +40,9 @@ class _QuotesState extends State<Quotes> {
   }
 
   FutureBuilder quote() {
+    print(' $widget.accesstoken is the access token received');
     return FutureBuilder<dynamic>(
-        future: Api.getQuote(
-            FirebaseAuth.instance.currentUser.getIdToken().toString()),
+        future: Api.getQuote(widget.accesstoken),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             print(AuthService().firebaseAuth.currentUser);
@@ -59,7 +63,7 @@ class _QuotesState extends State<Quotes> {
                   padding: const EdgeInsets.all(30.0),
                   child: Column(children: <Widget>[
                     Text(
-                      snapshot.data.toString(),
+                      snapshot.data.text.toString(),
                       // '"${quote.text}"',
                       softWrap: true,
                       maxLines: 3,
@@ -75,7 +79,7 @@ class _QuotesState extends State<Quotes> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Text(
-                        snapshot.data.toString(),
+                        snapshot.data.author.toString(),
                         // '-${quote.author}',
                         style:
                             GoogleFonts.lato(color: blackButton, fontSize: 14),
@@ -87,7 +91,7 @@ class _QuotesState extends State<Quotes> {
             } else {
               print(snapshot.data);
               return const Center(
-                child: CircularProgressIndicator(),
+                child: SizedBox(),
               );
             }
           } else {
