@@ -23,7 +23,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
-  final List<Widget> _screens = <Widget>[
+
+  List<Widget> _screens = <Widget>[
     DashboardPage(),
     ExploreNearby(),
     const Wrapper(),
@@ -33,7 +34,6 @@ class _HomeState extends State<Home> {
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   final AuthService _authService = AuthService();
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -95,57 +95,12 @@ class _HomeState extends State<Home> {
             ],
           )),
     );
+  }
 
-    // return StreamProvider<UserData>.value(
-    //   value: DatabaseService(uid: uID).userData,
-    //   child: Scaffold(
-    //       appBar: MyAppBar(context),
-    //       body: _Screens[_selectedIndex],
-    //       floatingActionButton: Container(
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.end,
-    //           children: <Widget>[
-    //             Padding(
-    //               padding: const EdgeInsets.all(8.0),
-    //               child: FloatingActionButton(
-    //                 heroTag: null,
-    //                 child: Icon(Icons.add_box_rounded),
-    //                 onPressed: () {
-    //                   Navigator.pushNamed(context, addBook);
-    //                 },
-    //               ),
-    //             ),
-    //             FloatingActionButton(
-    //               heroTag: 'map',
-    //               child: Icon(Icons.location_on),
-    //               backgroundColor: Colors.blueAccent,
-    //               onPressed: () {
-    //                 Navigator.pushNamed(context, location);
-    //               },
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //       bottomNavigationBar: FloatingNavbar(
-    //         showSelectedLabels: true,
-    //         currentIndex: _selectedIndex,
-    //         onTap: _selectedTab,
-    //         showUnselectedLabels: true,
-    //         items: [
-    //           FloatingNavbarItem(
-    //             icon: Icons.home_filled,
-    //             title: 'Home',
-    //           ),
-    //           FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-    //           FloatingNavbarItem(
-    //               icon: Icons.chat_bubble_rounded, title: 'Chats'),
-    //           FloatingNavbarItem(
-    //               icon: Icons.favorite_rounded, title: 'Library'),
-    //           FloatingNavbarItem(
-    //               icon: Icons.account_circle_rounded, title: 'Profile'),
-    //         ],
-    //       )),
-    // );
+  @override
+  void initState() {
+    // Api.getUserData(AuthService().getUID);
+    super.initState();
   }
 
   void _selectedTab(int index) {

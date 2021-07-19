@@ -30,7 +30,7 @@ class _EditProfileState extends State<EditProfile> {
   String _imageUrl = '';
   @override
   Widget build(BuildContext context) {
-    final String uID = _authService.getUID as String;
+    final String uID = _authService.getUID;
     return StreamBuilder<UserData>(
         stream: DatabaseService(uid: uID).userData,
         builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {

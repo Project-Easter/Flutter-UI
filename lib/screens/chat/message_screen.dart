@@ -1,31 +1,31 @@
 import 'package:books_app/Screens/Chat/message_bubble.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/models/message.dart';
 import 'package:books_app/models/user.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-const kMessageContainerDecoration = BoxDecoration(
+const BoxDecoration kMessageContainerDecoration = BoxDecoration(
   border: Border(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
   ),
 );
 
-const kMessageTextFieldDecoration = InputDecoration(
+const InputDecoration kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   hintText: 'Type your message here...',
   border: InputBorder.none,
 );
 
-const kSendButtonTextStyle = TextStyle(
+const TextStyle kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
 
-const kTextFieldDecoration = InputDecoration(
+const InputDecoration kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
@@ -54,7 +54,7 @@ class MessageScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: [
+          children: <Widget>[
             CircleAvatar(
               backgroundImage: NetworkImage(receiver.photoURL),
             ),
@@ -82,7 +82,7 @@ class MessageScreen extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       controller: messageTextController,
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
@@ -133,18 +133,19 @@ class MessageStream extends StatelessWidget {
           );
         }
         if (snapshot.hasError) {
-          return Center(
-            child: Text("Something went wrong."),
+          return const Center(
+            child: Text('Something went wrong.'),
           );
         }
 
-        final messages = snapshot.data.docs.reversed;
-        final List<MessageBubble> messageBubbles = [];
-        for (var message in messages) {
+        final Iterable<QueryDocumentSnapshot> messages =
+            snapshot.data.docs.reversed;
+        final List<MessageBubble> messageBubbles = <MessageBubble>[];
+        for (final QueryDocumentSnapshot message in messages) {
           final DateTime dateTime = message.data()['createdAt'] as DateTime;
           final String messageText = message.data()['message'] as String;
           final String messageSender = message.data()['sender'] as String;
-          final messageBubble = MessageBubble(
+          final MessageBubble messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,
             isMe: sender == messageSender,
@@ -155,7 +156,7 @@ class MessageStream extends StatelessWidget {
         return Expanded(
           child: ListView(
             reverse: true,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             children: messageBubbles,
           ),
         );

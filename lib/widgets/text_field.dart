@@ -48,33 +48,36 @@ class TextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 5),
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-          boxShadow: const <BoxShadow>[
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 6.0,
-            ),
-          ],
-        ),
-        child: TextFormField(
-          obscureText: obscureText,
-          validator: validator,
-          textAlign: TextAlign.start,
-          keyboardType: keyboardType,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: text,
-            hintStyle: GoogleFonts.poppins(
-              fontSize: 14,
-            ),
-            contentPadding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(5.0),
+      child: AspectRatio(
+        aspectRatio: 343 / 52,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+            boxShadow: const <BoxShadow>[
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 6.0,
+              ),
+            ],
           ),
-          onChanged: onChanged,
+          child: TextFormField(
+            obscureText: obscureText,
+            validator: validator,
+            textAlign: TextAlign.start,
+            keyboardType: keyboardType,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: text,
+              hintStyle: GoogleFonts.poppins(
+                fontSize: 14,
+              ),
+              contentPadding: const EdgeInsets.all(10),
+            ),
+            onChanged: onChanged,
+          ),
         ),
       ),
     );

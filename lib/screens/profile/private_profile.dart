@@ -2,6 +2,7 @@ import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/models/user.dart';
+import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,20 +17,21 @@ class PrivateProfile extends StatelessWidget {
     if (booksData.isEmpty) {
       ownedBooksLength = 0;
     } else {
-      ownedBooksLength = booksData.where((Book book) => book.isOwned).length;
+      ownedBooksLength =
+          booksData.where((Book book) => book.isOwned == true).length;
     }
-    // List<Book> ownedBooks = [];
-    // booksData.forEach((book) {
-    //   if (book.isOwned == true) {
-    //     ownedBooks.add(book);
-    //   }
-    // });
-    // List<Book> savedBooks = [];
-    // booksData.forEach((book) {
-    //   if (book.isBookMarked) {
-    //     savedBooks.add(book);
-    //   }
-    // });
+    final List<Book> ownedBooks = [];
+    booksData.forEach((Book book) {
+      if (book.isOwned == true) {
+        ownedBooks.add(book);
+      }
+    });
+    final List<Book> savedBooks = [];
+    booksData.forEach((Book book) {
+      if (book.isBookMarked == true) {
+        savedBooks.add(book);
+      }
+    });
 
     if (profileData == null || booksData == null) {
       return const Center(child: CircularProgressIndicator());
@@ -40,13 +42,6 @@ class PrivateProfile extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // Container(
-              //   padding: EdgeInsets.all(5),
-              //   child: CircleAvatar(
-              //     radius: 70,
-              //     backgroundImage: AssetImage('assets/placeholder.PNG'),
-              //   ),
-              // ),
               Column(
                 children: <Widget>[
                   Container(
@@ -68,7 +63,11 @@ class PrivateProfile extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
-                      '${profileData.city},${profileData.state}',
+                      (profileData.city != null ||
+                              profileData.state != null ||
+                              profileData.countryName != null)
+                          ? '${profileData.city} , ${profileData.state}, ${profileData.countryName}'
+                          : 'Update your location',
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 13,
@@ -138,7 +137,13 @@ class PrivateProfile extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     button(context, blackButton, 'Library', Routes.LIBRARY),
-                    button(context, greenButton, 'Send Message', ''),
+                    GestureDetector(
+                      onTap: () {
+                        AuthService().googleSignout();
+                      },
+                      child: button(
+                          context, greenButton, 'Logout', Routes.INITIAL_PAGE),
+                    )
                   ],
                 ),
               ),

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:books_app/Utils/helpers.dart';
+import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:http/http.dart';
 
 class Api {
@@ -16,8 +18,30 @@ class Api {
         body: {'email': email}));
   }
 
+  static Future<dynamic> getQuote(String token) async {
+    try {
+      final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
+          headers: {'authorization': token});
+      // final dynamic result = jsonDecode(response.body);
+      final dynamic result = getBodyFromResponse(response);
+      print(result);
+      if (response.statusCode == 200) {
+        return Quote(result.text.toString(), result.authorization.toString());
+      }
+
+      // if (result != null) return result['token'] as String;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   static Future<Response> getUserData(String token) async {
     return sendRequest(() => get(Uri.parse(BASE_ROUTE + '/user/data'),
+        headers: {'authorization': token}));
+  }
+
+  static Future<Response> location(String token) async {
+    return sendRequest(() => patch(Uri.parse(BASE_ROUTE + '/user/location'),
         headers: {'authorization': token}));
   }
 

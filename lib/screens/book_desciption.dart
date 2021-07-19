@@ -1,6 +1,6 @@
+import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/colors.dart';
-import 'package:books_app/constants/routes.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/button.dart';
@@ -89,88 +89,6 @@ class _BookDescriptionState extends State<BookDescription>
           style: GoogleFonts.muli(color: Colors.black),
         ),
       ),
-      // body: Consumer<Book>(
-      //   builder: (context, book, _) => NestedScrollView(
-      //     headerSliverBuilder: (context, value) {
-      //       return [
-      //         SliverToBoxAdapter(child: bookDisplay(book)),
-      //         SliverToBoxAdapter(
-      //           child: TabBar(
-      //             controller: _tabController,
-      //             labelColor: Colors.black,
-      //             tabs: [
-      //               Tab(
-      //                 child: Text(
-      //                   'About Book',
-      //                   style: GoogleFonts.poppins(
-      //                       color: Colors.black,
-      //                       fontWeight: FontWeight.w400,
-      //                       fontSize: 14),
-      //                 ),
-      //               ),
-      //               Tab(
-      //                 child: Text(
-      //                   'Owner\'s Info',
-      //                   style: GoogleFonts.poppins(
-      //                       color: Colors.black,
-      //                       fontWeight: FontWeight.w400,
-      //                       fontSize: 14),
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         )
-      //       ];
-      //     },
-      //     body: Container(
-      //       child: TabBarView(
-      //         controller: _tabController,
-      //         children: [
-      //           ListView(
-      //             physics: const ClampingScrollPhysics(),
-      //             children: <Widget>[
-      //               bookDexcription(book.description),
-      //               Divider(
-      //                 thickness: 1,
-      //                 indent: 15,
-      //                 endIndent: 15,
-      //               ),
-      //               genre(),
-      //               Divider(
-      //                 thickness: 1,
-      //                 indent: 15,
-      //                 endIndent: 15,
-      //               ),
-      //               reviews(),
-      //               Padding(
-      //                 padding: const EdgeInsets.all(18.0),
-      //                 child: button(
-      //                     context, blackButton, 'Exchange this Book', ''),
-      //               ),
-      //             ],
-      //           ),
-      //           ListView(
-      //             physics: NeverScrollableScrollPhysics(),
-      //             children: <Widget>[
-      //               ownerDetails(),
-      //               Padding(
-      //                 padding: const EdgeInsets.all(15.0),
-      //                 child: Column(
-      //                   children: [
-      //                     button(context, blackButton, 'Visit Profile',
-      //                         publicProfile),
-      //                     button(
-      //                         context, greenButton, 'Exchange this Book', ''),
-      //                     ratings(),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ],
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //   ),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool value) {
           return <SliverToBoxAdapter>[
@@ -205,7 +123,6 @@ class _BookDescriptionState extends State<BookDescription>
                   ),
                   Text(
                     widget.bookFromList.author,
-                    // book.author,
                     style: GoogleFonts.poppins(
                       color: Colors.black.withOpacity(0.5),
                       fontWeight: FontWeight.w500,
@@ -284,11 +201,6 @@ class _BookDescriptionState extends State<BookDescription>
                   endIndent: 15,
                 ),
                 reviews(),
-                // Padding(
-                //   padding: const EdgeInsets.all(18.0),
-                //   child:
-                //       button(context, blackButton, 'Exchange this Book', ''),
-                // ),
                 if (widget.bookFromList.isOwned != null)
                   Padding(
                     padding: const EdgeInsets.all(18.0),
@@ -339,7 +251,8 @@ class _BookDescriptionState extends State<BookDescription>
                     children: <Widget>[
                       button(context, blackButton, 'Visit Profile',
                           Routes.PUBLIC_PROFILE),
-                      button(context, greenButton, 'Exchange this Book', ''),
+                      button(context, greenButton, 'Exchange this Book',
+                          Routes.CHAT),
                       ratings(),
                     ],
                   ),
@@ -357,68 +270,6 @@ class _BookDescriptionState extends State<BookDescription>
     _tabController.dispose();
     super.dispose();
   }
-
-  // bookDisplay(Book book) {
-  //   return Center(
-  //     child: Column(
-  //       children: <Widget>[
-  //         Padding(
-  //           padding: const EdgeInsets.all(10.0),
-  //           child: Container(
-  //             height: 192,
-  //             width: 140,
-  //             decoration: new BoxDecoration(
-  //               boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 15)],
-  //               borderRadius: BorderRadius.circular(10),
-  //               image: new DecorationImage(
-  //                   image: NetworkImage(widget.bookFromList.imageUrl),
-  //                   fit: BoxFit.fill),
-  //             ),
-  //           ),
-  //         ),
-  //         Text(
-  //           widget.bookFromList.title,
-  //           textAlign: TextAlign.center,
-  //           style: GoogleFonts.poppins(
-  //             color: Colors.black,
-  //             fontSize: 22,
-  //             fontWeight: FontWeight.w600,
-  //           ),
-  //         ),
-  //         Text(
-  //           widget.bookFromList.author,
-  //           // book.author,
-  //           style: GoogleFonts.poppins(
-  //             color: Colors.black.withOpacity(0.5),
-  //             fontWeight: FontWeight.w500,
-  //             fontSize: 15,
-  //           ),
-  //         ),
-  //         //Try Listening with consumer
-  //         Padding(
-  //           padding: EdgeInsets.only(left: 100),
-  //           child: IconButton(
-  //             alignment: Alignment.topRight,
-  //             onPressed: () {
-  //               _databaseService
-  //               setState(() {
-  //                 widget.bookFromLsist.changeBookMark();
-  //               });
-  //               //Needs fix
-  //               // book.changeBookMark();
-  //             },
-  //             icon:
-  //                 // book.isBookMarked
-  //                 widget.bookFromList.isBookMarked
-  //                     ? Icon(Icons.bookmark)
-  //                     : Icon(Icons.bookmark_outline_rounded),
-  //             iconSize: 20,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget genre() {
     return Padding(

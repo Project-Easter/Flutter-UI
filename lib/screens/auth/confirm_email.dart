@@ -28,22 +28,6 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen>
   String email;
 
   _ConfirmEmailScreenState(this.email);
-  @override
-  // TODO: implement context
-  BuildContext get context => throw UnimplementedError();
-
-  @override
-  // TODO: implement mounted
-  bool get mounted => throw UnimplementedError();
-
-  @override
-  // TODO: implement widget
-  ConfirmEmailScreen get widget => throw UnimplementedError();
-
-  @override
-  void activate() {
-    // TODO: implement activate
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,63 +61,11 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen>
     );
   }
 
-  @override
-  void deactivate() {
-    // TODO: implement deactivate
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    // TODO: implement debugFillProperties
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-  }
-
-  @override
-  void didUpdateWidget(covariant ConfirmEmailScreen oldWidget) {
-    // TODO: implement didUpdateWidget
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-  }
-
   Future<String> onSubmit() async {
     return authService.confirmEmail(email, confirmationCode) as String;
   }
 
   void onSuccess() {
     print('Email confirmed successfully');
-  }
-
-  @override
-  void reassemble() {
-    // TODO: implement reassemble
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    // TODO: implement setState
-  }
-
-  @override
-  DiagnosticsNode toDiagnosticsNode({String name, DiagnosticsTreeStyle style}) {
-    // TODO: implement toDiagnosticsNode
-    throw UnimplementedError();
-  }
-
-  @override
-  String toStringShort() {
-    // TODO: implement toStringShort
-    throw UnimplementedError();
   }
 }

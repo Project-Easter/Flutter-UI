@@ -1,10 +1,10 @@
 import 'package:books_app/Constants/colors.dart';
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/common/themes.dart';
 import 'package:books_app/models/user.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final ThemeNotifier themeNotifier = Provider.of<ThemeNotifier>(context);
-    _darkTheme = themeNotifier.getTheme() == lightTheme;
+    _darkTheme = themeNotifier.getTheme() == darkTheme;
     final dynamic uID = _authService.getUID;
     print(uID);
     return StreamBuilder<UserData>(
@@ -83,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         });
   }
 
-  void onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
+  Future<void> onThemeChanged(bool value, ThemeNotifier themeNotifier) async {
     value
         ? themeNotifier.setTheme(darkTheme)
         : themeNotifier.setTheme(lightTheme);

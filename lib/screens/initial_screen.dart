@@ -31,24 +31,6 @@ class _InitialScreenState extends State<InitialScreen>
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // //Alert dialogue to show error and response
-  // @override
-  // // TODO: implement context
-  // BuildContext get context => throw UnimplementedError();
-
-  // @override
-  // // TODO: implement mounted
-  // bool get mounted => throw UnimplementedError();
-
-  // @override
-  // // TODO: implement widget
-  // InitialScreen get widget => throw UnimplementedError();
-
-  // @override
-  // void activate() {
-  //   // TODO: implement activate
-  // }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -62,84 +44,90 @@ class _InitialScreenState extends State<InitialScreen>
         child: Center(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 30, right: 15.0),
-                    child: _skipButton(),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  // Align(
+                  //   alignment: Alignment.centerRight,
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(top: 30, right: 15.0),
+                  //     child: _skipButton(),
+                  //   ),
+                  // ),
+                  const SizedBox(
+                    height: 15,
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Image.asset(
-                  'assets/Explr Logo (150x150).png',
-                  scale: 1.4,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Explr',
-                  style: GoogleFonts.muli(
-                      color: blackButton,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      EmailTextField(onChanged: updateEmail),
-                      PasswordTextField(onChanged: updatePassword)
-                    ],
+                  Image.asset(
+                    'assets/Explr Logo (150x150).png',
+                    scale: 1.4,
                   ),
-                ),
-                buildForgotPasswordButton(),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: AuthButton(
-                    text: 'Sign in',
-                    formKey: formKey,
-                    onClick: onSubmit,
-                    onSuccess: onSuccess,
-                    onError: onError,
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 1,
-                      width: 120,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      ' or you can ',
-                      style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
+                  Text(
+                    'Explr',
+                    style: GoogleFonts.muli(
+                        color: blackButton,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          EmailTextField(onChanged: updateEmail),
+                          PasswordTextField(onChanged: updatePassword)
+                        ],
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Container(height: 1, width: 120, color: Colors.black),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                _signUpwithEmail(),
-                const SizedBox(height: 10),
-                _socialMediaHandles(),
-                const SizedBox(height: 40),
-              ].where(notNull).toList(),
+                  ),
+                  buildForgotPasswordButton(),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: AuthButton(
+                      text: 'Sign in',
+                      formKey: formKey,
+                      onClick: onSubmit,
+                      onSuccess: onSuccess,
+                      onError: onError,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 1,
+                        width: 120,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        ' or you can ',
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 13,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(height: 1, width: 120, color: Colors.black),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  _signUpwithEmail(),
+                  const SizedBox(height: 10),
+                  _socialMediaHandles(),
+                  const SizedBox(height: 40),
+                ].where(notNull).toList(),
+              ),
             ),
           ),
         ),
@@ -165,40 +153,6 @@ class _InitialScreenState extends State<InitialScreen>
     );
   }
 
-  // @override
-  // void deactivate() {
-  //   super.deactivate();
-  //   // TODO: implement deactivate
-  // }
-
-  // @override
-  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  //   super.debugFillProperties(properties);
-  //   // TODO: implement debugFillProperties
-  // }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   // TODO: implement didChangeDependencies
-  // }
-
-  // @override
-  // void didUpdateWidget(covariant InitialScreen oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   // TODO: implement didUpdateWidget
-  // }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
   Future<String> onSubmit() async {
     return AuthService().login(_emailController.text, _passwordController.text);
   }
@@ -206,18 +160,6 @@ class _InitialScreenState extends State<InitialScreen>
   void onSuccess() {
     print('Logged in successfully');
   }
-
-  // @override
-  // void reassemble() {
-  //   super.reassemble();
-  //   // TODO: implement reassemble
-  // }
-
-  // @override
-  // void setState(VoidCallback fn) {
-  //   super.setState(() {});
-  //   // TODO: implement setState
-  // }
 
   void showErrorDialog(BuildContext context, String message) {
     // set up the AlertDialog
@@ -242,18 +184,6 @@ class _InitialScreenState extends State<InitialScreen>
       },
     );
   }
-
-  // @override
-  // DiagnosticsNode toDiagnosticsNode({String name, DiagnosticsTreeStyle style}) {
-  //   // TODO: implement toDiagnosticsNode
-  //   throw UnimplementedError();
-  // }
-
-  // @override
-  // String toStringShort() {
-  //   // TODO: implement toStringShort
-  //   throw UnimplementedError();
-  // }
 
   Widget _signUpwithEmail() {
     return SizedBox(
@@ -284,25 +214,25 @@ class _InitialScreenState extends State<InitialScreen>
     );
   }
 
-  Widget _skipButton() {
-    return ElevatedButton(
-      onPressed: () {
-        print('Skip button pressed');
-        Navigator.pushNamed(context, Routes.DASHBOARD);
-      },
-      style: ElevatedButton.styleFrom(
-        primary: blackButton,
-        onPrimary: Colors.white12,
-        minimumSize: const Size(55, 24.75),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      ),
-      child: Text(
-        'Skip',
-        style: GoogleFonts.poppins(
-            color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
-      ),
-    );
-  }
+  // Widget _skipButton() {
+  //   return ElevatedButton(
+  //     onPressed: () {
+  //       print('Skip button pressed');
+  //       Navigator.pushNamed(context, Routes.DASHBOARD);
+  //     },
+  //     style: ElevatedButton.styleFrom(
+  //       primary: blackButton,
+  //       onPrimary: Colors.white12,
+  //       minimumSize: const Size(55, 24.75),
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+  //     ),
+  //     child: Text(
+  //       'Skip',
+  //       style: GoogleFonts.poppins(
+  //           color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
+  //     ),
+  //   );
+  // }
 
   Widget _socialMediaHandles() {
     return SizedBox(

@@ -1,6 +1,8 @@
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/error.dart';
 import 'package:books_app/models/user.dart';
+import 'package:books_app/screens/dashboard/dashboard.dart';
+import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:books_app/utils/api.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +18,7 @@ class AuthService {
     return firebaseAuth.currentUser;
   }
 
-  dynamic get getUID {
+  String get getUID {
     return firebaseAuth.currentUser.uid;
   }
 
@@ -44,51 +46,6 @@ class AuthService {
         }
     }
   }
-
-//   Future<MyAppUser> signInWithGoogle() async {
-//     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-//     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-//     final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-//       accessToken: googleAuth.accessToken,
-//       idToken: googleAuth.idToken,
-//     );
-//     final UserCredential authResult = await firebaseAuth.signInWithCredential(credential);
-
-//     final User user = authResult.user;
-//     if (user != null) {
-//       assert(!user.isAnonymous);
-//       assert(await user.getIdToken() != null);
-//       final User currentUser = firebaseAuth.currentUser;
-//       assert(user.uid == currentUser.uid);
-
-//       UserData userData = makeUserDataFromAuthUser(user);
-
-//       await DatabaseService(uid: user.uid).updateUserData(userData);
-//       return _retrieveUserFromFirebaseUser(currentUser);
-//     }
-//     return null;
-//   }
-
-//   Future<String> signInWithFacebook() async {
-//     final FacebookLoginResult result = await facebookLogin.logIn();
-
-//     final FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
-
-//     final UserCredential fbAuthResult = await firebaseAuth.signInWithCredential(facebookAuthCredential);
-//     final User fbUser = fbAuthResult.user;
-
-//     if (fbUser != null) {
-//       assert(!fbUser.isAnonymous);
-//       assert(await fbUser.getIdToken() != null);
-//       final User currentUser = firebaseAuth.currentUser;
-//       assert(fbUsaer.uid == currentUser.uid);
-
-//       print('Facebook SignIn succeeded: $fbUser');
-
-//       return '$fbUser';
-//     }
-//     return null;
-//   }
 
   Future<void> facebookSignout() async {
     await firebaseAuth.signOut().then((void onValue) {
@@ -130,8 +87,9 @@ class AuthService {
   }
 
   Future<String> login(String email, String password) async {
-    final response = await Api.login(email, password);
+    final Response response = await Api.login(email, password);
     final dynamic body = getBodyFromResponse(response);
+    print(body + 'is the body');
 
     if (response.statusCode == 200) return body['token'] as String;
 
@@ -182,37 +140,41 @@ class AuthService {
   }
 
   UserData makeUserDataFromAuthUser(User user) {
-    const String photoUrl =
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
+    const String photoUrl = 'assets/Explr Logo.png';
     final UserData userData = UserData(
-        uid: user.uid,
-        displayName: user.displayName ?? 'Your name',
-        email: user.email ?? 'your@email.com',
-        emailVerified: user.emailVerified,
-        phoneNumber: user.phoneNumber ?? 'Phone',
-        photoURL: user.photoURL ?? photoUrl,
-        city: 'Your city',
-        state: 'State');
+      uid: user.uid,
+      displayName: user.displayName ?? 'Your name',
+      email: user.email ?? 'your@email.com',
+      emailVerified: user.emailVerified,
+      phoneNumber: user.phoneNumber ?? 'Phone',
+      photoURL: user.photoURL ?? photoUrl,
+      city: null,
+      state: null,
+      countryName: null,
+    );
     return userData;
   }
 
-  Future<void> register(String email, String password) async {
+  Future register(String email, String password) async {
     final Response response = await Api.register(email, password);
 
     if (response.statusCode == 201) return;
 
-    final dynamic body = getBodyFromResponse(response);
-    final int errorId = body['error']['id'] as int;
+    final dynamic body = await getBodyFromResponse(response);
+    print(body.toString() + ' is the response body');
+    if (body['error']['id'] != null) {
+      final dynamic errorId = body['error']['id'];
 
-    switch (errorId) {
-      case Error.DUPLICATE_EMAIL:
-        {
-          throw Exception('Email already exists.');
-        }
-      default:
-        {
-          throw Exception('An unknown error occured. Please try again later');
-        }
+      switch (errorId as int) {
+        case Error.DUPLICATE_EMAIL:
+          {
+            throw Exception('Email already exists.');
+          }
+        default:
+          {
+            throw Exception('An unknown error occured. Please try again later');
+          }
+      }
     }
   }
 
@@ -282,26 +244,33 @@ class AuthService {
       final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
 
-      UserData userData = makeUserDataFromAuthUser(user);
+      final UserData userData = makeUserDataFromAuthUser(user);
 
       await DatabaseService(uid: user.uid).updateUserData(userData);
+      final String token = await loginWithSocialMedia(authentication.idToken);
+      print('The access token is $token');
+      Quotes(token);
+      DashboardPage(
+        token,
+      );
       return _retrieveUserFromFirebaseUser(currentUserFromFireBase as User);
     }
-
-    final String idToken = await user.getIdToken(true);
 
     print(user);
     print('Current user of Firebase is below:');
     print(currentUserFromFireBase);
     // _retrieveUserFromFirebaseUser(user);
-    try {
-      final String token = await loginWithSocialMedia(idToken);
-      print('The token here is $token');
-      return user;
-      // return _retrieveUserFromFirebaseUser(user);
-    } catch (error) {
-      print(error.toString());
-    }
+    // try {
+    //   // final String idtoken = await loginWithSocialMedia(authentication.idToken);
+    //   final String accessToken =
+    //       await loginWithSocialMedia(authentication.idToken);
+    //   // print('The idtoken here is $idtoken');
+    //   print('The access token here is $accessToken');
+    //   return user;
+    //   // return _retrieveUserFromFirebaseUser(user);
+    // } catch (error) {
+    //   print(error.toString());
+    // }
   }
 
   MyAppUser _retrieveUserFromFirebaseUser(User user) {

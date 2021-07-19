@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 double sliderValue = 10.0;
-String uID = AuthService().getUID as String;
+String uID = AuthService().getUID;
 
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
+// ignore: must_be_immutable
 class LocationRange extends StatefulWidget {
   dynamic locationRange;
   LocationRange(this.locationRange);
@@ -62,7 +63,7 @@ class _LocationRangeState extends State<LocationRange> {
           label: _currentSlidervalue.round().toString(),
           value: widget.locationRange as double ?? _currentSlidervalue,
           min: 0,
-          max: 40,
+          max: 50,
           onChanged: (double value) {
             setState(() {
               widget.locationRange = value;
@@ -146,11 +147,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
     });
   }
 
-  void _onSubmitTap(Set<V> selectedItems) async {
+  Future<void> _onSubmitTap(Set<V> selectedItems) async {
     final List<dynamic> items = selectedItems.toList();
     items.removeRange(0, 1);
     print(items);
-    final List<String> selectedGenres = [];
+    final List<String> selectedGenres = <String>[];
     for (final dynamic element in items) {
       final String x = element.toString();
       print(genres[int.parse(x)]);
@@ -280,7 +281,7 @@ class _UserPreferenceState extends State<UserPreference> {
                 // print("Slider Value");
                 // print(sliderValue.round());
                 ///
-                //Save Values to DB
+                // Save Values to DB
                 await _databaseService.updatePreferences(_book.text,
                     _author.text, sliderValue.round().toString() ?? '');
                 //API Call To get prefered Book
@@ -314,7 +315,7 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  void _showMultiSelect(BuildContext context) async {
+  Future<void> _showMultiSelect(BuildContext context) async {
     int i = 0;
     int j = i;
     final Set<int> selectedValues = await showDialog<Set<int>>(
@@ -323,11 +324,13 @@ class _UserPreferenceState extends State<UserPreference> {
         print('Building Items');
         i = 0;
         j = 1;
+        // ignore: always_specify_types
         return MultiSelectDialog(
           items: genres.map<MultiSelectDialogItem<String>>((String val) {
             return MultiSelectDialogItem<String>(
                 (i++).toString(), val.toString());
           }).toList(),
+          // ignore: always_specify_types
           initialSelectedValues: {1, j},
         );
       },

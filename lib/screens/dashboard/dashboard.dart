@@ -3,26 +3,58 @@ import 'package:books_app/Screens/dashboard/quotes.dart';
 import 'package:books_app/Screens/dashboard/user_choice.dart';
 import 'package:books_app/models/book.dart';
 import 'package:books_app/models/books.dart';
-import 'package:books_app/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
+  final String quotetoken;
+
+  const DashboardPage([this.quotetoken]);
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
 
-class UserChoiceBooks extends StatelessWidget {
+class GoogleBooks extends StatefulWidget {
   final String title;
-  const UserChoiceBooks({Key key, this.title}) : super(key: key);
+  const GoogleBooks({this.title});
+
+  @override
+  _GoogleBooksState createState() => _GoogleBooksState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Quotes(accesstoken: widget.quotetoken),
+            UserChoice(),
+            GoogleBooks(title: 'Discover New '),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+}
+
+class _GoogleBooksState extends State<GoogleBooks> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-        future: Provider.of<Books>(context, listen: false)
-            .getRecommendedBooks('test'),
-        builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-          // Checking if future is resolved
+        future: Provider.of<Books>(context, listen: false).topBooks(),
+        builder: (BuildContext ctx, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
+            print(snapshot.toString());
             // If we got an error
             if (snapshot.hasError) {
               return Center(
@@ -33,46 +65,20 @@ class UserChoiceBooks extends StatelessWidget {
               );
               // if we got our data
             } else if (snapshot.hasData) {
+              print(snapshot);
               // Extracting data from snapshot object
               final List<Book> recommendedBooksML = snapshot.data as List<Book>;
-              return BookList(title, recommendedBooksML);
+              return BookList(widget.title, recommendedBooksML);
             } else {
-              return const SizedBox.shrink();
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
           } else {
-            return Container();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
-        }
-        //  ... some code here
-        );
-  }
-}
-
-class _DashboardPageState extends State<DashboardPage> {
-  @override
-  Widget build(BuildContext context) {
-    // var discoverNew = Provider.of<Books>(context).discoverNew;
-    // var recommendedBooks = Provider.of<Books>(context).recommendedBooks;
-    final UserData userData = Provider.of<UserData>(context);
-    print(userData);
-    return Scaffold(
-      body: SingleChildScrollView(
-        // ignore: prefer_const_constructors
-        physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Quotes(),
-            const UserChoice(),
-            // BookList('Discover New', discoverNew),
-            // BookList('Recommended for you', recommendedBooks),
-            const UserChoiceBooks(title: 'Based on your Interest'),
-            const UserChoiceBooks(title: 'Discover New '),
-            const UserChoiceBooks(title: 'Recommended for you'),
-          ],
-        ),
-      ),
-    );
+        });
   }
 }
