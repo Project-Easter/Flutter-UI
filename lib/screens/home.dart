@@ -1,4 +1,5 @@
 import 'package:books_app/Services/database_service.dart';
+import 'package:books_app/Utils/api.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/models/book.dart';
@@ -99,7 +100,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // Api.getUserData(AuthService().getUID);
+    Api.getUserData(_authService.getUID);
     super.initState();
   }
 

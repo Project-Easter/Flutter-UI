@@ -15,24 +15,20 @@ class Quote {
 }
 
 class Quotes extends StatefulWidget {
-  final String accesstoken;
-
-  const Quotes(String token, {this.accesstoken});
-
   @override
   _QuotesState createState() => _QuotesState();
 }
 
 class _QuotesState extends State<Quotes> {
-  // String get token {
-  //   String s;
-  //   AuthService().firebaseAuth.currentUser.getIdToken(true).then((String val) {
-  //     setState(() {
-  //       s = val;
-  //     });
-  //   }).toString();
-  //   return s;
-  // }
+  String get token {
+    String s;
+    AuthService().firebaseAuth.currentUser.getIdToken(true).then((String val) {
+      setState(() {
+        s = val;
+      });
+    }).toString();
+    return s;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +36,13 @@ class _QuotesState extends State<Quotes> {
   }
 
   FutureBuilder quote() {
-    print(' $widget.accesstoken is the access token received');
     return FutureBuilder<dynamic>(
-        future: Api.getQuote(widget.accesstoken),
+        future: Api.getQuote(AuthService().authToken.toString()),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            print(AuthService().firebaseAuth.currentUser);
+            print(AuthService().authToken);
+            print(' is the access token received');
+            // print(AuthService().firebaseAuth.currentUser);
             print('Quote is $snapshot.toString()');
 
             if (snapshot.hasError) {
@@ -89,7 +86,7 @@ class _QuotesState extends State<Quotes> {
                 ),
               );
             } else {
-              print(snapshot.data);
+              print('Snapshot has no data');
               return const Center(
                 child: SizedBox(),
               );

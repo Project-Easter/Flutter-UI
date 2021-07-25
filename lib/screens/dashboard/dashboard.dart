@@ -7,9 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
-  final String quotetoken;
-
-  const DashboardPage([this.quotetoken]);
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
@@ -32,9 +29,9 @@ class _DashboardPageState extends State<DashboardPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Quotes(accesstoken: widget.quotetoken),
-            UserChoice(),
-            GoogleBooks(title: 'Discover New '),
+            Quotes(),
+            const UserChoice(),
+            const GoogleBooks(title: 'Discover New '),
           ],
         ),
       ),
