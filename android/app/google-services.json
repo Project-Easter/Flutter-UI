@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "339703745629-6e0bqnonmvgss949ljapv516t7q10el6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "59f0511b69869c57f4ee2d1f532a6225c71d7a00"
+          }
+        },
+        {
           "client_id": "339703745629-7ap9u74467rq8eouvd4lc73ij0130e7d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.books_app",
             "certificate_hash": "d7e69ba1755c5eb7d3a3f33681ca21f05a62044a"
+          }
+        },
+        {
+          "client_id": "339703745629-95trhcatpo7oobvp8mgs19pjctl99u6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "3bc728f6c18cfac29a78fca5b6db93f790697913"
           }
         },
         {
@@ -44,6 +60,14 @@
           "android_info": {
             "package_name": "com.example.books_app",
             "certificate_hash": "eebfff7af230bea2cf13255bc898ed735e89e3fa"
+          }
+        },
+        {
+          "client_id": "339703745629-qojigrkk5u6oej1q667s19barfn6so4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "6f64edcfc17edf4e8a8f8fc22b4d64467679a40e"
           }
         },
         {
