@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
-  primarySwatch: Colors.grey,
-  primaryColor: const Color.fromRGBO(18, 19, 33, 1),
-  brightness: Brightness.dark,
-  backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-  scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-  colorScheme: const ColorScheme.light(),
-  accentIconTheme: const IconThemeData(color: Colors.black),
-  dividerColor: Colors.black12,
-);
+    primarySwatch: Colors.grey,
+    primaryColor: Colors.black,
+    brightness: Brightness.dark,
+    backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
+    scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
+    colorScheme: const ColorScheme.light(),
+    accentIconTheme: const IconThemeData(color: Colors.black),
+    dividerColor: Colors.transparent);
 
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
@@ -19,7 +18,7 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   colorScheme: const ColorScheme.dark(primary: Colors.black),
   accentIconTheme: const IconThemeData(color: Colors.white),
-  dividerColor: Colors.white54,
+  dividerColor: Colors.transparent,
 );
 
 ThemeData bookTheme() {
