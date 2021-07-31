@@ -63,10 +63,8 @@ class PrivateProfile extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
-                      (profileData.city != null ||
-                              profileData.state != null ||
-                              profileData.countryName != null)
-                          ? '${profileData.city} , ${profileData.state}, ${profileData.countryName}'
+                      (profileData.city != null || profileData.state != null)
+                          ? '${profileData.city} , ${profileData.state}'
                           : 'Update your location',
                       style: GoogleFonts.poppins(
                           color: Colors.black,

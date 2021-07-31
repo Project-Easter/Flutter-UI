@@ -29,6 +29,7 @@ class _GetLocationState extends State<GetLocation> {
             AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (snapshot.hasData) {
             return MapboxMap(
+              trackCameraPosition: true,
               myLocationRenderMode: MyLocationRenderMode.COMPASS,
               zoomGesturesEnabled: true,
               myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
@@ -49,12 +50,14 @@ class _GetLocationState extends State<GetLocation> {
                 );
 
                 await databaseService.updateUserLocation(lat, long);
+                // Api.location(token);
                 if (animateCameraResult) {
                   // controller.addCircle(CircleOptions(
                   //     circleColor: '#333333',
                   //     circleRadius: 5,
                   //     geometry: LatLng(lat, long)));
                   controller.addSymbol(SymbolOptions(
+                      iconRotate: 2,
                       iconAnchor: 'Anchor check',
                       // textField: 'Testing',
                       geometry: LatLng(lat, long),

@@ -254,7 +254,8 @@ class _InitialScreenState extends State<InitialScreen>
               onPressed: () async {
                 try {
                   final dynamic res = await AuthService().signInWithGoogle();
-                  print(res);
+
+                  // print(res);
                   if (res != null) {
                     print(res.toString());
                     Navigator.pushNamed(context, Routes.HOME);

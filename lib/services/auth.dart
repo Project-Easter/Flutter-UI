@@ -1,8 +1,6 @@
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/error.dart';
 import 'package:books_app/models/user.dart';
-import 'package:books_app/screens/dashboard/dashboard.dart';
-import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:books_app/utils/api.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +11,12 @@ import 'package:http/src/response.dart';
 class AuthService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FacebookLogin facebookLogin = FacebookLogin();
+  String authtoken;
+
+  dynamic get authToken async {
+    return loginWithSocialMedia(
+        await firebaseAuth.currentUser.getIdToken(true));
+  }
 
   dynamic get currentUserFromFireBase {
     return firebaseAuth.currentUser;
@@ -216,11 +220,12 @@ class AuthService {
     final String idToken = await user.getIdToken(true);
 
     try {
-      final String token = await loginWithSocialMedia(idToken);
-      print(token);
+      authtoken = await loginWithSocialMedia(idToken);
+      print('facebook token is $authtoken');
     } catch (error) {
       print(error.toString());
     }
+    return user;
   }
 
   Future signInWithGoogle() async {
@@ -244,21 +249,24 @@ class AuthService {
       final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
 
+      try {
+        // final String idtoken = await user.getIdToken(true);
+        final String idtoken = authentication.idToken;
+        authtoken = idtoken;
+        print('The IDtoken is $idtoken');
+        authtoken = await loginWithSocialMedia(idtoken);
+        print('Google Auth token is $authtoken');
+      } catch (e) {
+        print(e.toString());
+      }
       final UserData userData = makeUserDataFromAuthUser(user);
-
       await DatabaseService(uid: user.uid).updateUserData(userData);
-      final String token = await loginWithSocialMedia(authentication.idToken);
-      print('The access token is $token');
-      Quotes(token);
-      DashboardPage(
-        token,
-      );
-      return _retrieveUserFromFirebaseUser(currentUserFromFireBase as User);
+      return user;
     }
 
-    print(user);
-    print('Current user of Firebase is below:');
-    print(currentUserFromFireBase);
+    // print(user);
+    // print('Current user of Firebase is below:');
+    // print(currentUserFromFireBase);
     // _retrieveUserFromFirebaseUser(user);
     // try {
     //   // final String idtoken = await loginWithSocialMedia(authentication.idToken);
@@ -273,7 +281,13 @@ class AuthService {
     // }
   }
 
-  MyAppUser _retrieveUserFromFirebaseUser(User user) {
-    return user != null ? MyAppUser(uid: user.uid) : null;
-  }
+  // MyAppUser _retrieveUserFromFirebaseUser(User user) {
+  //   return user != null
+  //       ? MyAppUser(
+  //           uid: user.uid,
+
+  //           // idtoken: user.getIdToken(true) as String,
+  //         )
+  //       : null;
+  // }
 }

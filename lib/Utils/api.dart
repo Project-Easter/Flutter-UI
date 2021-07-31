@@ -24,7 +24,7 @@ class Api {
           headers: {'authorization': token});
       // final dynamic result = jsonDecode(response.body);
       final dynamic result = getBodyFromResponse(response);
-      print(result);
+      print('Quote result is $result');
       if (response.statusCode == 200) {
         return Quote(result.text.toString(), result.authorization.toString());
       }
