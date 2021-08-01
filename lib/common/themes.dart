@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
-    primarySwatch: Colors.grey,
-    primaryColor: Colors.black,
-    brightness: Brightness.dark,
-    backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-    scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-    colorScheme: const ColorScheme.light(),
-    accentIconTheme: const IconThemeData(color: Colors.black),
-    dividerColor: Colors.transparent);
+  primarySwatch: Colors.grey,
+  primaryColor: Colors.black,
+  brightness: Brightness.dark,
+  backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
+  scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
+  colorScheme: const ColorScheme.light(),
+  accentIconTheme: const IconThemeData(color: Colors.black),
+  dividerColor: Colors.transparent,
+);
 
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,

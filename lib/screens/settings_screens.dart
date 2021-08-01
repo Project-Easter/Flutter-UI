@@ -72,8 +72,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 body: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      _accountSettingsExpansion(themeNotifier),
-                      _moreExpandedWidget()
+                      _accountSettingsExpansiontile(themeNotifier),
+                      _moreExpansionWidget()
                     ],
                   ),
                 ));
@@ -93,113 +93,126 @@ class _SettingsScreenState extends State<SettingsScreen> {
     prefs.setBool('darkMode', value);
   }
 
-  Widget _moreExpandedWidget() {
+  Widget _moreExpansionWidget() {
     return Container(
         padding: const EdgeInsets.all(15),
-        child: ExpansionPanelList(
-          animationDuration: const Duration(milliseconds: 2000),
-          children: [
-            ExpansionPanel(
-              headerBuilder: (BuildContext context, bool isExpanded) {
-                return Text('More',
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w400, fontSize: 18));
-              },
-              body: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'About us',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
-                        ),
+        child: Column(children: <Widget>[
+          ExpansionTile(
+            iconColor: Theme.of(context).colorScheme.onPrimary,
+            textColor: Theme.of(context).colorScheme.onPrimary,
+            collapsedTextColor: Theme.of(context).colorScheme.onPrimary,
+            initiallyExpanded: true,
+            title: Text('More',
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400, fontSize: 18)),
+            children: <Widget>[
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                title: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        'About us',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400, fontSize: 18),
                       ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 14,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Privacy policy',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
-                        ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 14,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Terms and conditions',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
-                        ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 14,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 14,
+                    ),
+                  ],
+                ),
               ),
-              isExpanded: _expanded2,
-              canTapOnHeader: true,
-            )
-          ],
-          dividerColor: Colors.transparent,
-          expansionCallback: (int panelIndex, bool isExpanded) {
-            _expanded2 = !_expanded2;
-            setState(() {});
-          },
-        ));
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                title: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        'Privacy policy',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400, fontSize: 18),
+                      ),
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 14,
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+                title: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        'Terms and conditions',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400, fontSize: 18),
+                      ),
+                    ),
+                    const Icon(
+                      Icons.arrow_forward_ios,
+                      size: 14,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ]));
   }
 
-  Widget _accountSettingsExpansion(ThemeNotifier tNotifier) {
+  Widget _accountSettingsExpansiontile(ThemeNotifier tNotifier) {
     return Container(
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey[300]))),
-        child: ExpansionPanelList(
-          animationDuration: const Duration(milliseconds: 2000),
-          children: [
-            ExpansionPanel(
-              headerBuilder: (BuildContext context, bool isExpanded) {
-                return Text('Account Settings',
+        child: Column(
+          children: <Widget>[
+            ExpansionTile(
+                iconColor: Theme.of(context).colorScheme.onPrimary,
+                textColor: Theme.of(context).colorScheme.onPrimary,
+                collapsedTextColor: Theme.of(context).colorScheme.onPrimary,
+                initiallyExpanded: true,
+                title: Text('Account Settings',
                     style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w400, fontSize: 18));
-              },
-              body: Column(
+                        fontWeight: FontWeight.w400, fontSize: 18)),
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.EDIT_PROFILE);
-                    },
-                    child: Row(
+                  ListTile(
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
+                    title: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.EDIT_PROFILE);
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              'Edit Profile',
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w400, fontSize: 18),
+                            ),
+                          ),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 14,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
+                    title: Row(
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            'Edit Profile',
+                            'Change password',
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w400, fontSize: 18),
                           ),
@@ -211,109 +224,82 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Change password',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
+                  ListTile(
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
+                    title: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            'Change User Preferences',
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400, fontSize: 18),
+                          ),
                         ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 14,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Change User Preferences',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
+                        const Icon(
+                          Icons.add,
+                          size: 18,
                         ),
-                      ),
-                      const Icon(
-                        Icons.add,
-                        size: 18,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Push notifications',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
+                  ListTile(
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
+                    title: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            'Push notifications',
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400, fontSize: 18),
+                          ),
                         ),
-                      ),
-                      Transform.scale(
-                        scale: 0.7,
-                        child: CupertinoSwitch(
-                          activeColor: Colors.black,
-                          value: _switchValue,
-                          onChanged: (bool val) {
-                            setState(() {
-                              _switchValue = val;
-                            });
-                          },
+                        Transform.scale(
+                          scale: 0.7,
+                          child: CupertinoSwitch(
+                            activeColor: Colors.black,
+                            value: _switchValue,
+                            onChanged: (bool val) {
+                              setState(() {
+                                _switchValue = val;
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          'Dark mode',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
+                  ListTile(
+                    visualDensity:
+                        const VisualDensity(horizontal: 0, vertical: -4),
+                    title: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            'Dark mode',
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400, fontSize: 18),
+                          ),
                         ),
-                      ),
-                      Transform.scale(
-                        scale: 0.7,
-                        child: CupertinoSwitch(
-                          activeColor: Colors.black,
-                          value: _darkTheme,
-                          onChanged: (bool val) {
-                            setState(() {
-                              _darkTheme = val;
-                            });
-                            onThemeChanged(val, tNotifier);
-                          },
+                        Transform.scale(
+                          scale: 0.7,
+                          child: CupertinoSwitch(
+                            activeColor: Colors.black,
+                            value: _darkTheme,
+                            onChanged: (bool val) {
+                              setState(() {
+                                _darkTheme = val;
+                              });
+                              onThemeChanged(val, tNotifier);
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
-              ),
-              isExpanded: _expanded,
-              canTapOnHeader: true,
-            )
+                ])
           ],
-          dividerColor: Colors.transparent,
-          expansionCallback: (int panelIndex, bool isExpanded) {
-            _expanded = !_expanded;
-            setState(() {});
-          },
         ));
   }
 
