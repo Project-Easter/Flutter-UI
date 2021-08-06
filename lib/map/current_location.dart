@@ -42,10 +42,9 @@ class _GetUserLocation extends State<GetUserLocation> {
                         additionalOptions: {
                           'accessToken':
                               'pk.eyJ1Ijoid2lsbGlhbXRvYnMiLCJhIjoiY2tyeGQ2dzg2MDZwdzJubzlzbjBqMGMwayJ9.h2i_X9gCmDOjFD1sIF0ieA',
-                          'id': 'mapbox.mapbox-streets-v7',
+                          'id': 'mapbox.mapbox-streets-v8',
                         },
                       ),
-
                       // markerBuilder: (BuildContext context, LatLngData ld,
                       //     ValueNotifier<double> heading) {
                       //   return Marker(
@@ -72,32 +71,32 @@ class _GetUserLocation extends State<GetUserLocation> {
                       //     width: 60.0,
                       //   );
                       // },
-                      MarkerLayerOptions(
-                        markers: <Marker>[
-                          Marker(
-                            point: ld.location,
-                            height: 60.0,
-                            width: 60.0,
-                            builder: (BuildContext ctx) => IconButton(
-                                onPressed: () {
-                                  showModalBottomSheet<void>(
-                                      context: context,
-                                      builder: (BuildContext builder) {
-                                        return Container(
-                                          color: Colors.white,
-                                          child: const Text(
-                                            'Text',
-                                          ),
-                                        );
-                                      });
-                                },
-                                icon: const Icon(
-                                  Icons.location_on,
-                                  color: Colors.blue,
-                                )),
-                          )
-                        ],
-                      )
+                      // MarkerLayerOptions(
+                      //   markers: <Marker>[
+                      //     Marker(
+                      //       point: ld.location,
+                      //       height: 60.0,
+                      //       width: 60.0,
+                      //       builder: (BuildContext ctx) => IconButton(
+                      //           onPressed: () {
+                      //             showModalBottomSheet<void>(
+                      //                 context: context,
+                      //                 builder: (BuildContext builder) {
+                      //                   return Container(
+                      //                     color: Colors.white,
+                      //                     child: const Text(
+                      //                       'Text',
+                      //                     ),
+                      //                   );
+                      //                 });
+                      //           },
+                      //           icon: const Icon(
+                      //             Icons.location_on,
+                      //             color: Colors.blue,
+                      //           )),
+                      //     )
+                      //   ],
+                      // )
                     ],
                     nonRotatedLayers: <LayerOptions>[
                       // USAGE NOTE 3: Add the options for the plugin
@@ -112,34 +111,59 @@ class _GetUserLocation extends State<GetUserLocation> {
                           if (ld == null) {
                             return;
                           }
+
                           mapController.move(ld.location, 16.0);
                         },
-                        markerBuilder: (BuildContext context, LatLngData ld,
-                            ValueNotifier<double> heading) {
-                          return Marker(
-                            point: ld.location,
-                            builder: (_) => Container(
-                                child: IconButton(
-                                    onPressed: () {
-                                      showModalBottomSheet<void>(
-                                          context: context,
-                                          builder: (BuildContext builder) {
-                                            return Container(
-                                              color: Colors.white,
-                                              child: const Text(
-                                                'Text',
-                                              ),
-                                            );
-                                          });
-                                    },
-                                    icon: const Icon(
-                                      Icons.location_on,
-                                      color: Colors.blue,
-                                    ))),
-                            height: 60.0,
-                            width: 60.0,
-                          );
-                        },
+                        // markers: <Marker>[
+                        //   Marker(
+                        //     point: ld.location,
+                        //     height: 60.0,
+                        //     width: 60.0,
+                        //     builder: (BuildContext ctx) => IconButton(
+                        //         onPressed: () {
+                        //           showModalBottomSheet<void>(
+                        //               context: context,
+                        //               builder: (BuildContext builder) {
+                        //                 return Container(
+                        //                   color: Colors.white,
+                        //                   child: const Text(
+                        //                     'Text',
+                        //                   ),
+                        //                 );
+                        //               });
+                        //         },
+                        //         icon: const Icon(
+                        //           Icons.location_on,
+                        //           color: Colors.blue,
+                        //         )),
+                        //   )
+                        // ],
+                        // markerBuilder: (BuildContext context, LatLngData ld,
+                        //     ValueNotifier<double> heading) {
+                        //   return Marker(
+                        //     point: ld.location,
+                        //     builder: (_) => Container(
+                        //         child: IconButton(
+                        //             onPressed: () {
+                        //               showModalBottomSheet<void>(
+                        //                   context: context,
+                        //                   builder: (BuildContext builder) {
+                        //                     return Container(
+                        //                       color: Colors.white,
+                        //                       child: const Text(
+                        //                         'Text',
+                        //                       ),
+                        //                     );
+                        //                   });
+                        //             },
+                        //             icon: const Icon(
+                        //               Icons.location_on,
+                        //               color: Colors.blue,
+                        //             ))),
+                        //     height: 60.0,
+                        //     width: 60.0,
+                        //   );
+                        // },
                       )
                     ],
                   ))

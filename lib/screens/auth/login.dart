@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen>
     return authService.login(email, password);
   }
 
-  Future<Object> onSuccess() async {
+  Future<Object> onSuccess() {
     print('Logged in successfully');
     return Navigator.pushNamed(context, Routes.DASHBOARD);
   }
