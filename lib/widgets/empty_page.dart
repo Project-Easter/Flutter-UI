@@ -8,9 +8,8 @@ class EmptyPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Image.network(
-          'https://firebasestorage.googleapis.com/v0/b/dashatar-dev.appspot.com/o/dashatars%2FRGFzaGF0YXJfQm9udXNfU2V0c19Cb251c19F.png?alt=media'),
+    return Column(children: <Widget>[
+      Image.asset('assets/Placeholder.png'),
       Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(

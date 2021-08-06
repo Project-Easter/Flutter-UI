@@ -1,5 +1,5 @@
 import 'package:books_app/Utils/size_config.dart';
-import 'package:books_app/models/book.dart';
+import 'package:books_app/providers/book.dart';
 import 'package:books_app/screens/dashboard/bookcard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,9 +20,6 @@ class _BookListState extends State<BookList> {
     print('BookList length is ${widget.bookList}.length');
     SizeConfig().init(context);
     return Column(
-      // mainAxisSize: MainAxisSize.min,
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),

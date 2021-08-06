@@ -1,7 +1,7 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/models/book.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/book.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -63,10 +63,8 @@ class PrivateProfile extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     child: Text(
-                      (profileData.city != null ||
-                              profileData.state != null ||
-                              profileData.countryName != null)
-                          ? '${profileData.city} , ${profileData.state}, ${profileData.countryName}'
+                      (profileData.city != null || profileData.state != null)
+                          ? '${profileData.city} , ${profileData.state}'
                           : 'Update your location',
                       style: GoogleFonts.poppins(
                           color: Colors.black,

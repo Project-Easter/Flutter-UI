@@ -3,7 +3,7 @@ import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/common/themes.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +48,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // ClipRRect(
-                      //     borderRadius: BorderRadius.circular(50.0),
-                      //     child: Image.network(userData.photoURL,
-                      //         height: 60, fit: BoxFit.fill)),
                       CircleAvatar(
                         radius: 25,
                         backgroundImage: NetworkImage(userData.photoURL),
@@ -223,29 +219,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
-
-  // Widget dayNightWidget(themeNotifier) {
-  //   return ListView(
-  //     children: <Widget>[
-  //       ListTile(
-  //         title: Text('Dark Theme'),
-  //         contentPadding: const EdgeInsets.only(left: 16.0),
-  //         trailing: Transform.scale(
-  //           scale: 0.4,
-  //           child: DayNightSwitch(
-  //             value: _darkTheme,
-  //             onChanged: (val) {
-  //               setState(() {
-  //                 _darkTheme = val;
-  //               });
-  //               onThemeChanged(val, themeNotifier);
-  //             },
-  //           ),
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
 
   Widget _moreWidget() {
     return Container(

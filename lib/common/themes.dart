@@ -6,7 +6,7 @@ final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-  colorScheme: const ColorScheme.light(),
+  colorScheme: const ColorScheme.dark(),
   accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.black12,
 );
@@ -14,10 +14,11 @@ final ThemeData darkTheme = ThemeData(
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
-  brightness: Brightness.light,
+  // brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,
-  colorScheme: const ColorScheme.dark(primary: Colors.black),
+  colorScheme: const ColorScheme.dark(
+      brightness: Brightness.light, primary: Colors.black),
   accentIconTheme: const IconThemeData(color: Colors.white),
   dividerColor: Colors.white54,
 );

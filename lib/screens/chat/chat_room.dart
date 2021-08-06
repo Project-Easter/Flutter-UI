@@ -1,4 +1,4 @@
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/widgets/empty_page.dart';

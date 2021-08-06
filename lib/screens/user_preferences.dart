@@ -1,7 +1,7 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

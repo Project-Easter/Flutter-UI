@@ -4,7 +4,7 @@ import 'package:books_app/Constants/colors.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,11 +31,11 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final String uID = _authService.getUID;
-    return StreamBuilder<UserData>(
+    return StreamBuilder<dynamic>(
         stream: DatabaseService(uid: uID).userData,
-        builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            final UserData userData = snapshot.data;
+            final UserData userData = snapshot.data as UserData;
             return Scaffold(
               body: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
