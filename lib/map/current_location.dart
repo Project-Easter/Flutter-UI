@@ -2,7 +2,6 @@ import 'package:books_app/Utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:location/location.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:flutter_map_location/flutter_map_location.dart';
 import 'package:latlong2/latlong.dart' as latlng;
 
@@ -111,33 +110,39 @@ class _GetUserLocation extends State<GetUserLocation> {
                           if (ld == null) {
                             return;
                           }
-
                           mapController.move(ld.location, 16.0);
                         },
-                        // markers: <Marker>[
-                        //   Marker(
-                        //     point: ld.location,
-                        //     height: 60.0,
-                        //     width: 60.0,
-                        //     builder: (BuildContext ctx) => IconButton(
-                        //         onPressed: () {
-                        //           showModalBottomSheet<void>(
-                        //               context: context,
-                        //               builder: (BuildContext builder) {
-                        //                 return Container(
-                        //                   color: Colors.white,
-                        //                   child: const Text(
-                        //                     'Text',
-                        //                   ),
-                        //                 );
-                        //               });
-                        //         },
-                        //         icon: const Icon(
-                        //           Icons.location_on,
-                        //           color: Colors.blue,
-                        //         )),
-                        //   )
-                        // ],
+                        markerBuilder: (BuildContext context, LatLngData ld,
+                            ValueNotifier<double> heading) {
+                          return Marker(
+                            point: ld.location,
+                            builder: (_) => Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.pink[300]
+                                                .withOpacity(0.7)),
+                                        height: 40.0,
+                                        width: 40.0,
+                                      ),
+                                      const Icon(
+                                        Icons.location_city,
+                                        size: 30.0,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            height: 60.0,
+                            width: 60.0,
+                          );
+                        },
                         // markerBuilder: (BuildContext context, LatLngData ld,
                         //     ValueNotifier<double> heading) {
                         //   return Marker(
