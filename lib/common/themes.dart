@@ -14,10 +14,11 @@ final ThemeData darkTheme = ThemeData(
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
-  brightness: Brightness.light,
+  // brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,
-  colorScheme: const ColorScheme.dark(primary: Colors.black),
+  colorScheme: const ColorScheme.dark(
+      brightness: Brightness.light, primary: Colors.black),
   accentIconTheme: const IconThemeData(color: Colors.white),
   dividerColor: Colors.white54,
 );

@@ -63,6 +63,14 @@
           }
         },
         {
+          "client_id": "339703745629-qojigrkk5u6oej1q667s19barfn6so4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "6f64edcfc17edf4e8a8f8fc22b4d64467679a40e"
+          }
+        },
+        {
           "client_id": "339703745629-v9tq40e8lqfepm3p7nvhrhbrsi7n1762.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -1,7 +1,8 @@
 import 'package:books_app/Services/database_service.dart';
+import 'package:books_app/Utils/api.dart';
 import 'package:books_app/constants/error.dart';
-import 'package:books_app/models/user.dart';
-import 'package:books_app/utils/api.dart';
+import 'package:books_app/providers/user.dart';
+import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -12,11 +13,6 @@ class AuthService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FacebookLogin facebookLogin = FacebookLogin();
   String authtoken;
-
-  dynamic get authToken async {
-    return loginWithSocialMedia(
-        await firebaseAuth.currentUser.getIdToken(true));
-  }
 
   dynamic get currentUserFromFireBase {
     return firebaseAuth.currentUser;
@@ -85,6 +81,24 @@ class AuthService {
     }
   }
 
+  Future getQuote(String token) async {
+    final Response response = await Api.getQuoteData(token);
+    try {
+      // final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
+      //     headers: {'authorization': token});
+      // final dynamic result = jsonDecode(response.body);
+      final dynamic result = getBodyFromResponse(response);
+      print('Quote result is $result');
+      if (result.statusCode == 200) {
+        return Quote(result.text.toString(), result.authorization.toString());
+      }
+
+      // if (result != null) return result['token'] as String;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();
     await firebaseAuth.signOut();
@@ -124,9 +138,12 @@ class AuthService {
 
   Future<String> loginWithSocialMedia(String idToken) async {
     final Response response = await Api.loginWithSocialMedia(idToken);
-    final dynamic body = getBodyFromResponse(response);
+    final dynamic body = await getBodyFromResponse(response);
 
-    if (response.statusCode == 200) return body['token'].toString();
+    print(body);
+    if (response.statusCode == 200) {
+      return body['token'] as String;
+    }
 
     final int errorId = body['error']['id'] as int;
 
@@ -218,6 +235,7 @@ class AuthService {
     if (user == null) return null;
 
     final String idToken = await user.getIdToken(true);
+    print('ID token received from user.getIdToken(true) is $idToken');
 
     try {
       authtoken = await loginWithSocialMedia(idToken);
@@ -250,15 +268,16 @@ class AuthService {
       assert(user.uid == currentUser.uid);
 
       try {
+        authtoken = await loginWithSocialMedia(authentication.idToken);
+        print('Google Auth token is $authtoken');
         // final String idtoken = await user.getIdToken(true);
         final String idtoken = authentication.idToken;
-        authtoken = idtoken;
+
         print('The IDtoken is $idtoken');
-        authtoken = await loginWithSocialMedia(idtoken);
-        print('Google Auth token is $authtoken');
       } catch (e) {
         print(e.toString());
       }
+
       final UserData userData = makeUserDataFromAuthUser(user);
       await DatabaseService(uid: user.uid).updateUserData(userData);
       return user;

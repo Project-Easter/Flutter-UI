@@ -3,7 +3,7 @@ import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Utils/router.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/common/themes.dart';
-import 'package:books_app/models/books.dart';
+import 'package:books_app/providers/books.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,20 +35,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamic myAppUser = AuthService().currentUserFromFireBase;
-    // return Consumer<ThemeNotifier>(
-    //   builder: (BuildContext context, ThemeNotifier theme, Widget child) =>
-    //       MaterialApp(
-    //     debugShowCheckedModeBanner: false,
-    //     title: 'Explr',
-    //     initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
-    //     onGenerateRoute: RouteGenerator.generateRoute,
-    //   ),
-    // );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Explr',
-      initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
-      onGenerateRoute: RouteGenerator.generateRoute,
+    return Consumer<ThemeNotifier>(
+      builder: (BuildContext context, ThemeNotifier theme, _) => MaterialApp(
+        theme: lightTheme,
+        debugShowCheckedModeBanner: false,
+        title: 'Explr',
+        initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
+        onGenerateRoute: RouteGenerator.generateRoute,
+      ),
     );
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'Explr',
+    //   initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
+    //   onGenerateRoute: RouteGenerator.generateRoute,
+    // );
   }
 }

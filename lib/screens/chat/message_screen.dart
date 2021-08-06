@@ -1,7 +1,7 @@
 import 'package:books_app/Screens/Chat/message_bubble.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/models/message.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

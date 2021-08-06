@@ -1,4 +1,3 @@
-import 'package:books_app/Utils/api.dart';
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +36,11 @@ class _QuotesState extends State<Quotes> {
 
   FutureBuilder quote() {
     return FutureBuilder<dynamic>(
-        future: Api.getQuote(AuthService().authToken.toString()),
+        future: AuthService().getQuote(AuthService().authtoken),
+        // future: Api.getQuote(AuthService().authtoken),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            print(AuthService().authToken);
+            print(AuthService().authtoken);
             print(' is the access token received');
             // print(AuthService().firebaseAuth.currentUser);
             print('Quote is $snapshot.toString()');

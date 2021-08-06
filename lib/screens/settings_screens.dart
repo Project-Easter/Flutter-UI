@@ -3,7 +3,7 @@ import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/common/themes.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

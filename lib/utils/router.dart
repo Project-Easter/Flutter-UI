@@ -4,7 +4,7 @@ import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/initial_screen.dart';
 import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/add_book.dart';
 import 'package:books_app/screens/auth/forgot_password.dart';
 import 'package:books_app/screens/auth/login.dart';
