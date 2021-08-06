@@ -5,6 +5,7 @@ import 'package:books_app/Utils/theme_notifier.dart';
 import 'package:books_app/models/books.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:books_app/common/themes.dart';
@@ -35,14 +36,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamic myAppUser = AuthService().currentUserFromFireBase;
-    return Consumer<ThemeNotifier>(
-        builder: (BuildContext context, ThemeNotifier theme, _) => MaterialApp(
-              theme: theme.getTheme(),
-              debugShowCheckedModeBanner: false,
-              title: 'Explr',
-              initialRoute:
-                  myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
-              onGenerateRoute: RouteGenerator.generateRoute,
-            ));
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.light,
+        ),
+        child: Consumer<ThemeNotifier>(
+            builder: (BuildContext context, ThemeNotifier theme, _) {
+          return MaterialApp(
+            theme: theme.getTheme(),
+            debugShowCheckedModeBanner: false,
+            title: 'Explr',
+            initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
+            onGenerateRoute: RouteGenerator.generateRoute,
+          );
+        }));
   }
 }

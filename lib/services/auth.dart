@@ -126,7 +126,7 @@ class AuthService {
     final Response response = await Api.loginWithSocialMedia(idToken);
     final dynamic body = getBodyFromResponse(response);
 
-    if (response.statusCode == 200) return body['token'].toString();
+    if (response.statusCode == 200) return body['token'] as String;
 
     final int errorId = body['error']['id'] as int;
 

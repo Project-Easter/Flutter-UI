@@ -4,6 +4,7 @@ import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/initial_screen.dart';
 import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/map/current_location.dart';
 import 'package:books_app/models/user.dart';
 import 'package:books_app/screens/add_book.dart';
 import 'package:books_app/screens/auth/forgot_password.dart';
@@ -13,7 +14,7 @@ import 'package:books_app/screens/chat/message_screen.dart';
 import 'package:books_app/screens/chat/wrapper.dart';
 import 'package:books_app/screens/dashboard/dashboard.dart';
 import 'package:books_app/screens/home.dart';
-import 'package:books_app/services/user_location.dart';
+//import 'package:books_app/services/user_location.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -41,7 +42,7 @@ class RouteGenerator {
       case Routes.HOME:
         return MaterialPageRoute<dynamic>(builder: (_) => Home());
       case Routes.LOCATION:
-        return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
+        return MaterialPageRoute<dynamic>(builder: (_) => GetUserLocation());
       case Routes.CHAT:
         return MaterialPageRoute<dynamic>(builder: (_) => const Wrapper());
       case Routes.SETTINGS:

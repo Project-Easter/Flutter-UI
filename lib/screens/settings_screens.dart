@@ -19,8 +19,8 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _darkTheme = false;
   bool _switchValue = true;
-  bool _expanded = true;
-  bool _expanded2 = true;
+  // bool _expanded = true;
+  // bool _expanded2 = true;
   final AuthService _authService = AuthService();
 
   @override
@@ -38,42 +38,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
             final UserData userData = snapshot.data;
             return Scaffold(
                 appBar: AppBar(
-                  automaticallyImplyLeading: false,
-                  elevation: 0.0,
-                  toolbarHeight: 90,
-                  bottom: PreferredSize(
-                      child: Container(
-                        color: silverDivisor,
-                        height: 1.0,
-                      ),
-                      preferredSize: const Size.fromHeight(1.0)),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // ClipRRect(
-                      //     borderRadius: BorderRadius.circular(50.0),
-                      //     child: Image.network(userData.photoURL,
-                      //         height: 60, fit: BoxFit.fill)),
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: NetworkImage(userData.photoURL),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          userData.displayName,
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400, fontSize: 18),
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    automaticallyImplyLeading: false,
+                    elevation: 0.0,
+                    toolbarHeight: 150,
+                    bottom: PreferredSize(
+                        child: Container(
+                          color: silverDivisor,
+                          height: 1.0,
                         ),
-                      )
-                    ],
-                  ),
-                ),
+                        preferredSize: const Size.fromHeight(1.0)),
+                    title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('Settings',
+                              textAlign: TextAlign.left,
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.w400, fontSize: 45)),
+                          _profile(uID, userData),
+                        ])),
                 body: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      _accountSettingsExpansiontile(themeNotifier),
-                      _moreExpansionWidget()
+                      _accountSettingsDetails(themeNotifier),
+                      _moreWidget()
                     ],
                   ),
                 ));
@@ -93,348 +81,366 @@ class _SettingsScreenState extends State<SettingsScreen> {
     prefs.setBool('darkMode', value);
   }
 
-  Widget _moreExpansionWidget() {
+  Widget _profile(dynamic uID, UserData userData) {
     return Container(
-        padding: const EdgeInsets.all(15),
-        child: Column(children: <Widget>[
-          ExpansionTile(
-            iconColor: Theme.of(context).colorScheme.onPrimary,
-            textColor: Theme.of(context).colorScheme.onPrimary,
-            collapsedTextColor: Theme.of(context).colorScheme.onPrimary,
-            initiallyExpanded: true,
-            title: Text('More',
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400, fontSize: 18)),
-            children: <Widget>[
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-                title: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        'About us',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w400, fontSize: 18),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 14,
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-                title: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        'Privacy policy',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w400, fontSize: 18),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 14,
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-                title: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        'Terms and conditions',
-                        style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w400, fontSize: 18),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 14,
-                    ),
-                  ],
-                ),
-              )
-            ],
+        padding: const EdgeInsets.only(top: 12, left: 0, right: 0, bottom: 10),
+        child: Row(children: <Widget>[
+          CircleAvatar(
+            radius: 32,
+            backgroundImage: NetworkImage(userData.photoURL),
           ),
+          Container(
+            padding: const EdgeInsets.only(left: 9.0, top: 4.0),
+            child: Text(
+              userData.displayName,
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w400, fontSize: 19),
+            ),
+          ),
+          const Spacer(),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.EDIT_PROFILE);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(
+                    top: 8.0, bottom: 8.0, left: 8.0, right: 0),
+                padding: const EdgeInsets.only(left: 3, right: 3),
+                child: Text(
+                  'Edit Profile',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    width: 2,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(23.0)),
+                ),
+              ))
         ]));
   }
 
-  Widget _accountSettingsExpansiontile(ThemeNotifier tNotifier) {
-    return Container(
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey[300]))),
-        child: Column(
-          children: <Widget>[
-            ExpansionTile(
-                iconColor: Theme.of(context).colorScheme.onPrimary,
-                textColor: Theme.of(context).colorScheme.onPrimary,
-                collapsedTextColor: Theme.of(context).colorScheme.onPrimary,
-                initiallyExpanded: true,
-                title: Text('Account Settings',
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w400, fontSize: 18)),
-                children: <Widget>[
-                  ListTile(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0, vertical: -4),
-                    title: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.EDIT_PROFILE);
-                      },
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              'Edit Profile',
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w400, fontSize: 18),
-                            ),
-                          ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 14,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0, vertical: -4),
-                    title: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            'Change password',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400, fontSize: 18),
-                          ),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 14,
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0, vertical: -4),
-                    title: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            'Change User Preferences',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400, fontSize: 18),
-                          ),
-                        ),
-                        const Icon(
-                          Icons.add,
-                          size: 18,
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0, vertical: -4),
-                    title: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            'Push notifications',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400, fontSize: 18),
-                          ),
-                        ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: CupertinoSwitch(
-                            activeColor: Colors.black,
-                            value: _switchValue,
-                            onChanged: (bool val) {
-                              setState(() {
-                                _switchValue = val;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0, vertical: -4),
-                    title: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Text(
-                            'Dark mode',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w400, fontSize: 18),
-                          ),
-                        ),
-                        Transform.scale(
-                          scale: 0.7,
-                          child: CupertinoSwitch(
-                            activeColor: Colors.black,
-                            value: _darkTheme,
-                            onChanged: (bool val) {
-                              setState(() {
-                                _darkTheme = val;
-                              });
-                              onThemeChanged(val, tNotifier);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ])
-          ],
-        ));
-  }
+  // Widget _moreExpansionWidget() {
+  //   return Container(
+  //       padding: const EdgeInsets.all(15),
+  //       child: Column(children: <Widget>[
+  //         ExpansionTile(
+  //           iconColor: Theme.of(context).colorScheme.onPrimary,
+  //           textColor: Theme.of(context).colorScheme.onPrimary,
+  //           collapsedTextColor: Theme.of(context).colorScheme.onPrimary,
+  //           initiallyExpanded: true,
+  //           title: Text('More',
+  //               style: GoogleFonts.poppins(
+  //                   fontWeight: FontWeight.w400, fontSize: 18)),
+  //           children: <Widget>[
+  //             ListTile(
+  //               visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+  //               title: Text(
+  //                 'About us',
+  //                 style: GoogleFonts.poppins(
+  //                     fontWeight: FontWeight.w400, fontSize: 18),
+  //               ),
+  //               trailing: const Icon(
+  //                 Icons.arrow_forward_ios,
+  //                 size: 14,
+  //               ),
+  //             ),
+  //             ListTile(
+  //               visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+  //               title: Text(
+  //                 'Privacy policy',
+  //                 style: GoogleFonts.poppins(
+  //                     fontWeight: FontWeight.w400, fontSize: 18),
+  //               ),
+  //               trailing: const Icon(
+  //                 Icons.arrow_forward_ios,
+  //                 size: 14,
+  //               ),
+  //             ),
+  //             ListTile(
+  //               visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+  //               title: Text(
+  //                 'Terms and conditions',
+  //                 style: GoogleFonts.poppins(
+  //                     fontWeight: FontWeight.w400, fontSize: 18),
+  //               ),
+  //               trailing: const Icon(
+  //                 Icons.arrow_forward_ios,
+  //                 size: 14,
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       ]));
+  // }
 
-//   Widget _accountSettingsDetails(ThemeNotifier tNotifier) {
-//     return Container(
-//       padding: const EdgeInsets.all(15),
-//       decoration: BoxDecoration(
-//           border: Border(bottom: BorderSide(color: Colors.grey[300]))),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: <Widget>[
-//           Text(
-//             'Account Settings',
-//             style:
-//                 GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           GestureDetector(
-//             onTap: () {
-//               Navigator.pushNamed(context, Routes.EDIT_PROFILE);
-//             },
-//             child: Row(
-//               children: <Widget>[
-//                 Expanded(
-//                   child: Text(
-//                     'Edit Profile',
-//                     style: GoogleFonts.poppins(
-//                         fontWeight: FontWeight.w400, fontSize: 18),
-//                   ),
-//                 ),
-//                 const Icon(
-//                   Icons.arrow_forward_ios,
-//                   size: 14,
-//                 ),
-//               ],
-//             ),
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             children: <Widget>[
-//               Expanded(
-//                 child: Text(
-//                   'Change password',
-//                   style: GoogleFonts.poppins(
-//                       fontWeight: FontWeight.w400, fontSize: 18),
-//                 ),
-//               ),
-//               const Icon(
-//                 Icons.arrow_forward_ios,
-//                 size: 14,
-//               ),
-//             ],
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             children: <Widget>[
-//               Expanded(
-//                 child: Text(
-//                   'Change User Preferences',
-//                   style: GoogleFonts.poppins(
-//                       fontWeight: FontWeight.w400, fontSize: 18),
-//                 ),
-//               ),
-//               const Icon(
-//                 Icons.add,
-//                 size: 18,
-//               ),
-//             ],
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             children: <Widget>[
-//               Expanded(
-//                 child: Text(
-//                   'Push notifications',
-//                   style: GoogleFonts.poppins(
-//                       fontWeight: FontWeight.w400, fontSize: 18),
-//                 ),
-//               ),
-//               Transform.scale(
-//                 scale: 0.7,
-//                 child: CupertinoSwitch(
-//                   activeColor: Colors.black,
-//                   value: _switchValue,
-//                   onChanged: (bool val) {
-//                     setState(() {
-//                       _switchValue = val;
-//                     });
-//                   },
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(
-//             height: 10,
-//           ),
-//           Row(
-//             children: <Widget>[
-//               Expanded(
-//                 child: Text(
-//                   'Dark mode',
-//                   style: GoogleFonts.poppins(
-//                       fontWeight: FontWeight.w400, fontSize: 18),
-//                 ),
-//               ),
-//               Transform.scale(
-//                 scale: 0.7,
-//                 child: CupertinoSwitch(
-//                   activeColor: Colors.black,
-//                   value: _darkTheme,
-//                   onChanged: (bool val) {
-//                     setState(() {
-//                       _darkTheme = val;
-//                     });
-//                     onThemeChanged(val, tNotifier);
-//                   },
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
+  // Widget _accountSettingsExpansiontile(ThemeNotifier tNotifier) {
+  //   return Container(
+  //       padding: const EdgeInsets.all(15),
+  //       decoration: BoxDecoration(
+  //           border: Border(bottom: BorderSide(color: Colors.grey[300]))),
+  //       child: Column(
+  //         children: <Widget>[
+  //           ExpansionTile(
+  //               iconColor: Theme.of(context).colorScheme.onPrimary,
+  //               textColor: Theme.of(context).colorScheme.onPrimary,
+  //               collapsedTextColor: Theme.of(context).colorScheme.onPrimary,
+  //               initiallyExpanded: true,
+  //               title: Text('Account Settings',
+  //                   style: GoogleFonts.poppins(
+  //                       fontWeight: FontWeight.w400, fontSize: 18)),
+  //               children: <Widget>[
+  //                 GestureDetector(
+  //                     onTap: () {
+  //                       Navigator.pushNamed(context, Routes.EDIT_PROFILE);
+  //                     },
+  //                     child: ListTile(
+  //                       visualDensity:
+  //                           const VisualDensity(horizontal: 0, vertical: -4),
+  //                       title: Text(
+  //                         'Edit Profile',
+  //                         style: GoogleFonts.poppins(
+  //                             fontWeight: FontWeight.w400, fontSize: 18),
+  //                       ),
+  //                       trailing: const Icon(
+  //                         Icons.arrow_forward_ios,
+  //                         size: 14,
+  //                       ),
+  //                     )),
+  //                 ListTile(
+  //                   visualDensity:
+  //                       const VisualDensity(horizontal: 0, vertical: -4),
+  //                   title: Row(
+  //                     children: <Widget>[
+  //                       Expanded(
+  //                         child: Text(
+  //                           'Change password',
+  //                           style: GoogleFonts.poppins(
+  //                               fontWeight: FontWeight.w400, fontSize: 18),
+  //                         ),
+  //                       ),
+  //                       const Icon(
+  //                         Icons.arrow_forward_ios,
+  //                         size: 14,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 ListTile(
+  //                   visualDensity:
+  //                       const VisualDensity(horizontal: 0, vertical: -4),
+  //                   title: Row(
+  //                     children: <Widget>[
+  //                       Expanded(
+  //                         child: Text(
+  //                           'Change User Preferences',
+  //                           style: GoogleFonts.poppins(
+  //                               fontWeight: FontWeight.w400, fontSize: 18),
+  //                         ),
+  //                       ),
+  //                       const Icon(
+  //                         Icons.add,
+  //                         size: 18,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 ListTile(
+  //                   visualDensity:
+  //                       const VisualDensity(horizontal: 0, vertical: -4),
+  //                   title: Row(
+  //                     children: <Widget>[
+  //                       Expanded(
+  //                         child: Text(
+  //                           'Push notifications',
+  //                           style: GoogleFonts.poppins(
+  //                               fontWeight: FontWeight.w400, fontSize: 18),
+  //                         ),
+  //                       ),
+  //                       Transform.scale(
+  //                         scale: 0.7,
+  //                         child: CupertinoSwitch(
+  //                           activeColor: Colors.black,
+  //                           value: _switchValue,
+  //                           onChanged: (bool val) {
+  //                             setState(() {
+  //                               _switchValue = val;
+  //                             });
+  //                           },
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 ListTile(
+  //                   visualDensity:
+  //                       const VisualDensity(horizontal: 0, vertical: -4),
+  //                   title: Row(
+  //                     children: <Widget>[
+  //                       Expanded(
+  //                         child: Text(
+  //                           'Dark mode',
+  //                           style: GoogleFonts.poppins(
+  //                               fontWeight: FontWeight.w400, fontSize: 18),
+  //                         ),
+  //                       ),
+  //                       Transform.scale(
+  //                         scale: 0.7,
+  //                         child: CupertinoSwitch(
+  //                           activeColor: Colors.black,
+  //                           value: _darkTheme,
+  //                           onChanged: (bool val) {
+  //                             setState(() {
+  //                               _darkTheme = val;
+  //                             });
+  //                             onThemeChanged(val, tNotifier);
+  //                           },
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ])
+  //         ],
+  //       ));
+  // }
+
+  Widget _accountSettingsDetails(ThemeNotifier tNotifier) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey[300]))),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Account Settings',
+            style:
+                GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, Routes.EDIT_PROFILE);
+            },
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'Edit Profile',
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400, fontSize: 18),
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Change password',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Change User Preferences',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),
+              const Icon(
+                Icons.add,
+                size: 18,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Push notifications',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),
+              Transform.scale(
+                scale: 0.7,
+                child: CupertinoSwitch(
+                  activeColor: Colors.black,
+                  value: _switchValue,
+                  onChanged: (bool val) {
+                    setState(() {
+                      _switchValue = val;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Dark mode',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),
+              Transform.scale(
+                scale: 0.7,
+                child: CupertinoSwitch(
+                  activeColor: Colors.black,
+                  value: _darkTheme,
+                  onChanged: (bool val) {
+                    setState(() {
+                      _darkTheme = val;
+                    });
+                    onThemeChanged(val, tNotifier);
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+        ],
+      ),
+    );
+  }
 
   // Widget dayNightWidget(themeNotifier) {
   //   return ListView(
@@ -459,76 +465,76 @@ class _SettingsScreenState extends State<SettingsScreen> {
   //   );
   // }
 
-//   Widget _moreWidget() {
-//     return Container(
-//       padding: const EdgeInsets.all(15),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: <Widget>[
-//           Text(
-//             'More',
-//             style:
-//                 GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             children: <Widget>[
-//               Expanded(
-//                 child: Text(
-//                   'About us',
-//                   style: GoogleFonts.poppins(
-//                       fontWeight: FontWeight.w400, fontSize: 18),
-//                 ),
-//               ),
-//               const Icon(
-//                 Icons.arrow_forward_ios,
-//                 size: 14,
-//               ),
-//             ],
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             children: <Widget>[
-//               Expanded(
-//                 child: Text(
-//                   'Privacy policy',
-//                   style: GoogleFonts.poppins(
-//                       fontWeight: FontWeight.w400, fontSize: 18),
-//                 ),
-//               ),
-//               const Icon(
-//                 Icons.arrow_forward_ios,
-//                 size: 14,
-//               ),
-//             ],
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           Row(
-//             children: <Widget>[
-//               Expanded(
-//                 child: Text(
-//                   'Terms and conditions',
-//                   style: GoogleFonts.poppins(
-//                       fontWeight: FontWeight.w400, fontSize: 18),
-//                 ),
-//               ),
-//               const Icon(
-//                 Icons.arrow_forward_ios,
-//                 size: 14,
-//               ),
-//             ],
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
+  Widget _moreWidget() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'More',
+            style:
+                GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'About us',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Privacy policy',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Terms and conditions',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400, fontSize: 18),
+                ),
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 14,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+        ],
+      ),
+    );
+  }
 }
