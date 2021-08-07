@@ -20,13 +20,13 @@ class PrivateProfile extends StatelessWidget {
       ownedBooksLength =
           booksData.where((Book book) => book.isOwned == true).length;
     }
-    final List<Book> ownedBooks = [];
+    final List<Book> ownedBooks = <Book>[];
     booksData.forEach((Book book) {
       if (book.isOwned == true) {
         ownedBooks.add(book);
       }
     });
-    final List<Book> savedBooks = [];
+    final List<Book> savedBooks = <Book>[];
     booksData.forEach((Book book) {
       if (book.isBookMarked == true) {
         savedBooks.add(book);

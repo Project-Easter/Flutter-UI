@@ -50,7 +50,7 @@ class _GoogleBooksState extends State<GoogleBooks> {
               child: CircularProgressIndicator(),
             );
           } else {
-            print(snapshot);
+            print('$snapshot is the Google book snap');
             // Extracting data from snapshot object
             final List<Book> recommendedBooksML = snapshot.data as List<Book>;
             return BookList(widget.title, recommendedBooksML);

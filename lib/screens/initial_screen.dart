@@ -9,9 +9,9 @@ import 'package:books_app/Utils/helpers.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/Widgets/Auth/auth_button.dart';
 import 'package:books_app/Widgets/text_field.dart';
+import 'package:books_app/widgets/auth/social_media_handles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -59,7 +59,7 @@ class _InitialScreenState extends State<InitialScreen>
                     height: 15,
                   ),
                   Image.asset(
-                    'assets/Explr Logo (150x150).png',
+                    'assets/images/Explr Logo (150x150).png',
                     scale: 1.4,
                   ),
                   const SizedBox(
@@ -124,7 +124,7 @@ class _InitialScreenState extends State<InitialScreen>
                   const SizedBox(height: 20),
                   _signUpwithEmail(),
                   const SizedBox(height: 10),
-                  _socialMediaHandles(),
+                  SocialMediaHandles(),
                   const SizedBox(height: 40),
                 ].where(notNull).toList(),
               ),
@@ -159,30 +159,6 @@ class _InitialScreenState extends State<InitialScreen>
 
   void onSuccess() {
     print('Logged in successfully');
-  }
-
-  void showErrorDialog(BuildContext context, String message) {
-    // set up the AlertDialog
-    final CupertinoAlertDialog alert = CupertinoAlertDialog(
-      title: const Text('Error'),
-      content: Text('\n$message'),
-      actions: <Widget>[
-        CupertinoDialogAction(
-          isDefaultAction: true,
-          child: const Text('Yes'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    );
-    // show the dialog
-    showDialog<dynamic>(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 
   Widget _signUpwithEmail() {
@@ -234,65 +210,4 @@ class _InitialScreenState extends State<InitialScreen>
   //   );
   // }
 
-  Widget _socialMediaHandles() {
-    return SizedBox(
-      height: 44,
-      width: 250,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          SizedBox(
-            height: 44,
-            width: 110,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                side: const BorderSide(color: Colors.black87),
-              ),
-              onPressed: () async {
-                try {
-                  final dynamic res = await AuthService().signInWithGoogle();
-
-                  // print(res);
-                  if (res != null) {
-                    print(res.toString());
-                    Navigator.pushNamed(context, Routes.HOME);
-                  }
-                } catch (e) {
-                  print(e.toString());
-                }
-              },
-              child: const Icon(
-                FontAwesomeIcons.google,
-                color: Colors.red,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 44,
-            width: 110,
-            child: OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                side: const BorderSide(color: Colors.black87),
-              ),
-              onPressed: () async {
-                AuthService().signInWithFacebook().whenComplete(() {
-                  Navigator.pushNamed(context, Routes.HOME);
-                });
-              },
-              child: const Icon(
-                FontAwesomeIcons.facebook,
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
