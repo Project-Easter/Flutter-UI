@@ -402,19 +402,12 @@ packages:
     source: hosted
     version: "0.6.3"
   latlong:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: latlong
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1"
-  latlong2:
-    dependency: "direct main"
-    description:
-      name: latlong2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.0"
   list_ext:
     dependency: transitive
     description:
@@ -568,7 +561,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.1"
+    version: "4.2.3"
   proj4dart:
     dependency: transitive
     description:

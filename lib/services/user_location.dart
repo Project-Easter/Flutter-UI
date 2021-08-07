@@ -85,13 +85,11 @@ import 'package:books_app/Utils/location_helper.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-
 import 'package:geocoding/geocoding.dart';
+import 'package:latlong/latlong.dart';
 // import 'package:latlong/latlong.dart';
-import 'package:latlong2/latlong.dart';
 
 class GetLocation extends StatefulWidget {
-  
   @override
   _GetLocationState createState() => _GetLocationState();
 }
@@ -100,20 +98,6 @@ class _GetLocationState extends State<GetLocation> {
   String address = '';
   String name = '';
   String streetAddress = '';
-
-  Future<void> _getAddrress(double latitude, double longitude) async {
-    List<Placemark> newPlace =
-        await placemarkFromCoordinates(latitude, longitude);
-    print(newPlace[0]);
-    Placemark placeMark = newPlace[0];
-    name = placeMark.name!;
-    String? locality = placeMark.locality;
-    streetAddress = placeMark.street!;
-
-    String postalCode = placeMark.postalCode;
-    String country = placeMark.country;
-    address = '$name, $locality, $postalCode, $country';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +111,7 @@ class _GetLocationState extends State<GetLocation> {
             print(snapshot.data.latitude);
             return FlutterMap(
               options: MapOptions(
-                center:
-                    LatLng(snapshot.data.latitude, snapshot.data.longitude),
+                center: LatLng(snapshot.data.latitude, snapshot.data.longitude),
                 zoom: 13.0,
               ),
               layers: [
@@ -146,7 +129,7 @@ class _GetLocationState extends State<GetLocation> {
                       width: 120.0,
                       height: 120.0,
                       point: LatLng(
-                          snapshot.data.latitude, snapshot.data.longitude)  ,
+                          snapshot.data.latitude, snapshot.data.longitude),
                       builder: (BuildContext ctx) => Container(
                         child: IconButton(
                           icon: Icon(
@@ -156,7 +139,7 @@ class _GetLocationState extends State<GetLocation> {
                           onPressed: () async {
                             await _getAddrress(snapshot.data.latitude,
                                 snapshot.data.longitude);
-                            showModalBottomSheet(
+                            showModalBottomSheet<void>(
                                 context: context,
                                 builder: (BuildContext ctx) {
                                   return Container(
@@ -257,5 +240,19 @@ class _GetLocationState extends State<GetLocation> {
         },
       ),
     );
+  }
+
+  Future<void> _getAddrress(double latitude, double longitude) async {
+    List<Placemark> newPlace =
+        await placemarkFromCoordinates(latitude, longitude);
+    print(newPlace[0]);
+    Placemark placeMark = newPlace[0];
+    name = placeMark.name;
+    String locality = placeMark.locality;
+    streetAddress = placeMark.street;
+
+    String postalCode = placeMark.postalCode;
+    String country = placeMark.country;
+    address = '$name, $locality, $postalCode, $country';
   }
 }
