@@ -63,7 +63,7 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                           ),
                         ),
-                        onChanged: (String value) {
+                        onFieldSubmitted: (String value) {
                           setState(() {
                             _bookName.text = value;
                           });
@@ -83,7 +83,7 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                           ),
                         ),
-                        onChanged: (String value) {
+                        onFieldSubmitted: (String value) {
                           setState(() {
                             _authorName.text = value;
                           });

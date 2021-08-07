@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:http/http.dart';
 
@@ -38,7 +39,7 @@ class Api {
 
   static Future<Response> loginWithSocialMedia(String idToken) async {
     return sendRequest(() => post(Uri.parse(BASE_ROUTE + '/auth/social'),
-        body: {'idToken': idToken}));
+        body: json.encode({'idToken': idToken})));
   }
 
   static Future<Response> register(String email, String password) {

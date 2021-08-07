@@ -1,6 +1,7 @@
 import 'package:geocoder/geocoder.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
 
 class LocationHelper {
   Future<List<String>> getAddressFromLatLng(double lat, double lang) async {

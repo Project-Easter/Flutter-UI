@@ -10,9 +10,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/src/response.dart';
 
 class AuthService {
+  static String fbauthtoken = '';
+  static String googleAuthToken = '';
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FacebookLogin facebookLogin = FacebookLogin();
-  String authtoken;
 
   dynamic get currentUserFromFireBase {
     return firebaseAuth.currentUser;
@@ -90,7 +91,12 @@ class AuthService {
       final dynamic result = getBodyFromResponse(response);
       print('Quote result is $result');
       if (result.statusCode == 200) {
-        return Quote(result.text.toString(), result.authorization.toString());
+        print('Result is $result');
+
+        print(result.text.toString());
+        print(result.authorization.toString());
+        return Quote(
+            result['text'].toString(), result['authorization'].toString());
       }
 
       // if (result != null) return result['token'] as String;
@@ -161,7 +167,7 @@ class AuthService {
   }
 
   UserData makeUserDataFromAuthUser(User user) {
-    const String photoUrl = 'assets/Explr Logo.png';
+    const String photoUrl = 'assets/images/Explr Logo.png';
     final UserData userData = UserData(
       uid: user.uid,
       displayName: user.displayName ?? 'Your name',
@@ -238,8 +244,8 @@ class AuthService {
     print('ID token received from user.getIdToken(true) is $idToken');
 
     try {
-      authtoken = await loginWithSocialMedia(idToken);
-      print('facebook token is $authtoken');
+      fbauthtoken = await loginWithSocialMedia(idToken);
+      print('facebook token is $fbauthtoken');
     } catch (error) {
       print(error.toString());
     }
@@ -268,8 +274,8 @@ class AuthService {
       assert(user.uid == currentUser.uid);
 
       try {
-        authtoken = await loginWithSocialMedia(authentication.idToken);
-        print('Google Auth token is $authtoken');
+        googleAuthToken = await loginWithSocialMedia(authentication.idToken);
+        print('Google Auth token is $googleAuthToken');
         // final String idtoken = await user.getIdToken(true);
         final String idtoken = authentication.idToken;
 
