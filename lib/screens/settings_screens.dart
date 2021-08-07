@@ -19,8 +19,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   bool _darkTheme = false;
   bool _switchValue = true;
-  // bool _expanded = true;
-  // bool _expanded2 = true;
   final AuthService _authService = AuthService();
 
   @override
@@ -256,29 +254,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
-
-  // Widget dayNightWidget(themeNotifier) {
-  //   return ListView(
-  //     children: <Widget>[
-  //       ListTile(
-  //         title: Text('Dark Theme'),
-  //         contentPadding: const EdgeInsets.only(left: 16.0),
-  //         trailing: Transform.scale(
-  //           scale: 0.4,
-  //           child: DayNightSwitch(
-  //             value: _darkTheme,
-  //             onChanged: (val) {
-  //               setState(() {
-  //                 _darkTheme = val;
-  //               });
-  //               onThemeChanged(val, themeNotifier);
-  //             },
-  //           ),
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
 
   Widget _moreWidget() {
     return Container(
