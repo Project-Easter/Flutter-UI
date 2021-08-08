@@ -36,19 +36,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamic myAppUser = AuthService().currentUserFromFireBase;
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.light,
-        ),
-        child: Consumer<ThemeNotifier>(
-            builder: (BuildContext context, ThemeNotifier theme, _) {
-          return MaterialApp(
-            theme: theme.getTheme(),
-            debugShowCheckedModeBanner: false,
-            title: 'Explr',
-            initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
-            onGenerateRoute: RouteGenerator.generateRoute,
-          );
-        }));
+    return MaterialApp(
+      theme: Provider.of<ThemeNotifier>(context).getTheme(),
+      debugShowCheckedModeBanner: false,
+      title: 'Explr',
+      initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
+      onGenerateRoute: RouteGenerator.generateRoute,
+      //})
+    );
   }
 }
