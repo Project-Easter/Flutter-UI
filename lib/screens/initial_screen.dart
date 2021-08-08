@@ -59,7 +59,7 @@ class _InitialScreenState extends State<InitialScreen>
                     height: 15,
                   ),
                   Image.asset(
-                    'assets/images/Explr Logo (150x150).png',
+                    'assets/images/ExplrLogo(150x150).png',
                     scale: 1.4,
                   ),
                   const SizedBox(
