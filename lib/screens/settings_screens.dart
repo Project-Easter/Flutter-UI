@@ -100,24 +100,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 Navigator.pushNamed(context, Routes.EDIT_PROFILE);
               },
+              // ignore: avoid_unnecessary_containers
               child: Container(
-                height: 30,
-                margin: const EdgeInsets.only(
-                    top: 8.0, bottom: 8.0, left: 8.0, right: 0),
-                padding: const EdgeInsets.all(3),
-                child: Text(
-                  'Edit Profile',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 18,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    width: 2,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(23.0)),
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 18,
                 ),
               ))
         ]));
@@ -125,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _accountSettingsDetails(ThemeNotifier tNotifier) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 10),
       decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey[300]))),
       child: Column(
@@ -258,7 +245,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _moreWidget() {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
