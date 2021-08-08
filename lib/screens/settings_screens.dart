@@ -101,14 +101,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Navigator.pushNamed(context, Routes.EDIT_PROFILE);
               },
               child: Container(
+                height: 30,
                 margin: const EdgeInsets.only(
                     top: 8.0, bottom: 8.0, left: 8.0, right: 0),
-                padding: const EdgeInsets.only(left: 3, right: 3),
+                padding: const EdgeInsets.all(3),
                 child: Text(
                   'Edit Profile',
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w400,
-                    fontSize: 15,
+                    fontSize: 18,
                   ),
                 ),
                 decoration: BoxDecoration(
@@ -269,57 +270,69 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(
             height: 15,
           ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  'About us',
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400, fontSize: 18),
-                ),
-              ),
-              const Icon(
-                Icons.arrow_forward_ios,
-                size: 14,
-              ),
-            ],
-          ),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.ABOUT_US);
+              },
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'About us',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400, fontSize: 18),
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 14,
+                  ),
+                ],
+              )),
           const SizedBox(
             height: 15,
           ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  'Privacy policy',
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400, fontSize: 18),
-                ),
-              ),
-              const Icon(
-                Icons.arrow_forward_ios,
-                size: 14,
-              ),
-            ],
-          ),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.PRIVACY_POLICY);
+              },
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Privacy policy',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400, fontSize: 18),
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 14,
+                  ),
+                ],
+              )),
           const SizedBox(
             height: 15,
           ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  'Terms and conditions',
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400, fontSize: 18),
-                ),
-              ),
-              const Icon(
-                Icons.arrow_forward_ios,
-                size: 14,
-              ),
-            ],
-          ),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.TERMS_CONDITION);
+              },
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Terms and conditions',
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400, fontSize: 18),
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 14,
+                  ),
+                ],
+              )),
           const SizedBox(
             height: 15,
           ),
