@@ -23,10 +23,12 @@ class SocialMediaHandles extends StatelessWidget {
                 side: const BorderSide(color: Colors.black87),
               ),
               onPressed: () async {
+                print('Google Sign in presws');
                 try {
                   final dynamic res = await AuthService().signInWithGoogle();
 
-                  // print(res);
+                  print('This is the google response');
+                  print(res);
                   if (res != null) {
                     print(res.toString());
                     Navigator.pushNamed(context, Routes.HOME);

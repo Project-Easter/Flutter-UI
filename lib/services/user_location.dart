@@ -82,11 +82,15 @@
 //   }
 // }
 import 'package:books_app/Utils/location_helper.dart';
+import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong/latlong.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:books_app/main.dart';
 // import 'package:latlong/latlong.dart';
 
 class GetLocation extends StatefulWidget {
@@ -101,6 +105,9 @@ class _GetLocationState extends State<GetLocation> {
 
   @override
   Widget build(BuildContext context) {
+    final dynamic _uID = AuthService().getUID;
+    final DatabaseService _databaseService =
+        DatabaseService(uid: _uID.toString());
     return Scaffold(
       // ignore: always_specify_types
       body: FutureBuilder(
@@ -109,6 +116,7 @@ class _GetLocationState extends State<GetLocation> {
           if (snapshot.hasData) {
             print(snapshot.data);
             print(snapshot.data.latitude);
+
             return FlutterMap(
               options: MapOptions(
                 center: LatLng(snapshot.data.latitude, snapshot.data.longitude),
@@ -132,11 +140,14 @@ class _GetLocationState extends State<GetLocation> {
                           snapshot.data.latitude, snapshot.data.longitude),
                       builder: (BuildContext ctx) => Container(
                         child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.location_on,
                             size: 30,
                           ),
                           onPressed: () async {
+                            await _databaseService.updateUserLocation(
+                                snapshot.data.latitude,
+                                snapshot.data.longitude);
                             await _getAddrress(snapshot.data.latitude,
                                 snapshot.data.longitude);
                             showModalBottomSheet<void>(
@@ -150,23 +161,23 @@ class _GetLocationState extends State<GetLocation> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                            padding: EdgeInsets.only(bottom: 2),
+                                            padding: const EdgeInsets.only(
+                                                bottom: 2),
                                             color: Colors.blue[700],
                                             child: ListTile(
                                               trailing: Container(
-                                                padding: EdgeInsets.all(2),
+                                                padding:
+                                                    const EdgeInsets.all(2),
                                                 height: 80,
                                                 width: 80,
-                                                margin:
-                                                    EdgeInsets.only(bottom: 0),
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                     color: Colors.white,
                                                     shape: BoxShape.circle),
                                                 child: Icon(Icons.location_on,
                                                     color: Colors.blue[700],
                                                     size: 35),
                                               ),
-                                              title: Text(
+                                              title: const Text(
                                                 'Address',
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -176,7 +187,7 @@ class _GetLocationState extends State<GetLocation> {
                                               ),
                                               subtitle: Text(
                                                 address,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,
                                                 ),
@@ -186,11 +197,11 @@ class _GetLocationState extends State<GetLocation> {
                                         //   title: Text('Address'),
                                         //   subtitle: Text(address),
                                         // ),
-                                        SizedBox(),
+                                        const SizedBox(),
                                         Container(
                                             height: 45,
                                             width: 150,
-                                            padding: EdgeInsets.all(0),
+                                            padding: const EdgeInsets.all(0),
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                   shape: MaterialStateProperty
@@ -243,16 +254,18 @@ class _GetLocationState extends State<GetLocation> {
   }
 
   Future<void> _getAddrress(double latitude, double longitude) async {
-    List<Placemark> newPlace =
+    final List<Placemark> newPlace =
         await placemarkFromCoordinates(latitude, longitude);
     print(newPlace[0]);
-    Placemark placeMark = newPlace[0];
+    final Placemark placeMark = newPlace[0];
     name = placeMark.name;
-    String locality = placeMark.locality;
+    final String locality = placeMark.locality;
     streetAddress = placeMark.street;
 
-    String postalCode = placeMark.postalCode;
-    String country = placeMark.country;
+    final String postalCode = placeMark.postalCode;
+    final String country = placeMark.country;
     address = '$name, $locality, $postalCode, $country';
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('address', address);
   }
 }

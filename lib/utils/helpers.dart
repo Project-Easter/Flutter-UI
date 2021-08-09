@@ -9,3 +9,15 @@ Future<dynamic> getBodyFromResponse(Response response) async {
 bool notNull(Object object) {
   return object != null;
 }
+
+Future<Response> sendRequest(Future<Response> Function() request) async {
+  Response response;
+
+  try {
+    response = await request();
+  } catch (error) {
+    print(error.toString());
+  }
+
+  return response;
+}

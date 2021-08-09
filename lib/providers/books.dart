@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'book.dart';
 
 class Books with ChangeNotifier {
-  //Note:These lists will change and these are dummy data. This is just for filtering demo
+  
   //Owned Books
   final List<Book> _ownedBooks = <Book>[];
 
@@ -177,6 +177,7 @@ class Books with ChangeNotifier {
       final String isbn = result['volumeInfo']['industryIdentifiers'][0]
               ['identifier']
           .toString();
+          final String infoLink = result['volumeInfo']['infoLink'].toString();
 
       String imageLink;
       try {
@@ -197,6 +198,7 @@ class Books with ChangeNotifier {
         description: description,
         imageUrl: imageLink,
         author: author,
+        infoLink: infoLink,
       );
     }
     return book;
