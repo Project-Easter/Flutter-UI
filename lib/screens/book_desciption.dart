@@ -1,9 +1,13 @@
 import 'package:books_app/Constants/routes.dart';
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/colors.dart';
-import 'package:books_app/models/book.dart';
+import 'package:books_app/providers/book.dart';
 import 'package:books_app/services/auth.dart';
+import 'package:books_app/widgets/book_description/genres.dart';
+import 'package:books_app/widgets/book_description/owner_info.dart';
+import 'package:books_app/widgets/book_description/reviews.dart';
 import 'package:books_app/widgets/button.dart';
+import 'package:books_app/widgets/error_dialog.dart';
 import 'package:books_app/widgets/rating.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,9 +23,7 @@ class BookDescription extends StatefulWidget {
 class _BookDescriptionState extends State<BookDescription>
     with SingleTickerProviderStateMixin {
   final AuthService _authService = AuthService();
-  final Type bodyGlobalKey = GlobalKey;
   TabController _tabController;
-  bool fixedScroll;
 
   Widget bookDescription(String description) {
     return Column(
@@ -39,8 +41,6 @@ class _BookDescriptionState extends State<BookDescription>
           padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),
           child: ReadMoreText(
             widget.bookFromList.description,
-            // "",
-            // description,
             style: GoogleFonts.poppins(
                 color: Colors.blueGrey,
                 fontWeight: FontWeight.w500,
@@ -144,7 +144,7 @@ class _BookDescriptionState extends State<BookDescription>
                         }
                         print('Book Marked');
                       },
-                      icon: widget.bookFromList.isBookMarked != null
+                      icon: widget.bookFromList.isBookMarked
                           ? const Icon(Icons.bookmark)
                           : const Icon(Icons.bookmark_outline_rounded),
                       iconSize: 20,
@@ -194,49 +194,40 @@ class _BookDescriptionState extends State<BookDescription>
                   indent: 15,
                   endIndent: 15,
                 ),
-                genre(),
+                Genres(),
                 const Divider(
                   thickness: 1,
                   indent: 15,
                   endIndent: 15,
                 ),
-                reviews(),
+                Reviews(),
                 if (widget.bookFromList.isOwned != null)
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: CupertinoStyleButton(
-                        color: blackButton,
-                        name: 'Rate this Book',
-                        myFunction: () async {
-                          final int stars = await showDialog(
-                              context: context, builder: (_) => RatingDialog());
-                          if (stars == null) return;
-                          print('Selected rate stars: $stars');
-                          _databaseService.updateRating(
-                              stars.toDouble(), widget.bookFromList.isbn);
-                          print('Update Ratings');
-                        }),
-                  )
+                  CupertinoStyleButton(
+                      color: blackButton,
+                      name: 'Rate this Book',
+                      myFunction: () async {
+                        final int stars = await showDialog(
+                            context: context, builder: (_) => RatingDialog());
+                        if (stars == null) return;
+                        print('Selected rate stars: $stars');
+                        _databaseService.updateRating(
+                            stars.toDouble(), widget.bookFromList.isbn);
+                        print('Update Ratings');
+                      })
                 else
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: CupertinoStyleButton(
-                        color: blackButton,
-                        name: 'Exchange this Book',
-                        myFunction: () async {}),
-                  ),
-                if (widget.bookFromList.isOwned != null)
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: CupertinoStyleButton(
-                        color: blackButton,
-                        name: 'Remove this Book',
-                        myFunction: () async {
-                          _databaseService.removeBook(widget.bookFromList.isbn);
-                          Navigator.of(context).pop();
-                          print('Book Removed');
-                        }),
-                  )
+                  CupertinoStyleButton(
+                      color: blackButton,
+                      name: 'Exchange this Book',
+                      myFunction: () async {}),
+                if (widget.bookFromList.isOwned == true)
+                  CupertinoStyleButton(
+                      color: blackButton,
+                      name: 'Remove this Book',
+                      myFunction: () async {
+                        _databaseService.removeBook(widget.bookFromList.isbn);
+                        Navigator.of(context).pop();
+                        print('Book Removed');
+                      })
                 else
                   const SizedBox(),
               ],
@@ -244,16 +235,23 @@ class _BookDescriptionState extends State<BookDescription>
             ListView(
               physics: const NeverScrollableScrollPhysics(),
               children: <Widget>[
-                ownerDetails(),
+                OwnerInfo(),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
                     children: <Widget>[
+                      CupertinoStyleButton(
+                        name: 'Exchange this Book',
+                        color: greenButton,
+                        myFunction: () => showErrorDialog(
+                          context,
+                          'Note : The exchange will be done on the consent of both the users and an autogenerated mail will be sent to both when the exchange gets finally completed',
+                        ),
+                      ),
                       button(context, blackButton, 'Visit Profile',
                           Routes.PUBLIC_PROFILE),
-                      button(context, greenButton, 'Exchange this Book',
-                          Routes.CHAT),
-                      ratings(),
+                      // button(context, greenButton, 'Exchange this Book',
+                      //     Routes.CHAT),
                     ],
                   ),
                 ),
@@ -271,130 +269,21 @@ class _BookDescriptionState extends State<BookDescription>
     super.dispose();
   }
 
-  Widget genre() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Container(
-            height: 28,
-            width: 140,
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                ),
-                borderRadius: BorderRadius.circular(8)),
-            child: Center(
-              child: Text('Action',
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14)),
-            ),
-          ),
-          Container(
-            height: 28,
-            width: 140,
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                ),
-                borderRadius: BorderRadius.circular(8)),
-            child: Center(
-              child: Text(
-                'Fantasy',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
-  Widget ownerDetails() {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        children: <Widget>[
-          Text(
-            'Jane Doe',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
-          ),
-          Text(
-            'SAN FRANSISCO, CA',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
-          ),
-          Text(
-            'jane@example.com',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget ratings() {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Text(
-        'Note : The exchange will be done on the consent of both the users and an autogenerated mail will be sent to both when the exchange gets finally completed',
-        style: GoogleFonts.muli(
-            color: Colors.redAccent, fontWeight: FontWeight.bold),
-        softWrap: true,
-      ),
-    );
-  }
-
-  Widget reviews() {
-    final TextEditingController _commentController = TextEditingController();
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            'Reviews',
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
-          ),
-          AspectRatio(
-            aspectRatio: 343 / 52,
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: TextField(
-                controller: _commentController,
-                maxLines: 5,
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                    hintText: 'Add your comment',
-                    hintStyle: GoogleFonts.muli(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    )),
-                onSubmitted: (String value) {
-                  setState(() {
-                    _commentController.text = value;
-                  });
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget ratings() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(15.0),
+  //     child: Text(
+  //       'Note : The exchange will be done on the consent of both the users and an autogenerated mail will be sent to both when the exchange gets finally completed',
+  //       style: GoogleFonts.muli(
+  //           color: Colors.redAccent, fontWeight: FontWeight.bold),
+  //       softWrap: true,
+  //     ),
+  //   );
+  // }
 }

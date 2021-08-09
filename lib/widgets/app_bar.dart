@@ -52,9 +52,9 @@ AppBar MyAppBar(BuildContext buildContext) {
     titleSpacing: 5,
     elevation: 0.0,
     backgroundColor: Colors.white,
-    leading: const Icon(
-      Icons.book_outlined,
-      color: Colors.black,
+    leading: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Image.asset('assets/images/ExplrLogo(150x150).png'),
     ),
     title: Text(
       'Explr',

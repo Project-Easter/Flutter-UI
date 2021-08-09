@@ -1,12 +1,12 @@
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 
-class Config {
-  static const String PATH = 'assets/config.json';
+// class Config {
+//   static const String PATH = 'assets/config.json';
 
-  Future<Map<String, dynamic>> load() async {
-    final String config = await rootBundle.loadString(PATH);
-    return jsonDecode(config) as Map<String, dynamic>;
-  }
-}
+//   Future<Map<String, dynamic>> load() async {
+//     final String config = await rootBundle.loadString(PATH);
+//     return jsonDecode(config) as Map<String, dynamic>;
+//   }
+// }

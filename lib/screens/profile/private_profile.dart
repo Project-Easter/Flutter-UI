@@ -1,12 +1,12 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/models/book.dart';
-import 'package:books_app/models/user.dart';
-import 'package:books_app/services/auth.dart';
+import 'package:books_app/providers/book.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PrivateProfile extends StatelessWidget {
   @override
@@ -20,13 +20,13 @@ class PrivateProfile extends StatelessWidget {
       ownedBooksLength =
           booksData.where((Book book) => book.isOwned == true).length;
     }
-    final List<Book> ownedBooks = [];
+    final List<Book> ownedBooks = <Book>[];
     booksData.forEach((Book book) {
       if (book.isOwned == true) {
         ownedBooks.add(book);
       }
     });
-    final List<Book> savedBooks = [];
+    final List<Book> savedBooks = <Book>[];
     booksData.forEach((Book book) {
       if (book.isBookMarked == true) {
         savedBooks.add(book);
@@ -134,14 +134,16 @@ class PrivateProfile extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: <Widget>[
-                    button(context, blackButton, 'Library', Routes.LIBRARY),
-                    GestureDetector(
-                      onTap: () {
-                        AuthService().googleSignout();
-                      },
-                      child: button(
-                          context, greenButton, 'Logout', Routes.INITIAL_PAGE),
-                    )
+                    button(
+                        context, blackButton, 'Add you Book', Routes.ADD_BOOK),
+                    button(context, blackButton, 'Settings', Routes.SETTINGS),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     AuthService().googleSignout();
+                    //   },
+                    //   child: button(
+                    //       context, greenButton, 'Logout', Routes.INITIAL_PAGE),
+                    // )
                   ],
                 ),
               ),

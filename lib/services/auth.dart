@@ -1,22 +1,20 @@
 import 'package:books_app/Services/database_service.dart';
+import 'package:books_app/Utils/api.dart';
 import 'package:books_app/constants/error.dart';
-import 'package:books_app/models/user.dart';
-import 'package:books_app/utils/api.dart';
+import 'package:books_app/providers/user.dart';
+import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/src/response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
+  static String fbauthtoken = '';
+  static String googleAuthToken = '';
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FacebookLogin facebookLogin = FacebookLogin();
-  String authtoken;
-
-  dynamic get authToken async {
-    return loginWithSocialMedia(
-        await firebaseAuth.currentUser.getIdToken(true));
-  }
 
   dynamic get currentUserFromFireBase {
     return firebaseAuth.currentUser;
@@ -61,7 +59,7 @@ class AuthService {
     final Response response = await Api.forgotPassword(email);
     if (response.statusCode == 204) return;
 
-    final dynamic body = getBodyFromResponse(response);
+    final dynamic body = await getBodyFromResponse(response);
     final int errorId = body['error']['id'] as int;
 
     switch (errorId) {
@@ -82,6 +80,29 @@ class AuthService {
         {
           throw Exception('An unknown error occured. Please try again later');
         }
+    }
+  }
+
+  Future getQuote(String token) async {
+    final Response response = await Api.getQuoteData(token);
+    try {
+      // final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
+      //     headers: {'authorization': token});
+      // final dynamic result = jsonDecode(response.body);
+      final dynamic result = getBodyFromResponse(response);
+      print('Quote result is $result');
+      if (result.statusCode == 200) {
+        print('Result is $result');
+
+        print(result.text.toString());
+        print(result.authorization.toString());
+        return Quote(
+            result['text'].toString(), result['authorization'].toString());
+      }
+
+      // if (result != null) return result['token'] as String;
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -124,11 +145,17 @@ class AuthService {
 
   Future<String> loginWithSocialMedia(String idToken) async {
     final Response response = await Api.loginWithSocialMedia(idToken);
-    final dynamic body = getBodyFromResponse(response);
+    final dynamic body = await getBodyFromResponse(response);
 
-    if (response.statusCode == 200) return body['token'].toString();
+    print('Piotr login wale ka Body is $body');
+    if (response.statusCode == 200) {
+      String t = body['token'] as String;
+      print('Piotr login wale ka 200 respone  is $t');
+      return body['token'] as String;
+    }
 
     final int errorId = body['error']['id'] as int;
+    print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
 
     switch (errorId) {
       case Error.INVALID_ACCOUNT_TYPE:
@@ -144,7 +171,7 @@ class AuthService {
   }
 
   UserData makeUserDataFromAuthUser(User user) {
-    const String photoUrl = 'assets/Explr Logo.png';
+    const String photoUrl = 'assets/images/Explr Logo.png';
     final UserData userData = UserData(
       uid: user.uid,
       displayName: user.displayName ?? 'Your name',
@@ -186,7 +213,7 @@ class AuthService {
     final Response response = await Api.resetPassword(email, password, code);
     if (response.statusCode == 204) return;
 
-    final dynamic body = getBodyFromResponse(response);
+    final dynamic body = await getBodyFromResponse(response);
     final int errorId = body['error']['id'] as int;
 
     switch (errorId) {
@@ -218,10 +245,11 @@ class AuthService {
     if (user == null) return null;
 
     final String idToken = await user.getIdToken(true);
+    print('ID token received from user.getIdToken(true) is $idToken');
 
     try {
-      authtoken = await loginWithSocialMedia(idToken);
-      print('facebook token is $authtoken');
+      fbauthtoken = await loginWithSocialMedia(idToken);
+      print('facebook token is $fbauthtoken');
     } catch (error) {
       print(error.toString());
     }
@@ -248,46 +276,30 @@ class AuthService {
 
       final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
+      final String tokens = await firebaseAuth.currentUser.getIdToken();
 
       try {
+        print('entered try catch');
+        // print(
+        //     '$authentication.idToken will be the token that will be passed to loginWithSocialMedia');
+            print(
+            '$tokens will be the token that will be passed to loginWithSocialMedia');
+        googleAuthToken = await loginWithSocialMedia(tokens);
+        final SharedPreferences preferences = await SharedPreferences.getInstance();
+        // preferences.setString('googleIdToken', authentication.idToken);
+        preferences.setString('token', tokens);
+        print('Google Auth token is $googleAuthToken');
         // final String idtoken = await user.getIdToken(true);
         final String idtoken = authentication.idToken;
-        authtoken = idtoken;
+
         print('The IDtoken is $idtoken');
-        authtoken = await loginWithSocialMedia(idtoken);
-        print('Google Auth token is $authtoken');
       } catch (e) {
-        print(e.toString());
+        print('Damn we got an error: ' + e.toString());
       }
+
       final UserData userData = makeUserDataFromAuthUser(user);
       await DatabaseService(uid: user.uid).updateUserData(userData);
       return user;
     }
-
-    // print(user);
-    // print('Current user of Firebase is below:');
-    // print(currentUserFromFireBase);
-    // _retrieveUserFromFirebaseUser(user);
-    // try {
-    //   // final String idtoken = await loginWithSocialMedia(authentication.idToken);
-    //   final String accessToken =
-    //       await loginWithSocialMedia(authentication.idToken);
-    //   // print('The idtoken here is $idtoken');
-    //   print('The access token here is $accessToken');
-    //   return user;
-    //   // return _retrieveUserFromFirebaseUser(user);
-    // } catch (error) {
-    //   print(error.toString());
-    // }
   }
-
-  // MyAppUser _retrieveUserFromFirebaseUser(User user) {
-  //   return user != null
-  //       ? MyAppUser(
-  //           uid: user.uid,
-
-  //           // idtoken: user.getIdToken(true) as String,
-  //         )
-  //       : null;
-  // }
 }

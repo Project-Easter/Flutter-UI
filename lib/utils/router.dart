@@ -4,8 +4,7 @@ import 'package:books_app/Screens/Profile/edit_profile.dart';
 import 'package:books_app/Screens/bookshelf.dart';
 import 'package:books_app/Screens/initial_screen.dart';
 import 'package:books_app/Screens/settings_screens.dart';
-import 'package:books_app/services/user_location.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/add_book.dart';
 import 'package:books_app/screens/auth/forgot_password.dart';
 import 'package:books_app/screens/auth/login.dart';
@@ -47,8 +46,6 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => const AddBook());
       case Routes.HOME:
         return MaterialPageRoute<dynamic>(builder: (_) => Home());
-      case Routes.LOCATION:
-        return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
       case Routes.CHAT:
         return MaterialPageRoute<dynamic>(builder: (_) => const Wrapper());
       case Routes.SETTINGS:

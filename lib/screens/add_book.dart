@@ -2,8 +2,8 @@ import 'package:books_app/Constants/colors.dart';
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Widgets/app_bar.dart';
 import 'package:books_app/Widgets/button.dart';
-import 'package:books_app/models/book.dart';
-import 'package:books_app/models/books.dart';
+import 'package:books_app/providers/book.dart';
+import 'package:books_app/providers/books.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,7 +63,7 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                           ),
                         ),
-                        onChanged: (String value) {
+                        onFieldSubmitted: (String value) {
                           setState(() {
                             _bookName.text = value;
                           });
@@ -83,7 +83,7 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                           ),
                         ),
-                        onChanged: (String value) {
+                        onFieldSubmitted: (String value) {
                           setState(() {
                             _authorName.text = value;
                           });

@@ -2,8 +2,8 @@ import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/api.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/models/book.dart';
-import 'package:books_app/models/user.dart';
+import 'package:books_app/providers/book.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/bookshelf.dart';
 import 'package:books_app/screens/chat/wrapper.dart';
 import 'package:books_app/screens/dashboard/dashboard.dart';
@@ -38,16 +38,17 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final dynamic uID = _authService.getUID;
+    final String uID = _authService.getUID;
     print(uID);
     return MultiProvider(
       providers: <StreamProvider<dynamic>>[
         StreamProvider<UserData>.value(
-          value: DatabaseService(uid: uID as String).userData,
+          value: DatabaseService(uid: uID).userData,
           catchError: (_, Object e) => null,
         ),
         StreamProvider<List<Book>>.value(
-            value: DatabaseService(uid: uID as String).booksData),
+          value: DatabaseService(uid: uID).booksData,
+        ),
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -55,16 +56,16 @@ class _HomeState extends State<Home> {
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FloatingActionButton(
-                  heroTag: null,
-                  child: const Icon(Icons.add_box_rounded),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.ADD_BOOK);
-                  },
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: FloatingActionButton(
+              //     heroTag: null,
+              //     child: const Icon(Icons.add_box_rounded),
+              //     onPressed: () {
+              //       Navigator.pushNamed(context, Routes.ADD_BOOK);
+              //     },
+              //   ),
+              // ),
               FloatingActionButton(
                 heroTag: 'map',
                 child: const Icon(Icons.location_on),

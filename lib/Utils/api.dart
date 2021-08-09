@@ -1,7 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:books_app/Utils/helpers.dart';
-import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:http/http.dart';
 
 class Api {
@@ -18,21 +17,9 @@ class Api {
         body: {'email': email}));
   }
 
-  static Future<dynamic> getQuote(String token) async {
-    try {
-      final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
-          headers: {'authorization': token});
-      // final dynamic result = jsonDecode(response.body);
-      final dynamic result = getBodyFromResponse(response);
-      print('Quote result is $result');
-      if (response.statusCode == 200) {
-        return Quote(result.text.toString(), result.authorization.toString());
-      }
-
-      // if (result != null) return result['token'] as String;
-    } catch (e) {
-      print(e.toString());
-    }
+  static Future<Response> getQuoteData(String token) async {
+    return sendRequest(() => get(Uri.parse(BASE_ROUTE + '/quote'),
+        headers: {'authorization': token}));
   }
 
   static Future<Response> getUserData(String token) async {
@@ -52,7 +39,7 @@ class Api {
 
   static Future<Response> loginWithSocialMedia(String idToken) async {
     return sendRequest(() => post(Uri.parse(BASE_ROUTE + '/auth/social'),
-        body: {'idToken': idToken}));
+        body: json.encode({'idToken': idToken})));
   }
 
   static Future<Response> register(String email, String password) {

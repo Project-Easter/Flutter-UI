@@ -223,13 +223,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_compass:
-    dependency: transitive
-    description:
-      name: flutter_compass
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
   flutter_image:
     dependency: transitive
     description:
@@ -258,13 +251,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.0"
-  flutter_map_location:
-    dependency: "direct main"
-    description:
-      name: flutter_map_location
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.1+1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -416,19 +402,12 @@ packages:
     source: hosted
     version: "0.6.3"
   latlong:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: latlong
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1"
-  latlong2:
-    dependency: "direct main"
-    description:
-      name: latlong2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.8.0"
   list_ext:
     dependency: transitive
     description:
@@ -471,34 +450,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
-  mapbox_gl:
-    dependency: "direct main"
-    description:
-      name: mapbox_gl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0"
-  mapbox_gl_dart:
-    dependency: transitive
-    description:
-      name: mapbox_gl_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.5"
-  mapbox_gl_platform_interface:
-    dependency: transitive
-    description:
-      name: mapbox_gl_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0"
-  mapbox_gl_web:
-    dependency: transitive
-    description:
-      name: mapbox_gl_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0"
   matcher:
     dependency: transitive
     description:
@@ -610,7 +561,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.1"
+    version: "4.2.3"
   proj4dart:
     dependency: transitive
     description:
@@ -639,13 +590,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  rxdart:
-    dependency: transitive
-    description:
-      name: rxdart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.24.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -771,7 +715,7 @@ packages:
     source: hosted
     version: "0.1.1"
   url_launcher:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"

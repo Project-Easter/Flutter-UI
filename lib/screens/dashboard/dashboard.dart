@@ -1,8 +1,8 @@
 import 'package:books_app/Screens/dashboard/book_list.dart';
 import 'package:books_app/Screens/dashboard/quotes.dart';
 import 'package:books_app/Screens/dashboard/user_choice.dart';
-import 'package:books_app/models/book.dart';
-import 'package:books_app/models/books.dart';
+import 'package:books_app/providers/book.dart';
+import 'package:books_app/providers/books.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,11 +37,6 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-  }
 }
 
 class _GoogleBooksState extends State<GoogleBooks> {
@@ -50,31 +45,15 @@ class _GoogleBooksState extends State<GoogleBooks> {
     return FutureBuilder<dynamic>(
         future: Provider.of<Books>(context, listen: false).topBooks(),
         builder: (BuildContext ctx, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            print(snapshot.toString());
-            // If we got an error
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  '${snapshot.error} occured',
-                  style: const TextStyle(fontSize: 18),
-                ),
-              );
-              // if we got our data
-            } else if (snapshot.hasData) {
-              print(snapshot);
-              // Extracting data from snapshot object
-              final List<Book> recommendedBooksML = snapshot.data as List<Book>;
-              return BookList(widget.title, recommendedBooksML);
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          } else {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          } else {
+            print('$snapshot is the Google book snap');
+            // Extracting data from snapshot object
+            final List<Book> recommendedBooksML = snapshot.data as List<Book>;
+            return BookList(widget.title, recommendedBooksML);
           }
         });
   }
