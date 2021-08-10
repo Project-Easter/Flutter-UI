@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "339703745629-4cn2587d3kj00cmqs7u9um4ag2osvnko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "3172275fa14e0a371b886a48feb7556e79d5c952"
+          }
+        },
+        {
           "client_id": "339703745629-6e0bqnonmvgss949ljapv516t7q10el6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -63,6 +71,14 @@
           }
         },
         {
+          "client_id": "339703745629-p514nauli8g88vpaphl6lo0ubuhnochr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "12c7a2a9dc5ce9ffe51544da79d4e32ea0d04fa7"
+          }
+        },
+        {
           "client_id": "339703745629-qojigrkk5u6oej1q667s19barfn6so4n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -94,6 +110,13 @@
             {
               "client_id": "339703745629-gsgrefnjld46rm1pufrncbkpnb74l9a5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "339703745629-jipv7n6m0bcc113vis5o8a2r441jnuki.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.booksApp"
+              }
             }
           ]
         }

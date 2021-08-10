@@ -1,5 +1,5 @@
 import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/Constants/routes.dart';
+import 'package:books_app/constants/routes.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/States/auth_state.dart';
 import 'package:books_app/States/email_state.dart';
@@ -39,7 +39,6 @@ class _InitialScreenState extends State<InitialScreen>
       height: double.infinity,
       width: double.infinity,
       child: Container(
-        // color: Color.fromRGBO(40, 175, 176, 1),
         color: const Color.fromRGBO(88, 188, 130, 1),
         child: Center(
           child: SingleChildScrollView(
@@ -159,6 +158,7 @@ class _InitialScreenState extends State<InitialScreen>
 
   void onSuccess() {
     print('Logged in successfully');
+    Navigator.pushNamed(context, Routes.HOME);
   }
 
   Widget _signUpwithEmail() {
