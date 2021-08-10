@@ -63,6 +63,7 @@ class UserModel extends ChangeNotifier {
   Future<void> fetchUserData(String token) async {
     final Response response = await UserRequests.getUserData(token);
     final dynamic body = getBodyFromResponse(response);
+    print('$body is the body of fetch user data ');
 
     if (body['id'] == null) {
       _isAuthenticated = false;

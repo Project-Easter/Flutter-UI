@@ -89,23 +89,20 @@ class AuthService {
   Future getQuote(String token) async {
     final Response response = await QuoteRequest.getQuoteData(token);
     try {
-      // final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
-      //     headers: {'authorization': token});
-      // final dynamic result = jsonDecode(response.body);
-      final dynamic result = getBodyFromResponse(response);
-      print('Quote result is $result');
-      if (result.statusCode == 200) {
+      final dynamic result = await getBodyFromResponse(response);
+      print('Quote body result inside getQuote is $result');
+      if (response.statusCode == 200) {
         print('Result is $result');
 
-        print(result.text.toString());
-        print(result.authorization.toString());
-        return Quote(
-            result['text'].toString(), result['authorization'].toString());
-      }
-
-      // if (result != null) return result['token'] as String;
+        print(result['text'].toString());
+        print('is the result.text in getQuote function');
+        print(result['author'].toString());
+        print('is the result in getQuote function');
+        return Quote(author: result['author'].toString(),quote:result['text'].toString(),  );
+      } 
     } catch (e) {
       print(e.toString());
+      print('is the orror inside getQuote function');
     }
   }
 
@@ -189,13 +186,13 @@ class AuthService {
     return userData;
   }
 
-  Future register(String email, String password) async {
+  Future<void> register(String email, String password) async {
     final Response response = await AuthRequests.register(email, password);
 
     if (response.statusCode == 201) return;
 
     final dynamic body = await getBodyFromResponse(response);
-    print(body.toString() + ' is the response body');
+    print(body.toString() + ' is the register response body');
     if (body['error']['id'] != null) {
       final dynamic errorId = body['error']['id'];
 
@@ -212,7 +209,7 @@ class AuthService {
     }
   }
 
-  Future resetPassword(String email, String password, String code) async {
+  Future<void> resetPassword(String email, String password, String code) async {
     final Response response =
         await UserRequests.resetPassword(email, password, code);
     if (response.statusCode == 204) return;
@@ -237,7 +234,7 @@ class AuthService {
     }
   }
 
-  Future signInWithFacebook() async {
+  Future<void> signInWithFacebook() async {
     final FacebookLoginResult attempt = await facebookLogin.logIn();
     final OAuthCredential credential =
         FacebookAuthProvider.credential(attempt.accessToken.token);
@@ -246,7 +243,7 @@ class AuthService {
 
     final User user = result.user;
 
-    if (user == null) return null;
+    if (user == null) return;
 
     final String idToken = await user.getIdToken(true);
     print('ID token received from user.getIdToken(true) is $idToken');
@@ -284,20 +281,19 @@ class AuthService {
 
       try {
         print('entered try catch');
-        // print(
-        //     '$authentication.idToken will be the token that will be passed to loginWithSocialMedia');
+
         print(
             '$tokens will be the token that will be passed to loginWithSocialMedia');
         googleAuthToken = await loginWithSocialMedia(tokens);
         final SharedPreferences preferences =
             await SharedPreferences.getInstance();
-        // preferences.setString('googleIdToken', authentication.idToken);
-        preferences.setString('token', tokens);
+
+        preferences.setString('token', googleAuthToken);
         print('Google Auth token is $googleAuthToken');
-        // final String idtoken = await user.getIdToken(true);
+
         final String idtoken = authentication.idToken;
 
-        print('The IDtoken is $idtoken');
+        print('The IDtoken from authentication.idtoken is $idtoken');
       } catch (e) {
         print('Damn we got an error: ' + e.toString());
       }

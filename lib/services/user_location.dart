@@ -201,7 +201,7 @@ class _GetLocationState extends State<GetLocation> {
                                         Container(
                                             height: 45,
                                             width: 150,
-                                            padding: const EdgeInsets.all(0),
+                                          
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                   shape: MaterialStateProperty
@@ -211,7 +211,7 @@ class _GetLocationState extends State<GetLocation> {
                                                                   BorderRadius
                                                                       .circular(
                                                                           13.0),
-                                                              side: BorderSide(
+                                                              side: const BorderSide(
                                                                   color: Colors
                                                                       .red))),
                                                   backgroundColor:
@@ -220,14 +220,14 @@ class _GetLocationState extends State<GetLocation> {
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 'Confirm',
                                                 style: TextStyle(
                                                     fontSize: 18,
                                                     color: Colors.white),
                                               ),
                                             )),
-                                        SizedBox()
+                                        const SizedBox()
                                       ],
                                     ),
                                   );
@@ -267,5 +267,6 @@ class _GetLocationState extends State<GetLocation> {
     address = '$name, $locality, $postalCode, $country';
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('address', address);
+    
   }
 }

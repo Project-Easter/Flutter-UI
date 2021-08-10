@@ -246,7 +246,7 @@ class Books with ChangeNotifier {
     try {
       final http.Response response = await http.get(Uri.parse(recommendedURL));
       final dynamic result = jsonDecode(response.body);
-      print('result is $result');
+      print('result from Google API topBook func is $result');
       final List list = result['items'] as List;
 
       if (result != null) {

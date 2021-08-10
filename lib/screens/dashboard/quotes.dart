@@ -8,8 +8,8 @@ class Quote {
   final String author;
 
   Quote(
-    this.quote,
-    this.author,
+    {this.quote,
+    this.author,}
   );
 }
 
@@ -19,44 +19,33 @@ class Quotes extends StatefulWidget {
 }
 
 class _QuotesState extends State<Quotes> {
-  String get token {
-    String s;
-    AuthService().firebaseAuth.currentUser.getIdToken(true).then((String val) {
-      setState(() {
-        s = val;
-      });
-    }).toString();
-    return s;
-  }
-
   @override
   Widget build(BuildContext context) {
     return quote();
   }
 
-  FutureBuilder quote() {
+  FutureBuilder <dynamic>quote() {
     return FutureBuilder<dynamic>(
         future: AuthService().getQuote(AuthService.googleAuthToken),
-        // future: Api.getQuote(AuthService().authtoken),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot <dynamic>snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
             print(AuthService.googleAuthToken);
-            print(' is the access token received');
-            // print(AuthService().firebaseAuth.currentUser);
-            print('Quote is $snapshot.toString()');
-            print('Quote snapshot isss $snapshot.data');
+            print('is the print for googleAuthTOken inside quote function');
+            // print(' is the access token received');
+
+            // print('Quote is $snapshot.toString()');
+            print('Quote snapshot isss ${snapshot.data}');
 
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(children: <Widget>[
                   Text(
-                    snapshot.data.toString(),
-                    // '"${quote.text}"',
+                    '${snapshot.data.quote}',
                     softWrap: true,
                     maxLines: 3,
                     overflow: TextOverflow.visible,
@@ -71,8 +60,7 @@ class _QuotesState extends State<Quotes> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      snapshot.data.toString(),
-                      // '-${quote.author}',
+                      '${snapshot.data.author}',
                       style: GoogleFonts.lato(color: blackButton, fontSize: 14),
                     ),
                   )
