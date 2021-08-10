@@ -20,7 +20,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _darkTheme = false;
   bool _switchValue = true;
   final AuthService _authService = AuthService();
-
+  final String text =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in odio condimentum, pellentesque ex at, condimentum nisi. Aliquam erat volutpat. Proin nisl tellus, egestas sed mi eu, tempus egestas diam. Proin eu suscipit nisl. Cras ac libero ipsum. Curabitur blandit tempor mauris quis laoreet. Etiam at fringilla eros.';
   @override
   Widget build(BuildContext context) {
     final ThemeNotifier themeNotifier = Provider.of<ThemeNotifier>(context);
@@ -56,6 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           _profile(uID, userData),
                         ])),
                 body: ListView(
+                  padding: const EdgeInsets.only(right: 5, left: 5, bottom: 5),
                   children: ListTile.divideTiles(context: context, tiles: [
                     ListTile(
                       title: Text(
@@ -65,12 +67,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     ListTile(
+                      contentPadding: const EdgeInsets.only(left: 15, right: 0),
                       title: Text(
                         'Edit Profile',
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w400, fontSize: 18),
                       ),
                       trailing: IconButton(
+                        padding: EdgeInsets.zero,
                         icon: const Icon(Icons.arrow_forward_ios, size: 14),
                         onPressed: () =>
                             Navigator.pushNamed(context, Routes.EDIT_PROFILE),
@@ -80,6 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     ListTile(
+                      contentPadding: const EdgeInsets.only(left: 15, right: 0),
                       title: Text(
                         'Push notifications',
                         style: GoogleFonts.poppins(
@@ -99,6 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     ListTile(
+                      contentPadding: const EdgeInsets.only(left: 15, right: 0),
                       title: Text(
                         'Dark Mode',
                         style: GoogleFonts.poppins(
@@ -108,11 +114,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         scale: 0.7,
                         child: CupertinoSwitch(
                           activeColor: Colors.black,
-                          value: _switchValue,
+                          value: _darkTheme,
                           onChanged: (bool val) {
                             setState(() {
-                              _switchValue = val;
+                              _darkTheme = val;
                             });
+                            onThemeChanged(val, themeNotifier);
                           },
                         ),
                       ),
@@ -134,47 +141,49 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             fontWeight: FontWeight.w400, fontSize: 18),
                       ),
                     ),
-                    ListTile(
+                    ExpansionTile(
+                      textColor: Theme.of(context).colorScheme.primary,
+                      iconColor: Theme.of(context).colorScheme.primary,
+                      childrenPadding:
+                          const EdgeInsets.only(right: 15, left: 15),
                       title: Text(
-                        'About',
+                        'About us',
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w400, fontSize: 18),
                       ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios, size: 14),
-                        onPressed: () {},
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                      children: <Widget>[Text(text)],
 
-                        // icon: Icons.arrow_forward_ios,
-                        // size: 14,
-                      ),
+                      // icon: Icons.arrow_forward_ios,
+                      // size: 14,
                     ),
-                    ListTile(
+                    ExpansionTile(
+                      textColor: Theme.of(context).colorScheme.primary,
+                      iconColor: Theme.of(context).colorScheme.primary,
+                      childrenPadding:
+                          const EdgeInsets.only(right: 15, left: 15),
                       title: Text(
                         'Privacy Policy',
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w400, fontSize: 18),
                       ),
-                      trailing: const IconButton(
-                        icon: Icon(Icons.arrow_forward_ios, size: 14),
-                        onPressed: null,
-
-                        // icon: Icons.arrow_forward_ios,
-                        // size: 14,
-                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                      children: <Widget>[Text(text)],
+                      // icon: Icons.arrow_forward_ios,
+                      // size: 14,
                     ),
-                    ListTile(
+                    ExpansionTile(
+                      textColor: Theme.of(context).colorScheme.primary,
+                      iconColor: Theme.of(context).colorScheme.primary,
+                      childrenPadding:
+                          const EdgeInsets.only(right: 15, left: 15),
                       title: Text(
                         'Terms and Conditions',
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w400, fontSize: 18),
                       ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios, size: 14),
-                        onPressed: null,
-
-                        // icon: Icons.arrow_forward_ios,
-                        // size: 14,
-                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+                      children: <Widget>[Text(text)],
                     ),
                     // _accountSettingsDetails(themeNotifier),
                     // _moreWidget()
