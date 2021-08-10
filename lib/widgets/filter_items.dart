@@ -47,7 +47,7 @@ class _FilterItemsState extends State<FilterItems> {
               fontSize: 18,
             ),
           ),
-          Radio(
+          Radio<String>(
               value: text,
               groupValue: selectedValue,
               activeColor: selectedValue == text ? Colors.black87 : null,

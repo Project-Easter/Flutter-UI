@@ -1,3 +1,4 @@
+import 'package:books_app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +8,7 @@ class OwnerInfo extends StatefulWidget {
 }
 
 class _OwnerInfoState extends State<OwnerInfo> {
+  UserData ownerData;
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -3,12 +3,14 @@ import 'package:books_app/Utils/backend/auth_requests.dart';
 import 'package:books_app/Utils/backend/mail_request.dart';
 import 'package:books_app/Utils/backend/quote_request.dart';
 import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/constants/error.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/src/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -89,23 +91,23 @@ class AuthService {
   Future getQuote(String token) async {
     final Response response = await QuoteRequest.getQuoteData(token);
     try {
-      // final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
-      //     headers: {'authorization': token});
-      // final dynamic result = jsonDecode(response.body);
-      final dynamic result = getBodyFromResponse(response);
-      print('Quote result is $result');
-      if (result.statusCode == 200) {
+      final dynamic result = await getBodyFromResponse(response);
+      print('Quote body result inside getQuote is $result');
+      if (response.statusCode == 200) {
         print('Result is $result');
 
-        print(result.text.toString());
-        print(result.authorization.toString());
+        print(result['text'].toString());
+        print('is the result.text in getQuote function');
+        print(result['author'].toString());
+        print('is the result in getQuote function');
         return Quote(
-            result['text'].toString(), result['authorization'].toString());
+          author: result['author'].toString(),
+          quote: result['text'].toString(),
+        );
       }
-
-      // if (result != null) return result['token'] as String;
     } catch (e) {
       print(e.toString());
+      print('is the orror inside getQuote function');
     }
   }
 
@@ -189,13 +191,13 @@ class AuthService {
     return userData;
   }
 
-  Future register(String email, String password) async {
+  Future<void> register(String email, String password) async {
     final Response response = await AuthRequests.register(email, password);
 
     if (response.statusCode == 201) return;
 
     final dynamic body = await getBodyFromResponse(response);
-    print(body.toString() + ' is the response body');
+    print(body.toString() + ' is the register response body');
     if (body['error']['id'] != null) {
       final dynamic errorId = body['error']['id'];
 
@@ -212,7 +214,7 @@ class AuthService {
     }
   }
 
-  Future resetPassword(String email, String password, String code) async {
+  Future<void> resetPassword(String email, String password, String code) async {
     final Response response =
         await UserRequests.resetPassword(email, password, code);
     if (response.statusCode == 204) return;
@@ -237,7 +239,7 @@ class AuthService {
     }
   }
 
-  Future signInWithFacebook() async {
+  Future<void> signInWithFacebook() async {
     final FacebookLoginResult attempt = await facebookLogin.logIn();
     final OAuthCredential credential =
         FacebookAuthProvider.credential(attempt.accessToken.token);
@@ -246,7 +248,7 @@ class AuthService {
 
     final User user = result.user;
 
-    if (user == null) return null;
+    if (user == null) return;
 
     final String idToken = await user.getIdToken(true);
     print('ID token received from user.getIdToken(true) is $idToken');
@@ -280,24 +282,27 @@ class AuthService {
 
       final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
-      final String tokens = await firebaseAuth.currentUser.getIdToken();
+      final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
 
       try {
         print('entered try catch');
-        // print(
-        //     '$authentication.idToken will be the token that will be passed to loginWithSocialMedia');
-        print(
-            '$tokens will be the token that will be passed to loginWithSocialMedia');
-        googleAuthToken = await loginWithSocialMedia(tokens);
-        final SharedPreferences preferences =
-            await SharedPreferences.getInstance();
-        // preferences.setString('googleIdToken', authentication.idToken);
-        preferences.setString('token', tokens);
-        print('Google Auth token is $googleAuthToken');
-        // final String idtoken = await user.getIdToken(true);
-        final String idtoken = authentication.idToken;
 
-        print('The IDtoken is $idtoken');
+        // print(
+        //     '$tokens will be the token that will be passed to loginWithSocialMedia');
+        googleAuthToken = await loginWithSocialMedia(googleIdtoken);
+        // final SharedPreferences preferences =
+        //     await SharedPreferences.getInstance();
+
+        // preferences.setString('token', googleAuthToken);
+
+        print('Google Auth token is $googleAuthToken');
+
+        // final String idtoken = authentication.idToken;
+
+        // print('The IDtoken from authentication.idtoken is $idtoken');
+        TokenStorage().storeAuthToken(googleAuthToken);
+        // const FlutterSecureStorage globalToken = FlutterSecureStorage();
+        // await globalToken.write(key: 'global_token', value: googleAuthToken);
       } catch (e) {
         print('Damn we got an error: ' + e.toString());
       }
