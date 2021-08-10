@@ -1,5 +1,8 @@
 import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Utils/api.dart';
+import 'package:books_app/Utils/backend/auth_requests.dart';
+import 'package:books_app/Utils/backend/mail_request.dart';
+import 'package:books_app/Utils/backend/quote_request.dart';
+import 'package:books_app/Utils/backend/user_data_requests.dart';
 import 'package:books_app/constants/error.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/dashboard/quotes.dart';
@@ -25,7 +28,7 @@ class AuthService {
   }
 
   Future confirmEmail(String email, String code) async {
-    final Response response = await Api.confirmEmail(email, code);
+    final Response response = await UserRequests.confirmEmail(email, code);
 
     if (response.statusCode == 204) return;
 
@@ -56,7 +59,7 @@ class AuthService {
   }
 
   Future forgotPassword(String email) async {
-    final Response response = await Api.forgotPassword(email);
+    final Response response = await MailRequest.forgotPassword(email);
     if (response.statusCode == 204) return;
 
     final dynamic body = await getBodyFromResponse(response);
@@ -84,7 +87,7 @@ class AuthService {
   }
 
   Future getQuote(String token) async {
-    final Response response = await Api.getQuoteData(token);
+    final Response response = await QuoteRequest.getQuoteData(token);
     try {
       // final Response response = await get(Uri.parse(BASE_ROUTE + '/quote'),
       //     headers: {'authorization': token});
@@ -112,7 +115,7 @@ class AuthService {
   }
 
   Future<String> login(String email, String password) async {
-    final Response response = await Api.login(email, password);
+    final Response response = await AuthRequests.login(email, password);
     final dynamic body = getBodyFromResponse(response);
     print(body + 'is the body');
 
@@ -144,7 +147,7 @@ class AuthService {
   }
 
   Future<String> loginWithSocialMedia(String idToken) async {
-    final Response response = await Api.loginWithSocialMedia(idToken);
+    final Response response = await AuthRequests.loginWithSocialMedia(idToken);
     final dynamic body = await getBodyFromResponse(response);
 
     print('Piotr login wale ka Body is $body');
@@ -187,7 +190,7 @@ class AuthService {
   }
 
   Future register(String email, String password) async {
-    final Response response = await Api.register(email, password);
+    final Response response = await AuthRequests.register(email, password);
 
     if (response.statusCode == 201) return;
 
@@ -210,7 +213,8 @@ class AuthService {
   }
 
   Future resetPassword(String email, String password, String code) async {
-    final Response response = await Api.resetPassword(email, password, code);
+    final Response response =
+        await UserRequests.resetPassword(email, password, code);
     if (response.statusCode == 204) return;
 
     final dynamic body = await getBodyFromResponse(response);
@@ -282,10 +286,11 @@ class AuthService {
         print('entered try catch');
         // print(
         //     '$authentication.idToken will be the token that will be passed to loginWithSocialMedia');
-            print(
+        print(
             '$tokens will be the token that will be passed to loginWithSocialMedia');
         googleAuthToken = await loginWithSocialMedia(tokens);
-        final SharedPreferences preferences = await SharedPreferences.getInstance();
+        final SharedPreferences preferences =
+            await SharedPreferences.getInstance();
         // preferences.setString('googleIdToken', authentication.idToken);
         preferences.setString('token', tokens);
         print('Google Auth token is $googleAuthToken');

@@ -13,13 +13,13 @@ class AuthRequests {
         body: {'email': email, 'password': password}));
   }
 
-  static Future<Response> newAccount(String email, String password) {
+  static Future<Response> register(String email, String password) {
     return sendRequest(() => post(Uri.parse(BASE_ROUTE + '/auth/new-account'),
         body: {'email': email, 'password': password}));
   }
 
-  static Future<Response> register(String email, String password) {
-    return sendRequest(() => post(Uri.parse(BASE_ROUTE + '/auth/new-account'),
+  static Future<Response> login(String email, String password) {
+    return sendRequest(() => post(Uri.parse(BASE_ROUTE + '/auth/email'),
         body: {'email': email, 'password': password}));
   }
 }
