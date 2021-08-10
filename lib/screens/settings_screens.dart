@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _switchValue = true;
   final AuthService _authService = AuthService();
   final String text =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in odio condimentum, pellentesque ex at, condimentum nisi. Aliquam erat volutpat. Proin nisl tellus, egestas sed mi eu, tempus egestas diam. Proin eu suscipit nisl. Cras ac libero ipsum. Curabitur blandit tempor mauris quis laoreet. Etiam at fringilla eros.';
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in odio condimentum, pellentesque ex at, condimentum nisi. Aliquam erat volutpat, proin nisl tellus.';
   @override
   Widget build(BuildContext context) {
     final ThemeNotifier themeNotifier = Provider.of<ThemeNotifier>(context);
