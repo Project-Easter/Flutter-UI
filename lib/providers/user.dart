@@ -64,6 +64,11 @@ class UserModel extends ChangeNotifier {
     final Response response = await UserRequests.getUserData(token);
     final dynamic body = getBodyFromResponse(response);
     print('$body is the body of fetch user data ');
+    print('$body is the body of fetch user data ');
+    print('$body is the body of fetch user data ');
+    print('$body is the body of fetch user data ');
+    print('$body is the body of fetch user data ');
+    
 
     if (body['id'] == null) {
       _isAuthenticated = false;

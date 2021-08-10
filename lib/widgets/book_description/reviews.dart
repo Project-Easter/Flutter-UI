@@ -21,27 +21,35 @@ class _ReviewsState extends State<Reviews> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                'Reviews',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'Reviews',
+                  style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
+                ),
               ),
               AspectRatio(
                 aspectRatio: 343 / 52,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
+                    
                     controller: _commentController,
                     maxLines: 5,
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
-                        prefixIcon: CircleAvatar(
-                          radius: 5,
-                          backgroundImage: NetworkImage(snap.data.photoURL),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: CircleAvatar(
+                            radius: 5,
+                            backgroundImage: NetworkImage(snap.data.photoURL),
+                          ),
                         ),
                         suffixIcon: const Icon(Icons.send),
+                        contentPadding: const EdgeInsets.all(10),
                         hintText: 'Add your comment',
                         hintStyle: GoogleFonts.muli(
                           color: Colors.grey,

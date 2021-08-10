@@ -3,12 +3,14 @@ import 'package:books_app/Utils/backend/auth_requests.dart';
 import 'package:books_app/Utils/backend/mail_request.dart';
 import 'package:books_app/Utils/backend/quote_request.dart';
 import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/constants/error.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/dashboard/quotes.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/src/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,8 +100,11 @@ class AuthService {
         print('is the result.text in getQuote function');
         print(result['author'].toString());
         print('is the result in getQuote function');
-        return Quote(author: result['author'].toString(),quote:result['text'].toString(),  );
-      } 
+        return Quote(
+          author: result['author'].toString(),
+          quote: result['text'].toString(),
+        );
+      }
     } catch (e) {
       print(e.toString());
       print('is the orror inside getQuote function');
@@ -277,23 +282,27 @@ class AuthService {
 
       final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
-      final String tokens = await firebaseAuth.currentUser.getIdToken();
+      final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
 
       try {
         print('entered try catch');
 
-        print(
-            '$tokens will be the token that will be passed to loginWithSocialMedia');
-        googleAuthToken = await loginWithSocialMedia(tokens);
-        final SharedPreferences preferences =
-            await SharedPreferences.getInstance();
+        // print(
+        //     '$tokens will be the token that will be passed to loginWithSocialMedia');
+        googleAuthToken = await loginWithSocialMedia(googleIdtoken);
+        // final SharedPreferences preferences =
+        //     await SharedPreferences.getInstance();
 
-        preferences.setString('token', googleAuthToken);
+        // preferences.setString('token', googleAuthToken);
+
         print('Google Auth token is $googleAuthToken');
 
-        final String idtoken = authentication.idToken;
+        // final String idtoken = authentication.idToken;
 
-        print('The IDtoken from authentication.idtoken is $idtoken');
+        // print('The IDtoken from authentication.idtoken is $idtoken');
+        TokenStorage().storeAuthToken(googleAuthToken);
+        // const FlutterSecureStorage globalToken = FlutterSecureStorage();
+        // await globalToken.write(key: 'global_token', value: googleAuthToken);
       } catch (e) {
         print('Damn we got an error: ' + e.toString());
       }

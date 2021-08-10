@@ -11,13 +11,13 @@ String uID = AuthService().getUID;
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
 // ignore: must_be_immutable
-class LocationRange extends StatefulWidget {
-  dynamic locationRange;
-  LocationRange(this.locationRange);
+// class LocationRange extends StatefulWidget {
+//   dynamic locationRange;
+//   LocationRange(this.locationRange);
 
-  @override
-  _LocationRangeState createState() => _LocationRangeState();
-}
+//   @override
+//   _LocationRangeState createState() => _LocationRangeState();
+// }
 
 class MultiSelectDialog<V> extends StatefulWidget {
   final List<MultiSelectDialogItem<V>> items;
@@ -44,45 +44,45 @@ class UserPreference extends StatefulWidget {
   _UserPreferenceState createState() => _UserPreferenceState();
 }
 
-class _LocationRangeState extends State<LocationRange> {
-  double _currentSlidervalue = 10.0;
-  String s;
-  @override
-  Widget build(BuildContext context) {
-    s = _currentSlidervalue.toStringAsFixed(2);
-    return Column(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            'Set Location Range',
-            style: GoogleFonts.poppins(fontSize: 15),
-          ),
-        ),
-        Slider(
-          label: _currentSlidervalue.round().toString(),
-          value: widget.locationRange as double ?? _currentSlidervalue,
-          min: 0,
-          max: 50,
-          onChanged: (double value) {
-            setState(() {
-              widget.locationRange = value;
-              _currentSlidervalue = value;
-            });
-            sliderValue = value;
-          },
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            '$s km',
-            style: GoogleFonts.poppins(),
-          ),
-        )
-      ],
-    );
-  }
-}
+// class _LocationRangeState extends State<LocationRange> {
+//   double _currentSlidervalue = 10.0;
+//   String s;
+//   @override
+//   Widget build(BuildContext context) {
+//     s = _currentSlidervalue.toStringAsFixed(2);
+//     return Column(
+//       children: <Widget>[
+//         Align(
+//           alignment: Alignment.topLeft,
+//           child: Text(
+//             'Set Location Range',
+//             style: GoogleFonts.poppins(fontSize: 15),
+//           ),
+//         ),
+//         Slider(
+//           label: _currentSlidervalue.round().toString(),
+//           value: widget.locationRange as double ?? _currentSlidervalue,
+//           min: 0,
+//           max: 50,
+//           onChanged: (double value) {
+//             setState(() {
+//               widget.locationRange = value;
+//               _currentSlidervalue = value;
+//             });
+//             sliderValue = value;
+//           },
+//         ),
+//         Align(
+//           alignment: Alignment.centerRight,
+//           child: Text(
+//             '$s km',
+//             style: GoogleFonts.poppins(),
+//           ),
+//         )
+//       ],
+//     );
+//   }
+// }
 
 class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   final Set<V> _selectedValues = <V>{};
@@ -198,7 +198,7 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                LocationRange(locationRange),
+                // LocationRange(locationRange),
                 TextFormField(
                   controller: _book,
                   keyboardType: TextInputType.name,
@@ -219,6 +219,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   },
                   onSaved: (String val) {
                     _book.text = val;
+                    
                   },
                 ),
                 const SizedBox(

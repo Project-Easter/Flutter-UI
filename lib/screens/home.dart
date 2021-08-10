@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
     print(uID);
     // Provider.of<UserModel>(context).fetchUserData( AuthService.googleAuthToken);
     return MultiProvider(
-      providers: <StreamProvider<dynamic>>[
+      providers: [
         StreamProvider<UserData>.value(
           value: DatabaseService(uid: uID).userData,
           catchError: (_, Object e) => null,
@@ -50,6 +50,7 @@ class _HomeState extends State<Home> {
         StreamProvider<List<Book>>.value(
           value: DatabaseService(uid: uID).booksData,
         ),
+       
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -72,7 +73,6 @@ class _HomeState extends State<Home> {
                 child: const Icon(Icons.location_on),
                 backgroundColor: Colors.blueAccent,
                 onPressed: () async {
-                  
                   await Navigator.pushNamed(context, Routes.LOCATION);
                 },
               ),
@@ -102,6 +102,8 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+   
+
     super.initState();
   }
 

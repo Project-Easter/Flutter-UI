@@ -81,6 +81,7 @@
 //     );
 //   }
 // }
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/Utils/location_helper.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
@@ -90,8 +91,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:books_app/main.dart';
-// import 'package:latlong/latlong.dart';
 
 class GetLocation extends StatefulWidget {
   @override
@@ -124,12 +123,10 @@ class _GetLocationState extends State<GetLocation> {
               ),
               layers: [
                 TileLayerOptions(
-                    urlTemplate:
-                        'https://api.mapbox.com/styles/v1/aivankum/ckrusiaw57nch17w9vkwnki1e/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWl2YW5rdW0iLCJhIjoiY2tyamJ3bzR5MDEwdzJ2cGNxaXNha3M0ZyJ9.Z9T5-SYG3_-hfv3LezwZEQ',
+                    urlTemplate: TokenStorage.urlTemplate,
                     additionalOptions: {
-                      'accessToken':
-                          'pk.eyJ1IjoiYWl2YW5rdW0iLCJhIjoiY2tyamJ3bzR5MDEwdzJ2cGNxaXNha3M0ZyJ9.Z9T5-SYG3_-hfv3LezwZEQ',
-                      'id': 'mapbox.mapbox-streets-v8',
+                      'accessToken': TokenStorage.mapboxToken,
+                      'id': TokenStorage.mapboxId,
                     }),
                 MarkerLayerOptions(
                   markers: [
@@ -201,17 +198,17 @@ class _GetLocationState extends State<GetLocation> {
                                         Container(
                                             height: 45,
                                             width: 150,
-                                          
                                             child: ElevatedButton(
                                               style: ButtonStyle(
-                                                  shape: MaterialStateProperty
-                                                      .all<RoundedRectangleBorder>(
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13.0),
-                                                              side: const BorderSide(
+                                                  shape: MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      13.0),
+                                                          side:
+                                                              const BorderSide(
                                                                   color: Colors
                                                                       .red))),
                                                   backgroundColor:
@@ -267,6 +264,5 @@ class _GetLocationState extends State<GetLocation> {
     address = '$name, $locality, $postalCode, $country';
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('address', address);
-    
   }
 }

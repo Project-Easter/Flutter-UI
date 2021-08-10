@@ -200,6 +200,7 @@ class DatabaseService {
       // ignore: always_specify_types
       {
         'uid': uid,
+        // 'token':
         'displayName': userData.displayName,
         'email': userData.email,
         'emailVerified': userData.emailVerified,

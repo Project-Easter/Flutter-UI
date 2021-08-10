@@ -17,6 +17,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  double _currentSlidervalue = 10.0;
+  double sliderValue = 10.0;
   bool _darkTheme = false;
   bool _switchValue = true;
   final AuthService _authService = AuthService();
@@ -51,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                            padding: const EdgeInsets.symmetric(vertical: 5),
                             child: Text('Settings',
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.poppins(
@@ -85,6 +87,58 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         // icon: Icons.arrow_forward_ios,
                         // size: 14,
                       ),
+                    ),
+                    ListTile(
+                      contentPadding: const EdgeInsets.only(left: 15, right: 0),
+                      // leading: Slider(
+                      //   label: _currentSlidervalue.round().toString(),
+                      //   value:
+                      //       // widget.locationRange as double ?? _currentSlidervalue,
+                      //       _currentSlidervalue,
+                      //   min: 0,
+                      //   max: 50,
+                      //   onChanged: (double value) {
+                      //     setState(() {
+                      //       // widget.locationRange = value;
+                      //       _currentSlidervalue = value;
+                      //     });
+                      //     sliderValue = value;
+                      //   },
+                      // ),
+                      title: Text(
+                        'Set Location Range',
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400, fontSize: 18),
+                      ),
+                      trailing: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(_currentSlidervalue.toStringAsFixed(2),
+                            style: GoogleFonts.poppins()),
+                      ),
+                      // trailing: IconButton(
+                      //   padding: EdgeInsets.zero,
+                      //   icon: const Icon(Icons.arrow_forward_ios, size: 14),
+                      //   onPressed: () =>
+                      //       Navigator.pushNamed(context, Routes.EDIT_PROFILE),
+
+                      //   // icon: Icons.arrow_forward_ios,
+                      //   // size: 14,
+                      // ),
+                    ),
+                    Slider(
+                      label: _currentSlidervalue.round().toString(),
+                      value:
+                          // widget.locationRange as double ?? _currentSlidervalue,
+                          _currentSlidervalue,
+                      min: 0,
+                      max: 50,
+                      onChanged: (double value) {
+                        setState(() {
+                          // widget.locationRange = value;
+                          _currentSlidervalue = value;
+                        });
+                        sliderValue = value;
+                      },
                     ),
                     ListTile(
                       contentPadding: const EdgeInsets.only(left: 15, right: 0),
@@ -207,224 +261,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('darkMode', value);
   }
-
-  // Widget _accountSettingsDetails(ThemeNotifier tNotifier) {
-  //   return Container(
-  //     padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 10),
-  //     decoration: BoxDecoration(
-  //         border: Border(bottom: BorderSide(color: Colors.grey[300]))),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: <Widget>[
-  //         Text(
-  //           'Account Settings',
-  //           style:
-  //               GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 20),
-  //         ),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
-  //         GestureDetector(
-  //           onTap: () {
-  //             Navigator.pushNamed(context, Routes.EDIT_PROFILE);
-  //           },
-  //           child: Row(
-  //             children: <Widget>[
-  //               Expanded(
-  //                 child: Text(
-  //                   'Edit Profile',
-  //                   style: GoogleFonts.poppins(
-  //                       fontWeight: FontWeight.w400, fontSize: 18),
-  //                 ),
-  //               ),
-  //               const Icon(
-  //                 Icons.arrow_forward_ios,
-  //                 size: 14,
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
-  //         // Row(
-  //         //   children: <Widget>[
-  //         //     Expanded(
-  //         //       child: Text(
-  //         //         'Change password',
-  //         //         style: GoogleFonts.poppins(
-  //         //             fontWeight: FontWeight.w400, fontSize: 18),
-  //         //       ),
-  //         //     ),
-  //         //     const Icon(
-  //         //       Icons.arrow_forward_ios,
-  //         //       size: 14,
-  //         //     ),
-  //         //   ],
-  //         // ),
-  //         // const SizedBox(
-  //         //   height: 15,
-  //         // ),
-  //         // Row(
-  //         //   children: <Widget>[
-  //         //     Expanded(
-  //         //       child: Text(
-  //         //         'Change User Preferences',
-  //         //         style: GoogleFonts.poppins(
-  //         //             fontWeight: FontWeight.w400, fontSize: 18),
-  //         //       ),
-  //         //     ),
-  //         //     const Icon(
-  //         //       Icons.add,
-  //         //       size: 18,
-  //         //     ),
-  //         //   ],
-  //         // ),
-  //         // const SizedBox(
-  //         //   height: 15,
-  //         // ),
-  //         Row(
-  //           children: <Widget>[
-  //             Expanded(
-  //               child: Text(
-  //                 'Push notifications',
-  //                 style: GoogleFonts.poppins(
-  //                     fontWeight: FontWeight.w400, fontSize: 18),
-  //               ),
-  //             ),
-  //             Transform.scale(
-  //               scale: 0.7,
-  //               child: CupertinoSwitch(
-  //                 activeColor: Colors.black,
-  //                 value: _switchValue,
-  //                 onChanged: (bool val) {
-  //                   setState(() {
-  //                     _switchValue = val;
-  //                   });
-  //                 },
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 10,
-  //         ),
-  //         Row(
-  //           children: <Widget>[
-  //             Expanded(
-  //               child: Text(
-  //                 'Dark mode',
-  //                 style: GoogleFonts.poppins(
-  //                     fontWeight: FontWeight.w400, fontSize: 18),
-  //               ),
-  //             ),
-  //             Transform.scale(
-  //               scale: 0.7,
-  //               child: CupertinoSwitch(
-  //                 activeColor: Colors.black,
-  //                 value: _darkTheme,
-  //                 onChanged: (bool val) {
-  //                   setState(() {
-  //                     _darkTheme = val;
-  //                   });
-  //                   onThemeChanged(val, tNotifier);
-  //                 },
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget _moreWidget() {
-  //   return Container(
-  //     padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 10),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: <Widget>[
-  //         Text(
-  //           'More',
-  //           style:
-  //               GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 20),
-  //         ),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
-  //         GestureDetector(
-  //             onTap: () {
-  //               Navigator.pushNamed(context, Routes.ABOUT_US);
-  //             },
-  //             child: Row(
-  //               children: <Widget>[
-  //                 Expanded(
-  //                   child: Text(
-  //                     'About us',
-  //                     style: GoogleFonts.poppins(
-  //                         fontWeight: FontWeight.w400, fontSize: 18),
-  //                   ),
-  //                 ),
-  //                 const Icon(
-  //                   Icons.arrow_forward_ios,
-  //                   size: 14,
-  //                 ),
-  //               ],
-  //             )),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
-  //         GestureDetector(
-  //             onTap: () {
-  //               Navigator.pushNamed(context, Routes.PRIVACY_POLICY);
-  //             },
-  //             child: Row(
-  //               children: <Widget>[
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Privacy policy',
-  //                     style: GoogleFonts.poppins(
-  //                         fontWeight: FontWeight.w400, fontSize: 18),
-  //                   ),
-  //                 ),
-  //                 const Icon(
-  //                   Icons.arrow_forward_ios,
-  //                   size: 14,
-  //                 ),
-  //               ],
-  //             )),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
-  //         GestureDetector(
-  //             onTap: () {
-  //               Navigator.pushNamed(context, Routes.TERMS_CONDITION);
-  //             },
-  //             child: Row(
-  //               children: <Widget>[
-  //                 Expanded(
-  //                   child: Text(
-  //                     'Terms and conditions',
-  //                     style: GoogleFonts.poppins(
-  //                         fontWeight: FontWeight.w400, fontSize: 18),
-  //                   ),
-  //                 ),
-  //                 const Icon(
-  //                   Icons.arrow_forward_ios,
-  //                   size: 14,
-  //                 ),
-  //               ],
-  //             )),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget _profile(dynamic uID, UserData userData) {
     return Container(

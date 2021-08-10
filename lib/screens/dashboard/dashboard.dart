@@ -1,8 +1,10 @@
 import 'package:books_app/Screens/dashboard/book_list.dart';
 import 'package:books_app/Screens/dashboard/quotes.dart';
 import 'package:books_app/Screens/dashboard/user_choice.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/books.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +22,17 @@ class GoogleBooks extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  // Future checkUserData() async {
+  //   final String token = await TokenStorage().loadAuthToken();
+  //   Provider.of<UserModel>(context).fetchUserData(token);
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   checkUserData();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
