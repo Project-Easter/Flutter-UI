@@ -18,4 +18,7 @@ class Routes {
   static const String SETTINGS = '/settings';
   static const String EDIT_PROFILE = '/edit-profile';
   static const String MESSAGE = '/message';
+  static const String ABOUT_US = '/about-us';
+  static const String PRIVACY_POLICY = '/privacy-policy';
+  static const String TERMS_CONDITION = '/terms-and-condition';
 }

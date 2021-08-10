@@ -39,14 +39,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dynamic myAppUser = AuthService().currentUserFromFireBase;
-    return Consumer<ThemeNotifier>(
-      builder: (BuildContext context, ThemeNotifier theme, _) => MaterialApp(
-        theme: lightTheme,
-        debugShowCheckedModeBanner: false,
-        title: 'Explr',
-        initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
-        onGenerateRoute: RouteGenerator.generateRoute,
-      ),
+    return MaterialApp(
+      theme: Provider.of<ThemeNotifier>(context).getTheme(),
+      debugShowCheckedModeBanner: false,
+      title: 'Explr',
+      initialRoute: myAppUser == null ? Routes.INITIAL_PAGE : Routes.HOME,
+      onGenerateRoute: RouteGenerator.generateRoute,
+      //})
     );
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,

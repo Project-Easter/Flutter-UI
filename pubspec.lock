@@ -707,6 +707,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.4"
+  unicode_data:
+    dependency: transitive
+    description:
+      name: unicode_data
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   url_launcher:
     dependency: "direct main"
     description:
