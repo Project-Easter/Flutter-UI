@@ -96,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       trailing: Transform.scale(
                         scale: 0.7,
                         child: CupertinoSwitch(
-                          activeColor: Colors.black,
+                          activeColor: Theme.of(context).colorScheme.primary,
                           value: _switchValue,
                           onChanged: (bool val) {
                             setState(() {
@@ -116,7 +116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       trailing: Transform.scale(
                         scale: 0.7,
                         child: CupertinoSwitch(
-                          activeColor: Colors.black,
+                          activeColor: Theme.of(context).colorScheme.primary,
                           value: _darkTheme,
                           onChanged: (bool val) {
                             setState(() {

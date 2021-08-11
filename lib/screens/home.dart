@@ -79,6 +79,10 @@ class _HomeState extends State<Home> {
             ],
           ),
           bottomNavigationBar: FloatingNavbar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            selectedBackgroundColor: Theme.of(context).colorScheme.primary,
+            selectedItemColor: Theme.of(context).scaffoldBackgroundColor,
+            unselectedItemColor: Theme.of(context).colorScheme.primary,
             showSelectedLabels: true,
             currentIndex: _selectedIndex,
             onTap: _selectedTab,

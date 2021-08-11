@@ -37,9 +37,7 @@ class UserChoice extends StatelessWidget {
                   softWrap: true,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.muli(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
+                      fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),
               Padding(
