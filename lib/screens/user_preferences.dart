@@ -4,6 +4,7 @@ import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:chips_choice/chips_choice.dart';
 
 double sliderValue = 10.0;
 String uID = AuthService().getUID;
@@ -166,6 +167,19 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
 
 class _UserPreferenceState extends State<UserPreference> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  List<String> tags = [];
+
+  Widget _chipChoice() {
+    return ChipsChoice<String>.multiple(
+      value: tags,
+      onChanged: (List<String> val) => setState(() => tags = val),
+      choiceItems: C2Choice.listFrom<String, String>(
+        source: genres,
+        value: (i, v) => v,
+        label: (i, v) => v,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,6 +280,7 @@ class _UserPreferenceState extends State<UserPreference> {
                     ),
                   ),
                 ),
+                _chipChoice()
               ],
             ),
           ),
