@@ -5,19 +5,12 @@ import 'package:books_app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-double sliderValue = 10.0;
+
 String uID = AuthService().getUID;
 
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
-// ignore: must_be_immutable
-// class LocationRange extends StatefulWidget {
-//   dynamic locationRange;
-//   LocationRange(this.locationRange);
 
-//   @override
-//   _LocationRangeState createState() => _LocationRangeState();
-// }
 
 class MultiSelectDialog<V> extends StatefulWidget {
   final List<MultiSelectDialogItem<V>> items;
@@ -44,45 +37,6 @@ class UserPreference extends StatefulWidget {
   _UserPreferenceState createState() => _UserPreferenceState();
 }
 
-// class _LocationRangeState extends State<LocationRange> {
-//   double _currentSlidervalue = 10.0;
-//   String s;
-//   @override
-//   Widget build(BuildContext context) {
-//     s = _currentSlidervalue.toStringAsFixed(2);
-//     return Column(
-//       children: <Widget>[
-//         Align(
-//           alignment: Alignment.topLeft,
-//           child: Text(
-//             'Set Location Range',
-//             style: GoogleFonts.poppins(fontSize: 15),
-//           ),
-//         ),
-//         Slider(
-//           label: _currentSlidervalue.round().toString(),
-//           value: widget.locationRange as double ?? _currentSlidervalue,
-//           min: 0,
-//           max: 50,
-//           onChanged: (double value) {
-//             setState(() {
-//               widget.locationRange = value;
-//               _currentSlidervalue = value;
-//             });
-//             sliderValue = value;
-//           },
-//         ),
-//         Align(
-//           alignment: Alignment.centerRight,
-//           child: Text(
-//             '$s km',
-//             style: GoogleFonts.poppins(),
-//           ),
-//         )
-//       ],
-//     );
-//   }
-// }
 
 class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   final Set<V> _selectedValues = <V>{};
@@ -171,12 +125,15 @@ class _UserPreferenceState extends State<UserPreference> {
   Widget build(BuildContext context) {
     final String favBook = widget.userData.preferences['favBook'] as String;
     final String favAuthor = widget.userData.preferences['favAuthor'] as String;
-    final String location =
-        widget.userData.preferences['locationRange'] as String;
-    final double locationRange = double.parse(location);
+    // final String location =
+    //     widget.userData.preferences['locationRange'] as String;
+    // final double locationRange = double.parse(location);
+    // final TextEditingController _author =
+    //     TextEditingController(text: favAuthor);
+    // final TextEditingController _book = TextEditingController(text: favBook);
     final TextEditingController _author =
-        TextEditingController(text: favAuthor);
-    final TextEditingController _book = TextEditingController(text: favBook);
+        TextEditingController();
+    final TextEditingController _book = TextEditingController();
     return Form(
       key: _formKey,
       child: AlertDialog(
@@ -276,26 +233,10 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () async {
               //Validate Author and BookName
               if (_formKey.currentState.validate()) {
-                //do some
-                // print(_book.text);
-                // print(_author.text);
-                // print("Slider Value");
-                // print(sliderValue.round());
-                ///
-                // Save Values to DB
-                await _databaseService.updatePreferences(_book.text,
-                    _author.text, sliderValue.round().toString() ?? '');
-                //API Call To get prefered Book
-                //TODO:Make a future builder in Dashboard and Update UI
-                // try {
-                //   dynamic res = Provider.of<Books>(context, listen: false)
-                //       .getRecommended(_book.text);
-                //   if (res != null) {
-                //     Navigator.pop(context, false);
-                //   }
-                // } catch (e) {
-                //   print(e.toString());
-                // }
+              
+                // await _databaseService.updatePreferences(_book.text,
+                //     _author.text, );
+               
                 Navigator.pop(context);
               }
             },

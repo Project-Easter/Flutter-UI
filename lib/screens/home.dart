@@ -1,5 +1,6 @@
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
@@ -23,6 +24,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<UserModel>(context).fetchUserData();
+    
+  }
+
   int _selectedIndex = 0;
 
   List<Widget> _screens = <Widget>[
@@ -40,7 +48,7 @@ class _HomeState extends State<Home> {
     SizeConfig().init(context);
     final String uID = _authService.getUID;
     print(uID);
-    // Provider.of<UserModel>(context).fetchUserData( AuthService.googleAuthToken);
+
     return MultiProvider(
       providers: [
         StreamProvider<UserData>.value(
@@ -50,7 +58,6 @@ class _HomeState extends State<Home> {
         StreamProvider<List<Book>>.value(
           value: DatabaseService(uid: uID).booksData,
         ),
-       
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -102,8 +109,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-   
-
     super.initState();
   }
 

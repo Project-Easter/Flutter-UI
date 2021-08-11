@@ -136,6 +136,7 @@ class _AddBookState extends State<AddBook> {
                                 await bookList.getBooksbyISBN(_isbnCode.text);
                             if (result != null) {
                               final Book book = makeBook(result);
+                              bookList.postAddedBook(book);
                               await _databaseService.addBook(book);
 
                               final SnackBar snackbar = SnackBar(
@@ -170,18 +171,16 @@ class _AddBookState extends State<AddBook> {
   Book makeBook(dynamic result) {
     Book book;
     if (result != null) {
-      //Deserialize
-      final String title = result['items'][0]['volumeInfo']['title'] as String;
+      final String title = result['title'] as String;
       final String author =
-          result['items'][0]['volumeInfo']['authors'][0] as String;
+          result['author'] as String;
       final String description =
-          result['items'][0]['volumeInfo']['description'] as String;
-      final String isbn = result['items'][0]['volumeInfo']
-          ['industryIdentifiers'][0]['identifier'] as String;
+          result['description'] as String;
+      final String isbn = result['isbn'] as String;
       String imageLink =
-          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'] as String;
+          result['image'] as String;
       imageLink = imageLink.replaceFirst('http', 'https', 0);
-      print(imageLink.length);
+     
       if (imageLink.isEmpty) {
         print('imageLink is empty');
       }

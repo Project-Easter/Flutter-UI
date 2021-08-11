@@ -88,28 +88,7 @@ class AuthService {
     }
   }
 
-  Future getQuote(String token) async {
-    final Response response = await QuoteRequest.getQuoteData(token);
-    try {
-      final dynamic result = await getBodyFromResponse(response);
-      print('Quote body result inside getQuote is $result');
-      if (response.statusCode == 200) {
-        print('Result is $result');
-
-        print(result['text'].toString());
-        print('is the result.text in getQuote function');
-        print(result['author'].toString());
-        print('is the result in getQuote function');
-        return Quote(
-          author: result['author'].toString(),
-          quote: result['text'].toString(),
-        );
-      }
-    } catch (e) {
-      print(e.toString());
-      print('is the orror inside getQuote function');
-    }
-  }
+  
 
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();

@@ -1,8 +1,11 @@
+import 'package:books_app/Utils/backend/quote_request.dart';
+import 'package:books_app/Utils/helpers.dart';
 import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
 class Quote {
   final String quote;
@@ -21,19 +24,11 @@ class Quotes extends StatefulWidget {
 
 class _QuotesState extends State<Quotes> {
   String quoteToken;
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: TokenStorage().loadAuthToken(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          print('${snapshot.data} is the loadPrefs snappppyyy');
-          return FutureBuilder<dynamic>(
-              future: AuthService().getQuote(snapshot.data.toString()),
+    return  FutureBuilder<Quote>(
+              future: getQuote(),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -76,30 +71,29 @@ class _QuotesState extends State<Quotes> {
                   );
                 }
               });
-        }
-      },
-    );
   }
 
-  // Future<String> loadToken() async {
+  Future<Quote> getQuote() async {
+    final String token= await TokenStorage().loadAuthToken();
+    final Response response = await QuoteRequest.getQuoteData(token);
+    final dynamic result = await getBodyFromResponse(response);
+    try {
+      print('Quote body result inside getQuote is $result');
+      if (response.statusCode == 200) {
+        print('Result is $result');
 
-  //   FlutterSecureStorage storage = FlutterSecureStorage();
-  //   quoteToken = await storage.read(key: 'global_token');
-  //   print('$quoteToken is the quoteToken for FLutterStorage');
-  //   return quoteToken;
-  // }
-
-  // FutureBuilder<String> token() {
-  //   return FutureBuilder<String>(
-  //       future: loadPrefs(),
-  //       builder: (BuildContext tx, AsyncSnapshot snap) {
-  //         if (snap.hasData) {
-  //           return Text('${snap.data}');
-  //         } else {
-  //           return const Center(
-  //             child: CircularProgressIndicator(),
-  //           );
-  //         }
-  //       });
-  // }
+        print(result['text'].toString());
+        print('is the result.text in getQuote function');
+        print(result['author'].toString());
+        print('is the result in getQuote function');
+      }
+    } catch (e) {
+      print(e.toString());
+      print('is the orror inside getQuote function');
+    }
+    return Quote(
+      author: result['author'].toString(),
+      quote: result['text'].toString(),
+    );
+  }
 }

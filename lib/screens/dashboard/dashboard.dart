@@ -22,19 +22,9 @@ class GoogleBooks extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  // Future checkUserData() async {
-  //   final String token = await TokenStorage().loadAuthToken();
-  //   Provider.of<UserModel>(context).fetchUserData(token);
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   checkUserData();
-  // }
-
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),

@@ -1,12 +1,15 @@
 import 'dart:convert';
-
+import 'package:books_app/constants/error.dart';
+import 'package:books_app/Utils/backend/book_requests.dart';
+import 'package:books_app/Utils/helpers.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 import 'book.dart';
 
 class Books with ChangeNotifier {
-  
   //Owned Books
   final List<Book> _ownedBooks = <Book>[];
 
@@ -65,7 +68,6 @@ class Books with ChangeNotifier {
 //Saved Books
 
   List<Book> get savedBooks {
-    //***Need to initialize null,as it does not get the reference of _savedBooks
     _savedBooks = <Book>[];
     print('Getter SavedBooks called');
     for (final Book book in _recommendedBooks) {
@@ -100,13 +102,15 @@ class Books with ChangeNotifier {
     return <Book>[..._within5km];
   }
 
-  //*****RECOMMENDED BOOKS*******//
   Future<dynamic> getBooksbyISBN(String isbn) async {
-    //Add Books from Google API
-    const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
+    // const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
+    final String token = await TokenStorage().loadAuthToken();
     try {
-      final http.Response response = await http.get(url + isbn);
-      final dynamic result = jsonDecode(response.body);
+      // final http.Response response = await http.get(url + isbn);
+      final Response response =
+          await BookRequest.bookDataFromISBN(token, isbn);
+
+      final dynamic result = await getBodyFromResponse(response);
       print('Result From get Books From ISBN:');
 
       print(result);
@@ -138,11 +142,9 @@ class Books with ChangeNotifier {
   }
 
   Future<dynamic> getRecommendedBooks() async {
-    //For now we are not using title
     const String recommendedURL =
         'https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859';
     try {
-      //Get from recommended
       final http.Response response = await http.get(recommendedURL);
       final dynamic result = jsonDecode(response.body);
       if (result != null) {
@@ -165,19 +167,52 @@ class Books with ChangeNotifier {
     }
   }
 
+  Future<dynamic> postAddedBook(Book book) async {
+    final String token = await TokenStorage().loadAuthToken();
+    final Response response = await BookRequest.postBook(token, book);
+    // const String recommendedURL =
+    //     'https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859';
+   
+      // final http.Response response = await http.get(recommendedURL);
+      final dynamic booksISBNList = await getBodyFromResponse(response);
+
+      if (booksISBNList.statusCode == 201) {
+        print(response.body);
+
+        print('is the body of response in function postADDEDBook');
+      }
+      else{
+ final int errorId = booksISBNList['error']['id'] as int;
+    print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+
+    switch (errorId) {
+      case Error.ISBN_NOT_FOUND:
+        {
+          throw Exception(
+              'Book data with the provided isbn does not exist');
+        }
+      default:
+        {
+          throw Exception('An unknown error occured. Please try again later');
+        }
+    }
+      }
+    
+    notifyListeners();
+    
+  }
+
   Book makeBook(dynamic result) {
     Book book;
-    // final int len = result.length as int;
-    if (result != null) {
-      //Deserialize
 
+    if (result != null) {
       final String title = result['volumeInfo']['title'].toString();
       final String author = result['volumeInfo']['authors'][0].toString();
       final String description = result['volumeInfo']['description'].toString();
       final String isbn = result['volumeInfo']['industryIdentifiers'][0]
               ['identifier']
           .toString();
-          final String infoLink = result['volumeInfo']['infoLink'].toString();
+      final String infoLink = result['volumeInfo']['infoLink'].toString();
 
       String imageLink;
       try {

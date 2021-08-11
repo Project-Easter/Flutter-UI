@@ -1,3 +1,4 @@
+import 'package:books_app/constants/api.dart';
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
@@ -12,6 +13,7 @@ class PrivateProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserData profileData = Provider.of<UserData>(context);
     final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
+    Provider.of<UserModel>(context);
     int ownedBooksLength;
     if (booksData.isEmpty) {
       ownedBooksLength = 0;
@@ -41,38 +43,7 @@ class PrivateProfile extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    width: 300,
-                    padding: const EdgeInsets.all(5),
-                    child: CircleAvatar(
-                      radius: 100,
-                      backgroundImage: NetworkImage(profileData.photoURL),
-                    ),
-                  ),
-                  Text(
-                    // 'John Doe',
-                    profileData.displayName,
-                    style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 36,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    child: Text(
-                      (profileData.city != null || profileData.state != null)
-                          ? '${profileData.city} , ${profileData.state}'
-                          : 'Update your location',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                ],
-              ),
+              ProfileHeader(profileData: profileData),
               const Divider(
                 color: Colors.black54,
               ),
@@ -151,5 +122,53 @@ class PrivateProfile extends StatelessWidget {
         ),
       );
     }
+  }
+}
+
+class ProfileHeader extends StatelessWidget {
+  final UserData profileData;
+
+  const ProfileHeader({
+    Key key,
+    @required this.profileData,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<UserModel>(
+        builder: (BuildContext context, UserModel profile, _) {
+      return Column(
+        children: <Widget>[
+          Container(
+            width: 300,
+            padding: const EdgeInsets.all(5),
+            child: CircleAvatar(
+              radius: 100,
+              backgroundImage: NetworkImage(PROFILE_PIC_ROUTE + profile.avatar),
+              // AssetImage('assets/images/Explr Logo.png'),
+            ),
+          ),
+          Text(
+            // 'John Doe',
+            // profileData.displayName,
+            '${profile.firstName} ${profile.lastName} ',
+            style: GoogleFonts.poppins(
+                color: Colors.black, fontSize: 36, fontWeight: FontWeight.w400),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 5),
+            child: Text(
+              (profileData.city != null || profileData.state != null)
+                  ? '${profileData.city} , ${profileData.state}'
+                  : 'Update your location',
+              style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
