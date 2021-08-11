@@ -39,9 +39,7 @@ class _AddBookState extends State<AddBook> {
               child: Text(
                 'Add your Book',
                 style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 30),
+                    fontWeight: FontWeight.w400, fontSize: 30),
               ),
             ),
             Padding(
@@ -128,7 +126,7 @@ class _AddBookState extends State<AddBook> {
                       // child: button(context, blackButton, 'Add your Book', ''),
                       child: CupertinoStyleButton(
                         name: 'Add your Book',
-                        color: blackButton,
+                        color: Colors.blueAccent,
                         myFunction: () async {
                           if (_bookKey.currentState.validate()) {
                             _bookKey.currentState.save();

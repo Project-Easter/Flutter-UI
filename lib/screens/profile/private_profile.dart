@@ -56,9 +56,7 @@ class PrivateProfile extends StatelessWidget {
                     // 'John Doe',
                     profileData.displayName,
                     style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 36,
-                        fontWeight: FontWeight.w400),
+                        fontSize: 36, fontWeight: FontWeight.w400),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
@@ -67,9 +65,7 @@ class PrivateProfile extends StatelessWidget {
                           ? '${profileData.city} , ${profileData.state}'
                           : 'Update your location',
                       style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400),
+                          fontSize: 13, fontWeight: FontWeight.w400),
                     ),
                   ),
                 ],
@@ -85,9 +81,7 @@ class PrivateProfile extends StatelessWidget {
                     Text(
                       'User Stats',
                       style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w400),
+                          fontSize: 30, fontWeight: FontWeight.w400),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,9 +91,7 @@ class PrivateProfile extends StatelessWidget {
                           children: <Widget>[
                             Text(ownedBooksLength.toString(),
                                 style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400)),
+                                    fontSize: 30, fontWeight: FontWeight.w400)),
                             const Text('Owned Books')
                           ],
                         ),
@@ -108,9 +100,7 @@ class PrivateProfile extends StatelessWidget {
                             Text('0',
                                 // borrowedBooksLength,
                                 style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400)),
+                                    fontSize: 30, fontWeight: FontWeight.w400)),
                             const Text('Borrowed Books')
                           ],
                         ),
@@ -119,9 +109,7 @@ class PrivateProfile extends StatelessWidget {
                             Text('0',
                                 // lentBooksLength,
                                 style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w400)),
+                                    fontSize: 30, fontWeight: FontWeight.w400)),
                             const Text('Lent Books')
                           ],
                         )
@@ -134,9 +122,10 @@ class PrivateProfile extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: <Widget>[
-                    button(
-                        context, blackButton, 'Add you Book', Routes.ADD_BOOK),
-                    button(context, blackButton, 'Settings', Routes.SETTINGS),
+                    button(context, Colors.blueAccent, 'Add you Book',
+                        Routes.ADD_BOOK),
+                    button(context, Colors.blueAccent, 'Settings',
+                        Routes.SETTINGS),
                     // GestureDetector(
                     //   onTap: () {
                     //     AuthService().googleSignout();

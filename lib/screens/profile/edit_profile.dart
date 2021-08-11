@@ -52,9 +52,7 @@ class _EditProfileState extends State<EditProfile> {
                             child: Text(
                               'Edit Your Profile',
                               style: GoogleFonts.poppins(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 26),
+                                  fontWeight: FontWeight.w400, fontSize: 26),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -163,9 +161,7 @@ class _EditProfileState extends State<EditProfile> {
                         ],
                       ),
                     ),
-                    const Divider(
-                      color: Colors.black54,
-                    ),
+                    const Divider(),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
