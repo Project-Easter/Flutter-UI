@@ -20,16 +20,16 @@ class LocationRange extends StatefulWidget {
   _LocationRangeState createState() => _LocationRangeState();
 }
 
-class MultiSelectDialog<V> extends StatefulWidget {
-  final List<MultiSelectDialogItem<V>> items;
+// class MultiSelectDialog<V> extends StatefulWidget {
+//   final List<MultiSelectDialogItem<V>> items;
 
-  final Set<V> initialSelectedValues;
-  const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
-      : super(key: key);
+//   final Set<V> initialSelectedValues;
+//   const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
+//       : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
-}
+//   @override
+//   State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
+// }
 
 class MultiSelectDialogItem<V> {
   final V value;
@@ -85,85 +85,85 @@ class _LocationRangeState extends State<LocationRange> {
   }
 }
 
-class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
-  final Set<V> _selectedValues = <V>{};
+// class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
+//   final Set<V> _selectedValues = <V>{};
 
-  @override
-  Widget build(BuildContext context) {
-    print('Select genres');
-    print(uID);
-    return AlertDialog(
-      title: const Text('Select Genres'),
-      contentPadding: const EdgeInsets.only(top: 12.0),
-      content: SingleChildScrollView(
-        child: ListTileTheme(
-          contentPadding: const EdgeInsets.fromLTRB(14.0, 0.0, 24.0, 0.0),
-          child: ListBody(
-            children: widget.items.map(_buildItem).toList(),
-          ),
-        ),
-      ),
-      actions: <Widget>[
-        MaterialButton(
-          child: const Text('CANCEL'),
-          onPressed: _onCancelTap,
-        ),
-        MaterialButton(
-          child: const Text('OK'),
-          onPressed: () => _onSubmitTap(_selectedValues),
-        )
-      ],
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     print('Select genres');
+//     print(uID);
+//     return AlertDialog(
+//       title: const Text('Select Genres'),
+//       contentPadding: const EdgeInsets.only(top: 12.0),
+//       content: SingleChildScrollView(
+//         child: ListTileTheme(
+//           contentPadding: const EdgeInsets.fromLTRB(14.0, 0.0, 24.0, 0.0),
+//           child: ListBody(
+//             children: widget.items.map(_buildItem).toList(),
+//           ),
+//         ),
+//       ),
+//       actions: <Widget>[
+//         MaterialButton(
+//           child: const Text('CANCEL'),
+//           onPressed: _onCancelTap,
+//         ),
+//         MaterialButton(
+//           child: const Text('OK'),
+//           onPressed: () => _onSubmitTap(_selectedValues),
+//         )
+//       ],
+//     );
+//   }
 
-  @override
-  void initState() {
-    super.initState();
-    if (widget.initialSelectedValues != null) {
-      _selectedValues.addAll(widget.initialSelectedValues);
-    }
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     if (widget.initialSelectedValues != null) {
+//       _selectedValues.addAll(widget.initialSelectedValues);
+//     }
+//   }
 
-  Widget _buildItem(MultiSelectDialogItem<V> item) {
-    final bool checked = _selectedValues.contains(item.value);
-    return CheckboxListTile(
-      value: checked,
-      title: Text(item.label),
-      controlAffinity: ListTileControlAffinity.leading,
-      onChanged: (bool checked) => _onItemCheckedChange(item.value, checked),
-    );
-  }
+//   Widget _buildItem(MultiSelectDialogItem<V> item) {
+//     final bool checked = _selectedValues.contains(item.value);
+//     return CheckboxListTile(
+//       value: checked,
+//       title: Text(item.label),
+//       controlAffinity: ListTileControlAffinity.leading,
+//       onChanged: (bool checked) => _onItemCheckedChange(item.value, checked),
+//     );
+//   }
 
-  void _onCancelTap() {
-    Navigator.of(context).pop();
-  }
+//   void _onCancelTap() {
+//     Navigator.of(context).pop();
+//   }
 
-  void _onItemCheckedChange(V itemValue, bool checked) {
-    setState(() {
-      if (checked) {
-        _selectedValues.add(itemValue);
-      } else {
-        _selectedValues.remove(itemValue);
-      }
-    });
-  }
+//   void _onItemCheckedChange(V itemValue, bool checked) {
+//     setState(() {
+//       if (checked) {
+//         _selectedValues.add(itemValue);
+//       } else {
+//         _selectedValues.remove(itemValue);
+//       }
+//     });
+//   }
 
-  Future<void> _onSubmitTap(Set<V> selectedItems) async {
-    final List<dynamic> items = selectedItems.toList();
-    items.removeRange(0, 1);
-    print(items);
-    final List<String> selectedGenres = <String>[];
-    for (final dynamic element in items) {
-      final String x = element.toString();
-      print(genres[int.parse(x)]);
-      selectedGenres.add(genres[int.parse(x)]);
-    }
+//   Future<void> _onSubmitTap(Set<V> selectedItems) async {
+//     final List<dynamic> items = selectedItems.toList();
+//     items.removeRange(0, 1);
+//     print(items);
+//     final List<String> selectedGenres = <String>[];
+//     for (final dynamic element in items) {
+//       final String x = element.toString();
+//       print(genres[int.parse(x)]);
+//       selectedGenres.add(genres[int.parse(x)]);
+//     }
 
-    print(selectedGenres);
-    await _databaseService.updateGenres(selectedGenres);
-    Navigator.of(context).pop();
-  }
-}
+//     print(selectedGenres);
+//     await _databaseService.updateGenres(selectedGenres);
+//     Navigator.of(context).pop();
+//   }
+// }
 
 class _UserPreferenceState extends State<UserPreference> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -178,7 +178,26 @@ class _UserPreferenceState extends State<UserPreference> {
         value: (i, v) => v,
         label: (i, v) => v,
       ),
+      choiceStyle: const C2ChoiceStyle(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderColor: Colors.grey,
+      ),
+      wrapped: true,
     );
+  }
+
+  Future<void> _onSubmitTap(List<String> selectedItems) async {
+    final List<dynamic> items = selectedItems.toList();
+    items.removeRange(0, 1);
+    print(items);
+    final List<String> selectedGenres = <String>[];
+    for (final dynamic element in items) {
+      final String x = element.toString();
+      print(genres[int.parse(x)]);
+      selectedGenres.add(genres[int.parse(x)]);
+    }
+    print(selectedGenres);
+    await _databaseService.updateGenres(selectedGenres);
   }
 
   @override
@@ -269,7 +288,7 @@ class _UserPreferenceState extends State<UserPreference> {
                       primary: Colors.blue,
                     ),
                     onPressed: () {
-                      _showMultiSelect(context);
+                      //_showMultiSelect(context);
                     },
                     child: Text(
                       'Select Book Genres',
@@ -290,6 +309,7 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () async {
               //Validate Author and BookName
               if (_formKey.currentState.validate()) {
+                _onSubmitTap(tags);
                 //do some
                 // print(_book.text);
                 // print(_author.text);
@@ -330,28 +350,28 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  Future<void> _showMultiSelect(BuildContext context) async {
-    int i = 0;
-    int j = i;
-    final Set<int> selectedValues = await showDialog<Set<int>>(
-      context: context,
-      builder: (BuildContext context) {
-        print('Building Items');
-        i = 0;
-        j = 1;
-        // ignore: always_specify_types
-        return MultiSelectDialog(
-          items: genres.map<MultiSelectDialogItem<String>>((String val) {
-            return MultiSelectDialogItem<String>(
-                (i++).toString(), val.toString());
-          }).toList(),
-          // ignore: always_specify_types
-          initialSelectedValues: {1, j},
-        );
-      },
-    );
-    //Tried Ressting the values
+  // Future<void> _showMultiSelect(BuildContext context) async {
+  //   int i = 0;
+  //   int j = i;
+  //   final Set<int> selectedValues = await showDialog<Set<int>>(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       print('Building Items');
+  //       i = 0;
+  //       j = 1;
+  //       // ignore: always_specify_types
+  //       return MultiSelectDialog(
+  //         items: genres.map<MultiSelectDialogItem<String>>((String val) {
+  //           return MultiSelectDialogItem<String>(
+  //               (i++).toString(), val.toString());
+  //         }).toList(),
+  //         // ignore: always_specify_types
+  //         initialSelectedValues: {1, j},
+  //       );
+  //     },
+  //   );
+  //   //Tried Ressting the values
 
-    print(selectedValues);
-  }
+  //   print(selectedValues);
+  // }
 }
