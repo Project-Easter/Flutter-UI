@@ -44,14 +44,17 @@ class LocationHelper {
     locationData = await location.getLocation();
 
     
-    final String token = await TokenStorage().loadAuthToken();
-    final Response response = await UserRequests.location(
-      token,
-      locationData.latitude,
-      locationData.longitude,
-    );
-    final dynamic body = await getBodyFromResponse(response);
-    print('$body is the Piotrrr backend location body');
+   
+    // final Response response = await UserRequests.location(
+    //   TokenStorage.authToken,
+    //   locationData.latitude ,
+    //   locationData.longitude,
+    // );
+    // final dynamic body = await getBodyFromResponse(response);
+    // print('$response is the Piotrrr backend location body');
+  //  if(response.statusCode==204){
+      
+  //  }
 
     return LatLng(locationData.latitude, locationData.longitude);
   }

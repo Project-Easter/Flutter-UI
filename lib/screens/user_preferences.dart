@@ -1,16 +1,18 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Services/database_service.dart';
+import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/helpers.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/providers/user.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
-
-String uID = AuthService().getUID;
+String uID = FirebaseAuthService().getUID;
 
 DatabaseService _databaseService = DatabaseService(uid: uID);
-
-
 
 class MultiSelectDialog<V> extends StatefulWidget {
   final List<MultiSelectDialogItem<V>> items;
@@ -36,7 +38,6 @@ class UserPreference extends StatefulWidget {
   @override
   _UserPreferenceState createState() => _UserPreferenceState();
 }
-
 
 class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
   final Set<V> _selectedValues = <V>{};
@@ -119,6 +120,22 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
 }
 
 class _UserPreferenceState extends State<UserPreference> {
+  final TextEditingController _author = TextEditingController();
+  final TextEditingController _book = TextEditingController();
+  Future putPreferences() async {
+    Response response = await UserRequests.userPreference(
+        TokenStorage.authToken, _book.text, _author.text);
+    final dynamic result = await getBodyFromResponse(response);
+    try {
+      if (response.statusCode == 204) {
+        print('Preference has been updated successfully');
+        print('$result is the UserPreferences result from backend');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -131,9 +148,7 @@ class _UserPreferenceState extends State<UserPreference> {
     // final TextEditingController _author =
     //     TextEditingController(text: favAuthor);
     // final TextEditingController _book = TextEditingController(text: favBook);
-    final TextEditingController _author =
-        TextEditingController();
-    final TextEditingController _book = TextEditingController();
+
     return Form(
       key: _formKey,
       child: AlertDialog(
@@ -176,7 +191,6 @@ class _UserPreferenceState extends State<UserPreference> {
                   },
                   onSaved: (String val) {
                     _book.text = val;
-                    
                   },
                 ),
                 const SizedBox(
@@ -213,7 +227,7 @@ class _UserPreferenceState extends State<UserPreference> {
                       primary: Colors.blue,
                     ),
                     onPressed: () {
-                      _showMultiSelect(context);
+                      // _showMultiSelect(context);
                     },
                     child: Text(
                       'Select Book Genres',
@@ -233,10 +247,10 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () async {
               //Validate Author and BookName
               if (_formKey.currentState.validate()) {
-              
                 // await _databaseService.updatePreferences(_book.text,
                 //     _author.text, );
-               
+               await  putPreferences();
+                _formKey.currentState.save();
                 Navigator.pop(context);
               }
             },

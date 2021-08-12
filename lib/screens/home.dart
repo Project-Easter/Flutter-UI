@@ -1,5 +1,4 @@
 import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Utils/backend/user_data_requests.dart';
 import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:books_app/constants/routes.dart';
@@ -24,13 +23,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    Provider.of<UserModel>(context).fetchUserData();
-    
-  }
-
   int _selectedIndex = 0;
 
   List<Widget> _screens = <Widget>[
@@ -40,9 +32,11 @@ class _HomeState extends State<Home> {
     LibraryPage(),
     PrivateProfile(),
   ];
+
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
-  final AuthService _authService = AuthService();
+  final FirebaseAuthService _authService =
+      FirebaseAuthService();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -108,7 +102,14 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<UserModel>(context).fetchUserData();
+  }
+
+  @override
   void initState() {
+    
     super.initState();
   }
 

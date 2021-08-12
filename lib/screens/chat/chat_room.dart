@@ -78,7 +78,7 @@ class _ChatRoomState extends State<ChatRoom> {
   List<UserData> allUser = <UserData>[];
   @override
   Widget build(BuildContext context) {
-    final dynamic uID = AuthService().getUID;
+    final dynamic uID = FirebaseAuthService().getUID;
     final UserData currentUser = Provider.of<UserData>(context);
 
     if (currentUser.isAnonymous == true) {

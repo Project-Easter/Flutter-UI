@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:books_app/constants/error.dart';
 import 'package:books_app/Utils/backend/book_requests.dart';
 import 'package:books_app/Utils/helpers.dart';
 import 'package:books_app/Utils/keys_storage.dart';
+import 'package:books_app/constants/error.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -103,12 +103,11 @@ class Books with ChangeNotifier {
   }
 
   Future<dynamic> getBooksbyISBN(String isbn) async {
-    // const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
-    final String token = await TokenStorage().loadAuthToken();
+    
+   
     try {
-      // final http.Response response = await http.get(url + isbn);
-      final Response response =
-          await BookRequest.bookDataFromISBN(token, isbn);
+     
+      final Response response = await BookRequest.bookDataFromISBN(TokenStorage.authToken, isbn);
 
       final dynamic result = await getBodyFromResponse(response);
       print('Result From get Books From ISBN:');
@@ -167,41 +166,6 @@ class Books with ChangeNotifier {
     }
   }
 
-  Future<dynamic> postAddedBook(Book book) async {
-    final String token = await TokenStorage().loadAuthToken();
-    final Response response = await BookRequest.postBook(token, book);
-    // const String recommendedURL =
-    //     'https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859';
-   
-      // final http.Response response = await http.get(recommendedURL);
-      final dynamic booksISBNList = await getBodyFromResponse(response);
-
-      if (booksISBNList.statusCode == 201) {
-        print(response.body);
-
-        print('is the body of response in function postADDEDBook');
-      }
-      else{
- final int errorId = booksISBNList['error']['id'] as int;
-    print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
-
-    switch (errorId) {
-      case Error.ISBN_NOT_FOUND:
-        {
-          throw Exception(
-              'Book data with the provided isbn does not exist');
-        }
-      default:
-        {
-          throw Exception('An unknown error occured. Please try again later');
-        }
-    }
-      }
-    
-    notifyListeners();
-    
-  }
-
   Book makeBook(dynamic result) {
     Book book;
 
@@ -237,6 +201,35 @@ class Books with ChangeNotifier {
       );
     }
     return book;
+  }
+
+  Future<dynamic> postAddedBook(Book book) async {
+    
+    final Response response = await BookRequest.postBook(TokenStorage.authToken, book);
+
+    final dynamic booksISBNList = await getBodyFromResponse(response);
+
+    if (booksISBNList.statusCode == 201) {
+      print(response.body);
+
+      print('is the body of response in function postADDEDBook');
+    } else {
+      final int errorId = booksISBNList['error']['id'] as int;
+      print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+
+      switch (errorId) {
+        case Error.ISBN_NOT_FOUND:
+          {
+            throw Exception('Book data with the provided isbn does not exist');
+          }
+        default:
+          {
+            throw Exception('An unknown error occured. Please try again later');
+          }
+      }
+    }
+
+    notifyListeners();
   }
 
   void sortAuthor() {

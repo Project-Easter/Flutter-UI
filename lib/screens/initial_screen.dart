@@ -1,6 +1,4 @@
 import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/constants/routes.dart';
-import 'package:books_app/Services/auth.dart';
 import 'package:books_app/States/auth_state.dart';
 import 'package:books_app/States/email_state.dart';
 import 'package:books_app/States/error_state.dart';
@@ -9,6 +7,9 @@ import 'package:books_app/Utils/helpers.dart';
 import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/Widgets/Auth/auth_button.dart';
 import 'package:books_app/Widgets/text_field.dart';
+import 'package:books_app/constants/routes.dart';
+import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/backend_services.dart';
 import 'package:books_app/widgets/auth/social_media_handles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _InitialScreenState extends State<InitialScreen>
         EmailState<InitialScreen>,
         PasswordState<InitialScreen>,
         ErrorState<InitialScreen> {
-  //Init AuthService
+  //Init FirebaseFirebaseAuthService
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -153,7 +154,8 @@ class _InitialScreenState extends State<InitialScreen>
   }
 
   Future<String> onSubmit() async {
-    return AuthService().login(_emailController.text, _passwordController.text);
+    return BackendService()
+        .login(_emailController.text, _passwordController.text);
   }
 
   void onSuccess() {

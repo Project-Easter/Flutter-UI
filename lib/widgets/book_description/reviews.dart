@@ -15,7 +15,8 @@ class _ReviewsState extends State<Reviews> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UserData>(
-      stream: DatabaseService(uid: AuthService().getUID).userData,
+      stream:
+          DatabaseService(uid: FirebaseAuthService().getUID).userData,
       builder: (BuildContext ctx, AsyncSnapshot<UserData> snap) {
         if (snap.hasData) {
           return Column(
@@ -36,7 +37,6 @@ class _ReviewsState extends State<Reviews> {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: TextField(
-                    
                     controller: _commentController,
                     maxLines: 5,
                     textAlign: TextAlign.start,
@@ -71,7 +71,7 @@ class _ReviewsState extends State<Reviews> {
           );
         }
       },
-//  value: DatabaseService(uid: AuthService().getUID).userData,
+//  value: DatabaseService(uid: FirebaseFirebaseAuthService().getUID).userData,
     );
   }
 }

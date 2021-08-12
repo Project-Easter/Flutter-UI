@@ -109,7 +109,7 @@ class PrivateProfile extends StatelessWidget {
                     button(context, blackButton, 'Settings', Routes.SETTINGS),
                     // GestureDetector(
                     //   onTap: () {
-                    //     AuthService().googleSignout();
+                    //     FirebaseFirebaseAuthService().googleSignout();
                     //   },
                     //   child: button(
                     //       context, greenButton, 'Logout', Routes.INITIAL_PAGE),
@@ -135,6 +135,7 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Consumer<UserModel>(
         builder: (BuildContext context, UserModel profile, _) {
       return Column(

@@ -22,7 +22,8 @@ class BookDescription extends StatefulWidget {
 
 class _BookDescriptionState extends State<BookDescription>
     with SingleTickerProviderStateMixin {
-  final AuthService _authService = AuthService();
+  final FirebaseAuthService _authService =
+      FirebaseAuthService();
   TabController _tabController;
 
   Widget bookDescription(String description) {
