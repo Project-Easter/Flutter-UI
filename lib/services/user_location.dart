@@ -19,7 +19,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     final dynamic uID = AuthService().getUID;
+//     final dynamic uID = FirebaseFirebaseAuthService().getUID;
 //     final DatabaseService databaseService =
 //         DatabaseService(uid: uID.toString());
 //     return Scaffold(
@@ -104,7 +104,7 @@ class _GetLocationState extends State<GetLocation> {
 
   @override
   Widget build(BuildContext context) {
-    final dynamic _uID = AuthService().getUID;
+    final dynamic _uID = FirebaseAuthService().getUID;
     final DatabaseService _databaseService =
         DatabaseService(uid: _uID.toString());
     return Scaffold(

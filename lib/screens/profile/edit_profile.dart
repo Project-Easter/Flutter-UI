@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/services/auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +16,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  final AuthService _authService = AuthService();
+  final FirebaseAuthService _authService = FirebaseAuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   final ImagePicker _imagePicker = ImagePicker();

@@ -1,5 +1,4 @@
 import 'package:books_app/Screens/Auth/reset_password.dart';
-import 'package:books_app/Services/auth.dart';
 import 'package:books_app/States/auth_state.dart';
 import 'package:books_app/States/email_state.dart';
 import 'package:books_app/States/error_state.dart';
@@ -9,6 +8,8 @@ import 'package:books_app/Widgets/Auth/auth_error_message.dart';
 import 'package:books_app/Widgets/Auth/auth_navigation.dart';
 import 'package:books_app/Widgets/Auth/auth_page_title.dart';
 import 'package:books_app/Widgets/text_field.dart';
+import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/backend_services.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
         EmailState<ForgotPasswordScreen>,
         ErrorState<ForgotPasswordScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final AuthService authService = AuthService();
+  final BackendService authService = BackendService();
 
   @override
   Widget build(BuildContext context) {

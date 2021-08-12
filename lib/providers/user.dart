@@ -62,8 +62,8 @@ class UserModel extends ChangeNotifier {
   String get lastName => _lastName;
 
   Future<void> fetchUserData() async {
-    final String token = await TokenStorage().loadAuthToken();
-    final Response response = await UserRequests.getUserData(token);
+    
+    final Response response = await UserRequests.getUserData(TokenStorage.authToken);
     final dynamic body = await getBodyFromResponse(response);
     print('$body is the body of fetch user data inside user.dart file 123445');
 

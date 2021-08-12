@@ -1,7 +1,9 @@
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class SocialMediaHandles extends StatelessWidget {
   @override
@@ -25,11 +27,13 @@ class SocialMediaHandles extends StatelessWidget {
               onPressed: () async {
                 print('Google Sign in presws');
                 try {
-                  final dynamic res = await AuthService().signInWithGoogle();
+                  final dynamic res =
+                      await FirebaseAuthService().signInWithGoogle();
 
                   print('This is the google response');
                   print(res);
                   if (res != null) {
+                  
                     print(res.toString());
                     Navigator.pushNamed(context, Routes.HOME);
                   }
@@ -54,7 +58,10 @@ class SocialMediaHandles extends StatelessWidget {
                 side: const BorderSide(color: Colors.black87),
               ),
               onPressed: () async {
-                AuthService().signInWithFacebook().whenComplete(() {
+                FirebaseAuthService()
+                    .signInWithFacebook()
+                    .whenComplete(() {
+                      Provider.of<UserModel>(context).fetchUserData();
                   Navigator.pushNamed(context, Routes.HOME);
                 });
               },

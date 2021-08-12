@@ -1,5 +1,4 @@
 import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Services/auth.dart';
 import 'package:books_app/States/auth_state.dart';
 import 'package:books_app/States/email_state.dart';
 import 'package:books_app/States/error_state.dart';
@@ -10,6 +9,8 @@ import 'package:books_app/Widgets/Auth/auth_error_message.dart';
 import 'package:books_app/Widgets/Auth/auth_navigation.dart';
 import 'package:books_app/Widgets/Auth/auth_page_title.dart';
 import 'package:books_app/Widgets/text_field.dart';
+import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/backend_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen>
         EmailState<LoginScreen>,
         PasswordState<LoginScreen>,
         ErrorState<LoginScreen> {
-  final AuthService authService = AuthService();
+  final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override

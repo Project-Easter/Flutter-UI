@@ -1,10 +1,8 @@
-import 'package:books_app/Constants/colors.dart';
-import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Widgets/app_bar.dart';
-import 'package:books_app/Widgets/button.dart';
+import 'package:books_app/constants/colors.dart';
+import 'package:books_app/widgets/app_bar.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/books.dart';
-import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +15,8 @@ class AddBook extends StatefulWidget {
 }
 
 class _AddBookState extends State<AddBook> {
-  final AuthService _authService = AuthService();
+  // final FirebaseAuthService _authService =
+  //     FirebaseAuthService();
   final GlobalKey<FormState> _bookKey = GlobalKey<FormState>();
   final TextEditingController _bookName = TextEditingController();
   final TextEditingController _authorName = TextEditingController();
@@ -25,9 +24,9 @@ class _AddBookState extends State<AddBook> {
 
   @override
   Widget build(BuildContext context) {
-    final dynamic uid = _authService.getUID;
-    final DatabaseService _databaseService =
-        DatabaseService(uid: uid as String);
+    // final dynamic uid = _authService.getUID;
+    // final DatabaseService _databaseService =
+    //     DatabaseService(uid: uid as String);
     final Books bookList = Provider.of<Books>(context, listen: false);
     return Scaffold(
       appBar: MyAppBar(context),
@@ -137,7 +136,7 @@ class _AddBookState extends State<AddBook> {
                             if (result != null) {
                               final Book book = makeBook(result);
                               bookList.postAddedBook(book);
-                              await _databaseService.addBook(book);
+                              // await _databaseService.addBook(book);
 
                               final SnackBar snackbar = SnackBar(
                                 content: const Text('Your book has been added'),
@@ -172,15 +171,12 @@ class _AddBookState extends State<AddBook> {
     Book book;
     if (result != null) {
       final String title = result['title'] as String;
-      final String author =
-          result['author'] as String;
-      final String description =
-          result['description'] as String;
+      final String author = result['author'] as String;
+      final String description = result['description'] as String;
       final String isbn = result['isbn'] as String;
-      String imageLink =
-          result['image'] as String;
+      String imageLink = result['image'] as String;
       imageLink = imageLink.replaceFirst('http', 'https', 0);
-     
+
       if (imageLink.isEmpty) {
         print('imageLink is empty');
       }
