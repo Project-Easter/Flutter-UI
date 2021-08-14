@@ -42,4 +42,3 @@ app.*.map.json
 
 # Tokens related
 **assets/config.json
-**lib/Utils/keys_storage.dart
