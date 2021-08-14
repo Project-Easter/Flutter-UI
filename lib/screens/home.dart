@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<UserModel>(context).fetchUserData();
+    
   }
 
   @override

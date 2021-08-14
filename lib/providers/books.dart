@@ -103,24 +103,31 @@ class Books with ChangeNotifier {
   }
 
   Future<dynamic> getBooksbyISBN(String isbn) async {
-    
-   
-    try {
-     
-      final Response response = await BookRequest.bookDataFromISBN(TokenStorage.authToken, isbn);
+    final Response response =
+        await BookRequest.bookDataFromISBN(TokenStorage.authToken, isbn);
 
-      final dynamic result = await getBodyFromResponse(response);
-      print('Result From get Books From ISBN:');
+    final dynamic result = await getBodyFromResponse(response);
 
-      print(result);
-      if (result != null) {
-        return result;
+    if (result.statusCode == 200) {
+      print(response.body);
+      print('is the body of response in function postADDEDBook');
+      
+      return result;
+    } else {
+      final int errorId = result['error']['id'] as int;
+      print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+
+      switch (errorId) {
+        case Error.ISBN_NOT_FOUND:
+          {
+            throw Exception('Book data with the provided isbn does not exist');
+          }
+        default:
+          {
+            throw Exception('An unknown error occured. Please try again later');
+          }
       }
-      return null;
-    } catch (e) {
-      print(e.toString());
     }
-    return null;
   }
 
   Future<dynamic> getISBNFromName(String title) async {
@@ -204,8 +211,8 @@ class Books with ChangeNotifier {
   }
 
   Future<dynamic> postAddedBook(Book book) async {
-    
-    final Response response = await BookRequest.postBook(TokenStorage.authToken, book);
+    final Response response =
+        await BookRequest.postBook(TokenStorage.authToken, book);
 
     final dynamic booksISBNList = await getBodyFromResponse(response);
 
