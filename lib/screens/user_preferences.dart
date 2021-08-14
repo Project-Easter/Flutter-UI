@@ -1,48 +1,25 @@
 import 'package:books_app/Constants/genres.dart';
 import 'package:books_app/Services/auth.dart';
 import 'package:books_app/Services/database_service.dart';
+import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/helpers.dart';
+//import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/providers/user.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:chips_choice/chips_choice.dart';
 
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
+
+String uID = FirebaseAuthService().getUID;
 double sliderValue = 10.0;
-String uID = AuthService().getUID;
 
-DatabaseService _databaseService = DatabaseService(uid: uID);
-
-// ignore: must_be_immutable
 class LocationRange extends StatefulWidget {
   dynamic locationRange;
   LocationRange(this.locationRange);
 
   @override
   _LocationRangeState createState() => _LocationRangeState();
-}
-
-// class MultiSelectDialog<V> extends StatefulWidget {
-//   final List<MultiSelectDialogItem<V>> items;
-
-//   final Set<V> initialSelectedValues;
-//   const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
-//       : super(key: key);
-
-//   @override
-//   State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
-// }
-
-class MultiSelectDialogItem<V> {
-  final V value;
-  final String label;
-  const MultiSelectDialogItem(this.value, this.label);
-}
-
-// ignore: must_be_immutable
-class UserPreference extends StatefulWidget {
-  final UserData userData;
-  const UserPreference(this.userData);
-  @override
-  _UserPreferenceState createState() => _UserPreferenceState();
 }
 
 class _LocationRangeState extends State<LocationRange> {
@@ -83,6 +60,33 @@ class _LocationRangeState extends State<LocationRange> {
       ],
     );
   }
+}
+
+DatabaseService _databaseService = DatabaseService(uid: uID);
+
+// class MultiSelectDialog<V> extends StatefulWidget {
+//   final List<MultiSelectDialogItem<V>> items;
+
+//   final Set<V> initialSelectedValues;
+//   const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
+//       : super(key: key);
+
+//   @override
+//   State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
+// }
+
+class MultiSelectDialogItem<V> {
+  final V value;
+  final String label;
+  const MultiSelectDialogItem(this.value, this.label);
+}
+
+// ignore: must_be_immutable
+class UserPreference extends StatefulWidget {
+  final UserData userData;
+  const UserPreference(this.userData);
+  @override
+  _UserPreferenceState createState() => _UserPreferenceState();
 }
 
 // class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
@@ -166,10 +170,13 @@ class _LocationRangeState extends State<LocationRange> {
 // }
 
 class _UserPreferenceState extends State<UserPreference> {
+  final TextEditingController _author = TextEditingController();
+  final TextEditingController _book = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   List<String> tags = [];
 
-  Widget _chipChoice() {
+  Widget _genresChoice() {
     return ChipsChoice<String>.multiple(
       value: tags,
       onChanged: (List<String> val) => setState(() => tags = val),
@@ -186,8 +193,8 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  Future<void> _onSubmitTap(List<String> selectedItems) async {
-    final List<dynamic> items = selectedItems.toList();
+  Future<void> _onSubmitTap() async {
+    final List<dynamic> items = tags.toList();
     items.removeRange(0, 1);
     print(items);
     final List<String> selectedGenres = <String>[];
@@ -210,6 +217,7 @@ class _UserPreferenceState extends State<UserPreference> {
     final TextEditingController _author =
         TextEditingController(text: favAuthor);
     final TextEditingController _book = TextEditingController(text: favBook);
+
     return Form(
       key: _formKey,
       child: AlertDialog(
@@ -278,28 +286,32 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                ButtonTheme(
-                  minWidth: 220,
-                  height: 40,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11)),
-                      primary: Colors.blue,
-                    ),
-                    onPressed: () {
-                      //_showMultiSelect(context);
-                    },
-                    child: Text(
-                      'Select Book Genres',
-                      style: GoogleFonts.muli(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-                _chipChoice()
+                Text('Select Book genres', style: GoogleFonts.muli()),
+                _genresChoice(),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // ButtonTheme(
+                //   minWidth: 220,
+                //   height: 40,
+                //   child: ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //       shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(11)),
+                //       primary: Colors.blue,
+                //     ),
+                //     onPressed: () {
+                //       // _showMultiSelect(context);
+                //     },
+                //     child: Text(
+                //       'Select Book Genres',
+                //       style: GoogleFonts.muli(
+                //           color: Colors.white,
+                //           fontSize: 15,
+                //           fontWeight: FontWeight.w500),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -309,27 +321,8 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () async {
               //Validate Author and BookName
               if (_formKey.currentState.validate()) {
-                _onSubmitTap(tags);
-                //do some
-                // print(_book.text);
-                // print(_author.text);
-                // print("Slider Value");
-                // print(sliderValue.round());
-                ///
-                // Save Values to DB
-                await _databaseService.updatePreferences(_book.text,
-                    _author.text, sliderValue.round().toString() ?? '');
-                //API Call To get prefered Book
-                //TODO:Make a future builder in Dashboard and Update UI
-                // try {
-                //   dynamic res = Provider.of<Books>(context, listen: false)
-                //       .getRecommended(_book.text);
-                //   if (res != null) {
-                //     Navigator.pop(context, false);
-                //   }
-                // } catch (e) {
-                //   print(e.toString());
-                // }
+                _onSubmitTap();
+                _formKey.currentState.save();
                 Navigator.pop(context);
               }
             },
@@ -349,29 +342,4 @@ class _UserPreferenceState extends State<UserPreference> {
       ),
     );
   }
-
-  // Future<void> _showMultiSelect(BuildContext context) async {
-  //   int i = 0;
-  //   int j = i;
-  //   final Set<int> selectedValues = await showDialog<Set<int>>(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       print('Building Items');
-  //       i = 0;
-  //       j = 1;
-  //       // ignore: always_specify_types
-  //       return MultiSelectDialog(
-  //         items: genres.map<MultiSelectDialogItem<String>>((String val) {
-  //           return MultiSelectDialogItem<String>(
-  //               (i++).toString(), val.toString());
-  //         }).toList(),
-  //         // ignore: always_specify_types
-  //         initialSelectedValues: {1, j},
-  //       );
-  //     },
-  //   );
-  //   //Tried Ressting the values
-
-  //   print(selectedValues);
-  // }
 }
