@@ -50,6 +50,7 @@ dependencies:
   latlong: ^0.6.1
   url_launcher: ^5.7.10
   chips_choice: ^2.0.1
+  flutter_secure_storage: ^4.2.1
   # geoflutterfire: ^2.2.2
 
 dev_dependencies:

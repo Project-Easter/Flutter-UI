@@ -1,4 +1,3 @@
-import 'package:books_app/screens/user_preferences.dart';
 import 'package:books_app/widgets/empty_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ class ExploreNearby extends StatefulWidget {
 }
 
 class _ExploreNearbyState extends State<ExploreNearby> {
-  LocationRange distance;
+  // LocationRange distance;
   @override
   Widget build(BuildContext context) {
     // final List<Book> within3km = Provider.of<Books>(context).within3km;

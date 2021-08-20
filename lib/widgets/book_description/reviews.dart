@@ -15,18 +15,22 @@ class _ReviewsState extends State<Reviews> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UserData>(
-      stream: DatabaseService(uid: AuthService().getUID).userData,
+      stream:
+          DatabaseService(uid: FirebaseAuthService().getUID).userData,
       builder: (BuildContext ctx, AsyncSnapshot<UserData> snap) {
         if (snap.hasData) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Text(
-                'Reviews',
-                style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'Reviews',
+                  style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20),
+                ),
               ),
               AspectRatio(
                 aspectRatio: 343 / 52,
@@ -37,11 +41,15 @@ class _ReviewsState extends State<Reviews> {
                     maxLines: 5,
                     textAlign: TextAlign.start,
                     decoration: InputDecoration(
-                        prefixIcon: CircleAvatar(
-                          radius: 5,
-                          backgroundImage: NetworkImage(snap.data.photoURL),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: CircleAvatar(
+                            radius: 5,
+                            backgroundImage: NetworkImage(snap.data.photoURL),
+                          ),
                         ),
                         suffixIcon: const Icon(Icons.send),
+                        contentPadding: const EdgeInsets.all(10),
                         hintText: 'Add your comment',
                         hintStyle: GoogleFonts.muli(
                           color: Colors.grey,
@@ -63,7 +71,7 @@ class _ReviewsState extends State<Reviews> {
           );
         }
       },
-//  value: DatabaseService(uid: AuthService().getUID).userData,
+//  value: DatabaseService(uid: FirebaseFirebaseAuthService().getUID).userData,
     );
   }
 }

@@ -1,16 +1,19 @@
+import 'package:books_app/Utils/backend/quote_request.dart';
+import 'package:books_app/Utils/helpers.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/constants/colors.dart';
-import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
 class Quote {
   final String quote;
   final String author;
 
-  Quote(
+  Quote({
     this.quote,
     this.author,
-  );
+  });
 }
 
 class Quotes extends StatefulWidget {
@@ -19,44 +22,28 @@ class Quotes extends StatefulWidget {
 }
 
 class _QuotesState extends State<Quotes> {
-  String get token {
-    String s;
-    AuthService().firebaseAuth.currentUser.getIdToken(true).then((String val) {
-      setState(() {
-        s = val;
-      });
-    }).toString();
-    return s;
-  }
+  String quoteToken;
 
   @override
   Widget build(BuildContext context) {
-    return quote();
-  }
-
-  FutureBuilder quote() {
-    return FutureBuilder<dynamic>(
-        future: AuthService().getQuote(AuthService.googleAuthToken),
-        // future: Api.getQuote(AuthService().authtoken),
+    return FutureBuilder<Quote>(
+        future: getQuote(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
-            print(AuthService.googleAuthToken);
-            print(' is the access token received');
-            // print(AuthService().firebaseAuth.currentUser);
-            print('Quote is $snapshot.toString()');
-            print('Quote snapshot isss $snapshot.data');
+          
+
+            print('Quote snapshot isss ${snapshot.data}');
 
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(children: <Widget>[
                   Text(
-                    snapshot.data.toString(),
-                    // '"${quote.text}"',
+                    '${snapshot.data.quote}',
                     softWrap: true,
                     maxLines: 3,
                     overflow: TextOverflow.visible,
@@ -71,8 +58,7 @@ class _QuotesState extends State<Quotes> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      snapshot.data.toString(),
-                      // '-${quote.author}',
+                      '${snapshot.data.author}',
                       style: GoogleFonts.lato(color: blackButton, fontSize: 14),
                     ),
                   )
@@ -81,5 +67,27 @@ class _QuotesState extends State<Quotes> {
             );
           }
         });
+  }
+
+  Future<Quote> getQuote() async {
+   
+    final Response response = await QuoteRequest.getQuoteData(TokenStorage.authToken);
+    final dynamic result = await getBodyFromResponse(response);
+       if (response.statusCode == 200) {
+        print('Result is $result');
+      }
+    // try {
+    //   print('Quote body result inside getQuote is $result');
+    //   if (response.statusCode == 200) {
+    //     print('Result is $result');
+    //   }
+    // } catch (e) {
+    //   print(e.toString()+'is the error inside getQuote function');
+      
+    // }
+    return Quote(
+      author: result['author'].toString(),
+      quote: result['text'].toString(),
+    );
   }
 }

@@ -1,4 +1,11 @@
+import 'dart:ffi';
+
+import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/helpers.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
@@ -35,6 +42,17 @@ class LocationHelper {
     }
 
     locationData = await location.getLocation();
+
+    // final Response response = await UserRequests.location(
+    //   TokenStorage.authToken,
+    //   locationData.latitude ,
+    //   locationData.longitude,
+    // );
+    // final dynamic body = await getBodyFromResponse(response);
+    // print('$response is the Piotrrr backend location body');
+    //  if(response.statusCode==204){
+
+    //  }
 
     return LatLng(locationData.latitude, locationData.longitude);
   }

@@ -1,6 +1,5 @@
 import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Utils/api.dart';
-import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
@@ -33,16 +32,19 @@ class _HomeState extends State<Home> {
     LibraryPage(),
     PrivateProfile(),
   ];
+
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
-  final AuthService _authService = AuthService();
+  final FirebaseAuthService _authService =
+      FirebaseAuthService();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final String uID = _authService.getUID;
     print(uID);
+
     return MultiProvider(
-      providers: <StreamProvider<dynamic>>[
+      providers: [
         StreamProvider<UserData>.value(
           value: DatabaseService(uid: uID).userData,
           catchError: (_, Object e) => null,
@@ -72,13 +74,16 @@ class _HomeState extends State<Home> {
                 child: const Icon(Icons.location_on),
                 backgroundColor: Colors.blueAccent,
                 onPressed: () async {
-                  //Add users Location to DB
                   await Navigator.pushNamed(context, Routes.LOCATION);
                 },
               ),
             ],
           ),
           bottomNavigationBar: FloatingNavbar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            selectedBackgroundColor: Theme.of(context).colorScheme.primary,
+            selectedItemColor: Theme.of(context).scaffoldBackgroundColor,
+            unselectedItemColor: Theme.of(context).colorScheme.primary,
             showSelectedLabels: true,
             currentIndex: _selectedIndex,
             onTap: _selectedTab,
@@ -101,8 +106,14 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<UserModel>(context).fetchUserData();
+  }
+
+  @override
   void initState() {
-    UserRequests.getUserData(_authService.getUID);
+    
     super.initState();
   }
 

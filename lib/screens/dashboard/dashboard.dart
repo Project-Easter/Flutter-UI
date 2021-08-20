@@ -1,8 +1,10 @@
 import 'package:books_app/Screens/dashboard/book_list.dart';
 import 'package:books_app/Screens/dashboard/quotes.dart';
 import 'package:books_app/Screens/dashboard/user_choice.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/books.dart';
+import 'package:books_app/providers/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +24,7 @@ class GoogleBooks extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -50,7 +53,7 @@ class _GoogleBooksState extends State<GoogleBooks> {
               child: CircularProgressIndicator(),
             );
           } else {
-            print('$snapshot is the Google book snap');
+            print('$snapshot.data is the Google book snap');
             // Extracting data from snapshot object
             final List<Book> recommendedBooksML = snapshot.data as List<Book>;
             return BookList(widget.title, recommendedBooksML);

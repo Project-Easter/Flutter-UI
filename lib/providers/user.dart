@@ -1,4 +1,5 @@
 import 'package:books_app/Utils/backend/user_data_requests.dart';
+import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
@@ -60,9 +61,11 @@ class UserModel extends ChangeNotifier {
   String get joinedAt => _joinedAt;
   String get lastName => _lastName;
 
-  Future<void> fetchUserData(String token) async {
-    final Response response = await UserRequests.getUserData(token);
-    final dynamic body = getBodyFromResponse(response);
+  Future<void> fetchUserData() async {
+    final Response response =
+        await UserRequests.getUserData(TokenStorage.authToken);
+    final dynamic body = await getBodyFromResponse(response);
+    print('$body is the body of fetch user data inside user.dart file 123445');
 
     if (body['id'] == null) {
       _isAuthenticated = false;
