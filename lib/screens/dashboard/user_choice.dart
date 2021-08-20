@@ -1,5 +1,5 @@
-import 'package:books_app/Screens/user_preferences.dart';
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

@@ -1,6 +1,6 @@
-import 'package:books_app/Utils/backend/user_data_requests.dart';
-import 'package:books_app/Utils/keys_storage.dart';
+import 'package:books_app/utils/backend/user_data_requests.dart';
 import 'package:books_app/utils/helpers.dart';
+import 'package:books_app/utils/keys_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 

@@ -1,7 +1,5 @@
-import 'package:books_app/Utils/keys_storage.dart';
-import 'package:books_app/Utils/location_helper.dart';
-import 'package:books_app/services/auth.dart';
-import 'package:books_app/services/database_service.dart';
+import 'package:books_app/utils/keys_storage.dart';
+import 'package:books_app/utils/location_helper.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';

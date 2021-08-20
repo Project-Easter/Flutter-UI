@@ -1,5 +1,5 @@
-import 'package:books_app/Constants/colors.dart';
 import 'package:books_app/common/themes.dart';
+import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/theme.dart';
 import 'package:books_app/providers/user.dart';

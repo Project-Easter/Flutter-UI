@@ -1,5 +1,5 @@
-// import 'package:books_app/Screens/Chat/message_bubble.dart';
-// import 'package:books_app/Utils/size_config.dart';
+// import 'package:books_app/screens/Chat/message_bubble.dart';
+// import 'package:books_app/utils/size_config.dart';
 // import 'package:books_app/models/message.dart';
 // import 'package:books_app/providers/user.dart';
 // import 'package:books_app/services/database_service.dart';

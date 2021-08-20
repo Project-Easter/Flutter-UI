@@ -1,7 +1,6 @@
-import 'package:books_app/Utils/backend/quote_request.dart';
-import 'package:books_app/Utils/helpers.dart';
-import 'package:books_app/Utils/keys_storage.dart';
-import 'package:books_app/constants/colors.dart';
+import 'package:books_app/utils/backend/quote_request.dart';
+import 'package:books_app/utils/helpers.dart';
+import 'package:books_app/utils/keys_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';

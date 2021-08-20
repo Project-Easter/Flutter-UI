@@ -1,6 +1,5 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/colors.dart';
+import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/book_description/genres.dart';
@@ -22,8 +21,7 @@ class BookDescription extends StatefulWidget {
 
 class _BookDescriptionState extends State<BookDescription>
     with SingleTickerProviderStateMixin {
-  final FirebaseAuthService _authService =
-      FirebaseAuthService();
+  final FirebaseAuthService _authService = FirebaseAuthService();
   TabController _tabController;
 
   Widget bookDescription(String description) {

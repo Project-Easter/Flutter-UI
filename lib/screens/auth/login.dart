@@ -1,16 +1,15 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/States/auth_state.dart';
-import 'package:books_app/States/email_state.dart';
-import 'package:books_app/States/error_state.dart';
-import 'package:books_app/States/password_state.dart';
-import 'package:books_app/Utils/helpers.dart';
-import 'package:books_app/Widgets/Auth/auth_button.dart';
-import 'package:books_app/Widgets/Auth/auth_error_message.dart';
-import 'package:books_app/Widgets/Auth/auth_navigation.dart';
-import 'package:books_app/Widgets/Auth/auth_page_title.dart';
-import 'package:books_app/Widgets/text_field.dart';
-import 'package:books_app/services/auth.dart';
+import 'package:books_app/constants/routes.dart';
 import 'package:books_app/services/backend_services.dart';
+import 'package:books_app/states/auth_state.dart';
+import 'package:books_app/states/email_state.dart';
+import 'package:books_app/states/error_state.dart';
+import 'package:books_app/states/password_state.dart';
+import 'package:books_app/utils/helpers.dart';
+import 'package:books_app/widgets/auth/auth_button.dart';
+import 'package:books_app/widgets/auth/auth_error_message.dart';
+import 'package:books_app/widgets/auth/auth_navigation.dart';
+import 'package:books_app/widgets/auth/auth_page_title.dart';
+import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
