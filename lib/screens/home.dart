@@ -1,5 +1,5 @@
-import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Utils/keys_storage.dart';
+
+import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
@@ -10,6 +10,7 @@ import 'package:books_app/screens/dashboard/dashboard.dart';
 import 'package:books_app/screens/explore_nearby.dart';
 import 'package:books_app/screens/profile/private_profile.dart';
 import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';

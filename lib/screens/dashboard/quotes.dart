@@ -48,7 +48,7 @@ class _QuotesState extends State<Quotes> {
                     maxLines: 3,
                     overflow: TextOverflow.visible,
                     style: GoogleFonts.lato(
-                        color: blackButton,
+                        
                         fontSize: 23,
                         fontStyle: FontStyle.italic),
                   ),
@@ -59,7 +59,7 @@ class _QuotesState extends State<Quotes> {
                     alignment: Alignment.bottomRight,
                     child: Text(
                       '${snapshot.data.author}',
-                      style: GoogleFonts.lato(color: blackButton, fontSize: 14),
+                      style: GoogleFonts.lato( fontSize: 14),
                     ),
                   )
                 ]),

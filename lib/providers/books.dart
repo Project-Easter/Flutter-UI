@@ -23,15 +23,7 @@ class Books with ChangeNotifier {
 
   List<Book> _savedBooks = <Book>[];
 
-  //Getters for Book List
-  final List<Book> _within3km = <Book>[];
-
-  final List<Book> _within5km = <Book>[];
-
-  final List<Book> _within10km = <Book>[];
-
-  final List<Book> _within20km = <Book>[];
-
+  
   //Filtering Functions
   //A-Z
   final List<Book> _recommendedBooks = <Book>[];
@@ -85,30 +77,15 @@ class Books with ChangeNotifier {
     return _savedBooks;
   }
 
-//*******GETTERS
-  List<Book> get within10km {
-    return <Book>[..._within10km];
-  }
-
-  List<Book> get within20km {
-    return <Book>[..._within20km];
-  }
-
-  List<Book> get within3km {
-    return <Book>[..._within3km];
-  }
-
-  List<Book> get within5km {
-    return <Book>[..._within5km];
-  }
 
   Future<dynamic> getBooksbyISBN(String isbn) async {
     final Response response =
         await BookRequest.bookDataFromISBN(TokenStorage.authToken, isbn);
+        
 
     final dynamic result = await getBodyFromResponse(response);
 
-    if (result.statusCode == 200) {
+    if (response.statusCode == 200) {
       print(response.body);
       print('is the body of response in function postADDEDBook');
       
@@ -216,7 +193,7 @@ class Books with ChangeNotifier {
 
     final dynamic booksISBNList = await getBodyFromResponse(response);
 
-    if (booksISBNList.statusCode == 201) {
+    if (response.statusCode == 201) {
       print(response.body);
 
       print('is the body of response in function postADDEDBook');
@@ -239,40 +216,7 @@ class Books with ChangeNotifier {
     notifyListeners();
   }
 
-  void sortAuthor() {
-    _within3km.sort((Book a, Book b) => a.author.compareTo(b.author));
-    _within5km.sort((Book a, Book b) => a.author.compareTo(b.author));
-    _within10km.sort((Book a, Book b) => a.author.compareTo(b.author));
-    _within20km.sort((Book a, Book b) => a.author.compareTo(b.author));
-    notifyListeners();
-  }
-
-  void sortAZ() {
-    _within3km.sort((Book a, Book b) => a.title.compareTo(b.title));
-    _within5km.sort((Book a, Book b) => a.title.compareTo(b.title));
-    _within10km.sort((Book a, Book b) => a.title.compareTo(b.title));
-    _within20km.sort((Book a, Book b) => a.title.compareTo(b.title));
-    notifyListeners();
-  }
-
-  void sortRating() {
-    _within3km.sort((Book b, Book a) => a.rating.compareTo(b.rating));
-    _within5km.sort((Book b, Book a) => a.rating.compareTo(b.rating));
-    _within10km.sort((Book b, Book a) => a.rating.compareTo(b.rating));
-    _within20km.sort((Book b, Book a) => a.rating.compareTo(b.rating));
-    notifyListeners();
-  }
-
-  //1.1 Convert Response to a Book Object
-
-  //Helper-Get Book ISBN From Name
-  void sortZA() {
-    _within3km.sort((Book b, Book a) => a.title.compareTo(b.title));
-    _within5km.sort((Book b, Book a) => a.title.compareTo(b.title));
-    _within10km.sort((Book b, Book a) => a.title.compareTo(b.title));
-    _within20km.sort((Book b, Book a) => a.title.compareTo(b.title));
-    notifyListeners();
-  }
+  
 
   Future<dynamic> topBooks() async {
     const String recommendedURL =

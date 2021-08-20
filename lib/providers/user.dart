@@ -4,11 +4,6 @@ import 'package:books_app/utils/helpers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 
-// class MyAppUser {
-//   String uid;
-
-//   MyAppUser({this.uid});
-// }
 
 class UserData {
   String uid;

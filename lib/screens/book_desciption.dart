@@ -61,8 +61,8 @@ class _BookDescriptionState extends State<BookDescription>
   @override
   Widget build(BuildContext context) {
     final dynamic uid = _authService.getUID;
-    final DatabaseService _databaseService =
-        DatabaseService(uid: uid as String);
+    // final DatabaseService _databaseService =
+    //     DatabaseService(uid: uid as String);
     print(widget.bookFromList.rating);
     print(_tabController.index);
     return Scaffold(
@@ -139,7 +139,7 @@ class _BookDescriptionState extends State<BookDescription>
                           setState(() {
                             widget.bookFromList.changeBookMark();
                           });
-                          _databaseService.updateBookMark(widget.bookFromList);
+                          // _databaseService.updateBookMark(widget.bookFromList);
                         } catch (e) {
                           print(e.toString());
                         }
@@ -211,8 +211,8 @@ class _BookDescriptionState extends State<BookDescription>
                             context: context, builder: (_) => RatingDialog());
                         if (stars == null) return;
                         print('Selected rate stars: $stars');
-                        _databaseService.updateRating(
-                            stars.toDouble(), widget.bookFromList.isbn);
+                        // _databaseService.updateRating(
+                        //     stars.toDouble(), widget.bookFromList.isbn);
                         print('Update Ratings');
                       })
                 else
@@ -225,7 +225,7 @@ class _BookDescriptionState extends State<BookDescription>
                       color: blackButton,
                       name: 'Remove this Book',
                       myFunction: () async {
-                        _databaseService.removeBook(widget.bookFromList.isbn);
+                        // _databaseService.removeBook(widget.bookFromList.isbn);
                         Navigator.of(context).pop();
                         print('Book Removed');
                       })

@@ -7,10 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BookCard extends StatelessWidget {
-  
-  Future <void> _canLaunchUrl(String url) async => canLaunch(url) != null
-      ? await launch(url)
-      : throw 'Could not open the play store link';
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -34,7 +30,7 @@ class BookCard extends StatelessWidget {
             ),
             onTap: () async {
               (book.infoLink != null)
-                  ? await  _canLaunchUrl(_playStoreLink)
+                  ? await _canLaunchUrl(_playStoreLink)
                   : Navigator.of(context).push<dynamic>(
                       MaterialPageRoute<dynamic>(
                         builder: (BuildContext context) => BookDescription(
@@ -54,7 +50,6 @@ class BookCard extends StatelessWidget {
                   softWrap: true,
                   textWidthBasis: TextWidthBasis.parent,
                   style: GoogleFonts.poppins(
-                    color: Colors.black,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
@@ -67,7 +62,6 @@ class BookCard extends StatelessWidget {
                 book.author,
                 textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
-                  color: Colors.black.withOpacity(0.5),
                   fontWeight: FontWeight.w500,
                   fontSize: 12,
                 ),
@@ -81,4 +75,8 @@ class BookCard extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _canLaunchUrl(String url) async => canLaunch(url) != null
+      ? await launch(url)
+      : throw 'Could not open the play store link';
 }

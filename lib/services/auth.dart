@@ -2,6 +2,7 @@ import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/backend_services.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -101,6 +102,8 @@ class FirebaseAuthService {
             'Google Auth token from loginWithSocialMedia is $googleAuthToken');
 
         TokenStorage().storeAuthToken(googleAuthToken);
+        //Add a timer for token expiration time
+        
         TokenStorage().loadAuthToken();
       } catch (e) {
         print('Damn we got an error: ' + e.toString());

@@ -27,9 +27,7 @@ class _BookListState extends State<BookList> {
             alignment: Alignment.centerLeft,
             child: Text(widget.title,
                 style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600)),
+                    fontSize: 24, fontWeight: FontWeight.w600)),
           ),
         ),
         SizedBox(

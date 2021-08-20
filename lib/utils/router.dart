@@ -61,11 +61,7 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => const EnterMobile());
       case Routes.OTP:
         return MaterialPageRoute<dynamic>(builder: (_) => EnterOtp());
-      case Routes.MESSAGE:
-        return MaterialPageRoute<dynamic>(
-            builder: (_) => MessageScreen(
-                  receiver: settings.arguments as UserData,
-                ));
+      
 
       default:
         return MaterialPageRoute<dynamic>(
