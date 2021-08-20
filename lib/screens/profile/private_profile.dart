@@ -43,7 +43,38 @@ class PrivateProfile extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+<<<<<<< HEAD
               ProfileHeader(profileData: profileData),
+=======
+              Column(
+                children: <Widget>[
+                  Container(
+                    width: 300,
+                    padding: const EdgeInsets.all(5),
+                    child: CircleAvatar(
+                      radius: 100,
+                      backgroundImage: NetworkImage(profileData.photoURL),
+                    ),
+                  ),
+                  Text(
+                    // 'John Doe',
+                    profileData.displayName,
+                    style: GoogleFonts.poppins(
+                        fontSize: 36, fontWeight: FontWeight.w400),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    child: Text(
+                      (profileData.city != null || profileData.state != null)
+                          ? '${profileData.city} , ${profileData.state}'
+                          : 'Update your location',
+                      style: GoogleFonts.poppins(
+                          fontSize: 13, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                ],
+              ),
+>>>>>>> 71aa7170b4599f0410e86825fb24452a791b96ac
               const Divider(
                 color: Colors.black54,
               ),
