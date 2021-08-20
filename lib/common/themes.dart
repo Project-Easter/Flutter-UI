@@ -1,15 +1,25 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.grey,
+  // ignore: deprecated_member_use
+  textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
-  // primaryColor: const Color.fromRGBO(18, 19, 33, 1),
+  primaryTextTheme: const TextTheme(
+    headline6: TextStyle(color: Colors.white),
+  ),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Color.fromRGBO(18, 19, 33, 1),
+    iconTheme: IconThemeData(color: Colors.white),
+    actionsIconTheme: IconThemeData(color: Colors.white),
+    foregroundColor: Colors.white,
+  ),
   // brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   accentColor: Colors.white,
-  colorScheme: const ColorScheme.light(
-      brightness: Brightness.light, primary: Colors.white),
+  colorScheme: const ColorScheme.light(primary: Colors.white),
   accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.transparent,
 );
@@ -17,7 +27,7 @@ final ThemeData darkTheme = ThemeData(
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
-  // brightness: Brightness.light,
+  brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,
   colorScheme: const ColorScheme.dark(

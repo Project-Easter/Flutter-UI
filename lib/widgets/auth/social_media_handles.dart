@@ -61,7 +61,7 @@ class SocialMediaHandles extends StatelessWidget {
                 FirebaseAuthService()
                     .signInWithFacebook()
                     .whenComplete(() {
-                      Provider.of<UserModel>(context).fetchUserData();
+                     
                   Navigator.pushNamed(context, Routes.HOME);
                 });
               },

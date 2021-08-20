@@ -1,10 +1,8 @@
-import 'package:books_app/Screens/dashboard/book_list.dart';
-import 'package:books_app/Screens/dashboard/quotes.dart';
-import 'package:books_app/Screens/dashboard/user_choice.dart';
-import 'package:books_app/Utils/keys_storage.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/books.dart';
-import 'package:books_app/providers/user.dart';
+import 'package:books_app/screens/dashboard/book_list.dart';
+import 'package:books_app/screens/dashboard/quotes.dart';
+import 'package:books_app/screens/dashboard/user_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +22,6 @@ class GoogleBooks extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -33,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Quotes(),
-            const UserChoice(),
+            UserChoice(),
             const GoogleBooks(title: 'Discover New '),
           ],
         ),

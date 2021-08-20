@@ -16,12 +16,12 @@ class _FilterItemsState extends State<FilterItems> {
     return ListView(
       padding: const EdgeInsets.all(10),
       children: <Widget>[
-        buildFilterItems('Sort title A-Z', Provider.of<Books>(context).sortAZ),
-        buildFilterItems('Sort title Z-A', Provider.of<Books>(context).sortZA),
-        buildFilterItems(
-            'Sort by author', Provider.of<Books>(context).sortAuthor),
-        buildFilterItems(
-            'Sort by rating', Provider.of<Books>(context).sortRating),
+        // buildFilterItems('Sort title A-Z', Provider.of<Books>(context).sortAZ),
+        // buildFilterItems('Sort title Z-A', Provider.of<Books>(context).sortZA),
+        // buildFilterItems(
+        //     'Sort by author', Provider.of<Books>(context).sortAuthor),
+        // buildFilterItems(
+        //     'Sort by rating', Provider.of<Books>(context).sortRating),
       ],
     );
   }

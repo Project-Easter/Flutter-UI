@@ -1,9 +1,9 @@
-import 'package:books_app/Utils/backend/auth_requests.dart';
-import 'package:books_app/Utils/backend/mail_request.dart';
-import 'package:books_app/Utils/backend/user_data_requests.dart';
-import 'package:books_app/Utils/helpers.dart';
-import 'package:http/http.dart';
 import 'package:books_app/constants/error.dart';
+import 'package:books_app/utils/backend/auth_requests.dart';
+import 'package:books_app/utils/backend/mail_request.dart';
+import 'package:books_app/utils/backend/user_data_requests.dart';
+import 'package:books_app/utils/helpers.dart';
+import 'package:http/http.dart';
 
 
 class BackendService{

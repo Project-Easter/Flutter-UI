@@ -1,6 +1,5 @@
-import 'package:books_app/Constants/routes.dart';
-import 'package:books_app/Services/database_service.dart';
 import 'package:books_app/constants/colors.dart';
+import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/book_description/genres.dart';
@@ -22,8 +21,7 @@ class BookDescription extends StatefulWidget {
 
 class _BookDescriptionState extends State<BookDescription>
     with SingleTickerProviderStateMixin {
-  final FirebaseAuthService _authService =
-      FirebaseAuthService();
+  final FirebaseAuthService _authService = FirebaseAuthService();
   TabController _tabController;
 
   Widget bookDescription(String description) {
@@ -61,8 +59,8 @@ class _BookDescriptionState extends State<BookDescription>
   @override
   Widget build(BuildContext context) {
     final dynamic uid = _authService.getUID;
-    final DatabaseService _databaseService =
-        DatabaseService(uid: uid as String);
+    // final DatabaseService _databaseService =
+    //     DatabaseService(uid: uid as String);
     print(widget.bookFromList.rating);
     print(_tabController.index);
     return Scaffold(
@@ -139,7 +137,7 @@ class _BookDescriptionState extends State<BookDescription>
                           setState(() {
                             widget.bookFromList.changeBookMark();
                           });
-                          _databaseService.updateBookMark(widget.bookFromList);
+                          // _databaseService.updateBookMark(widget.bookFromList);
                         } catch (e) {
                           print(e.toString());
                         }
@@ -211,8 +209,8 @@ class _BookDescriptionState extends State<BookDescription>
                             context: context, builder: (_) => RatingDialog());
                         if (stars == null) return;
                         print('Selected rate stars: $stars');
-                        _databaseService.updateRating(
-                            stars.toDouble(), widget.bookFromList.isbn);
+                        // _databaseService.updateRating(
+                        //     stars.toDouble(), widget.bookFromList.isbn);
                         print('Update Ratings');
                       })
                 else
@@ -225,7 +223,7 @@ class _BookDescriptionState extends State<BookDescription>
                       color: blackButton,
                       name: 'Remove this Book',
                       myFunction: () async {
-                        _databaseService.removeBook(widget.bookFromList.isbn);
+                        // _databaseService.removeBook(widget.bookFromList.isbn);
                         Navigator.of(context).pop();
                         print('Book Removed');
                       })

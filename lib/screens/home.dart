@@ -1,6 +1,3 @@
-import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Utils/keys_storage.dart';
-import 'package:books_app/Widgets/custom_navigation_bar.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
@@ -10,8 +7,10 @@ import 'package:books_app/screens/dashboard/dashboard.dart';
 import 'package:books_app/screens/explore_nearby.dart';
 import 'package:books_app/screens/profile/private_profile.dart';
 import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/app_bar.dart';
+import 'package:books_app/widgets/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,8 +34,7 @@ class _HomeState extends State<Home> {
 
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
-  final FirebaseAuthService _authService =
-      FirebaseAuthService();
+  final FirebaseAuthService _authService = FirebaseAuthService();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -104,12 +102,10 @@ class _HomeState extends State<Home> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<UserModel>(context).fetchUserData();
   }
 
   @override
   void initState() {
-    
     super.initState();
   }
 

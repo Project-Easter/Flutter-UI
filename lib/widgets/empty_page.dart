@@ -24,8 +24,8 @@ class EmptyPageWidget extends StatelessWidget {
             // 'This page will contain all the your book data ',
             headline,
             textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w400),
+            style:
+                GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w400),
           ),
         ),
       )

@@ -3,6 +3,7 @@ import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class Reviews extends StatefulWidget {
   @override
@@ -14,11 +15,10 @@ class _ReviewsState extends State<Reviews> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<UserData>(
-      stream:
-          DatabaseService(uid: FirebaseAuthService().getUID).userData,
-      builder: (BuildContext ctx, AsyncSnapshot<UserData> snap) {
-        if (snap.hasData) {
+    return Consumer<UserModel>(
+     
+      builder: (BuildContext ctx, UserModel user,_) {
+       
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -45,7 +45,7 @@ class _ReviewsState extends State<Reviews> {
                           padding: const EdgeInsets.all(3),
                           child: CircleAvatar(
                             radius: 5,
-                            backgroundImage: NetworkImage(snap.data.photoURL),
+                            backgroundImage: NetworkImage(user.avatar),
                           ),
                         ),
                         suffixIcon: const Icon(Icons.send),
@@ -65,11 +65,7 @@ class _ReviewsState extends State<Reviews> {
               ),
             ],
           );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+        
       },
 //  value: DatabaseService(uid: FirebaseFirebaseAuthService().getUID).userData,
     );
