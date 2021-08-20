@@ -7,6 +7,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
+// import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 
@@ -56,4 +57,17 @@ class LocationHelper {
 
     return LatLng(locationData.latitude, locationData.longitude);
   }
+
+  // Future backendLoc()async {
+  //    final Response response = await UserRequests.location(
+  //     TokenStorage.authToken,
+  //     locationData.latitude,
+  //     locationData.longitude,
+  //   );
+  //   final dynamic body = await getBodyFromResponse(response);
+  //   print('$response is the Piotrrr backend location response');
+  //   if (response.statusCode == 204) {
+  //     print('$body is the Piotrrr backend location body');
+  //   }
+  // }
 }

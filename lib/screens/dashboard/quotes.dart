@@ -1,7 +1,6 @@
-import 'package:books_app/Utils/backend/quote_request.dart';
-import 'package:books_app/Utils/helpers.dart';
-import 'package:books_app/Utils/keys_storage.dart';
-import 'package:books_app/constants/colors.dart';
+import 'package:books_app/utils/backend/quote_request.dart';
+import 'package:books_app/utils/helpers.dart';
+import 'package:books_app/utils/keys_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
@@ -34,8 +33,6 @@ class _QuotesState extends State<Quotes> {
               child: CircularProgressIndicator(),
             );
           } else {
-          
-
             print('Quote snapshot isss ${snapshot.data}');
 
             return Center(
@@ -48,9 +45,7 @@ class _QuotesState extends State<Quotes> {
                     maxLines: 3,
                     overflow: TextOverflow.visible,
                     style: GoogleFonts.lato(
-                        color: blackButton,
-                        fontSize: 23,
-                        fontStyle: FontStyle.italic),
+                        fontSize: 23, fontStyle: FontStyle.italic),
                   ),
                   const SizedBox(
                     height: 15,
@@ -59,7 +54,7 @@ class _QuotesState extends State<Quotes> {
                     alignment: Alignment.bottomRight,
                     child: Text(
                       '${snapshot.data.author}',
-                      style: GoogleFonts.lato(color: blackButton, fontSize: 14),
+                      style: GoogleFonts.lato(fontSize: 14),
                     ),
                   )
                 ]),
@@ -70,12 +65,12 @@ class _QuotesState extends State<Quotes> {
   }
 
   Future<Quote> getQuote() async {
-   
-    final Response response = await QuoteRequest.getQuoteData(TokenStorage.authToken);
+    final Response response =
+        await QuoteRequest.getQuoteData(TokenStorage.authToken);
     final dynamic result = await getBodyFromResponse(response);
-       if (response.statusCode == 200) {
-        print('Result is $result');
-      }
+    if (response.statusCode == 200) {
+      print('Result is $result');
+    }
     // try {
     //   print('Quote body result inside getQuote is $result');
     //   if (response.statusCode == 200) {
@@ -83,7 +78,7 @@ class _QuotesState extends State<Quotes> {
     //   }
     // } catch (e) {
     //   print(e.toString()+'is the error inside getQuote function');
-      
+
     // }
     return Quote(
       author: result['author'].toString(),

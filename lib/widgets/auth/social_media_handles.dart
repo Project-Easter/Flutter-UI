@@ -33,7 +33,6 @@ class SocialMediaHandles extends StatelessWidget {
                   print('This is the google response');
                   print(res);
                   if (res != null) {
-                  
                     print(res.toString());
                     Navigator.pushNamed(context, Routes.HOME);
                   }
@@ -58,10 +57,7 @@ class SocialMediaHandles extends StatelessWidget {
                 side: const BorderSide(color: Colors.black87),
               ),
               onPressed: () async {
-                FirebaseAuthService()
-                    .signInWithFacebook()
-                    .whenComplete(() {
-                      Provider.of<UserModel>(context).fetchUserData();
+                FirebaseAuthService().signInWithFacebook().whenComplete(() {
                   Navigator.pushNamed(context, Routes.HOME);
                 });
               },

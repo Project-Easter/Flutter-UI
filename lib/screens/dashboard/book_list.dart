@@ -1,6 +1,6 @@
-import 'package:books_app/Utils/size_config.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/screens/dashboard/bookcard.dart';
+import 'package:books_app/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +27,7 @@ class _BookListState extends State<BookList> {
             alignment: Alignment.centerLeft,
             child: Text(widget.title,
                 style: GoogleFonts.poppins(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600)),
+                    fontSize: 24, fontWeight: FontWeight.w600)),
           ),
         ),
         SizedBox(

@@ -1,9 +1,7 @@
-import 'package:books_app/Constants/genres.dart';
-import 'package:books_app/Services/auth.dart';
-import 'package:books_app/Services/database_service.dart';
-import 'package:books_app/Utils/backend/user_data_requests.dart';
-import 'package:books_app/Utils/helpers.dart';
+import 'package:books_app/constants/genres.dart';
+//import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/services/auth.dart';
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +18,33 @@ class LocationRange extends StatefulWidget {
   _LocationRangeState createState() => _LocationRangeState();
 }
 
+class MultiSelectDialogItem<V> {
+  final V value;
+  final String label;
+  const MultiSelectDialogItem(this.value, this.label);
+}
+
+// DatabaseService _databaseService = DatabaseService(uid: uID);
+
+// class MultiSelectDialog<V> extends StatefulWidget {
+//   final List<MultiSelectDialogItem<V>> items;
+
+//   final Set<V> initialSelectedValues;
+//   const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
+//       : super(key: key);
+
+//   @override
+//   State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
+// }
+
+class UserPreference extends StatefulWidget {
+  final UserData userData;
+  const UserPreference(this.userData);
+  @override
+  _UserPreferenceState createState() => _UserPreferenceState();
+}
+
+// ignore: must_be_immutable
 class _LocationRangeState extends State<LocationRange> {
   double _currentSlidervalue = 10.0;
   String s;
@@ -58,33 +83,6 @@ class _LocationRangeState extends State<LocationRange> {
       ],
     );
   }
-}
-
-DatabaseService _databaseService = DatabaseService(uid: uID);
-
-// class MultiSelectDialog<V> extends StatefulWidget {
-//   final List<MultiSelectDialogItem<V>> items;
-
-//   final Set<V> initialSelectedValues;
-//   const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
-//       : super(key: key);
-
-//   @override
-//   State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
-// }
-
-class MultiSelectDialogItem<V> {
-  final V value;
-  final String label;
-  const MultiSelectDialogItem(this.value, this.label);
-}
-
-// ignore: must_be_immutable
-class UserPreference extends StatefulWidget {
-  final UserData userData;
-  const UserPreference(this.userData);
-  @override
-  _UserPreferenceState createState() => _UserPreferenceState();
 }
 
 // class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
@@ -173,37 +171,6 @@ class _UserPreferenceState extends State<UserPreference> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   List<String> tags = [];
-
-  Widget _genresChoice() {
-    return ChipsChoice<String>.multiple(
-      value: tags,
-      onChanged: (List<String> val) => setState(() => tags = val),
-      choiceItems: C2Choice.listFrom<String, String>(
-        source: genres,
-        value: (i, v) => v,
-        label: (i, v) => v,
-      ),
-      choiceStyle: const C2ChoiceStyle(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        borderColor: Colors.grey,
-      ),
-      wrapped: true,
-    );
-  }
-
-  Future<void> _onSubmitTap() async {
-    final List<dynamic> items = tags.toList();
-    items.removeRange(0, 1);
-    print(items);
-    final List<String> selectedGenres = <String>[];
-    for (final dynamic element in items) {
-      final String x = element.toString();
-      print(genres[int.parse(x)]);
-      selectedGenres.add(genres[int.parse(x)]);
-    }
-    print(selectedGenres);
-    await _databaseService.updateGenres(selectedGenres);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -339,5 +306,36 @@ class _UserPreferenceState extends State<UserPreference> {
         ],
       ),
     );
+  }
+
+  Widget _genresChoice() {
+    return ChipsChoice<String>.multiple(
+      value: tags,
+      onChanged: (List<String> val) => setState(() => tags = val),
+      choiceItems: C2Choice.listFrom<String, String>(
+        source: genres,
+        value: (i, v) => v,
+        label: (i, v) => v,
+      ),
+      choiceStyle: const C2ChoiceStyle(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderColor: Colors.grey,
+      ),
+      wrapped: true,
+    );
+  }
+
+  Future<void> _onSubmitTap() async {
+    final List<dynamic> items = tags.toList();
+    items.removeRange(0, 1);
+    print(items);
+    final List<String> selectedGenres = <String>[];
+    for (final dynamic element in items) {
+      final String x = element.toString();
+      print(genres[int.parse(x)]);
+      selectedGenres.add(genres[int.parse(x)]);
+    }
+    print(selectedGenres);
+    // await _databaseService.updateGenres(selectedGenres);
   }
 }

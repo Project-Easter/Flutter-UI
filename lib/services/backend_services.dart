@@ -1,13 +1,12 @@
-import 'package:books_app/Utils/backend/auth_requests.dart';
-import 'package:books_app/Utils/backend/mail_request.dart';
-import 'package:books_app/Utils/backend/user_data_requests.dart';
-import 'package:books_app/Utils/helpers.dart';
-import 'package:http/http.dart';
 import 'package:books_app/constants/error.dart';
+import 'package:books_app/utils/backend/auth_requests.dart';
+import 'package:books_app/utils/backend/mail_request.dart';
+import 'package:books_app/utils/backend/user_data_requests.dart';
+import 'package:books_app/utils/helpers.dart';
+import 'package:http/http.dart';
 
-
-class BackendService{
-   Future<String> loginWithSocialMedia(String idToken) async {
+class BackendService {
+  Future<String> loginWithSocialMedia(String idToken) async {
     final Response response = await AuthRequests.loginWithSocialMedia(idToken);
     final dynamic body = await getBodyFromResponse(response);
 
@@ -33,6 +32,7 @@ class BackendService{
         }
     }
   }
+
   Future confirmEmail(String email, String code) async {
     final Response response = await UserRequests.confirmEmail(email, code);
 
@@ -58,7 +58,7 @@ class BackendService{
     }
   }
 
- Future<void> resetPassword(String email, String password, String code) async {
+  Future<void> resetPassword(String email, String password, String code) async {
     final Response response =
         await UserRequests.resetPassword(email, password, code);
     if (response.statusCode == 204) return;
@@ -82,7 +82,8 @@ class BackendService{
         }
     }
   }
-Future<void> register(String email, String password) async {
+
+  Future<void> register(String email, String password) async {
     final Response response = await AuthRequests.register(email, password);
 
     if (response.statusCode == 201) return;
@@ -104,7 +105,6 @@ Future<void> register(String email, String password) async {
       }
     }
   }
-
 
   Future forgotPassword(String email) async {
     final Response response = await MailRequest.forgotPassword(email);
@@ -133,7 +133,8 @@ Future<void> register(String email, String password) async {
         }
     }
   }
-   Future<String> login(String email, String password) async {
+
+  Future<String> login(String email, String password) async {
     final Response response = await AuthRequests.login(email, password);
     final dynamic body = getBodyFromResponse(response);
     print(body + 'is the body');
@@ -164,5 +165,4 @@ Future<void> register(String email, String password) async {
         }
     }
   }
-
 }

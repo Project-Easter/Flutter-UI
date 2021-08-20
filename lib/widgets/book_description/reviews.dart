@@ -3,6 +3,7 @@ import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class Reviews extends StatefulWidget {
   @override
@@ -14,62 +15,54 @@ class _ReviewsState extends State<Reviews> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<UserData>(
-      stream:
-          DatabaseService(uid: FirebaseAuthService().getUID).userData,
-      builder: (BuildContext ctx, AsyncSnapshot<UserData> snap) {
-        if (snap.hasData) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  'Reviews',
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20),
-                ),
+    return Consumer<UserModel>(
+      builder: (BuildContext ctx, UserModel user, _) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                'Reviews',
+                style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
               ),
-              AspectRatio(
-                aspectRatio: 343 / 52,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextField(
-                    controller: _commentController,
-                    maxLines: 5,
-                    textAlign: TextAlign.start,
-                    decoration: InputDecoration(
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: CircleAvatar(
-                            radius: 5,
-                            backgroundImage: NetworkImage(snap.data.photoURL),
-                          ),
+            ),
+            AspectRatio(
+              aspectRatio: 343 / 52,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: TextField(
+                  controller: _commentController,
+                  maxLines: 5,
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: CircleAvatar(
+                          radius: 5,
+                          backgroundImage: NetworkImage(user.avatar),
                         ),
-                        suffixIcon: const Icon(Icons.send),
-                        contentPadding: const EdgeInsets.all(10),
-                        hintText: 'Add your comment',
-                        hintStyle: GoogleFonts.muli(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        )),
-                    onSubmitted: (String value) {
-                      setState(() {
-                        _commentController.text = value;
-                      });
-                    },
-                  ),
+                      ),
+                      suffixIcon: const Icon(Icons.send),
+                      contentPadding: const EdgeInsets.all(10),
+                      hintText: 'Add your comment',
+                      hintStyle: GoogleFonts.muli(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      )),
+                  onSubmitted: (String value) {
+                    setState(() {
+                      _commentController.text = value;
+                    });
+                  },
                 ),
               ),
-            ],
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+            ),
+          ],
+        );
       },
 //  value: DatabaseService(uid: FirebaseFirebaseAuthService().getUID).userData,
     );

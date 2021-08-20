@@ -1,5 +1,5 @@
-import 'package:books_app/Screens/Chat/chat_room.dart';
-import 'package:books_app/Screens/chat/book_request.dart';
+import 'package:books_app/screens/chat/book_request.dart';
+import 'package:books_app/screens/chat/chat_room.dart';
 import 'package:flutter/material.dart';
 
 class Wrapper extends StatefulWidget {

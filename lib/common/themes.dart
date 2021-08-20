@@ -15,7 +15,7 @@ final ThemeData darkTheme = ThemeData(
     actionsIconTheme: IconThemeData(color: Colors.white),
     foregroundColor: Colors.white,
   ),
-  brightness: Brightness.dark,
+  //brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   accentColor: Colors.white,

@@ -1,5 +1,5 @@
-import 'package:books_app/Widgets/button.dart';
 import 'package:books_app/constants/colors.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:flutter/widgets.dart';
 
 class AuthButton extends StatelessWidget {

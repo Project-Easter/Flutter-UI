@@ -1,12 +1,10 @@
-import 'package:books_app/Screens/user_preferences.dart';
-import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class UserChoice extends StatelessWidget {
-  const UserChoice({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final UserData userData = Provider.of<UserData>(context);
@@ -18,8 +16,7 @@ class UserChoice extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: Colors.white10,
-          border: Border.all(color: Colors.black),
+          border: Border.all(),
         ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -45,17 +42,14 @@ class UserChoice extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 343 / 52,
                   child: MaterialButton(
-                    color: blackButton,
                     child: Text(
                       'Personalize',
                       style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16),
+                          fontWeight: FontWeight.w500, fontSize: 16),
                     ),
                     onPressed: () async {
                       await showGeneralDialog(
-                          barrierColor: Colors.black.withOpacity(0.5),
+                          // barrierColor: Colors.black.withOpacity(0.5),
                           barrierLabel: 'Animation',
                           barrierDismissible: true,
                           transitionDuration: const Duration(milliseconds: 500),

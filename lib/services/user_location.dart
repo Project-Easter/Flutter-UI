@@ -1,90 +1,5 @@
-// import 'package:books_app/Services/auth.dart';
-// import 'package:books_app/Utils/config.dart';
-// import 'package:books_app/Utils/location_helper.dart';
-// import 'package:books_app/services/database_service.dart';
-// import 'package:flutter/material.dart';
-// import 'package:mapbox_gl/mapbox_gl.dart';
-
-// // ignore: must_be_immutable
-// class GetLocation extends StatefulWidget {
-//   @override
-//   _GetLocationState createState() => _GetLocationState();
-// }
-
-// class _GetLocationState extends State<GetLocation> {
-//   double lat;
-//   final String marker = MapboxStyles.TRAFFIC_DAY;
-
-//   double long;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final dynamic uID = FirebaseFirebaseAuthService().getUID;
-//     final DatabaseService databaseService =
-//         DatabaseService(uid: uID.toString());
-//     return Scaffold(
-//       body: FutureBuilder<Map<String, dynamic>>(
-//         future: Config().load(),
-//         builder: (BuildContext buildContext,
-//             AsyncSnapshot<Map<String, dynamic>> snapshot) {
-//           if (snapshot.hasData) {
-//             return MapboxMap(
-//               trackCameraPosition: true,
-//               myLocationRenderMode: MyLocationRenderMode.COMPASS,
-//               zoomGesturesEnabled: true,
-//               myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
-//               // compassEnabled: true,
-//               accessToken: snapshot.data['mapbox_api_token'].toString(),
-//               onMapCreated: (MapboxMapController controller) async {
-//                 final LatLng currLocation =
-//                     await LocationHelper().getCurrentLocation();
-//                 // final LatLng l = currLocation;
-//                 lat = currLocation.latitude;
-//                 long = currLocation.longitude;
-
-//                 final bool animateCameraResult = await controller.animateCamera(
-//                   CameraUpdate.newCameraPosition(
-//                     CameraPosition(zoom: 5, target: LatLng(lat, long)),
-//                     //currLocation as LatLng
-//                   ),
-//                 );
-
-//                 await databaseService.updateUserLocation(lat, long);
-//                 // Api.location(token);
-//                 if (animateCameraResult) {
-//                   // controller.addCircle(CircleOptions(
-//                   //     circleColor: '#333333',
-//                   //     circleRadius: 5,
-//                   //     geometry: LatLng(lat, long)));
-//                   controller.addSymbol(SymbolOptions(
-//                       iconRotate: 2,
-//                       iconAnchor: 'Anchor check',
-//                       // textField: 'Testing',
-//                       geometry: LatLng(lat, long),
-//                       iconImage: 'assets/images/marker.png',
-//                       iconHaloBlur: 1
-//                       // iconSize: 5,
-//                       ));
-//                 }
-//               },
-//               initialCameraPosition:
-//                   const CameraPosition(target: LatLng(45, 45)),
-//               onStyleLoadedCallback: () {},
-//             );
-//           } else {
-//             return const Center(
-//               child: CircularProgressIndicator(),
-//             );
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
-import 'package:books_app/Utils/keys_storage.dart';
-import 'package:books_app/Utils/location_helper.dart';
-import 'package:books_app/services/auth.dart';
-import 'package:books_app/services/database_service.dart';
+import 'package:books_app/utils/keys_storage.dart';
+import 'package:books_app/utils/location_helper.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -104,9 +19,9 @@ class _GetLocationState extends State<GetLocation> {
 
   @override
   Widget build(BuildContext context) {
-    final dynamic _uID = FirebaseAuthService().getUID;
-    final DatabaseService _databaseService =
-        DatabaseService(uid: _uID.toString());
+    // final dynamic _uID = FirebaseAuthService().getUID;
+    // final DatabaseService _databaseService =
+    //     DatabaseService(uid: _uID.toString());
     return Scaffold(
       // ignore: always_specify_types
       body: FutureBuilder(
@@ -142,9 +57,9 @@ class _GetLocationState extends State<GetLocation> {
                             size: 30,
                           ),
                           onPressed: () async {
-                            await _databaseService.updateUserLocation(
-                                snapshot.data.latitude,
-                                snapshot.data.longitude);
+                            // await _databaseService.updateUserLocation(
+                            //     snapshot.data.latitude,
+                            //     snapshot.data.longitude);
                             await _getAddrress(snapshot.data.latitude,
                                 snapshot.data.longitude);
                             showModalBottomSheet<void>(

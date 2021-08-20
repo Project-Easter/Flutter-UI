@@ -1,19 +1,19 @@
-import 'package:books_app/Screens/Auth/confirm_email.dart';
-import 'package:books_app/Screens/Profile/edit_profile.dart';
-import 'package:books_app/Screens/bookshelf.dart';
-import 'package:books_app/Screens/initial_screen.dart';
-import 'package:books_app/Screens/settings_screens.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/add_book.dart';
+import 'package:books_app/screens/auth/confirm_email.dart';
 import 'package:books_app/screens/auth/forgot_password.dart';
 import 'package:books_app/screens/auth/login.dart';
 import 'package:books_app/screens/auth/register.dart';
-import 'package:books_app/screens/chat/message_screen.dart';
+import 'package:books_app/screens/bookshelf.dart';
 import 'package:books_app/screens/chat/wrapper.dart';
 import 'package:books_app/screens/dashboard/dashboard.dart';
 import 'package:books_app/screens/home.dart';
+import 'package:books_app/screens/initial_screen.dart';
 import 'package:books_app/screens/more.dart';
+import 'package:books_app/screens/profile/edit_profile.dart';
+import 'package:books_app/screens/profile/otp_verification.dart';
+import 'package:books_app/screens/profile/verify_mobile.dart';
+import 'package:books_app/screens/settings_screens.dart';
 import 'package:books_app/services/user_location.dart';
 import 'package:flutter/material.dart';
 
@@ -51,15 +51,14 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => const Wrapper());
       case Routes.SETTINGS:
         return MaterialPageRoute<dynamic>(builder: (_) => SettingsScreen());
-        case Routes.LOCATION:
+      case Routes.LOCATION:
         return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
       case Routes.LIBRARY:
         return MaterialPageRoute<dynamic>(builder: (_) => LibraryPage());
-      case Routes.MESSAGE:
-        return MaterialPageRoute<dynamic>(
-            builder: (_) => MessageScreen(
-                  receiver: settings.arguments as UserData,
-                ));
+      case Routes.VERIFY_MOBILE:
+        return MaterialPageRoute<dynamic>(builder: (_) => const EnterMobile());
+      case Routes.OTP:
+        return MaterialPageRoute<dynamic>(builder: (_) => EnterOtp());
 
       default:
         return MaterialPageRoute<dynamic>(
