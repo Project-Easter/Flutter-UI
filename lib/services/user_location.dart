@@ -1,3 +1,4 @@
+import 'package:books_app/providers/user.dart';
 import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/utils/location_helper.dart';
 // import 'package:flutter/cupertino.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong/latlong.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetLocation extends StatefulWidget {
@@ -28,9 +30,9 @@ class _GetLocationState extends State<GetLocation> {
         future: LocationHelper().getCurrentLocation(),
         builder: (BuildContext context, AsyncSnapshot<LatLng> snapshot) {
           if (snapshot.hasData) {
+            Provider.of<UserModel>(context).updateLocation(snapshot.data.latitude, snapshot.data.longitude);
             print(snapshot.data);
             print(snapshot.data.latitude);
-
             return FlutterMap(
               options: MapOptions(
                 center: LatLng(snapshot.data.latitude, snapshot.data.longitude),

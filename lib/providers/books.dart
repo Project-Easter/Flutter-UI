@@ -24,7 +24,6 @@ class Books with ChangeNotifier {
 
   List<Book> _savedBooks = <Book>[];
 
-  
   //Filtering Functions
   //A-Z
   final List<Book> _recommendedBooks = <Book>[];
@@ -78,19 +77,14 @@ class Books with ChangeNotifier {
     return _savedBooks;
   }
 
-
   Future<dynamic> getBooksbyISBN(String isbn) async {
     final Response response =
         await BookRequest.bookDataFromISBN(TokenStorage.authToken, isbn);
-        
-
     final dynamic result = await getBodyFromResponse(response);
 
     if (response.statusCode == 200) {
       print(response.body);
       print('is the body of response in function postADDEDBook');
-      
-      return result;
     } else {
       final int errorId = result['error']['id'] as int;
       print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
@@ -106,49 +100,35 @@ class Books with ChangeNotifier {
           }
       }
     }
+    return result;
   }
 
-  Future<dynamic> getISBNFromName(String title) async {
-    const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
-    try {
-      final http.Response response = await http.get(url + title);
-      final dynamic resultJson = jsonDecode(response.body);
-      if (resultJson != null) {
-        final String isbn = resultJson['items'][0]['volumeInfo']
-                ['industryIdentifiers'][1]['identifier']
-            .toString();
-        return isbn;
-      }
-      return null;
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  Future<dynamic> getBooksbyTitle(String title) async {
+    final Response response =
+        await BookRequest.bookDataFromTitle(TokenStorage.authToken, title);
 
-  Future<dynamic> getRecommendedBooks() async {
-    const String recommendedURL =
-        'https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859';
-    try {
-      final http.Response response = await http.get(recommendedURL);
-      final dynamic result = jsonDecode(response.body);
-      if (result != null) {
-        final dynamic booksISBNList = json.decode(response.body);
-        final int length = booksISBNList.length as int;
-        print(response.body);
-        final List<Book> recommendedBooks = <Book>[];
-        for (int i = 0; i < length; i++) {
-          final Future<dynamic> responseFromISBN =
-              getBooksbyISBN(booksISBNList[i].toString());
+    final dynamic result = await getBodyFromResponse(response);
 
-          final Book book = makeBook(responseFromISBN);
-          recommendedBooks.add(book);
-        }
-        return recommendedBooks;
+    if (response.statusCode == 200) {
+      print(response.body);
+      print('is the body of response in function postADDEDBook');
+    } else {
+      final int errorId = result['error']['id'] as int;
+      print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+
+      switch (errorId) {
+        case Error.ISBN_NOT_FOUND:
+          {
+            throw Exception('Book data with the provided isbn does not exist');
+          }
+        default:
+          {
+            throw Exception('An unknown error occured. Please try again later');
+          }
       }
-      return const Text('Result is null');
-    } catch (e) {
-      print(e.toString());
     }
+    notifyListeners();
+    return result;
   }
 
   Book makeBook(dynamic result) {
@@ -185,10 +165,11 @@ class Books with ChangeNotifier {
         infoLink: infoLink,
       );
     }
+    notifyListeners();
     return book;
   }
 
-  Future<dynamic> postAddedBook(Book book) async {
+  Future<void> postAddedBook(Book book) async {
     final Response response =
         await BookRequest.postBook(TokenStorage.authToken, book);
 
@@ -217,8 +198,6 @@ class Books with ChangeNotifier {
     notifyListeners();
   }
 
-  
-
   Future<dynamic> topBooks() async {
     const String recommendedURL =
         'https://www.googleapis.com/books/v1/volumes?q=isbn';
@@ -242,4 +221,49 @@ class Books with ChangeNotifier {
       print(e.toString());
     }
   }
+
+  
+  // Future<dynamic> getISBNFromName(String title) async {
+  //   const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
+  //   try {
+  //     final http.Response response = await http.get(url + title);
+  //     final dynamic resultJson = jsonDecode(response.body);
+  //     if (resultJson != null) {
+  //       final String isbn = resultJson['items'][0]['volumeInfo']
+  //               ['industryIdentifiers'][1]['identifier']
+  //           .toString();
+  //       return isbn;
+  //     }
+  //     return null;
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
+
+  // Future<dynamic> getRecommendedBooks() async {
+  //   const String recommendedURL =
+  //       'https://explr-books.herokuapp.com/recommend_isbn/?isbn=9781448139859';
+  //   try {
+  //     final http.Response response = await http.get(recommendedURL);
+  //     final dynamic result = jsonDecode(response.body);
+  //     if (result != null) {
+  //       final dynamic booksISBNList = json.decode(response.body);
+  //       final int length = booksISBNList.length as int;
+  //       print(response.body);
+  //       final List<Book> recommendedBooks = <Book>[];
+  //       for (int i = 0; i < length; i++) {
+  //         final Future<dynamic> responseFromISBN =
+  //             getBooksbyISBN(booksISBNList[i].toString());
+
+  //         final Book book = makeBook(responseFromISBN);
+  //         recommendedBooks.add(book);
+  //       }
+  //       return recommendedBooks;
+  //     }
+  //     return const Text('Result is null');
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
+
 }

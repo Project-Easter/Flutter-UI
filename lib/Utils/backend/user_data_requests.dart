@@ -23,7 +23,7 @@ class UserRequests{
   static Future<Response> userAvatar(String token, String profilePic) async {
     return sendRequest(() => patch(Uri.parse(BASE_ROUTE + '/user/avatar'),
         headers: <String, String>{'authorization': token},
-        body:<String, String> {
+        body: {
  'file': profilePic
 },
         ));
