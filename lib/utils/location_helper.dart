@@ -5,13 +5,13 @@ import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 
 class LocationHelper {
-  Future<List<String>> getAddressFromLatLng(double lat, double lang) async {
-    final Coordinates coordinates = Coordinates(lat, lang);
-    final List<Address> add =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    final Address first = add.first;
-    return [first.subAdminArea, first.adminArea, first.countryName];
-  }
+  // Future<List<String>> getAddressFromLatLng(double lat, double lang) async {
+  //   final Coordinates coordinates = Coordinates(lat, lang);
+  //   final List<Address> add =
+  //       await Geocoder.local.findAddressesFromCoordinates(coordinates);
+  //   final Address first = add.first;
+  //   return [first.subAdminArea, first.adminArea, first.countryName];
+  // }
 
   Future<LatLng> getCurrentLocation() async {
     final Location location = Location();
@@ -40,16 +40,5 @@ class LocationHelper {
     return LatLng(locationData.latitude, locationData.longitude);
   }
 
-  // Future backendLoc()async {
-  //    final Response response = await UserRequests.location(
-  //     TokenStorage.authToken,
-  //     locationData.latitude,
-  //     locationData.longitude,
-  //   );
-  //   final dynamic body = await getBodyFromResponse(response);
-  //   print('$response is the Piotrrr backend location response');
-  //   if (response.statusCode == 204) {
-  //     print('$body is the Piotrrr backend location body');
-  //   }
-  // }
+ 
 }

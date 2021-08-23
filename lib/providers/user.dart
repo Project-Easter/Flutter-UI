@@ -4,7 +4,6 @@ import 'package:books_app/utils/keys_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 
-
 class UserData {
   String uid;
   String displayName;
@@ -57,8 +56,8 @@ class UserModel extends ChangeNotifier {
   String get lastName => _lastName;
 
   Future<void> fetchUserData() async {
-    
-    final Response response = await UserRequests.getUserData(TokenStorage.authToken);
+    final Response response =
+        await UserRequests.getUserData(TokenStorage.authToken);
     final dynamic body = await getBodyFromResponse(response);
     print('$body is the body of fetch user data inside user.dart file 123445');
 
@@ -74,6 +73,42 @@ class UserModel extends ChangeNotifier {
     _joinedAt = body['joinedAt'] as String;
     _avatar = body['avatar'] as String;
     _isAuthenticated = true;
+
+    notifyListeners();
+  }
+
+  Future updateLocation(double latitude, double longitude) async {
+    final Response response = await UserRequests.location(
+      TokenStorage.authToken,
+      latitude,
+      longitude,
+    );
+    final dynamic body = await getBodyFromResponse(response);
+    print('$response is the Piotrrr backend location response');
+
+    if (response.statusCode == 204) {
+      print('$body is the Piotrrr backend location body');
+    }
+
+    notifyListeners();
+  }
+
+  Future updateAvatar(String profilePic) async {
+    final Response response =
+        await UserRequests.userAvatar(TokenStorage.authToken, profilePic);
+    final dynamic body = await getBodyFromResponse(response);
+    print('$body is the user avatar bodyy');
+
+    if (response.statusCode == 204) {
+      print('Avatar has been changed successfullly');
+    
+    }
+
+    else{
+      final dynamic errorId = body['error']['id'];
+      print('$errorId is the userAvatar error id');
+      throw Exception('An unknown error occured. Please try again later');
+    }
 
     notifyListeners();
   }

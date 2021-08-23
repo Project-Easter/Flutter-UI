@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   List<Widget> _screens = <Widget>[
     DashboardPage(),
     ExploreNearby(),
-    const Wrapper(),
+    // const Wrapper(),
     LibraryPage(),
     PrivateProfile(),
   ];
@@ -88,8 +88,8 @@ class _HomeState extends State<Home> {
                 title: 'Home',
               ),
               FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              FloatingNavbarItem(
-                  icon: Icons.chat_bubble_rounded, title: 'Chats'),
+              // FloatingNavbarItem(
+              //     icon: Icons.chat_bubble_rounded, title: 'Chats'),
               FloatingNavbarItem(
                   icon: Icons.favorite_rounded, title: 'Library'),
               FloatingNavbarItem(

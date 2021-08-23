@@ -1,7 +1,6 @@
 import 'package:books_app/models/message.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
-import 'package:books_app/utils/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -222,18 +221,18 @@ class DatabaseService {
     );
   }
 
-  Future updateUserLocation(double latitude, double longitude) async {
-    List<String> addresses =
-        await LocationHelper().getAddressFromLatLng(latitude, longitude);
+  // Future updateUserLocation(double latitude, double longitude) async {
+  //   List<String> addresses =
+  //       await LocationHelper().getAddressFromLatLng(latitude, longitude);
 
-    return userDataCollection.doc(uid).set(<String, dynamic>{
-      'city': addresses[0],
-      'state': addresses[1],
-      'country': addresses[2],
-      'latitude': latitude,
-      'longitude': longitude,
-    }, SetOptions(merge: true));
-  }
+  //   return userDataCollection.doc(uid).set(<String, dynamic>{
+  //     'city': addresses[0],
+  //     'state': addresses[1],
+  //     'country': addresses[2],
+  //     'latitude': latitude,
+  //     'longitude': longitude,
+  //   }, SetOptions(merge: true));
+  // }
 
   List<Book> _bookFromQuerySnapShot(QuerySnapshot snapshot) {
     return snapshot.docs.map((QueryDocumentSnapshot doc) {
