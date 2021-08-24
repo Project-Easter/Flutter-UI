@@ -167,7 +167,7 @@ class _EditProfileState extends State<EditProfile> {
                       child: Column(
                         children: <Widget>[
                           CupertinoStyleButton(
-                            color: greenButton,
+                            color: Theme.of(context).buttonColor,
                             name: 'Update',
                             myFunction: () async {
                               if (_formKey.currentState.validate()) {

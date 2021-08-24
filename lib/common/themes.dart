@@ -9,13 +9,17 @@ final ThemeData darkTheme = ThemeData(
   primaryTextTheme: const TextTheme(
     headline6: TextStyle(color: Colors.white),
   ),
+  buttonTheme: const ButtonThemeData(
+    buttonColor: Colors.blue,
+    textTheme:
+        ButtonTextTheme.primary, //  <-- this auto selects the right color
+  ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromRGBO(18, 19, 33, 1),
     iconTheme: IconThemeData(color: Colors.white),
     actionsIconTheme: IconThemeData(color: Colors.white),
     foregroundColor: Colors.white,
   ),
-  //brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   accentColor: Colors.white,
@@ -27,8 +31,15 @@ final ThemeData darkTheme = ThemeData(
 
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
+  // ignore: deprecated_member_use
+  textTheme: Typography(platform: defaultTargetPlatform).black,
   primaryColor: Colors.white,
   brightness: Brightness.light,
+  buttonTheme: const ButtonThemeData(
+    buttonColor: Colors.green,
+    textTheme:
+        ButtonTextTheme.primary, //  <-- this auto selects the right color
+  ),
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,
   colorScheme: const ColorScheme.dark(
