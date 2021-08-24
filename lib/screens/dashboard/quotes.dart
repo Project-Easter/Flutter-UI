@@ -71,15 +71,6 @@ class _QuotesState extends State<Quotes> {
     if (response.statusCode == 200) {
       print('Result is $result');
     }
-    // try {
-    //   print('Quote body result inside getQuote is $result');
-    //   if (response.statusCode == 200) {
-    //     print('Result is $result');
-    //   }
-    // } catch (e) {
-    //   print(e.toString()+'is the error inside getQuote function');
-
-    // }
     return Quote(
       author: result['author'].toString(),
       quote: result['text'].toString(),

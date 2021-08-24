@@ -1,7 +1,6 @@
-import 'package:books_app/models/message.dart';
+//import 'package:books_app/models/message.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
-import 'package:books_app/utils/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -99,34 +98,34 @@ class DatabaseService {
         .catchError((dynamic e) => print(e.toString()));
   }
 
-  Future<DocumentReference> sendMessage(Message message) async {
-    // final newMessage = Message(
-    //   from: myUID,
-    //   to: receiverUID,
-    //   message: message,
-    //   createdAt: DateTime.now(),
-    // );
+  // Future<DocumentReference> sendMessage(Message message) async {
+  //   // final newMessage = Message(
+  //   //   from: myUID,
+  //   //   to: receiverUID,
+  //   //   message: message,
+  //   //   createdAt: DateTime.now(),
+  //   // );
 
-    //Sender sends a message
-    return chatCollection
-        .doc(message.sender)
-        .collection('conversation')
-        .doc(message.receiver)
-        .collection('messages')
-        .add(<String, dynamic>{
-      'sender': message.sender,
-      'receiver': message.receiver,
-      'message': message.message,
-      'createdAt': message.createdAt
-    });
-    // Message(
-    //   sender: doc.data()['sender'],
-    //   receiver: doc.data()['receiver'],
-    //   message: doc.data()['message'],
-    //   createdAt: doc.data()['createdAt'],
-    // );
-    //update receiver inbox
-  }
+  //   //Sender sends a message
+  //   return chatCollection
+  //       .doc(message.sender)
+  //       .collection('conversation')
+  //       .doc(message.receiver)
+  //       .collection('messages')
+  //       .add(<String, dynamic>{
+  //     'sender': message.sender,
+  //     'receiver': message.receiver,
+  //     'message': message.message,
+  //     'createdAt': message.createdAt
+  //   });
+  //   // Message(
+  //   //   sender: doc.data()['sender'],
+  //   //   receiver: doc.data()['receiver'],
+  //   //   message: doc.data()['message'],
+  //   //   createdAt: doc.data()['createdAt'],
+  //   // );
+  //   //update receiver inbox
+  // }
 
   void updateBookMark(Book book) {
     //Get
@@ -222,18 +221,18 @@ class DatabaseService {
     );
   }
 
-  Future updateUserLocation(double latitude, double longitude) async {
-    List<String> addresses =
-        await LocationHelper().getAddressFromLatLng(latitude, longitude);
+  // Future updateUserLocation(double latitude, double longitude) async {
+  //   List<String> addresses =
+  //       await LocationHelper().getAddressFromLatLng(latitude, longitude);
 
-    return userDataCollection.doc(uid).set(<String, dynamic>{
-      'city': addresses[0],
-      'state': addresses[1],
-      'country': addresses[2],
-      'latitude': latitude,
-      'longitude': longitude,
-    }, SetOptions(merge: true));
-  }
+  //   return userDataCollection.doc(uid).set(<String, dynamic>{
+  //     'city': addresses[0],
+  //     'state': addresses[1],
+  //     'country': addresses[2],
+  //     'latitude': latitude,
+  //     'longitude': longitude,
+  //   }, SetOptions(merge: true));
+  // }
 
   List<Book> _bookFromQuerySnapShot(QuerySnapshot snapshot) {
     return snapshot.docs.map((QueryDocumentSnapshot doc) {

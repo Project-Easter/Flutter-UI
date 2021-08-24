@@ -1,14 +1,16 @@
 import 'dart:io';
 
+import 'package:books_app/constants/api.dart';
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
-import 'package:books_app/services/database_service.dart';
 import 'package:books_app/widgets/button.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -23,192 +25,194 @@ class _EditProfileState extends State<EditProfile> {
   PickedFile image;
 
   String _name;
-
+  String _address;
   String _city;
 
   String _state;
   String _imageUrl = '';
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserModel>(context);
     final String uID = _authService.getUID;
-    return StreamBuilder<dynamic>(
-        stream: DatabaseService(uid: uID).userData,
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            final UserData userData = snapshot.data as UserData;
-            return Scaffold(
-              body: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Edit Your Profile',
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w400, fontSize: 26),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
-                      ),
+    final String image = PROFILE_PIC_ROUTE + userProvider.avatar;
+    // final UserData userData = snapshot.data as UserData
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      'Edit Your Profile',
+                      style: GoogleFonts.poppins(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 26),
+                      textAlign: TextAlign.center,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            height: 300,
-                            width: 300,
-                            padding: const EdgeInsets.all(5),
-                            child: CircleAvatar(
-                              radius: 100,
-                              backgroundImage: _imageUrl == ''
-                                  ? NetworkImage(userData.photoURL)
-                                  : NetworkImage(_imageUrl),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              IconButton(
-                                icon: const Icon(Icons.photo_camera, size: 30),
-                                onPressed: () async {
-                                  final String imageFromFirebase =
-                                      await uploadImageCamera(uID);
-                                  setState(() {
-                                    _imageUrl = imageFromFirebase;
-                                  });
-                                },
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.photo_library, size: 30),
-                                onPressed: () async {
-                                  final String imageFromFirebase =
-                                      await uploadImageGallery(uID);
-                                  setState(() {
-                                    _imageUrl = imageFromFirebase;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                      hintText: 'John Doe',
-                                      labelText: 'Enter your name'),
-                                  initialValue: userData.displayName,
-                                  validator: (String val) => val.isEmpty
-                                      ? 'Please enter a name'
-                                      : null,
-                                  onSaved: (String value) {
-                                    setState(() {
-                                      _name = value;
-                                    });
-                                  },
-                                  onChanged: (String v) {
-                                    _name = v;
-                                  },
-                                ),
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                      hintText: 'Pune',
-                                      labelText: 'Enter your City'),
-                                  initialValue: userData.city,
-                                  validator: (String val) => val.isEmpty
-                                      ? 'Please enter a value'
-                                      : null,
-                                  onSaved: (String value) {
-                                    setState(() {
-                                      _city = value;
-                                    });
-                                  },
-                                  onChanged: (String v) {
-                                    _city = v;
-                                  },
-                                ),
-                                TextFormField(
-                                  decoration: const InputDecoration(
-                                      hintText: 'Maharashtra',
-                                      labelText: 'Enter your State'),
-                                  initialValue: userData.state,
-                                  validator: (String val) => val.isEmpty
-                                      ? 'Please enter a value'
-                                      : null,
-                                  onSaved: (String value) {
-                                    setState(() {
-                                      _state = value;
-                                    });
-                                  },
-                                  onChanged: (String v) {
-                                    _state = v;
-                                    print(_state);
-                                  },
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: <Widget>[
-                          CupertinoStyleButton(
-                            color: Theme.of(context).buttonColor,
-                            name: 'Update',
-                            myFunction: () async {
-                              if (_formKey.currentState.validate()) {
-                                print(_name);
-                                print(_city);
-                                print(_state);
-                                if (_imageUrl == '') {
-                                  print(userData.photoURL);
-                                } else {
-                                  print(_imageUrl);
-                                }
-                                await DatabaseService(uid: uID).updateUser(
-                                    _name ?? userData.displayName,
-                                    _city ?? userData.city,
-                                    _state ?? userData.state,
-                                    _imageUrl == ''
-                                        ? userData.photoURL
-                                        : _imageUrl);
-                              }
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        });
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 300,
+                    width: 300,
+                    padding: const EdgeInsets.all(5),
+                    child: CircleAvatar(
+                      radius: 100,
+                      backgroundImage: _imageUrl == ''
+                          ? NetworkImage(
+                              PROFILE_PIC_ROUTE + userProvider.avatar)
+                          : NetworkImage(_imageUrl),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      IconButton(
+                        icon: const Icon(Icons.photo_camera, size: 30),
+                        onPressed: () async {
+                          final String imageFromFirebase =
+                              await uploadImageCamera(uID);
+                          setState(() {
+                            _imageUrl = imageFromFirebase;
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.photo_library, size: 30),
+                        onPressed: () async {
+                          final String imageFromFirebase =
+                              await uploadImageGallery(uID);
+                          setState(() {
+                            _imageUrl = imageFromFirebase;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(
+                              hintText: 'Your Name',
+                              labelText: 'Enter your name'),
+                          // initialValue: userData.displayName,
+                          validator: (String val) =>
+                              val.isEmpty ? 'Please enter a name' : null,
+                          onSaved: (String value) {
+                            setState(() {
+                              _name = value;
+                            });
+                          },
+                          onChanged: (String v) {
+                            _name = v;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(
+                              hintText: 'Pune', labelText: 'Enter your City'),
+                          initialValue: _address,
+                          validator: (String val) =>
+                              val.isEmpty ? 'Please enter a value' : null,
+                          onSaved: (String value) {
+                            setState(() {
+                              _city = value;
+                            });
+                          },
+                          onChanged: (String v) {
+                            _city = v;
+                          },
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(
+                              hintText: 'Maharashtra',
+                              labelText: 'Enter your State'),
+                          // initialValue: userData.state,
+                          validator: (String val) =>
+                              val.isEmpty ? 'Please enter a value' : null,
+                          onSaved: (String value) {
+                            setState(() {
+                              _state = value;
+                            });
+                          },
+                          onChanged: (String v) {
+                            _state = v;
+                            print(_state);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const Divider(
+              color: Colors.black54,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  CupertinoStyleButton(
+                    color: greenButton,
+                    name: 'Update',
+                    myFunction: () async {
+                      if (_formKey.currentState.validate()) {
+                        print(_name);
+                        print(_city);
+                        print(_state);
+                        if (_imageUrl == '') {
+                          print(userProvider.avatar);
+                        } else {
+                          print(_imageUrl);
+                        }
+                        // await DatabaseService(uid: uID).updateUser(
+                        //     _name ?? userData.displayName,
+                        //     _city ?? userData.city,
+                        //     _state ?? userData.state,
+                        //     _imageUrl == ''
+                        //         ? userData.photoURL
+                        //         : _imageUrl);
+                      }
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future loadAdressPrefs() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+
+    _address = _prefs.getString('address');
   }
 
   Future<String> uploadImageCamera(String uID) async {
     image = await _imagePicker.getImage(source: ImageSource.camera);
     final File file = File(image.path);
     if (image != null) {
+      Provider.of<UserModel>(context, listen: false)
+          .updateAvatar(image.path.toString());
       final TaskSnapshot snapshot =
           await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -220,10 +224,16 @@ class _EditProfileState extends State<EditProfile> {
   Future<String> uploadImageGallery(String uID) async {
     image = await _imagePicker.getImage(source: ImageSource.gallery);
     final File file = File(image.path);
+    print(file.toString());
+    print('$file is the fileeeeeee');
     if (image != null) {
+      print('${image.path} has firebase imageeeeeeeee.');
+
       final TaskSnapshot snapshot =
           await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
+      Provider.of<UserModel>(context, listen: false)
+          .updateAvatar(PROFILE_PIC_ROUTE + file.toString());
       return downloadUrl;
     } else
       return 'No Image displayed';

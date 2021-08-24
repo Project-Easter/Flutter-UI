@@ -76,4 +76,40 @@ class UserModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future updateLocation(double latitude, double longitude) async {
+    final Response response = await UserRequests.location(
+      TokenStorage.authToken,
+      latitude,
+      longitude,
+    );
+    final dynamic body = await getBodyFromResponse(response);
+    print('$response is the Piotrrr backend location response');
+
+    if (response.statusCode == 204) {
+      print('$body is the Piotrrr backend location body');
+    }
+
+    notifyListeners();
+  }
+
+  Future updateAvatar(String profilePic) async {
+    final Response response =
+        await UserRequests.userAvatar(TokenStorage.authToken, profilePic);
+    final dynamic body = await getBodyFromResponse(response);
+    print('$body is the user avatar bodyy');
+
+    if (response.statusCode == 204) {
+      print('Avatar has been changed successfullly');
+    
+    }
+
+    else{
+      final dynamic errorId = body['error']['id'];
+      print('$errorId is the userAvatar error id');
+      throw Exception('An unknown error occured. Please try again later');
+    }
+
+    notifyListeners();
+  }
 }

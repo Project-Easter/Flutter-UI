@@ -27,7 +27,7 @@ class UserRequests {
     return sendRequest(() => patch(
           Uri.parse(BASE_ROUTE + '/user/avatar'),
           headers: <String, String>{'authorization': token},
-          body: <String, String>{'file': profilePic},
+          body: {'file': profilePic},
         ));
   }
 

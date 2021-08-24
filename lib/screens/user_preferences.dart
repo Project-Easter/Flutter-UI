@@ -174,14 +174,14 @@ class _UserPreferenceState extends State<UserPreference> {
 
   @override
   Widget build(BuildContext context) {
-    final String favBook = widget.userData.preferences['favBook'] as String;
-    final String favAuthor = widget.userData.preferences['favAuthor'] as String;
+    // final String favBook = widget.userData.preferences['favBook'] as String;
+    // final String favAuthor = widget.userData.preferences['favAuthor'] as String;
     final String location =
         widget.userData.preferences['locationRange'] as String;
     final double locationRange = double.parse(location);
-    final TextEditingController _author =
-        TextEditingController(text: favAuthor);
-    final TextEditingController _book = TextEditingController(text: favBook);
+    // final TextEditingController _author =
+    //     TextEditingController(text: favAuthor);
+    // final TextEditingController _book = TextEditingController(text: favBook);
 
     return Form(
       key: _formKey,
