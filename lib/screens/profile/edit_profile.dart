@@ -211,8 +211,8 @@ class _EditProfileState extends State<EditProfile> {
     image = await _imagePicker.getImage(source: ImageSource.camera);
     final File file = File(image.path);
     if (image != null) {
-      Provider.of<UserModel>(context, listen: false)
-          .updateAvatar(image.path.toString());
+      // Provider.of<UserModel>(context, listen: false)
+      //     .updateAvatar();
       final TaskSnapshot snapshot =
           await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -225,15 +225,15 @@ class _EditProfileState extends State<EditProfile> {
     image = await _imagePicker.getImage(source: ImageSource.gallery);
     final File file = File(image.path);
     print(file.toString());
-    print('$file is the fileeeeeee');
+    print('${file.uri }is the fileeeeeee');
     if (image != null) {
       print('${image.path} has firebase imageeeeeeeee.');
 
       final TaskSnapshot snapshot =
           await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
-      Provider.of<UserModel>(context, listen: false)
-          .updateAvatar(PROFILE_PIC_ROUTE + file.toString());
+      Provider.of<UserModel>(context, listen: false).updateAvatar(file);
+      //PROFILE_PIC_ROUTE + file.toString()
       return downloadUrl;
     } else
       return 'No Image displayed';

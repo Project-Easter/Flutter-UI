@@ -2,7 +2,6 @@ import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/bookshelf.dart';
-import 'package:books_app/screens/chat/wrapper.dart';
 import 'package:books_app/screens/dashboard/dashboard.dart';
 import 'package:books_app/screens/explore_nearby.dart';
 import 'package:books_app/screens/profile/private_profile.dart';

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:books_app/utils/backend/user_data_requests.dart';
 import 'package:books_app/utils/helpers.dart';
 import 'package:books_app/utils/keys_storage.dart';
@@ -93,18 +95,16 @@ class UserModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future updateAvatar(String profilePic) async {
+  Future updateAvatar(File file) async {
+   
     final Response response =
-        await UserRequests.userAvatar(TokenStorage.authToken, profilePic);
+        await UserRequests.userAvatar(TokenStorage.authToken, file.absolute.toString());
     final dynamic body = await getBodyFromResponse(response);
     print('$body is the user avatar bodyy');
 
     if (response.statusCode == 204) {
       print('Avatar has been changed successfullly');
-    
-    }
-
-    else{
+    } else {
       final dynamic errorId = body['error']['id'];
       print('$errorId is the userAvatar error id');
       throw Exception('An unknown error occured. Please try again later');
