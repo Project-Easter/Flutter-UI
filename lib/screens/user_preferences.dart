@@ -317,10 +317,11 @@ class _UserPreferenceState extends State<UserPreference> {
         value: (i, v) => v,
         label: (i, v) => v,
       ),
-      choiceStyle: const C2ChoiceStyle(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        borderColor: Colors.grey,
-      ),
+      choiceStyle: C2ChoiceStyle(
+          color: Theme.of(context).colorScheme.primary,
+          // ignore: prefer_const_constructors
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderColor: Colors.grey),
       wrapped: true,
     );
   }

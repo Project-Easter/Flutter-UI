@@ -42,6 +42,7 @@ class UserChoice extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 343 / 52,
                   child: MaterialButton(
+                    color: Theme.of(context).buttonColor,
                     child: Text(
                       'Personalize',
                       style: GoogleFonts.poppins(

@@ -9,11 +9,7 @@ final ThemeData darkTheme = ThemeData(
   primaryTextTheme: const TextTheme(
     headline6: TextStyle(color: Colors.white),
   ),
-  buttonTheme: const ButtonThemeData(
-    buttonColor: Colors.blue,
-    textTheme:
-        ButtonTextTheme.primary, //  <-- this auto selects the right color
-  ),
+  buttonColor: Colors.blue,
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromRGBO(18, 19, 33, 1),
     iconTheme: IconThemeData(color: Colors.white),
@@ -35,11 +31,7 @@ final ThemeData lightTheme = ThemeData(
   textTheme: Typography(platform: defaultTargetPlatform).black,
   primaryColor: Colors.white,
   brightness: Brightness.light,
-  buttonTheme: const ButtonThemeData(
-    buttonColor: Colors.green,
-    textTheme:
-        ButtonTextTheme.primary, //  <-- this auto selects the right color
-  ),
+  buttonColor: Colors.green,
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,
   colorScheme: const ColorScheme.dark(
