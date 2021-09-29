@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:books_app/constants/api.dart';
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';

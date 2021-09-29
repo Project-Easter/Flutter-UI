@@ -1,6 +1,5 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/widgets/auth/auth_error_message.dart';
 import 'package:books_app/widgets/auth/auth_navigation.dart';
 import 'package:books_app/widgets/auth/auth_page_title.dart';
 import 'package:books_app/widgets/button.dart';
@@ -32,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Form(
               key: formKey,
               child: Column(
-                children: <Widget>[EmailTextField(), PasswordTextField()],
+                children: [const EmailTextField(), const PasswordTextField()],
               ),
             ),
             Button(

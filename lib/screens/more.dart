@@ -12,7 +12,7 @@ class AboutUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [
+      children: <Widget>[
         Container(
           margin: const EdgeInsets.only(top: 10),
           alignment: Alignment.topLeft,

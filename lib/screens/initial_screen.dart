@@ -16,8 +16,8 @@ class _InitialScreenState extends State<InitialScreen>
     {
   //Init FirebaseFirebaseAuthService
 
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
