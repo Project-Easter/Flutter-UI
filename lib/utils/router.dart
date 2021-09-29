@@ -52,10 +52,10 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
       case Routes.LIBRARY:
         return MaterialPageRoute<dynamic>(builder: (_) => LibraryPage());
-      case Routes.VERIFY_MOBILE:
-        return MaterialPageRoute<dynamic>(builder: (_) => const EnterMobile());
-      case Routes.OTP:
-        return MaterialPageRoute<dynamic>(builder: (_) => EnterOtp());
+      // case Routes.VERIFY_MOBILE:
+      //   return MaterialPageRoute<dynamic>(builder: (_) => const EnterMobile());
+      // case Routes.OTP:
+      //   return MaterialPageRoute<dynamic>(builder: (_) => EnterOtp());
 
       default:
         return MaterialPageRoute<dynamic>(

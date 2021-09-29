@@ -29,7 +29,7 @@ class _DashboardPageState extends State<DashboardPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Quotes(),
+            Quotation(),
             UserChoice(),
             const GoogleBooks(title: 'Discover New '),
           ],

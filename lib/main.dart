@@ -23,9 +23,9 @@ Future<void> main() async {
         ChangeNotifierProvider<Books>(
           create: (_) => Books(),
         ),
-        ChangeNotifierProvider<UserModel>(
-          create: (_) => UserModel(),
-        )
+        // ChangeNotifierProvider<UserModel>(
+        //   create: (_) => UserModel(),
+        // )
       ],
       child: MyApp(),
     ),

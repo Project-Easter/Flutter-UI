@@ -32,9 +32,9 @@ class _EditProfileState extends State<EditProfile> {
   String _imageUrl = '';
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserModel>(context);
+    final userProvider = Provider.of<UserData>(context);
     final String uID = _authService.getUID;
-    final String image = PROFILE_PIC_ROUTE + userProvider.avatar;
+    final String image = userProvider.photoURL;
     // final UserData userData = snapshot.data as UserData
 
     return Scaffold(
@@ -74,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
                       radius: 100,
                       backgroundImage: _imageUrl == ''
                           ? NetworkImage(
-                              PROFILE_PIC_ROUTE + userProvider.avatar)
+                             userProvider.photoURL)
                           : NetworkImage(_imageUrl),
                     ),
                   ),
@@ -168,7 +168,7 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
-                  CupertinoStyleButton(
+                  Button(
                     color: greenButton,
                     name: 'Update',
                     myFunction: () async {
@@ -177,7 +177,7 @@ class _EditProfileState extends State<EditProfile> {
                         print(_city);
                         print(_state);
                         if (_imageUrl == '') {
-                          print(userProvider.avatar);
+                          print(userProvider.photoURL);
                         } else {
                           print(_imageUrl);
                         }
@@ -225,14 +225,14 @@ class _EditProfileState extends State<EditProfile> {
     image = await _imagePicker.getImage(source: ImageSource.gallery);
     final File file = File(image.path);
     print(file.toString());
-    print('${file.uri }is the fileeeeeee');
+    print('${file.uri}is the fileeeeeee');
     if (image != null) {
       print('${image.path} has firebase imageeeeeeeee.');
 
       final TaskSnapshot snapshot =
           await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
-      Provider.of<UserModel>(context, listen: false).updateAvatar(file);
+      // Provider.of<UserModel>(context, listen: false).updateAvatar(file);
       //PROFILE_PIC_ROUTE + file.toString()
       return downloadUrl;
     } else

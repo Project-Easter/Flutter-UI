@@ -14,12 +14,13 @@ class _OwnerInfoState extends State<OwnerInfo> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15),
-      child: Consumer<UserModel>(
-          builder: (BuildContext context, UserModel owner, _) {
+      child: Consumer<UserData>(
+          builder: (BuildContext context, UserData owner, _) {
         return Column(
           children: <Widget>[
             Text(
-              '${owner.firstName} ${owner.lastName}',
+              owner.displayName,
+              // '${owner.firstName} ${owner.lastName}',
               style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontSize: 36,

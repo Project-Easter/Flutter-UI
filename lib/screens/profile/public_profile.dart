@@ -147,17 +147,17 @@ class PublicProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  CupertinoStyleButton(
+                  Button(
                     name: 'My Library',
                     myFunction: () {},
                     color: const Color(0xFF06070D),
                   ),
-                  CupertinoStyleButton(
+                  Button(
                     name: 'Edit Profile',
                     myFunction: () {},
                     color: const Color(0xFF0FB269),
                   ),
-                  CupertinoStyleButton(
+                  Button(
                     name: 'Change Preferences',
                     myFunction: () {
                       Navigator.pushNamed(context, Routes.PRIVATE_PROFILE);

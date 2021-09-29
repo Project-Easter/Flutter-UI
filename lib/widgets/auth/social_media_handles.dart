@@ -1,9 +1,7 @@
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class SocialMediaHandles extends StatelessWidget {
   @override

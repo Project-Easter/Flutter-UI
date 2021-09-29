@@ -1,7 +1,5 @@
-import 'package:books_app/providers/books.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class FilterItems extends StatefulWidget {
   @override

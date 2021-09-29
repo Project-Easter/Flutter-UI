@@ -1,11 +1,11 @@
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 
-mixin EmailState<T extends StatefulWidget> implements State<T> {
-  String email;
+// mixin EmailState<T extends StatefulWidget> implements State<T> {
+//   String email;
 
-  void updateEmail(String email) {
-    setState(() {
-      this.email = email;
-    });
-  }
-}
+//   void updateEmail(String email) {
+//     setState(() {
+//       this.email = email;
+//     });
+//   }
+// }

@@ -3,6 +3,8 @@ import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/theme.dart';
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -221,10 +223,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
 }
 
 class UserTile extends StatelessWidget {
+   
+   
   @override
   Widget build(BuildContext context) {
-    return Consumer<UserModel>(
-      builder: (BuildContext context, UserModel user, _) {
+    final FirebaseAuthService _authService =
+      FirebaseAuthService();
+  final String uID = _authService.getUID;
+    return StreamBuilder<UserData>(
+      stream: DatabaseService(uid: uID).userData,
+      builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
         return Container(
             padding:
                 const EdgeInsets.only(top: 12, left: 0, right: 0, bottom: 10),
@@ -237,7 +245,7 @@ class UserTile extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.only(left: 9.0, top: 4.0),
                 child: Text(
-                  '${user.firstName} ${user.lastName} ',
+                  snapshot.data.displayName,
                   style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w400, fontSize: 19),
                 ),

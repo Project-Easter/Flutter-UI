@@ -1,10 +1,4 @@
-import 'dart:io';
 
-import 'package:books_app/utils/backend/user_data_requests.dart';
-import 'package:books_app/utils/helpers.dart';
-import 'package:books_app/utils/keys_storage.dart';
-import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 
 class UserData {
   String uid;
@@ -40,76 +34,76 @@ class UserData {
       this.locationRange});
 }
 
-class UserModel extends ChangeNotifier {
-  String _id;
-  String _email;
-  String _firstName;
-  String _lastName;
-  String _joinedAt;
-  String _avatar;
-  bool _isAuthenticated;
+// class UserModel extends ChangeNotifier {
+//   String _id;
+//   String _email;
+//   String _firstName;
+//   String _lastName;
+//   String _joinedAt;
+//   String _avatar;
+//   bool _isAuthenticated;
 
-  String get avatar => _avatar;
-  String get email => _email;
-  String get firstName => _firstName;
-  String get id => _id;
-  bool get isAuthenticated => _isAuthenticated;
-  String get joinedAt => _joinedAt;
-  String get lastName => _lastName;
+//   String get avatar => _avatar;
+//   String get email => _email;
+//   String get firstName => _firstName;
+//   String get id => _id;
+//   bool get isAuthenticated => _isAuthenticated;
+//   String get joinedAt => _joinedAt;
+//   String get lastName => _lastName;
 
-  Future<void> fetchUserData() async {
-    final Response response =
-        await UserRequests.getUserData(TokenStorage.authToken);
-    final dynamic body = await getBodyFromResponse(response);
-    print('$body is the body of fetch user data inside user.dart file 123445');
+//   Future<void> fetchUserData() async {
+//     final Response response =
+//         await UserRequests.getUserData(TokenStorage.authToken);
+//     final dynamic body = await getBodyFromResponse(response);
+//     print('$body is the body of fetch user data inside user.dart file 123445');
 
-    if (body['id'] == null) {
-      _isAuthenticated = false;
-      return;
-    }
+//     if (body['id'] == null) {
+//       _isAuthenticated = false;
+//       return;
+//     }
 
-    _id = body['id'] as String;
-    _email = body['email'] as String;
-    _firstName = body['firstName'] as String;
-    _lastName = body['lastName'] as String;
-    _joinedAt = body['joinedAt'] as String;
-    _avatar = body['avatar'] as String;
-    _isAuthenticated = true;
+//     _id = body['id'] as String;
+//     _email = body['email'] as String;
+//     _firstName = body['firstName'] as String;
+//     _lastName = body['lastName'] as String;
+//     _joinedAt = body['joinedAt'] as String;
+//     _avatar = body['avatar'] as String;
+//     _isAuthenticated = true;
 
-    notifyListeners();
-  }
+//     notifyListeners();
+//   }
 
-  Future updateLocation(double latitude, double longitude) async {
-    final Response response = await UserRequests.location(
-      TokenStorage.authToken,
-      latitude,
-      longitude,
-    );
-    final dynamic body = await getBodyFromResponse(response);
-    print('$response is the Piotrrr backend location response');
+//   Future updateLocation(double latitude, double longitude) async {
+//     final Response response = await UserRequests.location(
+//       TokenStorage.authToken,
+//       latitude,
+//       longitude,
+//     );
+//     final dynamic body = await getBodyFromResponse(response);
+//     print('$response is the Piotrrr backend location response');
 
-    if (response.statusCode == 204) {
-      print('$body is the Piotrrr backend location body');
-    }
+//     if (response.statusCode == 204) {
+//       print('$body is the Piotrrr backend location body');
+//     }
 
-    notifyListeners();
-  }
+//     notifyListeners();
+//   }
 
-  Future updateAvatar(File file) async {
+//   Future updateAvatar(File file) async {
    
-    final Response response =
-        await UserRequests.userAvatar(TokenStorage.authToken, file.absolute.toString());
-    final dynamic body = await getBodyFromResponse(response);
-    print('$body is the user avatar bodyy');
+//     final Response response =
+//         await UserRequests.userAvatar(TokenStorage.authToken, file.absolute.toString());
+//     final dynamic body = await getBodyFromResponse(response);
+//     print('$body is the user avatar bodyy');
 
-    if (response.statusCode == 204) {
-      print('Avatar has been changed successfullly');
-    } else {
-      final dynamic errorId = body['error']['id'];
-      print('$errorId is the userAvatar error id');
-      throw Exception('An unknown error occured. Please try again later');
-    }
+//     if (response.statusCode == 204) {
+//       print('Avatar has been changed successfullly');
+//     } else {
+//       final dynamic errorId = body['error']['id'];
+//       print('$errorId is the userAvatar error id');
+//       throw Exception('An unknown error occured. Please try again later');
+//     }
 
-    notifyListeners();
-  }
-}
+//     notifyListeners();
+//   }
+// }

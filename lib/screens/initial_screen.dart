@@ -1,15 +1,8 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/services/backend_services.dart';
-import 'package:books_app/states/auth_state.dart';
-import 'package:books_app/states/email_state.dart';
-import 'package:books_app/states/error_state.dart';
-import 'package:books_app/states/password_state.dart';
-import 'package:books_app/utils/helpers.dart';
 import 'package:books_app/utils/size_config.dart';
-import 'package:books_app/widgets/Auth/auth_button.dart';
 import 'package:books_app/widgets/auth/social_media_handles.dart';
-import 'package:books_app/widgets/text_field.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,11 +13,7 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen>
-    with
-        AuthState<InitialScreen>,
-        EmailState<InitialScreen>,
-        PasswordState<InitialScreen>,
-        ErrorState<InitialScreen> {
+    {
   //Init FirebaseFirebaseAuthService
 
   final TextEditingController _emailController = TextEditingController();
@@ -81,8 +70,10 @@ class _InitialScreenState extends State<InitialScreen>
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          EmailTextField(onChanged: updateEmail),
-                          PasswordTextField(onChanged: updatePassword)
+                          // EmailTextField(onChanged: updateEmail),
+                          // PasswordTextField(onChanged: updatePassword)
+
+
                         ],
                       ),
                     ),
@@ -90,13 +81,22 @@ class _InitialScreenState extends State<InitialScreen>
                   buildForgotPasswordButton(),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: AuthButton(
-                      text: 'Sign in',
-                      formKey: formKey,
-                      onClick: onSubmit,
-                      onSuccess: onSuccess,
-                      onError: onError,
+                    child: Button(
+                      name: 'Sign in',
+                      color: blackButton,
+                      myFunction: () async {
+                        final bool isFormValid =
+                            formKey.currentState.validate();
+                        if (!isFormValid) return;
+                      },
                     ),
+                    // child: AuthButton(
+                    //   text: 'Sign in',
+                    //   formKey: formKey,
+                    //   onClick: onSubmit,
+                    //   onSuccess: onSuccess,
+                    //   onError: onError,
+                    // ),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -125,7 +125,7 @@ class _InitialScreenState extends State<InitialScreen>
                   const SizedBox(height: 10),
                   SocialMediaHandles(),
                   const SizedBox(height: 40),
-                ].where(notNull).toList(),
+                ],
               ),
             ),
           ),
@@ -152,10 +152,10 @@ class _InitialScreenState extends State<InitialScreen>
     );
   }
 
-  Future<String> onSubmit() async {
-    return BackendService()
-        .login(_emailController.text, _passwordController.text);
-  }
+  // Future<String> onSubmit() async {
+  //   return BackendService()
+  //       .login(_emailController.text, _passwordController.text);
+  // }
 
   void onSuccess() {
     print('Logged in successfully');

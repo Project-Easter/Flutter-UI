@@ -14,7 +14,7 @@ class PrivateProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserData profileData = Provider.of<UserData>(context);
     final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
-    Provider.of<UserModel>(context);
+    // final UserData profileData =Provider.of<UserData>(context);
     int ownedBooksLength;
     if (booksData.isEmpty) {
       ownedBooksLength = 0;
@@ -105,17 +105,31 @@ class PrivateProfile extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: <Widget>[
-                    button(
-                        context, blackButton, 'Add you Book', Routes.ADD_BOOK),
+                    Button(
+                      name: 'Add your Book',
+                      color: blackButton,
+                      myFunction: ()async {
+Navigator.pushNamed(context, Routes.ADD_BOOK);
+                      },
+                    ),
+                    // Button(
+                    //      blackButton, 'Add you Book', Routes.ADD_BOOK),
                     // button(context, blackButton, 'Settings', Routes.SETTINGS),
-                    button(context, blackButton, 'Verify Mobile',
-                        Routes.VERIFY_MOBILE),
+                    
                     GestureDetector(
                       onTap: () {
                         FirebaseAuthService().googleSignout();
                       },
-                      child: button(
-                          context, greenButton, 'Logout', Routes.INITIAL_PAGE),
+                      child: Button(
+                        name: 'Logout', 
+                        color: greenButton,
+                        myFunction: ()async {
+                         Navigator.pushReplacementNamed(context,Routes.INITIAL_PAGE);
+                        }
+                        
+                      ),
+                      // child: button(
+                      //     context, greenButton, 'Logout', Routes.INITIAL_PAGE),
                     )
                   ],
                 ),
@@ -138,9 +152,9 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<UserModel>(context).fetchUserData();
-    return Consumer<UserModel>(
-        builder: (BuildContext context, UserModel profile, _) {
+    // Provider.of<UserModel>(context).fetchUserData();
+    return Consumer<UserData>(
+        builder: (BuildContext context, UserData profile, _) {
       return Column(
         children: <Widget>[
           Container(
@@ -148,14 +162,14 @@ class ProfileHeader extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: CircleAvatar(
               radius: 100,
-              backgroundImage: NetworkImage(PROFILE_PIC_ROUTE + profile.avatar),
+              backgroundImage: NetworkImage(profile.photoURL),
               // AssetImage('assets/images/Explr Logo.png'),
             ),
           ),
           Text(
             // 'John Doe',
-            // profileData.displayName,
-            '${profile.firstName} ${profile.lastName} ',
+            profile.displayName,
+            // '${profile.firstName} ${profile.lastName} ',
             style:
                 GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w400),
           ),

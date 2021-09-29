@@ -78,16 +78,16 @@ class DatabaseService {
     }).toList();
   }
 
-  Stream<QuerySnapshot> getMessageStream(String from, String to) {
-    return chatCollection
-        .doc(from)
-        .collection('conversation')
-        .doc(to)
-        .collection('messages')
-        .orderBy('createdAt', descending: false) //
-        .snapshots();
-    // .map(_messageFromSnapshot);
-  }
+  // Stream<QuerySnapshot> getMessageStream(String from, String to) {
+  //   return chatCollection
+  //       .doc(from)
+  //       .collection('conversation')
+  //       .doc(to)
+  //       .collection('messages')
+  //       .orderBy('createdAt', descending: false) //
+  //       .snapshots();
+  //   // .map(_messageFromSnapshot);
+  // }
 
   void removeBook(String isbn) {
     booksCollection
@@ -221,18 +221,18 @@ class DatabaseService {
     );
   }
 
-  // Future updateUserLocation(double latitude, double longitude) async {
-  //   List<String> addresses =
-  //       await LocationHelper().getAddressFromLatLng(latitude, longitude);
+  Future updateUserLocation(double latitude, double longitude) async {
+    // List<String> addresses =
+    //     await LocationHelper().getAddressFromLatLng(latitude, longitude);
 
-  //   return userDataCollection.doc(uid).set(<String, dynamic>{
-  //     'city': addresses[0],
-  //     'state': addresses[1],
-  //     'country': addresses[2],
-  //     'latitude': latitude,
-  //     'longitude': longitude,
-  //   }, SetOptions(merge: true));
-  // }
+    return userDataCollection.doc(uid).set(<String, dynamic>{
+      // 'city': addresses[0],
+      // 'state': addresses[1],
+      // 'country': addresses[2],
+      'latitude': latitude,
+      'longitude': longitude,
+    }, SetOptions(merge: true));
+  }
 
   List<Book> _bookFromQuerySnapShot(QuerySnapshot snapshot) {
     return snapshot.docs.map((QueryDocumentSnapshot doc) {
