@@ -1,11 +1,11 @@
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 
-mixin ConfirmationCodeState<T extends StatefulWidget> implements State<T> {
-  String confirmationCode;
+// mixin ConfirmationCodeState<T extends StatefulWidget> implements State<T> {
+//   String confirmationCode;
 
-  void updateConfirmationCode(String confirmationCode) {
-    setState(() {
-      this.confirmationCode = confirmationCode;
-    });
-  }
-}
+//   void updateConfirmationCode(String confirmationCode) {
+//     setState(() {
+//       this.confirmationCode = confirmationCode;
+//     });
+//   }
+// }

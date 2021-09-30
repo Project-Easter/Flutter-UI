@@ -1,14 +1,8 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/services/backend_services.dart';
-import 'package:books_app/states/auth_state.dart';
-import 'package:books_app/states/email_state.dart';
-import 'package:books_app/states/error_state.dart';
-import 'package:books_app/states/password_state.dart';
-import 'package:books_app/utils/helpers.dart';
-import 'package:books_app/widgets/auth/auth_button.dart';
-import 'package:books_app/widgets/auth/auth_error_message.dart';
 import 'package:books_app/widgets/auth/auth_navigation.dart';
 import 'package:books_app/widgets/auth/auth_page_title.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,13 +12,8 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with
-        AuthState<LoginScreen>,
-        EmailState<LoginScreen>,
-        PasswordState<LoginScreen>,
-        ErrorState<LoginScreen> {
-  final BackendService authService = BackendService();
+class _LoginScreenState extends State<LoginScreen> {
+  // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -38,26 +27,30 @@ class _LoginScreenState extends State<LoginScreen>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const AuthPageTitle(name: 'Log in'),
-            AuthErrorMessage(errorMessage: error.toString()),
+            // AuthErrorMessage(errorMessage: error.toString()),
             Form(
               key: formKey,
               child: Column(
-                children: <Widget>[
-                  EmailTextField(onChanged: updateEmail),
-                  PasswordTextField(onChanged: updatePassword)
-                ],
+                children: [const EmailTextField(), const PasswordTextField()],
               ),
             ),
-            AuthButton(
-              text: 'Sign in',
-              formKey: formKey,
-              onClick: onSubmit,
-              onSuccess: onSuccess,
-              onError: onError,
+            Button(
+              name: 'Sign in',
+              color: blackButton,
+              myFunction: () {
+                Navigator.pushNamed(context, Routes.HOME);
+              },
             ),
+            // AuthButton(
+            //   text: 'Sign in',
+            //   formKey: formKey,
+            //   onClick: onSubmit,
+            //   onSuccess: onSuccess,
+            //   onError: onError,
+            // ),
             buildForgotPasswordButton(),
             buildRegisterButton(),
-          ].where(notNull).toList(),
+          ],
         )),
       ),
     );
@@ -113,12 +106,12 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  Future<String> onSubmit() async {
-    return authService.login(email, password);
-  }
+  // Future<String> onSubmit() async {
+  //   return authService.login(email, password);
+  // }
 
-  Future<Object> onSuccess() {
-    print('Logged in successfully');
-    return Navigator.pushNamed(context, Routes.DASHBOARD);
-  }
+  // Future<Object> onSuccess() {
+  //   print('Logged in successfully');
+  //   return Navigator.pushNamed(context, Routes.DASHBOARD);
+  // }
 }

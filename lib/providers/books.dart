@@ -1,12 +1,7 @@
 import 'dart:convert';
 
-import 'package:books_app/constants/error.dart';
-import 'package:books_app/utils/backend/book_requests.dart';
-import 'package:books_app/utils/helpers.dart';
-import 'package:books_app/utils/keys_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 import 'book.dart';
 
@@ -77,59 +72,78 @@ class Books with ChangeNotifier {
     return _savedBooks;
   }
 
-  Future<dynamic> getBooksbyISBN(String isbn) async {
-    final Response response =
-        await BookRequest.bookDataFromISBN(TokenStorage.authToken, isbn);
-    final dynamic result = await getBodyFromResponse(response);
+  // Future<dynamic> getBooksbyISBN(String isbn) async {
+  //   final Response response =
+  //       await BookRequest.bookDataFromISBN(TokenStorage.authToken, isbn);
+  //   final dynamic result = await getBodyFromResponse(response);
 
-    if (response.statusCode == 200) {
-      print(response.body);
-      print('is the body of response in function postADDEDBook');
-    } else {
-      final int errorId = result['error']['id'] as int;
-      print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+  //   if (response.statusCode == 200) {
+  //     print(response.body);
+  //     print('is the body of response in function postADDEDBook');
+  //   } else {
+  //     final int errorId = result['error']['id'] as int;
+  //     print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
 
-      switch (errorId) {
-        case Error.ISBN_NOT_FOUND:
-          {
-            throw Exception('Book data with the provided isbn does not exist');
-          }
-        default:
-          {
-            throw Exception('An unknown error occured. Please try again later');
-          }
+  //     switch (errorId) {
+  //       case Error.ISBN_NOT_FOUND:
+  //         {
+  //           throw Exception('Book data with the provided isbn does not exist');
+  //         }
+  //       default:
+  //         {
+  //           throw Exception('An unknown error occured. Please try again later');
+  //         }
+  //     }
+  //   }
+  //   return result;
+  // }
+Future<dynamic> getBooksbyISBN(String isbn) async {
+    //Add Books from Google API
+    const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
+    try {
+      final http.Response response = await http.get(url + isbn);
+      final dynamic result = jsonDecode(response.body);
+      // print("Result From get Books From ISBN:");
+
+      // print(result);
+      if (result != null) {
+        return result;
       }
+      return null;
+    } catch (e) {
+      print(e.toString());
     }
-    return result;
+    return null;
   }
 
-  Future<dynamic> getBooksbyTitle(String title) async {
-    final Response response =
-        await BookRequest.bookDataFromTitle(TokenStorage.authToken, title);
 
-    final dynamic result = await getBodyFromResponse(response);
+  // Future<dynamic> getBooksbyTitle(String title) async {
+  //   final Response response =
+  //       await BookRequest.bookDataFromTitle(TokenStorage.authToken, title);
 
-    if (response.statusCode == 200) {
-      print(response.body);
-      print('is the body of response in function postADDEDBook');
-    } else {
-      final int errorId = result['error']['id'] as int;
-      print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+  //   final dynamic result = await getBodyFromResponse(response);
 
-      switch (errorId) {
-        case Error.ISBN_NOT_FOUND:
-          {
-            throw Exception('Book data with the provided isbn does not exist');
-          }
-        default:
-          {
-            throw Exception('An unknown error occured. Please try again later');
-          }
-      }
-    }
-    notifyListeners();
-    return result;
-  }
+  //   if (response.statusCode == 200) {
+  //     print(response.body);
+  //     print('is the body of response in function postADDEDBook');
+  //   } else {
+  //     final int errorId = result['error']['id'] as int;
+  //     print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+
+  //     switch (errorId) {
+  //       case Error.ISBN_NOT_FOUND:
+  //         {
+  //           throw Exception('Book data with the provided isbn does not exist');
+  //         }
+  //       default:
+  //         {
+  //           throw Exception('An unknown error occured. Please try again later');
+  //         }
+  //     }
+  //   }
+  //   notifyListeners();
+  //   return result;
+  // }
 
   Book makeBook(dynamic result) {
     Book book;
@@ -169,34 +183,34 @@ class Books with ChangeNotifier {
     return book;
   }
 
-  Future<void> postAddedBook(Book book) async {
-    final Response response =
-        await BookRequest.postBook(TokenStorage.authToken, book);
+  // Future<void> postAddedBook(Book book) async {
+  //   final Response response =
+  //       await BookRequest.postBook(TokenStorage.authToken, book);
 
-    final dynamic booksISBNList = await getBodyFromResponse(response);
+  //   final dynamic booksISBNList = await getBodyFromResponse(response);
 
-    if (response.statusCode == 201) {
-      print(response.body);
+  //   if (response.statusCode == 201) {
+  //     print(response.body);
 
-      print('is the body of response in function postADDEDBook');
-    } else {
-      final int errorId = booksISBNList['error']['id'] as int;
-      print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
+  //     print('is the body of response in function postADDEDBook');
+  //   } else {
+  //     final int errorId = booksISBNList['error']['id'] as int;
+  //     print('The error ID of loginWithSocialMedia made bu Piotr is $errorId');
 
-      switch (errorId) {
-        case Error.ISBN_NOT_FOUND:
-          {
-            throw Exception('Book data with the provided isbn does not exist');
-          }
-        default:
-          {
-            throw Exception('An unknown error occured. Please try again later');
-          }
-      }
-    }
+  //     switch (errorId) {
+  //       case Error.ISBN_NOT_FOUND:
+  //         {
+  //           throw Exception('Book data with the provided isbn does not exist');
+  //         }
+  //       default:
+  //         {
+  //           throw Exception('An unknown error occured. Please try again later');
+  //         }
+  //     }
+  //   }
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
   Future<dynamic> topBooks() async {
     const String recommendedURL =
@@ -206,7 +220,7 @@ class Books with ChangeNotifier {
       final http.Response response = await http.get(Uri.parse(recommendedURL));
       final dynamic result = jsonDecode(response.body);
       print('result from Google API topBook func is $result');
-      final List list = result['items'] as List;
+      final List<Book> list = result['items'] as List<Book>;
 
       if (result != null) {
         final List<Book> recommendedBooks = <Book>[];
@@ -223,22 +237,22 @@ class Books with ChangeNotifier {
   }
 
   
-  // Future<dynamic> getISBNFromName(String title) async {
-  //   const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
-  //   try {
-  //     final http.Response response = await http.get(url + title);
-  //     final dynamic resultJson = jsonDecode(response.body);
-  //     if (resultJson != null) {
-  //       final String isbn = resultJson['items'][0]['volumeInfo']
-  //               ['industryIdentifiers'][1]['identifier']
-  //           .toString();
-  //       return isbn;
-  //     }
-  //     return null;
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
+  Future<dynamic> getISBNFromName(String title) async {
+    const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
+    try {
+      final http.Response response = await http.get(url + title);
+      final dynamic resultJson = jsonDecode(response.body);
+      if (resultJson != null) {
+        final String isbn = resultJson['items'][0]['volumeInfo']
+                ['industryIdentifiers'][1]['identifier']
+            .toString();
+        return isbn;
+      }
+      return null;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   // Future<dynamic> getRecommendedBooks() async {
   //   const String recommendedURL =

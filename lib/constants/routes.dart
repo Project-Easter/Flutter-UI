@@ -21,7 +21,5 @@ class Routes {
   static const String ABOUT_US = '/about-us';
   static const String PRIVACY_POLICY = '/privacy-policy';
   static const String TERMS_CONDITION = '/terms-and-condition';
-  static const String VERIFY_MOBILE = '/verify-mobile';
   static const String OTP = '/otp';
-
 }

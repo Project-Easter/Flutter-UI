@@ -165,8 +165,8 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
             height: 70,
             padding: widget.padding,
             decoration: BoxDecoration(
-              boxShadow: <BoxShadow>[
-                const BoxShadow(
+              boxShadow: const <BoxShadow>[
+                BoxShadow(
                   spreadRadius: 0,
                   blurRadius: 20,
                   color: Colors.black26,

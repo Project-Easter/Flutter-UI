@@ -1,6 +1,9 @@
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/utils/location_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -21,16 +24,17 @@ class _GetLocationState extends State<GetLocation> {
 
   @override
   Widget build(BuildContext context) {
-    // final dynamic _uID = FirebaseAuthService().getUID;
-    // final DatabaseService _databaseService =
-    //     DatabaseService(uid: _uID.toString());
+    final dynamic _uID = FirebaseAuthService().getUID;
+    final DatabaseService _databaseService =
+        DatabaseService(uid: _uID.toString());
     return Scaffold(
       // ignore: always_specify_types
       body: FutureBuilder(
         future: LocationHelper().getCurrentLocation(),
         builder: (BuildContext context, AsyncSnapshot<LatLng> snapshot) {
           if (snapshot.hasData) {
-            Provider.of<UserModel>(context).updateLocation(snapshot.data.latitude, snapshot.data.longitude);
+          //  Provider.of<UserData>(context).up
+            // Provider.of<UserModel>(context).updateLocation(snapshot.data.latitude, snapshot.data.longitude);
             print(snapshot.data);
             print(snapshot.data.latitude);
             return FlutterMap(
@@ -59,9 +63,9 @@ class _GetLocationState extends State<GetLocation> {
                             size: 30,
                           ),
                           onPressed: () async {
-                            // await _databaseService.updateUserLocation(
-                            //     snapshot.data.latitude,
-                            //     snapshot.data.longitude);
+                            await _databaseService.updateUserLocation(
+                                snapshot.data.latitude,
+                                snapshot.data.longitude);
                             await _getAddrress(snapshot.data.latitude,
                                 snapshot.data.longitude);
                             showModalBottomSheet<void>(

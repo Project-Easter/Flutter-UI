@@ -1,11 +1,8 @@
-import 'package:books_app/services/backend_services.dart';
-import 'package:books_app/states/auth_state.dart';
-import 'package:books_app/states/confirmation_code_state.dart';
-import 'package:books_app/states/error_state.dart';
-import 'package:books_app/widgets/auth/auth_button.dart';
-import 'package:books_app/widgets/auth/auth_error_message.dart';
+import 'package:books_app/constants/colors.dart';
+import 'package:books_app/constants/routes.dart';
 import 'package:books_app/widgets/auth/auth_navigation.dart';
 import 'package:books_app/widgets/auth/auth_page_title.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +15,8 @@ class ConfirmEmailScreen extends StatefulWidget {
   _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState(email);
 }
 
-class _ConfirmEmailScreenState extends State<ConfirmEmailScreen>
-    with
-        AuthState<ConfirmEmailScreen>,
-        ErrorState<ConfirmEmailScreen>,
-        ConfirmationCodeState<ConfirmEmailScreen> {
-  final BackendService authService = BackendService();
+class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
+  // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String email;
 
@@ -39,33 +32,40 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const AuthPageTitle(name: 'Confirm email'),
-            AuthErrorMessage(errorMessage: error),
+            // AuthErrorMessage(errorMessage: error),
             Form(
               key: formKey,
               child: Column(
                 children: <Widget>[
-                  ConfirmationCodeTextField(onChanged: updateConfirmationCode)
+                  const ConfirmationCodeTextField(),
                 ],
               ),
             ),
-            AuthButton(
-              text: 'Continue',
-              formKey: formKey,
-              onClick: onSubmit,
-              onSuccess: onSuccess,
-              onError: onError,
+            Button(
+              name: 'Continue',
+              color: blackButton,
+              myFunction: () async {
+                Navigator.pushNamed(context, Routes.HOME);
+              },
             ),
+            // AuthButton(
+            //   text: 'Continue',
+            //   formKey: formKey,
+            //   onClick: onSubmit,
+            //   onSuccess: onSuccess,
+            //   onError: onError,
+            // ),
           ],
         ),
       ),
     );
   }
 
-  Future<String> onSubmit() async {
-    return authService.confirmEmail(email, confirmationCode) as String;
-  }
+  // Future<String> onSubmit() async {
+  //   return authService.confirmEmail(email, confirmationCode) as String;
+  // }
 
-  void onSuccess() {
-    print('Email confirmed successfully');
-  }
+  // void onSuccess() {
+  //   print('Email confirmed successfully');
+  // }
 }

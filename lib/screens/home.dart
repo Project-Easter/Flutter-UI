@@ -2,6 +2,7 @@ import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/bookshelf.dart';
+import 'package:books_app/screens/chat.dart';
 import 'package:books_app/screens/dashboard/dashboard.dart';
 import 'package:books_app/screens/explore_nearby.dart';
 import 'package:books_app/screens/profile/private_profile.dart';
@@ -26,7 +27,7 @@ class _HomeState extends State<Home> {
   List<Widget> _screens = <Widget>[
     DashboardPage(),
     ExploreNearby(),
-    // const Wrapper(),
+    ChatScreen(),
     LibraryPage(),
     PrivateProfile(),
   ];
@@ -87,8 +88,8 @@ class _HomeState extends State<Home> {
                 title: 'Home',
               ),
               FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              // FloatingNavbarItem(
-              //     icon: Icons.chat_bubble_rounded, title: 'Chats'),
+              FloatingNavbarItem(
+                  icon: Icons.chat_bubble_rounded, title: 'Chats'),
               FloatingNavbarItem(
                   icon: Icons.favorite_rounded, title: 'Library'),
               FloatingNavbarItem(
