@@ -1,48 +1,19 @@
-# Contribution
+# Contributing
 
-Please read [Auth0's contribution guidelines](https://github.com/auth0/open-source-template/blob/master/GENERAL-CONTRIBUTING.md).
+When contributing to this repository, please first discuss the change you wish to make via issue,
+email, or any other method with the owners of this repository before making a change.
 
-## Documentation
+<!---<a href="https://discord.gg/HHMs7Eg" target="blank">
+<img src="https://img.shields.io/discord/735303195105951764?label=Join%20Community&logo=discord&style=flat-square" alt="join discord community of github profile readme generator"/>
+</a>-->
 
-- PR for docs site update, if needed
-- Code-level documentation expectations
-	- 100% documentation coverage for PRs
-	- Include links to relevant Auth0 doc pages
+Please note we have a code of conduct, please follow it in all your interactions with the project.
 
-## Assets compilation
+## Pull Request Process
 
-Information about compiling CSS, JS, SVG, etc.
-
-## Environment setup
-
-Link to [README installation](README.md#installation) steps and include anything additional needed to contribute to the project.
-
-## Testing
-
-
-### Adding tests
-
-General information about the test suite and how to format and structure tests.
-
-### Running tests
-
-Any additional information needed to run the test suite. Include `bash`-formatted commands like:
-
-```bash
-composer test
-bundle exec rake test
-```
-
-Also include any information about essential manual tests.
-
-## Code quality tools
-
-Information about scripts to run before committing.
-
-## CI Information
-
-What CI checks for and how to pass.
-
-## Repo-specific PR guidelines
-
-Anything not covered in the general guidelines linked above.
+1. Ensure any install or build dependencies are removed before the end of the layer when doing a
+   build.
+2. Update the README.md with details of changes to the interface, this includes new environment
+   variables, exposed ports, useful file locations and container parameters.
+3. You may merge the Pull Request once you have the sign-off of two other developers, or if you
+   do not have permission to do that, you may request the second reviewer merge it for you.
