@@ -1,7 +1,10 @@
 on:
-  schedule:
-    - cron: "*/60 * * * *"
-    # scheduled every hour
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
   workflow_dispatch: # click the button on Github repo!
 
