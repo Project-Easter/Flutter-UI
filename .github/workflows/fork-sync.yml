@@ -1,3 +1,4 @@
+name: sync-fork
 on:
   push:
     branches:
