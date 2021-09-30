@@ -1,7 +1,7 @@
 name: close-issue
 on:
   schedule:
-    - cron: 0 21 * * *
+    - cron: 0 22 * * *
 
 jobs:
   cycle-weekly-close:
