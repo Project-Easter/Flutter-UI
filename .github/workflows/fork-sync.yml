@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: tgymnich/fork-sync@v1.4
         with:
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          owner: llvm
+#           token: ${{ secrets.PERSONAL_TOKEN }}
+#           owner: llvm
           base: master
           head: master
