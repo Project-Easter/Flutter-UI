@@ -1,14 +1,8 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
-import 'package:books_app/services/backend_services.dart';
-import 'package:books_app/states/auth_state.dart';
-import 'package:books_app/states/confirmation_code_state.dart';
-import 'package:books_app/states/error_state.dart';
-import 'package:books_app/states/password_state.dart';
-import 'package:books_app/utils/helpers.dart';
-import 'package:books_app/widgets/auth/auth_button.dart';
-import 'package:books_app/widgets/auth/auth_error_message.dart';
 import 'package:books_app/widgets/auth/auth_navigation.dart';
 import 'package:books_app/widgets/auth/auth_page_title.dart';
+import 'package:books_app/widgets/button.dart';
 import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -23,12 +17,8 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen>
-    with
-        AuthState<ResetPasswordScreen>,
-        PasswordState<ResetPasswordScreen>,
-        ConfirmationCodeState<ResetPasswordScreen>,
-        ErrorState<ResetPasswordScreen> {
-  final BackendService authService = BackendService();
+   {
+  // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String email;
@@ -46,36 +36,40 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   const AuthPageTitle(name: 'Reset password'),
-                  AuthErrorMessage(errorMessage: error),
+                  // AuthErrorMessage(errorMessage: error),
                   Form(
                     key: formKey,
                     child: Column(
                       children: <Widget>[
                         ConfirmationCodeTextField(
-                            onChanged: updateConfirmationCode),
-                        PasswordTextField(onChanged: updatePassword)
+                           ),
+                        PasswordTextField()
                       ],
                     ),
                   ),
-                  AuthButton(
-                    text: 'Continue',
-                    formKey: formKey,
-                    onClick: onSubmit,
-                    onSuccess: onSuccess,
-                    onError: onError,
+                  Button(
+                    myFunction: ()async{
+                          Navigator.pushReplacementNamed(context, Routes.INITIAL_PAGE);
+                    },
+                    color:blackButton,
+                    name: 'Continue',
+                    // formKey: formKey,
+                    // onClick: onSubmit,
+                    // onSuccess: onSuccess,
+                    // onError: onError,
                   )
-                ].where(notNull).toList()),
+                ]),
           ),
         ));
   }
 
-  Future<String> onSubmit() async {
-    return authService
-        .resetPassword(email, password, confirmationCode)
-        .toString();
-  }
+  // Future<String> onSubmit() async {
+  //   return authService
+  //       .resetPassword(email, password, confirmationCode)
+  //       .toString();
+  // }
 
-  void onSuccess() {
-    Navigator.pushNamed(context, Routes.LOGIN);
-  }
+  // void onSuccess() {
+  //   Navigator.pushNamed(context, Routes.LOGIN);
+  // }
 }

@@ -1,52 +1,55 @@
 import 'package:books_app/utils/validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ConfirmationCodeTextField extends TextField {
-  const ConfirmationCodeTextField({@required void Function(String) onChanged})
+class ConfirmationCodeTextField extends AuthField {
+  const ConfirmationCodeTextField()
       : super(
-            onChanged: onChanged,
+            // onChanged: onChanged,
             text: 'Confirmation code',
             obscureText: false,
             validator: Validator.confirmationCode);
 }
 
-class EmailTextField extends TextField {
-  const EmailTextField({@required void Function(String) onChanged})
+class EmailTextField extends AuthField {
+  const EmailTextField()
       : super(
-            onChanged: onChanged,
+            // onChanged: onChanged,
             text: 'Email Address',
             obscureText: false,
             validator: Validator.email,
             keyboardType: TextInputType.emailAddress);
 }
 
-class PasswordTextField extends TextField {
-  const PasswordTextField({@required void Function(String) onChanged})
+class PasswordTextField extends AuthField {
+  const PasswordTextField()
       : super(
-            onChanged: onChanged,
+            // onChanged: onChanged,
             text: 'Password',
             obscureText: true,
             validator: Validator.password);
 }
 
-class TextField extends StatelessWidget {
-  final void Function(String) onChanged;
+class AuthField extends StatelessWidget {
+  // final void Function(String) onChanged;
   final String text;
   final bool obscureText;
   final String Function(String) validator;
   final TextInputType keyboardType;
 
-  const TextField(
-      {this.onChanged,
-      this.text,
-      this.obscureText,
-      this.validator,
-      this.keyboardType = TextInputType.text});
+  const AuthField({
+    // this.onChanged,
+    this.text,
+    this.obscureText,
+    this.validator,
+    this.keyboardType = TextInputType.text,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // TextEditingController _controller;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: AspectRatio(
@@ -76,7 +79,7 @@ class TextField extends StatelessWidget {
               ),
               contentPadding: const EdgeInsets.all(10),
             ),
-            onChanged: onChanged,
+           
           ),
         ),
       ),

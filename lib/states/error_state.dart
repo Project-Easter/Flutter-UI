@@ -1,11 +1,11 @@
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 
-mixin ErrorState<T extends StatefulWidget> implements State<T> {
-  String error;
+// mixin ErrorState<T extends StatefulWidget> implements State<T> {
+//   String error;
 
-  void onError(String error) {
-    setState(() {
-      this.error = error;
-    });
-  }
-}
+//   void onError(String error) {
+//     setState(() {
+//       this.error = error;
+//     });
+//   }
+// }

@@ -1,5 +1,4 @@
 import 'package:books_app/providers/user.dart';
-import 'package:books_app/services/backend_services.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/keys_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,12 +60,12 @@ class FirebaseAuthService {
     final String idToken = await user.getIdToken(true);
     print('ID token received from user.getIdToken(true) is $idToken');
 
-    try {
-      fbauthtoken = await BackendService().loginWithSocialMedia(idToken);
-      print('facebook token is $fbauthtoken');
-    } catch (error) {
-      print(error.toString());
-    }
+    // try {
+    //   fbauthtoken = await BackendService().loginWithSocialMedia(idToken);
+    //   print('facebook token is $fbauthtoken');
+    // } catch (error) {
+    //   print(error.toString());
+    // }
     return user;
   }
 
@@ -92,21 +91,21 @@ class FirebaseAuthService {
       assert(user.uid == currentUser.uid);
       final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
 
-      try {
-        print('entered try catch');
-        googleAuthToken =
-            await BackendService().loginWithSocialMedia(googleIdtoken);
+      // try {
+      //   print('entered try catch');
+      //   googleAuthToken =
+      //       await BackendService().loginWithSocialMedia(googleIdtoken);
 
-        print(
-            'Google auth token from loginWithSocialMedia is $googleAuthToken');
+      //   print(
+      //       'Google auth token from loginWithSocialMedia is $googleAuthToken');
 
-        TokenStorage().storeAuthToken(googleAuthToken);
-        //Add a timer for token expiration time
+      //   TokenStorage().storeAuthToken(googleAuthToken);
+      //   //Add a timer for token expiration time
 
-        TokenStorage().loadAuthToken();
-      } catch (e) {
-        print('Damn we got an error: ' + e.toString());
-      }
+      //   TokenStorage().loadAuthToken();
+      // } catch (e) {
+      //   print('Damn we got an error: ' + e.toString());
+      // }
 
       final UserData userData = makeUserDataFromAuthUser(user);
       await DatabaseService(uid: user.uid).updateUserData(userData);

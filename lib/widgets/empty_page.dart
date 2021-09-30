@@ -10,11 +10,13 @@ class EmptyPageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       // Image.asset('assets/images/Placeholder.png'),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
+         
       const CircleAvatar(
         radius: 55,
-        backgroundImage: NetworkImage(
-            'https://www.vippng.com/png/detail/338-3388591_stuart-minion-png-stuart-the-minion.png'),
+        backgroundImage: AssetImage('assets/images/chat_placeholder.png'),
+        // backgroundImage: NetworkImage(
+        //     'https://www.vippng.com/png/detail/338-3388591_stuart-minion-png-stuart-the-minion.png'),
       ),
 
       Padding(
