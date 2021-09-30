@@ -1,0 +1,15 @@
+name: close-issue
+on:
+  schedule:
+    - cron: 0 21 * * 0
+
+jobs:
+  cycle-weekly-close:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: weekly-issue-closure
+        uses: bdougie/close-issues-based-on-label@master
+        env:
+          LABEL: hacktoberfest-accepted
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
