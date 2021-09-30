@@ -3,6 +3,26 @@
 </p>
 
 ## PROJECT-EASTER 
+<p align="center">
+<a href="https://github.com/Project-Easter/Flutter-UI/blob/main/LICENSE" target="blank">
+<img src="https://img.shields.io/github/license/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator license" />
+</a>
+<a href="https://github.com/Project-Easter/Flutter-UI/fork" target="blank">
+<img src="https://img.shields.io/github/forks/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator forks"/>
+</a>
+<a href="https://github.com/Project-Easter/Flutter-UI/stargazers" target="blank">
+<img src="https://img.shields.io/github/stars/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator stars"/>
+</a>
+<a href="https://github.com/Project-Easter/Flutter-UI/issues" target="blank">
+<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator issues"/>
+</a>
+<a href="https://github.com/Project-Easter/Flutter-UI/pulls" target="blank">
+<img src="https://img.shields.io/github/issues-pr/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator pull-requests"/>
+</a>
+<!---<a href="https://discord.gg/HHMs7Eg" target="blank">
+<img src="https://img.shields.io/discord/735303195105951764?label=Join%20Community&logo=discord&style=flat-square" alt="join discord community of github profile readme generator"/>
+</a>-->
+</p>
 
 * A repository of a flutter application which aims to bring bibliophiles together.
 * In this repository, each contributor will be adding their piece of information and getting hands on experience with creating PRs.
