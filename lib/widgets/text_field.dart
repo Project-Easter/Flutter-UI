@@ -67,6 +67,7 @@ class AuthField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            
             obscureText: obscureText,
             validator: validator,
             textAlign: TextAlign.start,

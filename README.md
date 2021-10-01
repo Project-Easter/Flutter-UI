@@ -54,7 +54,7 @@
 * In the future, we want our project to be used by people ranging from hardcore bibliophiles searching for a book they want to read in their locality to university students searching for other students for exchanging their course books.
 * Our horizon is not limited as we want to reach each and every one.
 
-## 💥 Screenshots <a name="screenshots"></a>
+## 💥 Screenshots (Old) <a name="screenshots"></a>
 
 <p align = "Center">
  <img  src="https://user-images.githubusercontent.com/59333817/111777617-88d6ee80-88d9-11eb-994b-ecea2fc9b01c.jpeg" width="30%" height="30%" />
