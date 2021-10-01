@@ -148,6 +148,7 @@ Features to be implemented:
 * Facebook/Email Authentication
 * User Library
 * Adding Bookmarks 
+* Getting books within a location range
 * Themes 
 * App Terms and Conditions
 * Auto-generated mail after the exchange  
