@@ -39,17 +39,20 @@
 ## 📝 Table of Contents
 
 - [📝 Table of Contents](#-table-of-contents)
-- [💡 Aim](#-aim)
+- [💡 Aim <a name = "aim"></a>](#-aim-)
 - [💥 Screenshots](#-screenshots)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🏁 How to contribute](#-how-to-contribute)
-- [1st Release Features](#1st-release-features)
+- [🎈 1st Release Features](#-1st-release-features)
 - [Further Project Details](#further-project-details)
 - [Flutter Resources](#flutter-resources)
 
-## 💡 Aim
+## 💡 Aim <a name = "aim"></a>
 
-Our project aims at providing a platform for users where they can know what their friends are reading and exchange books with them, along with knowing which book is the talk of the town, and we mean it literally. Our project will provide users the service of knowing what is the most read and exchanged books in their desired radius. This is what we mean by knowing what is the talk of the town. In the future, we want our project to be used by people ranging from hardcore bibliophiles searching for a book they want to read in their locality to university students searching for other students for exchanging their course books. Our horizon is not limited as we want to reach each and every one.
+* Our project aims at providing a platform for users where they can know what their friends are reading and exchange books with them, along with knowing which book is the talk of the town, and we mean it literally. 
+* Our project will provide users the service of knowing what is the most read and exchanged books in their desired radius. This is what we mean by knowing what is the talk of the town. 
+* In the future, we want our project to be used by people ranging from hardcore bibliophiles searching for a book they want to read in their locality to university students searching for other students for exchanging their course books.
+* Our horizon is not limited as we want to reach each and every one.
 
 ## 💥 Screenshots
 
@@ -138,7 +141,7 @@ Go to your forked GitHub repository, you will see a *Compare & pull request* but
 <img src="imgs\Compare-Pull-Request.png" alt="make pr"
 style="height:150px; width: 650px;">
 
-## 1st Release Features
+## 🎈 1st Release Features
 
 Features:
 
