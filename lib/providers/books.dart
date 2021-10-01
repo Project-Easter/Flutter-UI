@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:books_app/services/books/books_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
@@ -51,9 +52,11 @@ class Books with ChangeNotifier {
   List<Book> get recommendedBooks {
     return <Book>[..._recommendedBooks];
   }
+  
+  /// Create instance for services books
+  final booksServices = BooksServices();
 
-//Saved Books
-
+  //Saved Books
   List<Book> get savedBooks {
     _savedBooks = <Book>[];
     print('Getter SavedBooks called');
@@ -97,24 +100,15 @@ class Books with ChangeNotifier {
   //   }
   //   return result;
   // }
-Future<dynamic> getBooksbyISBN(String isbn) async {
-    //Add Books from Google API
-    const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
-    try {
-      final http.Response response = await http.get(url + isbn);
-      final dynamic result = jsonDecode(response.body);
-      // print("Result From get Books From ISBN:");
 
-      // print(result);
-      if (result != null) {
-        return result;
-      }
-      return null;
-    } catch (e) {
-      print(e.toString());
-    }
+Future<dynamic> getBooksbyISBN(String isbn) async {
+  try {
+    final Map<String, dynamic> data = await booksServices.getBooksbyISBN(isbn);
+    return data;
+  } catch(_) {
     return null;
   }
+}
 
 
   // Future<dynamic> getBooksbyTitle(String title) async {
@@ -213,18 +207,11 @@ Future<dynamic> getBooksbyISBN(String isbn) async {
   // }
 
   Future<dynamic> topBooks() async {
-    const String recommendedURL =
-        'https://www.googleapis.com/books/v1/volumes?q=isbn';
-
     try {
-      final http.Response response = await http.get(Uri.parse(recommendedURL));
-      final dynamic result = jsonDecode(response.body);
-      print('result from Google API topBook func is $result');
+      final Map<String, dynamic> result = await booksServices.getTop();
       final List<Book> list = result['items'] as List<Book>;
-
       if (result != null) {
         final List<Book> recommendedBooks = <Book>[];
-
         for (dynamic value in list) {
           recommendedBooks.add(makeBook(value));
         }
@@ -238,14 +225,10 @@ Future<dynamic> getBooksbyISBN(String isbn) async {
 
   
   Future<dynamic> getISBNFromName(String title) async {
-    const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
     try {
-      final http.Response response = await http.get(url + title);
-      final dynamic resultJson = jsonDecode(response.body);
-      if (resultJson != null) {
-        final String isbn = resultJson['items'][0]['volumeInfo']
-                ['industryIdentifiers'][1]['identifier']
-            .toString();
+      final Map<String, dynamic> result = await booksServices.search(title);
+      if (result != null) {
+        final String isbn = result['items'][0]['volumeInfo']['industryIdentifiers'][1]['identifier'].toString();
         return isbn;
       }
       return null;
