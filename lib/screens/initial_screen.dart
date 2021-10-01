@@ -55,10 +55,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.muli(
-                        color: blackButton,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600),
+                    style: GoogleFonts.muli(color: blackButton, fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 25,
@@ -69,10 +66,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const <Widget>[
-                          EmailTextField(),
-                          PasswordTextField()
-                        ],
+                        children: const <Widget>[EmailTextField(), PasswordTextField()],
                       ),
                     ),
                   ),
@@ -83,8 +77,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        final bool isFormValid =
-                            formKey.currentState.validate();
+                        final bool isFormValid = formKey.currentState.validate();
                         if (!isFormValid)
                           return;
                         else
@@ -169,8 +162,7 @@ class _InitialScreenState extends State<InitialScreen> {
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           // primary: Color(0xFF246BFD),
           primary: blackButton,
         ),

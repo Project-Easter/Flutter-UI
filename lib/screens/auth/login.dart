@@ -84,10 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Text(
                 'Register',
-                style: GoogleFonts.muli(
-                    color: const Color.fromRGBO(224, 39, 20, 1),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+                style: GoogleFonts.muli(color: const Color.fromRGBO(224, 39, 20, 1), fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ],
           ),
