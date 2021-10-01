@@ -39,15 +39,15 @@
 ## 📝 Table of Contents
 
 <!-- - [ Table of Contents](#-table-of-contents) -->
-- [💡 Aim <a name = "aim"></a>](#-aim-)
+- [🎯 Aim <a name = "aim"></a>](#-aim-)
 - [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
-- [🏁 How to contribute <a name="usage"></a>](#-how-to-contribute-)
+- [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
-
-## 💡 Aim <a name = "aim"></a>
+- [🙏 Show your support <a name="star"></a>](#-star-support)
+## 🎯 Aim <a name = "aim"></a>
 
 * Our project aims at providing a platform for users where they can know what their friends are reading and exchange books with them, along with knowing which book is the talk of the town, and we mean it literally. 
 * Our project will provide users the service of knowing what is the most read and exchanged books in their desired radius. This is what we mean by knowing what is the talk of the town. 
@@ -82,7 +82,7 @@
 * [Mapbox API](https://www.mapbox.com/)
 * [Google Books API](https://developers.google.com/books/docs/v1/using)
 
-## 🏁 How to contribute <a name="usage"></a>
+## 🍰 How to contribute <a name="usage"></a>
 
 **Step 1: Fork this repository**
 * A fork will create a copy of this repository in your GitHub account.
@@ -121,7 +121,13 @@ Use the same name in the branch created in GitHub.
 git add <file names>
 ```
 
-4. Commit these changes using the command:
+4. Pull the changes from the upstream repo using the command:
+
+```
+git pull upstream main
+```
+
+5. Then commit these changes using the command:
 
 ```
 git commit -m'<Relevant commit message>'
@@ -140,6 +146,9 @@ git push origin <hacktober/your-first-name>
 Go to your forked GitHub repository, you will see a *Compare & pull request* button. Click on it.
 <img src="imgs\Compare-Pull-Request.png" alt="make pr"
 style="height:150px; width: 650px;">
+
+
+Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDUCT`](CODE_OF_CONDUCT.md), and the process for submitting pull requests to us as mentioned above.
 
 ## 🎈 1st Release Features <a name="features"></a>
 
@@ -165,3 +174,9 @@ Features to be implemented:
 * [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 * [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 * [Flutter Documentation](https://flutter.dev/docs)
+
+## 🙏 Show your support <a name="star"></a>
+
+⭐️ this repository if you liked our work!
+
+<br />
