@@ -32,8 +32,8 @@ class DatabaseService {
     return userDataCollection
         .doc(uid)
         .snapshots()
-        // .map((snapshot) => _userDataFromSnapShot(snapshot));
-        .map(_userDataFromSnapShot);
+        .map((DocumentSnapshot snapshot) => _userDataFromSnapShot(snapshot));
+        // .map(_userDataFromSnapShot);
   }
 
   //Update Users Location
