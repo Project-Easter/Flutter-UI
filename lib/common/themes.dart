@@ -10,10 +10,9 @@ final ThemeData darkTheme = ThemeData(
     headline6: TextStyle(color: Colors.white),
   ),
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color.fromRGBO(18, 19, 33, 1),
+    color: Color.fromRGBO(18, 19, 33, 1),
     iconTheme: IconThemeData(color: Colors.white),
     actionsIconTheme: IconThemeData(color: Colors.white),
-    foregroundColor: Colors.white,
   ),
   // brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),

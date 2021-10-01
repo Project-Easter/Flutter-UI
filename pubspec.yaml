@@ -30,7 +30,7 @@ dependencies:
   firebase_auth: ^0.20.0+1
   cloud_firestore: ^0.16.0
   firebase_storage: ^7.0.0
-  readmore: ^2.0.0
+  readmore: ^1.0.1
   google_fonts: ^1.1.1
   google_sign_in: "^4.5.1"
   flutter_login_facebook: ^0.4.2+3
@@ -39,18 +39,18 @@ dependencies:
   location: ^3.2.4
   provider: ^4.3.3
   image_picker: ^0.6.7+3
-  image_cropper: ^1.4.0
+  image_cropper: ^1.3.1
   shared_preferences: ^0.5.3+4
   # geolocator: 6.2.1
   intl: ^0.16.1
   http: ^0.12.0+2
   geocoding: ^1.0.5
   geocoder: ^0.2.1
-  flutter_map: ^0.12.0
+  flutter_map: ^0.11.0
   latlong: ^0.6.1
   url_launcher: ^5.7.10
-  flutter_secure_storage: ^4.2.1
-  pinput: ^1.2.0
+  flutter_secure_storage: ^3.3.5
+  pinput: ^1.0.0
   chips_choice: ^2.0.1
   quotes: ^0.0.2
   # geoflutterfire: ^2.2.2

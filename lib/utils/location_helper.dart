@@ -1,4 +1,3 @@
-import 'package:geocoder/geocoder.dart';
 import 'package:latlong/latlong.dart';
 // import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';

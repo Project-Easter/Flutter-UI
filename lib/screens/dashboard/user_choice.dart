@@ -48,7 +48,7 @@ class UserChoice extends StatelessWidget {
                           fontWeight: FontWeight.w500, fontSize: 16),
                     ),
                     onPressed: () async {
-                      await showGeneralDialog(
+                      await showGeneralDialog<void>(
                           // barrierColor: Colors.black.withOpacity(0.5),
                           barrierLabel: 'Animation',
                           barrierDismissible: true,

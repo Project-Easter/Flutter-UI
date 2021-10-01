@@ -145,13 +145,11 @@ class _AddBookState extends State<AddBook> {
                                 action: SnackBarAction(
                                   label: 'Close',
                                   onPressed: () {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
+                                    Scaffold.of(context).hideCurrentSnackBar();
                                   },
                                 ),
                               );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackbar);
+                              Scaffold.of(context).showSnackBar(snackbar);
                             }
                           }
                         }

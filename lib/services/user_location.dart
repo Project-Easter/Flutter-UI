@@ -1,15 +1,12 @@
-import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/utils/location_helper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong/latlong.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetLocation extends StatefulWidget {
