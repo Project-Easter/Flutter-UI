@@ -38,7 +38,7 @@
 
 ## 📝 Table of Contents
 
-- [📝 Table of Contents](#-table-of-contents)
+<!-- - [ Table of Contents](#-table-of-contents) -->
 - [💡 Aim <a name = "aim"></a>](#-aim-)
 - [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
