@@ -78,16 +78,20 @@ Our project aims at providing a platform for users where they can know what thei
 * Cloning will create the copy of the forked repository in your local machine.
 * Copy the URL from here.
 <img src="imgs\Screenshot 2021-09-30 193003.png" alt="clone" style="height: 300px; weight: 250px;">
+
 * Open Git Bash or terminal and run the following command:
+
 ```
 git clone https://github.com/<Your GitHub Username>/Flutter-UI.git
 ```
+
 **Step 3: Create a branch:**
 * Creating your own branch separates your changes with *main* branch. For example, if things go wrong or you are not satisfied with them, then you can delete your branch and the *main* project won't be affected.
 
 Navigate to the folder where the repository is cloned, which will be named *Flutter-UI*.
 
 Now, in the terminal, create a branch in Git using the following command:
+
 ```
 git checkout -b <hacktober/your-first-name>
 ```
@@ -98,10 +102,13 @@ Use the same name in the branch created in GitHub.
 1. Open the project in Android Studio or VS Code(*recommended*) and make sure that you are on **the branch created by you**, not on *main*.
 2. Make the changes on the concerned files in order to implement a feature you want to add or resolve an issue.
 3. After you are satisfied with your changes, you can add these changes by using the command:
+
 ```
 git add <file names>
 ```
+
 4. Commit these changes using the command:
+
 ```
 git commit -m'<Relevant commit message>'
 ```
@@ -109,6 +116,7 @@ git commit -m'<Relevant commit message>'
 **Step 5: Push changes**
 
 Push your changes using the command:
+
 ```
 git push origin <hacktober/your-first-name>
 ```
