@@ -40,12 +40,12 @@
 
 - [📝 Table of Contents](#-table-of-contents)
 - [💡 Aim <a name = "aim"></a>](#-aim-)
-- [💥 Screenshots](#-screenshots)
+- [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
-- [🏁 How to contribute](#-how-to-contribute)
-- [🎈 1st Release Features](#-1st-release-features)
-- [Further Project Details](#further-project-details)
-- [Flutter Resources](#flutter-resources)
+- [🏁 How to contribute <a name="usage"></a>](#-how-to-contribute-)
+- [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
+- [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
+- [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
 
 ## 💡 Aim <a name = "aim"></a>
 
@@ -54,7 +54,7 @@
 * In the future, we want our project to be used by people ranging from hardcore bibliophiles searching for a book they want to read in their locality to university students searching for other students for exchanging their course books.
 * Our horizon is not limited as we want to reach each and every one.
 
-## 💥 Screenshots
+## 💥 Screenshots <a name="screenshots"></a>
 
 <p align = "Center">
  <img  src="https://user-images.githubusercontent.com/59333817/111777617-88d6ee80-88d9-11eb-994b-ecea2fc9b01c.jpeg" width="30%" height="30%" />
@@ -82,7 +82,7 @@
 * [Mapbox API](https://www.mapbox.com/)
 * [Google Books API](https://developers.google.com/books/docs/v1/using)
 
-## 🏁 How to contribute
+## 🏁 How to contribute <a name="usage"></a>
 
 **Step 1: Fork this repository**
 * A fork will create a copy of this repository in your GitHub account.
@@ -141,27 +141,25 @@ Go to your forked GitHub repository, you will see a *Compare & pull request* but
 <img src="imgs\Compare-Pull-Request.png" alt="make pr"
 style="height:150px; width: 650px;">
 
-## 🎈 1st Release Features
+## 🎈 1st Release Features <a name="features"></a>
 
-Features:
+Features to be implemented:
 
-* Google/Facebook/Mobile Authentication
+* Facebook/Email Authentication
 * User Library
-* Mapbox Location API
 * Adding Bookmarks 
-* Profile Page UI
-* Settings UI
+* Themes 
 * App Terms and Conditions
 * Auto-generated mail after the exchange  
 * Book Recommendations via ML
 * Manually changing the location. 
 
-## Further Project Details
+## 🚩 Further Project Details <a name="further_details"></a>
 
 * [Design (Might get changed in future)](https://www.figma.com/file/uhWQuE4EKDHR8AqH4p3eFK/Books-App?node-id=0%3A1)
 * [Presentation](https://docs.google.com/presentation/d/1JixGIcBdiv_HLNc6sxt516U3mi4K08a_/edit#slide=id.p5)
 
-## Flutter Resources
+## ⚡ Flutter Resources <a name="resources"></a>
 
 * [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 * [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
