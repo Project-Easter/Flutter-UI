@@ -1,9 +1,15 @@
 <p align="center">
+  <a href="" rel="noopener">
+ <img src="https://hacktoberfest.digitalocean.com/_nuxt/img/logo-hacktoberfest-full.f42e3b1.svg" alt="Hacktober"></a>
+</p>
+<h2 align="center">Explr</h3>
+
+<p align="center">
   <img src="assets\images\Explr Logo.png" alt="App Logo" style = " height: 150px; width: 150px;"/>
 </p>
 
-## PROJECT-EASTER 
-<p align="center">
+<!-- ## PROJECT-EASTER  -->
+<div align="center">
 <a href="https://github.com/Project-Easter/Flutter-UI/blob/main/LICENSE" target="blank">
 <img src="https://img.shields.io/github/license/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator license" />
 </a>
@@ -22,25 +28,30 @@
 <!---<a href="https://discord.gg/HHMs7Eg" target="blank">
 <img src="https://img.shields.io/discord/735303195105951764?label=Join%20Community&logo=discord&style=flat-square" alt="join discord community of github profile readme generator"/>
 </a>-->
+</div>
+
+---
+
+<p align="center"> The project is for all book lovers who want to find other book lovers to either exchange books, discuss about books or get to know people who have similar preference when it comes to reading.
+    <br> 
 </p>
 
-* A repository of a flutter application which aims to bring bibliophiles together.
-* In this repository, each contributor will be adding their piece of information and getting hands on experience with creating PRs.
-## Table of contents
+## 📝 Table of Contents
 
-* [Aim](#aim)
-* [Screenshots](#screenshots)
-* [Technologies](#technologies)
-* [Setup](#setup)
-* [1st Release Features](#1st-release-features)
-* [Further Project Details](#further-project-details)
-* [Flutter Resources](#flutter-resources)
+- [📝 Table of Contents](#-table-of-contents)
+- [💡 Aim](#-aim)
+- [💥 Screenshots](#-screenshots)
+- [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
+- [🏁 How to contribute](#-how-to-contribute)
+- [1st Release Features](#1st-release-features)
+- [Further Project Details](#further-project-details)
+- [Flutter Resources](#flutter-resources)
 
-## Aim
+## 💡 Aim
 
 Our project aims at providing a platform for users where they can know what their friends are reading and exchange books with them, along with knowing which book is the talk of the town, and we mean it literally. Our project will provide users the service of knowing what is the most read and exchanged books in their desired radius. This is what we mean by knowing what is the talk of the town. In the future, we want our project to be used by people ranging from hardcore bibliophiles searching for a book they want to read in their locality to university students searching for other students for exchanging their course books. Our horizon is not limited as we want to reach each and every one.
 
-## Screenshots
+## 💥 Screenshots
 
 <p align = "Center">
  <img  src="https://user-images.githubusercontent.com/59333817/111777617-88d6ee80-88d9-11eb-994b-ecea2fc9b01c.jpeg" width="30%" height="30%" />
@@ -61,14 +72,14 @@ Our project aims at providing a platform for users where they can know what thei
   </p>
   <br>
 
-## Technologies
+## ⛏️ Built With <a name = "tech_stack"></a>
 
 * [Flutter](https://flutter.dev/)  
 * [Firebase](https://firebase.google.com/)
-* [Figma](https://www.figma.com/)
 * [Mapbox API](https://www.mapbox.com/)
+* [Google Books API](https://developers.google.com/books/docs/v1/using)
 
-## How to contribute
+## 🏁 How to contribute
 
 **Step 1: Fork this repository**
 * A fork will create a copy of this repository in your GitHub account.
@@ -129,7 +140,7 @@ style="height:150px; width: 650px;">
 
 ## 1st Release Features
 
-List of features ready:
+Features:
 
 * Google/Facebook/Mobile Authentication
 * User Library
@@ -137,21 +148,14 @@ List of features ready:
 * Adding Bookmarks 
 * Profile Page UI
 * Settings UI
-
-To-do list:
-
 * App Terms and Conditions
 * Auto-generated mail after the exchange  
 * Book Recommendations via ML
-* Manually changing the location.
-* User Ratings
-* User Reviews
-* Backend Integrations  
+* Manually changing the location. 
 
 ## Further Project Details
 
 * [Design (Might get changed in future)](https://www.figma.com/file/uhWQuE4EKDHR8AqH4p3eFK/Books-App?node-id=0%3A1)
-* [Documentation](https://docs.google.com/document/d/1vd0gLJV_nUYALC1hlKB3z4tfM7827aw105ZUXYMtMSE/edit#)
 * [Presentation](https://docs.google.com/presentation/d/1JixGIcBdiv_HLNc6sxt516U3mi4K08a_/edit#slide=id.p5)
 
 ## Flutter Resources
