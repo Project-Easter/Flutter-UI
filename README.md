@@ -39,14 +39,16 @@
 ## 📝 Table of Contents
 
 <!-- - [ Table of Contents](#-table-of-contents) -->
+- [📝 Table of Contents](#-table-of-contents)
 - [🎯 Aim <a name = "aim"></a>](#-aim-)
-- [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
+- [💥 Screenshots (Old) <a name="screenshots"></a>](#-screenshots-old-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
+- [📜 Important Guidelines <a name="imp"></a>](#-important-guidelines-)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
-- [🙏 Show your support <a name="star"></a>](#-star-support)
+- [🙏 Show your support <a name="star"></a>](#-show-your-support-)
 ## 🎯 Aim <a name = "aim"></a>
 
 * Our project aims at providing a platform for users where they can know what their friends are reading and exchange books with them, along with knowing which book is the talk of the town, and we mean it literally. 
@@ -149,6 +151,20 @@ style="height:150px; width: 650px;">
 
 
 Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDUCT`](CODE_OF_CONDUCT.md), and the process for submitting pull requests to us as mentioned above.
+
+## 📜 Important Guidelines <a name="imp"></a>
+
+* Use latest Flutter version 2.5 before forking the repository.
+* Comment on the issue you want to work, tagging me (<a href="https://github.com/Mohitmadhav">@Mohitmadhav</a>) or Ankit (<a href="https://github.com/ankitoscar">@ankitoscar</a>).
+* Then only you'll be assigned with the issues and your PRs will be considered.
+* Create you branches with branchname *hacktober/your-first-name* only in your forked repository.
+* You can only work on one issue at a time.
+* **Do not** make any changes in the **main** branch or the original repository, or else the project will get cluttered. 
+* **Refrain** to make the pull requests without getting an issue assigned. 
+* Follow the given pull request template properly.
+* Always do *git pull upstream main* before pushing any changes in your branch.
+
+PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇
 
 ## 🎈 1st Release Features <a name="features"></a>
 
