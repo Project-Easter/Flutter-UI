@@ -156,12 +156,15 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 
 * Use latest Flutter version 2.5 before forking the repository.
 * Comment on the issue you want to work, tagging me (<a href="https://github.com/Mohitmadhav">@Mohitmadhav</a>) or Ankit (<a href="https://github.com/ankitoscar">@ankitoscar</a>).
-* Then only you'll be assigned with the issues and your PR will be considered.
+* Then only you'll be assigned with the issues and your PRs will be considered.
 * Create you branches with branchname *hacktober/your-first-name* only in your forked repository.
+* You can only work on one issue at a time.
 * **Do not** make any changes in the **main** branch or the original repository, or else the project will get cluttered. 
+* **Refrain** to make the pull requests without getting an issue assigned. 
+* Follow the given pull request template properly.
 * Always do *git pull upstream main* before pushing any changes in your branch.
 
-PS: Feel free to share your ideas and opening issues for bugs or features 😇
+PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇
 
 ## 🎈 1st Release Features <a name="features"></a>
 
