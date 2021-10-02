@@ -11,9 +11,9 @@ class ForgotPasswordScreen extends StatefulWidget {
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
-   {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController _emailController = TextEditingController();
   // final BackendService authService = BackendService();
 
   @override
@@ -31,7 +31,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
               key: formKey,
               child: Column(
                 children: <Widget>[
-                  EmailTextField(),
+                  EmailTextField(_emailController),
                 ],
               ),
             ),

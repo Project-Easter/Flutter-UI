@@ -16,8 +16,8 @@ class InitialScreen extends StatefulWidget {
 class _InitialScreenState extends State<InitialScreen> {
   //Init FirebaseFirebaseAuthService
 
-  // final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -69,9 +69,9 @@ class _InitialScreenState extends State<InitialScreen> {
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const <Widget>[
-                          EmailTextField(),
-                          PasswordTextField()
+                        children: <Widget>[
+                          EmailTextField(_emailController),
+                          PasswordTextField(_passwordController)
                         ],
                       ),
                     ),
@@ -175,7 +175,7 @@ class _InitialScreenState extends State<InitialScreen> {
           primary: blackButton,
         ),
         onPressed: () async {
-          Navigator.popAndPushNamed(context, Routes.REGISTER);
+          Navigator.pushNamed(context, Routes.REGISTER);
         },
         icon: const Icon(
           Icons.mail_outline_outlined,
