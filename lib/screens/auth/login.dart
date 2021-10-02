@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Form(
               key: formKey,
               child: Column(
-                children: [const EmailTextField(), const PasswordTextField()],
+                children: const [EmailTextField(), PasswordTextField()],
               ),
             ),
             Button(
@@ -41,13 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.pushNamed(context, Routes.HOME);
               },
             ),
-            // AuthButton(
-            //   text: 'Sign in',
-            //   formKey: formKey,
-            //   onClick: onSubmit,
-            //   onSuccess: onSuccess,
-            //   onError: onError,
-            // ),
             buildForgotPasswordButton(),
             buildRegisterButton(),
           ],
@@ -91,10 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Text(
                 'Register',
-                style: GoogleFonts.muli(
-                    color: const Color.fromRGBO(224, 39, 20, 1),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+                style: GoogleFonts.muli(color: const Color.fromRGBO(224, 39, 20, 1), fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -105,13 +95,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  // Future<String> onSubmit() async {
-  //   return authService.login(email, password);
-  // }
-
-  // Future<Object> onSuccess() {
-  //   print('Logged in successfully');
-  //   return Navigator.pushNamed(context, Routes.DASHBOARD);
-  // }
 }

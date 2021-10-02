@@ -3,6 +3,7 @@ import 'package:books_app/constants/routes.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/auth/social_media_handles.dart';
 import 'package:books_app/widgets/button.dart';
+import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,8 +13,7 @@ class InitialScreen extends StatefulWidget {
   _InitialScreenState createState() => _InitialScreenState();
 }
 
-class _InitialScreenState extends State<InitialScreen>
-    {
+class _InitialScreenState extends State<InitialScreen> {
   //Init FirebaseFirebaseAuthService
 
   // final TextEditingController _emailController = TextEditingController();
@@ -55,10 +55,7 @@ class _InitialScreenState extends State<InitialScreen>
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.muli(
-                        color: blackButton,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600),
+                    style: GoogleFonts.muli(color: blackButton, fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 25,
@@ -69,12 +66,7 @@ class _InitialScreenState extends State<InitialScreen>
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          // EmailTextField(onChanged: updateEmail),
-                          // PasswordTextField(onChanged: updatePassword)
-
-
-                        ],
+                        children: const <Widget>[EmailTextField(), PasswordTextField()],
                       ),
                     ),
                   ),
@@ -85,9 +77,11 @@ class _InitialScreenState extends State<InitialScreen>
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        final bool isFormValid =
-                            formKey.currentState.validate();
-                        if (!isFormValid) return;
+                        final bool isFormValid = formKey.currentState.validate();
+                        if (!isFormValid)
+                          return;
+                        else
+                          Navigator.pushNamed(context, Routes.HOME);
                       },
                     ),
                     // child: AuthButton(
@@ -168,8 +162,7 @@ class _InitialScreenState extends State<InitialScreen>
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           // primary: Color(0xFF246BFD),
           primary: blackButton,
         ),
