@@ -43,7 +43,7 @@
 - [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
-- [⚠️Important <a name="imp"></a>](#-implement-)
+- [📜 Important Guidelines <a name="imp"></a>](#-important-guideleines-)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
@@ -151,7 +151,7 @@ style="height:150px; width: 650px;">
 
 Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDUCT`](CODE_OF_CONDUCT.md), and the process for submitting pull requests to us as mentioned above.
 
-## ⚠️ Important  <a name="imp"></a>
+## 📜 Important  <a name="imp"></a>
 
 * Use latest Flutter version 2.5 before forking the repository.
 * Comment on the issue you want to work, tagging me (@Mohitmadhav) or Ankit (@ankitoscar).
