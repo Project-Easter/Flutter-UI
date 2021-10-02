@@ -47,7 +47,7 @@
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
-- [🙏 Show your support <a name="star"></a>](#-star-support)
+- [🙏 Show your support <a name="star"></a>](#-show-your-support-)
 ## 🎯 Aim <a name = "aim"></a>
 
 * Our project aims at providing a platform for users where they can know what their friends are reading and exchange books with them, along with knowing which book is the talk of the town, and we mean it literally. 
