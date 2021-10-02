@@ -43,7 +43,7 @@
 - [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
-- [📜 Important Guidelines <a name="imp"></a>](#-important-guideleines-)
+- [📜 Important Guidelines <a name="imp"></a>](#-important-)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
@@ -154,7 +154,7 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 ## 📜 Important  <a name="imp"></a>
 
 * Use latest Flutter version 2.5 before forking the repository.
-* Comment on the issue you want to work, tagging me (@Mohitmadhav) or Ankit (@ankitoscar).
+* Comment on the issue you want to work, tagging me (<a href="https://github.com/Mohitmadhav">@Mohitmadhav</a>) or Ankit (<a href="https://github.com/ankitoscar">@ankitoscar</a>).
 * Then only you'll be assigned with the issues and your PR will be considered.
 * Create you branches with branchname *hacktober/your-first-name* only in your forked repository.
 * **Do not** make any changes in the **main** branch or the original repository, or else the project will get cluttered. 
