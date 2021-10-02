@@ -16,8 +16,8 @@ class InitialScreen extends StatefulWidget {
 class _InitialScreenState extends State<InitialScreen> {
   //Init FirebaseFirebaseAuthService
 
-  // final TextEditingController _emailController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -55,10 +55,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.muli(
-                        color: blackButton,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600),
+                    style: GoogleFonts.muli(color: blackButton, fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 25,
@@ -69,10 +66,14 @@ class _InitialScreenState extends State<InitialScreen> {
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const <Widget>[
-                          EmailTextField(),
-                          PasswordTextField()
+<<<<<<< HEAD
+                        children: <Widget>[
+                          EmailTextField(_emailController),
+                          PasswordTextField(_passwordController)
                         ],
+=======
+                        children: const <Widget>[EmailTextField(), PasswordTextField()],
+>>>>>>> 6add99a4b3dfe78ada5b2da97b21bbcbfabeab59
                       ),
                     ),
                   ),
@@ -83,8 +84,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        final bool isFormValid =
-                            formKey.currentState.validate();
+                        final bool isFormValid = formKey.currentState.validate();
                         if (!isFormValid)
                           return;
                         else
@@ -169,13 +169,12 @@ class _InitialScreenState extends State<InitialScreen> {
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           // primary: Color(0xFF246BFD),
           primary: blackButton,
         ),
         onPressed: () async {
-          Navigator.popAndPushNamed(context, Routes.REGISTER);
+          Navigator.pushNamed(context, Routes.REGISTER);
         },
         icon: const Icon(
           Icons.mail_outline_outlined,

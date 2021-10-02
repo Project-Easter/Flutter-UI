@@ -15,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,10 @@ class _LoginScreenState extends State<LoginScreen> {
             Form(
               key: formKey,
               child: Column(
-                children: const [EmailTextField(), PasswordTextField()],
+                children: [
+                  EmailTextField(_emailController),
+                  PasswordTextField(_passwordController)
+                ],
               ),
             ),
             Button(
@@ -84,10 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Text(
                 'Register',
-                style: GoogleFonts.muli(
-                    color: const Color.fromRGBO(224, 39, 20, 1),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+                style: GoogleFonts.muli(color: const Color.fromRGBO(224, 39, 20, 1), fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ],
           ),

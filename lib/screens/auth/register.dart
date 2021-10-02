@@ -1,10 +1,12 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/auth/auth_error_message.dart';
 import 'package:books_app/widgets/auth/auth_navigation.dart';
 import 'package:books_app/widgets/auth/auth_page_title.dart';
 import 'package:books_app/widgets/button.dart';
 import 'package:books_app/widgets/text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -15,6 +17,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +35,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Form(
                   key: formKey,
                   child: Column(
-                    children: [EmailTextField(), PasswordTextField()],
+
+                    children: <Widget>[
+                      EmailTextField(_emailController),
+                      PasswordTextField(_passwordController)
+                    ],
                   ),
                 ),
                 Button(
                   name: 'Sign up',
                   color: blackButton,
                   myFunction: () async {
-                    Navigator.pushNamed(context, Routes.DASHBOARD);
+
+                    if (formKey.currentState.validate()) {
+                      final UserCredential userCredential =
+                          await FirebaseAuthService().signUpWithEmail(context,
+                              _emailController.text, _passwordController.text);
+                      if (userCredential != null) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, Routes.HOME, (route) => false);
+                      }
+                    }
+
                   },
                 )
                 // AuthButton(

@@ -5,22 +5,24 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EmailTextField extends AuthField {
-  const EmailTextField()
+  const EmailTextField(TextEditingController controller)
       : super(
             // onChanged: onChanged,
             text: 'Email Address',
             obscureText: false,
             validator: Validator.email,
-            keyboardType: TextInputType.emailAddress);
+            keyboardType: TextInputType.emailAddress,
+            controller: controller);
 }
 
 class PasswordTextField extends AuthField {
-  const PasswordTextField()
+  const PasswordTextField(TextEditingController controller)
       : super(
             // onChanged: onChanged,
             text: 'Password',
             obscureText: true,
-            validator: Validator.password);
+            validator: Validator.password,
+            controller: controller);
 }
 
 class AuthField extends StatelessWidget {
@@ -29,6 +31,7 @@ class AuthField extends StatelessWidget {
   final bool obscureText;
   final String Function(String) validator;
   final TextInputType keyboardType;
+  final TextEditingController controller;
 
   const AuthField({
     // this.onChanged,
@@ -36,6 +39,7 @@ class AuthField extends StatelessWidget {
     this.obscureText,
     this.validator,
     this.keyboardType = TextInputType.text,
+    this.controller,
   });
 
   @override
@@ -58,6 +62,7 @@ class AuthField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            controller: controller,
             obscureText: obscureText,
             validator: validator,
             textAlign: TextAlign.start,
