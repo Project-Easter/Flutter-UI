@@ -160,10 +160,12 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 * Then only you'll be assigned with the issues and your PRs will be considered.
 * Create you branches with branchname *hacktober/your-first-name* only in your forked repository.
 * You can only work on one issue at a time.
-* **Do not** make any changes in the **main** branch or the original repository, or else the project will get cluttered. 
+* **Do not** make any changes in the **main** branch or the original repository. 
 * **Refrain** to make the pull requests without getting an issue assigned. 
 * Follow the given pull request template properly.
 * Always do *git pull upstream main* before pushing any changes in your branch.
+* Please follow the linting rules and standard practices as specified in [`analysis_option.yaml`](analysis_options.yaml) to avoid unnecessary warnings
+
 
 PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇
 
