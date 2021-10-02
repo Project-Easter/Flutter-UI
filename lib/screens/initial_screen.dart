@@ -66,14 +66,10 @@ class _InitialScreenState extends State<InitialScreen> {
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-<<<<<<< HEAD
                         children: <Widget>[
                           EmailTextField(_emailController),
                           PasswordTextField(_passwordController)
                         ],
-=======
-                        children: const <Widget>[EmailTextField(), PasswordTextField()],
->>>>>>> 6add99a4b3dfe78ada5b2da97b21bbcbfabeab59
                       ),
                     ),
                   ),
