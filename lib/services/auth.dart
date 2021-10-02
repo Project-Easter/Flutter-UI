@@ -1,7 +1,9 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/keys_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -111,5 +113,27 @@ class FirebaseAuthService {
       await DatabaseService(uid: user.uid).updateUserData(userData);
       return user;
     }
+  }
+
+  Future<UserCredential> signUpWithEmail(
+      BuildContext context, String email, String pass) async {
+    try {
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: pass);
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: blackButton,
+            content: Text('The password provided is too weak.')));
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: blackButton,
+            content: Text('The account already exists for that email.')));
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 }

@@ -16,11 +16,10 @@ class ResetPasswordScreen extends StatefulWidget {
       _ResetPasswordScreenState(email: email);
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen>
-   {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  TextEditingController _passwordController = TextEditingController();
   String email;
 
   _ResetPasswordScreenState({this.email});
@@ -41,17 +40,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                     key: formKey,
                     child: Column(
                       children: <Widget>[
-                        ConfirmationCodeTextField(
-                           ),
-                        PasswordTextField()
+                        ConfirmationCodeTextField(),
+                        PasswordTextField(_passwordController)
                       ],
                     ),
                   ),
                   Button(
-                    myFunction: ()async{
-                          Navigator.pushReplacementNamed(context, Routes.INITIAL_PAGE);
+                    myFunction: () async {
+                      Navigator.pushReplacementNamed(
+                          context, Routes.INITIAL_PAGE);
                     },
-                    color:blackButton,
+                    color: blackButton,
                     name: 'Continue',
                     // formKey: formKey,
                     // onClick: onSubmit,
