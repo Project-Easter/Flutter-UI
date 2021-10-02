@@ -21,7 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  font_awesome_flutter: ^8.11.0
+  font_awesome_flutter: ^9.0.0
   flutter:
     sdk: flutter
 
@@ -53,6 +53,7 @@ dependencies:
   pinput: ^1.2.0
   chips_choice: ^2.0.1
   quotes: ^0.0.2
+  flutter_signin_button: ^2.0.0
   # geoflutterfire: ^2.2.2
   #flutter_map also includes latlng
 dev_dependencies:
