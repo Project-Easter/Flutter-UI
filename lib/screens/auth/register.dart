@@ -42,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   name: 'Sign up',
                   color: blackButton,
                   myFunction: ()async {
-                     Navigator.pushNamed(context,Routes.CONFIRM_EMAIL);
+                     Navigator.pushNamed(context,Routes.DASHBOARD);
                   },
                 )
                 // AuthButton(

@@ -1,6 +1,5 @@
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/screens/add_book.dart';
-import 'package:books_app/screens/auth/confirm_email.dart';
 import 'package:books_app/screens/auth/forgot_password.dart';
 import 'package:books_app/screens/auth/login.dart';
 import 'package:books_app/screens/auth/register.dart';
@@ -33,10 +32,6 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => PrivacyPolicy());
       case Routes.TERMS_CONDITION:
         return MaterialPageRoute<dynamic>(builder: (_) => TermsCondition());
-      case Routes.CONFIRM_EMAIL:
-        return MaterialPageRoute<dynamic>(
-            builder: (_) =>
-                ConfirmEmailScreen(email: settings.arguments as String));
       case Routes.DASHBOARD:
         return MaterialPageRoute<dynamic>(builder: (_) => DashboardPage());
       case Routes.FORGOT_PASSWORD:
