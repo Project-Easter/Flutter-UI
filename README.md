@@ -39,11 +39,12 @@
 ## 📝 Table of Contents
 
 <!-- - [ Table of Contents](#-table-of-contents) -->
+- [📝 Table of Contents](#-table-of-contents)
 - [🎯 Aim <a name = "aim"></a>](#-aim-)
-- [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
+- [💥 Screenshots (Old) <a name="screenshots"></a>](#-screenshots-old-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
-- [📜 Important Guidelines <a name="imp"></a>](#-important-guidelines-)
+- [📜 Important  <a name="imp"></a>](#-important--)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
