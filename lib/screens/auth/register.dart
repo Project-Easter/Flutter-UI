@@ -12,8 +12,7 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen>
-   {
+class _RegisterScreenState extends State<RegisterScreen> {
   // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -32,17 +31,14 @@ class _RegisterScreenState extends State<RegisterScreen>
                 Form(
                   key: formKey,
                   child: Column(
-                    children: <Widget>[
-                      EmailTextField(),
-                      PasswordTextField()
-                    ],
+                    children: [EmailTextField(), PasswordTextField()],
                   ),
                 ),
                 Button(
                   name: 'Sign up',
                   color: blackButton,
-                  myFunction: ()async {
-                     Navigator.pushNamed(context,Routes.CONFIRM_EMAIL);
+                  myFunction: () async {
+                    Navigator.pushNamed(context, Routes.DASHBOARD);
                   },
                 )
                 // AuthButton(
