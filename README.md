@@ -43,7 +43,7 @@
 - [💥 Screenshots <a name="screenshots"></a>](#-screenshots-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
-- [📜 Important Guidelines <a name="imp"></a>](#-important-)
+- [📜 Important Guidelines <a name="imp"></a>](#-important-guidelines-)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
