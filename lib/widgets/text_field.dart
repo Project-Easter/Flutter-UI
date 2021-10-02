@@ -4,15 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ConfirmationCodeTextField extends AuthField {
-  const ConfirmationCodeTextField()
-      : super(
-            // onChanged: onChanged,
-            text: 'Confirmation code',
-            obscureText: false,
-            validator: Validator.confirmationCode);
-}
-
 class EmailTextField extends AuthField {
   const EmailTextField()
       : super(
@@ -67,7 +58,6 @@ class AuthField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
-            
             obscureText: obscureText,
             validator: validator,
             textAlign: TextAlign.start,
@@ -80,7 +70,6 @@ class AuthField extends StatelessWidget {
               ),
               contentPadding: const EdgeInsets.all(10),
             ),
-           
           ),
         ),
       ),
