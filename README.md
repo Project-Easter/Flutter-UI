@@ -50,7 +50,7 @@
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
 - [📜 Important Guidelines <a name="imp"></a>](#-important-guidelines-)
-- [🙋‍♂️ Discussion <a name="discussion"></a>](#-discussion-)
+- [🙋‍♂️ Discussion <a name="discussion"></a>](#️-discussion-)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
@@ -171,6 +171,7 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 * Then only you'll be assigned with the issues and your PRs will be considered.
 * Create you branches with branchname *hacktober/your-first-name* only in your forked repository.
 * You can only work on one issue at a time.
+* Any changes in the documentation will be marked as **invalid** or **spam** 
 * **Do not** make any changes in the **main** branch or the original repository. 
 * **Refrain** to make the pull requests without getting an issue assigned. 
 * Follow the given pull request template properly.
@@ -192,14 +193,10 @@ You can participate in our discussions at `Github Discussions` which has the fol
 Features to be implemented:
 
 * Facebook/Email Authentication
-* User Library
-* Adding Bookmarks 
-* Getting books within a location range
-* Themes 
-* App Terms and Conditions
-* Auto-generated mail after the exchange  
-* Book Recommendations via ML
-* Manually changing the location. 
+* User Library (Owned/Saved/Borrowed Books)
+* Firebase Chat
+* Getting nearby books (Within 10 km)
+* Dashboard Book Recommendations
 
 ## 🚩 Further Project Details <a name="further_details"></a>
 

@@ -1,6 +1,6 @@
-
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/utils/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -33,7 +33,7 @@ class DatabaseService {
         .doc(uid)
         .snapshots()
         .map((DocumentSnapshot snapshot) => _userDataFromSnapShot(snapshot));
-        // .map(_userDataFromSnapShot);
+    // .map(_userDataFromSnapShot);
   }
 
   //Update Users Location
@@ -222,13 +222,13 @@ class DatabaseService {
   }
 
   Future updateUserLocation(double latitude, double longitude) async {
-    // List<String> addresses =
-    //     await LocationHelper().getAddressFromLatLng(latitude, longitude);
+    final List<String> addresses =
+        await LocationHelper().getAddressFromLatLng(latitude, longitude);
 
     return userDataCollection.doc(uid).set(<String, dynamic>{
-      // 'city': addresses[0],
-      // 'state': addresses[1],
-      // 'country': addresses[2],
+      'city': addresses[0],
+      'state': addresses[1],
+      'country': addresses[2],
       'latitude': latitude,
       'longitude': longitude,
     }, SetOptions(merge: true));
