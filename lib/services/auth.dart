@@ -1,17 +1,14 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
-import 'package:books_app/utils/keys_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   static String fbauthtoken = '';
   static String googleAuthToken = '';
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final FacebookLogin facebookLogin = FacebookLogin();
 
   dynamic get currentUserFromFireBase {
     return firebaseAuth.currentUser;
@@ -19,12 +16,6 @@ class FirebaseAuthService {
 
   String get getUID {
     return firebaseAuth.currentUser.uid;
-  }
-
-  Future<void> facebookSignout() async {
-    await firebaseAuth.signOut().then((void onValue) {
-      facebookLogin.logOut();
-    });
   }
 
   Future<void> googleSignout() async {
@@ -46,29 +37,6 @@ class FirebaseAuthService {
       countryName: null,
     );
     return userData;
-  }
-
-  Future<void> signInWithFacebook() async {
-    final FacebookLoginResult attempt = await facebookLogin.logIn();
-    final OAuthCredential credential =
-        FacebookAuthProvider.credential(attempt.accessToken.token);
-    final UserCredential result =
-        await firebaseAuth.signInWithCredential(credential);
-
-    final User user = result.user;
-
-    if (user == null) return;
-
-    final String idToken = await user.getIdToken(true);
-    print('ID token received from user.getIdToken(true) is $idToken');
-
-    // try {
-    //   fbauthtoken = await BackendService().loginWithSocialMedia(idToken);
-    //   print('facebook token is $fbauthtoken');
-    // } catch (error) {
-    //   print(error.toString());
-    // }
-    return user;
   }
 
   Future signInWithGoogle() async {
