@@ -36,13 +36,6 @@ class _InitialScreenState extends State<InitialScreen> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
-                  // Align(
-                  //   alignment: Alignment.centerRight,
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(top: 30, right: 15.0),
-                  //     child: _skipButton(),
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 15,
                   ),
@@ -55,7 +48,10 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.muli(color: blackButton, fontSize: 30, fontWeight: FontWeight.w600),
+                    style: GoogleFonts.muli(
+                        color: blackButton,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 25,
@@ -80,20 +76,14 @@ class _InitialScreenState extends State<InitialScreen> {
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        final bool isFormValid = formKey.currentState.validate();
+                        final bool isFormValid =
+                            formKey.currentState.validate();
                         if (!isFormValid)
                           return;
                         else
                           Navigator.pushNamed(context, Routes.HOME);
                       },
                     ),
-                    // child: AuthButton(
-                    //   text: 'Sign in',
-                    //   formKey: formKey,
-                    //   onClick: onSubmit,
-                    //   onSuccess: onSuccess,
-                    //   onError: onError,
-                    // ),
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -149,11 +139,6 @@ class _InitialScreenState extends State<InitialScreen> {
     );
   }
 
-  // Future<String> onSubmit() async {
-  //   return BackendService()
-  //       .login(_emailController.text, _passwordController.text);
-  // }
-
   void onSuccess() {
     print('Logged in successfully');
     Navigator.pushNamed(context, Routes.HOME);
@@ -165,7 +150,8 @@ class _InitialScreenState extends State<InitialScreen> {
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           // primary: Color(0xFF246BFD),
           primary: blackButton,
         ),
@@ -186,25 +172,4 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
     );
   }
-
-  // Widget _skipButton() {
-  //   return ElevatedButton(
-  //     onPressed: () {
-  //       print('Skip button pressed');
-  //       Navigator.pushNamed(context, Routes.DASHBOARD);
-  //     },
-  //     style: ElevatedButton.styleFrom(
-  //       primary: blackButton,
-  //       onPrimary: Colors.white12,
-  //       minimumSize: const Size(55, 24.75),
-  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-  //     ),
-  //     child: Text(
-  //       'Skip',
-  //       style: GoogleFonts.poppins(
-  //           color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),
-  //     ),
-  //   );
-  // }
-
 }

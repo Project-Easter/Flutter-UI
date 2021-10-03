@@ -7,7 +7,9 @@ class SocialMediaHandles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(25)), color: Colors.white),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          color: Colors.white),
       child: SizedBox(
         height: 44,
         width: 250,
@@ -27,7 +29,8 @@ class SocialMediaHandles extends StatelessWidget {
                   onPressed: () async {
                     print('Google Sign in presws');
                     try {
-                      final dynamic res = await FirebaseAuthService().signInWithGoogle();
+                      final dynamic res =
+                          await FirebaseAuthService().signInWithGoogle();
 
                       print('This is the google response');
                       print(res);
@@ -46,30 +49,6 @@ class SocialMediaHandles extends StatelessWidget {
                     ),
                   )),
             ),
-            // SizedBox(
-            //   height: 44,
-            //   width: 110,
-            //   child: OutlinedButton(
-            //     style: OutlinedButton.styleFrom(
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(50),
-            //       ),
-            //       side: const BorderSide(color: Colors.black87),
-            //     ),
-            //     onPressed: () async {
-            //       FirebaseAuthService()
-            //           .signInWithFacebook()
-            //           .whenComplete(() {
-
-            //         Navigator.pushNamed(context, Routes.HOME);
-            //       });
-            //     },
-            //     child: const Icon(
-            //       FontAwesomeIcons.facebook,
-            //       color: Colors.blue,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

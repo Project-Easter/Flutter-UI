@@ -42,25 +42,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 Navigator.pushReplacementNamed(context, Routes.INITIAL_PAGE);
               },
             )
-            // AuthButton(
-            //   text: 'Continue',
-            //   formKey: formKey,
-            //   onClick: onSubmit,
-            //   onSuccess: onSuccess,
-            //   onError: onError,
-            // )
           ],
         ),
       ),
     );
   }
-
-  // Future<String> onSubmit() async {
-  //   return authService.forgotPassword(email).toString();
-  // }
-
-  // void onSuccess() {
-  //   Navigator.of(context).push<dynamic>(MaterialPageRoute<dynamic>(
-  //       builder: (BuildContext context) => ResetPasswordScreen(email: email)));
-  // }
 }

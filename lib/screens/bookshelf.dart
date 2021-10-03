@@ -57,7 +57,6 @@ class _LibraryPageState extends State<LibraryPage> {
                 padding: EdgeInsets.all(8.0),
                 child: EmptyPageWidget(headline: 'No saved books right now'),
               ),
-
             if (lentBooks.isNotEmpty)
               BookList('Lent Books', lentBooks)
             else
@@ -65,7 +64,6 @@ class _LibraryPageState extends State<LibraryPage> {
                 padding: EdgeInsets.all(8.0),
                 child: EmptyPageWidget(headline: 'No books lent'),
               ),
-
             if (borrowedBooks.isNotEmpty)
               BookList('Borrowed', borrowedBooks)
             else
@@ -73,12 +71,6 @@ class _LibraryPageState extends State<LibraryPage> {
                 padding: EdgeInsets.all(8.0),
                 child: EmptyPageWidget(headline: 'No books borrowed'),
               ),
-
-            // if (ownedBooks != <Book>[]) BookList('Owned Books', ownedBooks)
-
-            // HorizontalList(170, lentBooks, 'Lent Books'),
-            // HorizontalList(170, borrowedBooks, 'Borrowed Books'),
-            // HorizontalList(170, savedBooks, 'Saved Books'),
           ],
         ),
       );

@@ -1,4 +1,3 @@
-
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,7 +32,7 @@ class DatabaseService {
         .doc(uid)
         .snapshots()
         .map((DocumentSnapshot snapshot) => _userDataFromSnapShot(snapshot));
-        // .map(_userDataFromSnapShot);
+    // .map(_userDataFromSnapShot);
   }
 
   //Update Users Location
@@ -78,17 +77,6 @@ class DatabaseService {
     }).toList();
   }
 
-  // Stream<QuerySnapshot> getMessageStream(String from, String to) {
-  //   return chatCollection
-  //       .doc(from)
-  //       .collection('conversation')
-  //       .doc(to)
-  //       .collection('messages')
-  //       .orderBy('createdAt', descending: false) //
-  //       .snapshots();
-  //   // .map(_messageFromSnapshot);
-  // }
-
   void removeBook(String isbn) {
     booksCollection
         .doc(uid)
@@ -97,35 +85,6 @@ class DatabaseService {
         .delete()
         .catchError((dynamic e) => print(e.toString()));
   }
-
-  // Future<DocumentReference> sendMessage(Message message) async {
-  //   // final newMessage = Message(
-  //   //   from: myUID,
-  //   //   to: receiverUID,
-  //   //   message: message,
-  //   //   createdAt: DateTime.now(),
-  //   // );
-
-  //   //Sender sends a message
-  //   return chatCollection
-  //       .doc(message.sender)
-  //       .collection('conversation')
-  //       .doc(message.receiver)
-  //       .collection('messages')
-  //       .add(<String, dynamic>{
-  //     'sender': message.sender,
-  //     'receiver': message.receiver,
-  //     'message': message.message,
-  //     'createdAt': message.createdAt
-  //   });
-  //   // Message(
-  //   //   sender: doc.data()['sender'],
-  //   //   receiver: doc.data()['receiver'],
-  //   //   message: doc.data()['message'],
-  //   //   createdAt: doc.data()['createdAt'],
-  //   // );
-  //   //update receiver inbox
-  // }
 
   void updateBookMark(Book book) {
     //Get
@@ -163,11 +122,6 @@ class DatabaseService {
       }
     }, SetOptions(merge: true));
   }
-
-  //get Book data from stream with uid
-  // Stream<List<Book>> get booksData {
-  //   return booksCollection.snapshots().map((_bookFromQuerySnapShot));
-  // }
 
   //Read from firestore
   void updateRating(double star, String isbn) {

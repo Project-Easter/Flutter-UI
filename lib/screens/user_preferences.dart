@@ -23,19 +23,6 @@ class MultiSelectDialogItem<V> {
   const MultiSelectDialogItem(this.value, this.label);
 }
 
-// DatabaseService _databaseService = DatabaseService(uid: uID);
-
-// class MultiSelectDialog<V> extends StatefulWidget {
-//   final List<MultiSelectDialogItem<V>> items;
-
-//   final Set<V> initialSelectedValues;
-//   const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
-//       : super(key: key);
-
-//   @override
-//   State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
-// }
-
 class UserPreference extends StatefulWidget {
   final UserData userData;
   const UserPreference(this.userData);
@@ -83,86 +70,6 @@ class _LocationRangeState extends State<LocationRange> {
     );
   }
 }
-
-// class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
-//   final Set<V> _selectedValues = <V>{};
-
-//   @override
-//   Widget build(BuildContext context) {
-//     print('Select genres');
-//     print(uID);
-//     return AlertDialog(
-//       title: const Text('Select Genres'),
-//       contentPadding: const EdgeInsets.only(top: 12.0),
-//       content: SingleChildScrollView(
-//         child: ListTileTheme(
-//           contentPadding: const EdgeInsets.fromLTRB(14.0, 0.0, 24.0, 0.0),
-//           child: ListBody(
-//             children: widget.items.map(_buildItem).toList(),
-//           ),
-//         ),
-//       ),
-//       actions: <Widget>[
-//         MaterialButton(
-//           child: const Text('CANCEL'),
-//           onPressed: _onCancelTap,
-//         ),
-//         MaterialButton(
-//           child: const Text('OK'),
-//           onPressed: () => _onSubmitTap(_selectedValues),
-//         )
-//       ],
-//     );
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     if (widget.initialSelectedValues != null) {
-//       _selectedValues.addAll(widget.initialSelectedValues);
-//     }
-//   }
-
-//   Widget _buildItem(MultiSelectDialogItem<V> item) {
-//     final bool checked = _selectedValues.contains(item.value);
-//     return CheckboxListTile(
-//       value: checked,
-//       title: Text(item.label),
-//       controlAffinity: ListTileControlAffinity.leading,
-//       onChanged: (bool checked) => _onItemCheckedChange(item.value, checked),
-//     );
-//   }
-
-//   void _onCancelTap() {
-//     Navigator.of(context).pop();
-//   }
-
-//   void _onItemCheckedChange(V itemValue, bool checked) {
-//     setState(() {
-//       if (checked) {
-//         _selectedValues.add(itemValue);
-//       } else {
-//         _selectedValues.remove(itemValue);
-//       }
-//     });
-//   }
-
-//   Future<void> _onSubmitTap(Set<V> selectedItems) async {
-//     final List<dynamic> items = selectedItems.toList();
-//     items.removeRange(0, 1);
-//     print(items);
-//     final List<String> selectedGenres = <String>[];
-//     for (final dynamic element in items) {
-//       final String x = element.toString();
-//       print(genres[int.parse(x)]);
-//       selectedGenres.add(genres[int.parse(x)]);
-//     }
-
-//     print(selectedGenres);
-//     await _databaseService.updateGenres(selectedGenres);
-//     Navigator.of(context).pop();
-//   }
-// }
 
 class _UserPreferenceState extends State<UserPreference> {
   final TextEditingController _author = TextEditingController();
@@ -252,30 +159,6 @@ class _UserPreferenceState extends State<UserPreference> {
                 ),
                 Text('Select Book genres', style: GoogleFonts.muli()),
                 _genresChoice(),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // ButtonTheme(
-                //   minWidth: 220,
-                //   height: 40,
-                //   child: ElevatedButton(
-                //     style: ElevatedButton.styleFrom(
-                //       shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(11)),
-                //       primary: Colors.blue,
-                //     ),
-                //     onPressed: () {
-                //       // _showMultiSelect(context);
-                //     },
-                //     child: Text(
-                //       'Select Book Genres',
-                //       style: GoogleFonts.muli(
-                //           color: Colors.white,
-                //           fontSize: 15,
-                //           fontWeight: FontWeight.w500),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),

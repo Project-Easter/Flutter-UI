@@ -56,27 +56,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                   },
                 )
-                // AuthButton(
-                //   text: 'Sign up',
-                //   formKey: formKey,
-                //   onClick: onSubmit,
-                //   onSuccess: onSuccess,
-                //   onError: onError,
-                // )
               ],
             ),
           ),
         ));
   }
-
-  // Future<String> onSubmit() async {
-  //   return authService.register(email, password) as String;
-  // }
-
-  // void onSuccess() {
-  //   // Navigator.pushReplacementNamed(context, Routes.CONFIRM_EMAIL,
-  //   //     arguments: this.email);
-  //   Navigator.of(context).push<dynamic>(MaterialPageRoute<dynamic>(
-  //       builder: (BuildContext context) => ConfirmEmailScreen(email: email)));
-  // }
 }

@@ -48,24 +48,9 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
                 Navigator.pushNamed(context, Routes.HOME);
               },
             ),
-            // AuthButton(
-            //   text: 'Continue',
-            //   formKey: formKey,
-            //   onClick: onSubmit,
-            //   onSuccess: onSuccess,
-            //   onError: onError,
-            // ),
           ],
         ),
       ),
     );
   }
-
-  // Future<String> onSubmit() async {
-  //   return authService.confirmEmail(email, confirmationCode) as String;
-  // }
-
-  // void onSuccess() {
-  //   print('Email confirmed successfully');
-  // }
 }

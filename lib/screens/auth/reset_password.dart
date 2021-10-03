@@ -52,23 +52,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     },
                     color: blackButton,
                     name: 'Continue',
-                    // formKey: formKey,
-                    // onClick: onSubmit,
-                    // onSuccess: onSuccess,
-                    // onError: onError,
                   )
                 ]),
           ),
         ));
   }
-
-  // Future<String> onSubmit() async {
-  //   return authService
-  //       .resetPassword(email, password, confirmationCode)
-  //       .toString();
-  // }
-
-  // void onSuccess() {
-  //   Navigator.pushNamed(context, Routes.LOGIN);
-  // }
 }

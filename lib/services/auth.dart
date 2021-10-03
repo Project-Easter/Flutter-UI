@@ -61,22 +61,6 @@ class FirebaseAuthService {
       assert(user.uid == currentUser.uid);
       final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
 
-      // try {
-      //   print('entered try catch');
-      //   googleAuthToken =
-      //       await BackendService().loginWithSocialMedia(googleIdtoken);
-
-      //   print(
-      //       'Google auth token from loginWithSocialMedia is $googleAuthToken');
-
-      //   TokenStorage().storeAuthToken(googleAuthToken);
-      //   //Add a timer for token expiration time
-
-      //   TokenStorage().loadAuthToken();
-      // } catch (e) {
-      //   print('Damn we got an error: ' + e.toString());
-      // }
-
       final UserData userData = makeUserDataFromAuthUser(user);
       await DatabaseService(uid: user.uid).updateUserData(userData);
       return user;
