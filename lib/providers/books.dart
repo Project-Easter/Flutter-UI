@@ -58,13 +58,13 @@ class Books with ChangeNotifier {
     _savedBooks = <Book>[];
     print('Getter SavedBooks called');
     for (final Book book in _recommendedBooks) {
-      if (book.isBookMarked) {
+      if (book.isBookMarked!) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
     }
     for (final Book book in _discoverNew) {
-      if (book.isBookMarked) {
+      if (book.isBookMarked!) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
@@ -97,11 +97,12 @@ class Books with ChangeNotifier {
   //   }
   //   return result;
   // }
-Future<dynamic> getBooksbyISBN(String isbn) async {
+  Future<dynamic> getBooksbyISBN(String isbn) async {
     //Add Books from Google API
     const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
+    final String uri = url + isbn; // String could not be converted to uri.
     try {
-      final http.Response response = await http.get(url + isbn);
+      final http.Response response = await http.get(Uri.parse(uri));
       final dynamic result = jsonDecode(response.body);
       // print("Result From get Books From ISBN:");
 
@@ -115,7 +116,6 @@ Future<dynamic> getBooksbyISBN(String isbn) async {
     }
     return null;
   }
-
 
   // Future<dynamic> getBooksbyTitle(String title) async {
   //   final Response response =
@@ -145,8 +145,8 @@ Future<dynamic> getBooksbyISBN(String isbn) async {
   //   return result;
   // }
 
-  Book makeBook(dynamic result) {
-    Book book;
+  Book? makeBook(dynamic result) {
+    Book? book;
 
     if (result != null) {
       final String title = result['volumeInfo']['title'].toString();
@@ -223,7 +223,7 @@ Future<dynamic> getBooksbyISBN(String isbn) async {
       final List list = result['items'] as List;
 
       if (result != null) {
-        final List<Book> recommendedBooks = <Book>[];
+        final List<Book?> recommendedBooks = <Book>[];
 
         for (dynamic value in list) {
           recommendedBooks.add(makeBook(value));
@@ -236,11 +236,11 @@ Future<dynamic> getBooksbyISBN(String isbn) async {
     }
   }
 
-  
   Future<dynamic> getISBNFromName(String title) async {
     const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
+    final String uri = url + title;
     try {
-      final http.Response response = await http.get(url + title);
+      final http.Response response = await http.get(Uri.parse(uri));
       final dynamic resultJson = jsonDecode(response.body);
       if (resultJson != null) {
         final String isbn = resultJson['items'][0]['volumeInfo']

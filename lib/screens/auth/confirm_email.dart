@@ -9,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ConfirmEmailScreen extends StatefulWidget {
-  final String email;
-  const ConfirmEmailScreen({Key key, @required this.email}) : super(key: key);
+  final String? email;
+  const ConfirmEmailScreen({Key? key, required this.email}) : super(key: key);
   @override
-  _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState(email);
+  _ConfirmEmailScreenState createState() => _ConfirmEmailScreenState(email!);
 }
 
 class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
   // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  String email;
+  String? email;
 
   _ConfirmEmailScreenState(this.email);
 
@@ -37,7 +37,7 @@ class _ConfirmEmailScreenState extends State<ConfirmEmailScreen> {
               key: formKey,
               child: Column(
                 children: <Widget>[
-                  const ConfirmationCodeTextField(),
+                  ConfirmationCodeTextField(),
                 ],
               ),
             ),

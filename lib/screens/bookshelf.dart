@@ -2,7 +2,6 @@ import 'package:books_app/providers/book.dart';
 import 'package:books_app/screens/dashboard/book_list.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/empty_page.dart';
-import 'package:books_app/widgets/filter_items.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +33,7 @@ class _LibraryPageState extends State<LibraryPage> {
 
     // ignore: always_specify_types
     if (savedBooks.isEmpty && ownedBooks.isEmpty) {
-      return const EmptyPageWidget(
+      return EmptyPageWidget(
         headline: 'This page will contain all the your book data ',
       );
     } else {
@@ -46,14 +45,14 @@ class _LibraryPageState extends State<LibraryPage> {
             if (ownedBooks.isNotEmpty)
               BookList('Owned Books', ownedBooks)
             else
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: EmptyPageWidget(headline: 'No books owned'),
               ),
             if (savedBooks.isNotEmpty)
               BookList('Saved Books', savedBooks)
             else
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: EmptyPageWidget(headline: 'No saved books right now'),
               ),
@@ -61,7 +60,7 @@ class _LibraryPageState extends State<LibraryPage> {
             if (lentBooks.isNotEmpty)
               BookList('Lent Books', lentBooks)
             else
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: EmptyPageWidget(headline: 'No books lent'),
               ),
@@ -69,7 +68,7 @@ class _LibraryPageState extends State<LibraryPage> {
             if (borrowedBooks.isNotEmpty)
               BookList('Borrowed', borrowedBooks)
             else
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: EmptyPageWidget(headline: 'No books borrowed'),
               ),

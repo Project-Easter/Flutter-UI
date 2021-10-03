@@ -1,7 +1,6 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
-import 'package:books_app/utils/keys_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -18,7 +17,7 @@ class FirebaseAuthService {
   }
 
   String get getUID {
-    return firebaseAuth.currentUser.uid;
+    return firebaseAuth.currentUser!.uid;
   }
 
   Future<void> facebookSignout() async {
@@ -48,18 +47,19 @@ class FirebaseAuthService {
     return userData;
   }
 
-  Future<void> signInWithFacebook() async {
+  Future<User> signInWithFacebook() async {
     final FacebookLoginResult attempt = await facebookLogin.logIn();
     final OAuthCredential credential =
-        FacebookAuthProvider.credential(attempt.accessToken.token);
+        FacebookAuthProvider.credential(attempt.accessToken!.token);
     final UserCredential result =
         await firebaseAuth.signInWithCredential(credential);
 
-    final User user = result.user;
+    final User? user = result.user;
 
-    if (user == null) return;
+    //Was not letting me return user... so I commented out this if statement.
+    //if (user == null) return;
 
-    final String idToken = await user.getIdToken(true);
+    final String idToken = await user!.getIdToken(true);
     print('ID token received from user.getIdToken(true) is $idToken');
 
     // try {
@@ -72,9 +72,9 @@ class FirebaseAuthService {
   }
 
   Future signInWithGoogle() async {
-    final GoogleSignInAccount attempt = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? attempt = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication authentication =
-        await attempt.authentication;
+        await attempt!.authentication;
 
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: authentication.accessToken,
@@ -83,15 +83,15 @@ class FirebaseAuthService {
 
     final UserCredential result =
         await firebaseAuth.signInWithCredential(credential);
-    final User user = result.user;
+    final User? user = result.user;
 
     if (user != null) {
       assert(!user.isAnonymous);
       print('The user here is $user');
 
-      final User currentUser = firebaseAuth.currentUser;
-      assert(user.uid == currentUser.uid);
-      final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
+      final User? currentUser = firebaseAuth.currentUser;
+      assert(user.uid == currentUser!.uid);
+      final String googleIdtoken = await firebaseAuth.currentUser!.getIdToken();
 
       // try {
       //   print('entered try catch');
@@ -115,7 +115,7 @@ class FirebaseAuthService {
     }
   }
 
-  Future<UserCredential> signUpWithEmail(
+  Future<UserCredential?> signUpWithEmail(
       BuildContext context, String email, String pass) async {
     try {
       final UserCredential userCredential = await FirebaseAuth.instance

@@ -16,7 +16,7 @@ AppBar MyAppBar(BuildContext buildContext) {
     ),
     title: Text(
       'Explr',
-      style: GoogleFonts.muli(color: Colors.black),
+      style: GoogleFonts.lato(color: Colors.black),
     ),
     actions: <Widget>[
       IconButton(

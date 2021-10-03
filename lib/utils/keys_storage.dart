@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class TokenStorage {
-  static String authToken;
+  static String? authToken;
   // String get authToken { return _authToken; }
   static String urlTemplate =
       'https://api.mapbox.com/styles/v1/aivankum/ckrusiaw57nch17w9vkwnki1e/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWl2YW5rdW0iLCJhIjoiY2tyamJ3bzR5MDEwdzJ2cGNxaXNha3M0ZyJ9.Z9T5-SYG3_-hfv3LezwZEQ';
@@ -12,7 +12,7 @@ class TokenStorage {
 
   Future<void> loadAuthToken() async {
     const FlutterSecureStorage storage = FlutterSecureStorage();
-    authToken = await storage.read(key: 'global_token');
+    authToken = (await storage.read(key: 'global_token'))!;
     print('$authToken is the quoteToken for FLutterStorage');
     // return authToken;
   }

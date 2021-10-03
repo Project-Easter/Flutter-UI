@@ -1,10 +1,9 @@
-
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
-  final String uid;
+  final String? uid;
   final CollectionReference userDataCollection =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference booksCollection =
@@ -13,7 +12,7 @@ class DatabaseService {
   final CollectionReference chatCollection =
       FirebaseFirestore.instance.collection('chat');
 
-  DatabaseService({this.uid});
+  DatabaseService({required this.uid});
 
   Stream<List<UserData>> get allUsers {
     return userDataCollection.snapshots().map(getAllUserData);
@@ -33,16 +32,16 @@ class DatabaseService {
         .doc(uid)
         .snapshots()
         .map((DocumentSnapshot snapshot) => _userDataFromSnapShot(snapshot));
-        // .map(_userDataFromSnapShot);
+    // .map(_userDataFromSnapShot);
   }
 
   //Update Users Location
-  Future addBook(Book book) async {
+  Future addBook(Book? book) async {
     //GET BOOK FROM API or an existing List
     return booksCollection
         .doc(uid)
         .collection('ownedBooks')
-        .doc(book.isbn)
+        .doc(book!.isbn)
         .set(<String, dynamic>{
       'rating': book.rating,
       'isbn': book.isbn,

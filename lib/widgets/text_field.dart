@@ -36,17 +36,17 @@ class PasswordTextField extends AuthField {
 
 class AuthField extends StatelessWidget {
   // final void Function(String) onChanged;
-  final String text;
-  final bool obscureText;
-  final String Function(String) validator;
-  final TextInputType keyboardType;
-  final TextEditingController controller;
+  final String? text;
+  final bool? obscureText;
+  final String? Function(String) validator;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   const AuthField({
     // this.onChanged,
     this.text,
     this.obscureText,
-    this.validator,
+    required this.validator,
     this.keyboardType = TextInputType.text,
     this.controller,
   });
@@ -72,8 +72,8 @@ class AuthField extends StatelessWidget {
           ),
           child: TextFormField(
             controller: controller,
-            obscureText: obscureText,
-            validator: validator,
+            obscureText: obscureText!,
+            validator: validator as String? Function(String?),
             textAlign: TextAlign.start,
             keyboardType: keyboardType,
             decoration: InputDecoration(

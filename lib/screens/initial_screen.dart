@@ -55,7 +55,10 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.muli(color: blackButton, fontSize: 30, fontWeight: FontWeight.w600),
+                    style: GoogleFonts.lato(
+                        color: blackButton,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 25,
@@ -66,14 +69,10 @@ class _InitialScreenState extends State<InitialScreen> {
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-<<<<<<< HEAD
                         children: <Widget>[
                           EmailTextField(_emailController),
                           PasswordTextField(_passwordController)
                         ],
-=======
-                        children: const <Widget>[EmailTextField(), PasswordTextField()],
->>>>>>> 6add99a4b3dfe78ada5b2da97b21bbcbfabeab59
                       ),
                     ),
                   ),
@@ -84,7 +83,8 @@ class _InitialScreenState extends State<InitialScreen> {
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        final bool isFormValid = formKey.currentState.validate();
+                        final bool isFormValid =
+                            formKey.currentState!.validate();
                         if (!isFormValid)
                           return;
                         else
@@ -141,7 +141,7 @@ class _InitialScreenState extends State<InitialScreen> {
       child: TextButton(
         child: Text('Forgot password?',
             textAlign: TextAlign.center,
-            style: GoogleFonts.muli(
+            style: GoogleFonts.lato(
               color: const Color.fromRGBO(224, 39, 20, 1),
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -169,7 +169,8 @@ class _InitialScreenState extends State<InitialScreen> {
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           // primary: Color(0xFF246BFD),
           primary: blackButton,
         ),

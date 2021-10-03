@@ -12,7 +12,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class GoogleBooks extends StatefulWidget {
-  final String title;
+  final String? title;
   const GoogleBooks({this.title});
 
   @override
@@ -53,7 +53,7 @@ class _GoogleBooksState extends State<GoogleBooks> {
             print('$snapshot.data is the Google book snap');
             // Extracting data from snapshot object
             final List<Book> recommendedBooksML = snapshot.data as List<Book>;
-            return BookList(widget.title, recommendedBooksML);
+            return BookList(widget.title!, recommendedBooksML);
           }
         });
   }

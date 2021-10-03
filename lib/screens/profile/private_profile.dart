@@ -22,17 +22,17 @@ class PrivateProfile extends StatelessWidget {
           booksData.where((Book book) => book.isOwned == true).length;
     }
     final List<Book> ownedBooks = <Book>[];
-    booksData.forEach((Book book) {
-      if (book.isOwned == true) {
+    for (Book? book in booksData) {
+      if (book!.isOwned == true) {
         ownedBooks.add(book);
       }
-    });
+    }
     final List<Book> savedBooks = <Book>[];
-    booksData.forEach((Book book) {
-      if (book.isBookMarked == true) {
+    for (Book? book in booksData) {
+      if (book!.isBookMarked == true) {
         savedBooks.add(book);
       }
-    });
+    }
 
     if (profileData == null || booksData == null) {
       return const Center(child: CircularProgressIndicator());
@@ -45,8 +45,8 @@ class PrivateProfile extends StatelessWidget {
             children: <Widget>[
               ProfileHeader(profileData: profileData),
               const Divider(
-                // color: Colors.black54,
-              ),
+                  // color: Colors.black54,
+                  ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -107,26 +107,25 @@ class PrivateProfile extends StatelessWidget {
                     Button(
                       name: 'Add your Book',
                       color: blackButton,
-                      myFunction: ()async {
-Navigator.pushNamed(context, Routes.ADD_BOOK);
+                      myFunction: () async {
+                        Navigator.pushNamed(context, Routes.ADD_BOOK);
                       },
                     ),
                     // Button(
                     //      blackButton, 'Add you Book', Routes.ADD_BOOK),
                     // button(context, blackButton, 'Settings', Routes.SETTINGS),
-                    
+
                     GestureDetector(
                       onTap: () {
                         FirebaseAuthService().googleSignout();
                       },
                       child: Button(
-                        name: 'Logout', 
-                        color: greenButton,
-                        myFunction: ()async {
-                         Navigator.pushReplacementNamed(context,Routes.INITIAL_PAGE);
-                        }
-                        
-                      ),
+                          name: 'Logout',
+                          color: greenButton,
+                          myFunction: () async {
+                            Navigator.pushReplacementNamed(
+                                context, Routes.INITIAL_PAGE);
+                          }),
                       // child: button(
                       //     context, greenButton, 'Logout', Routes.INITIAL_PAGE),
                     )
@@ -142,11 +141,11 @@ Navigator.pushNamed(context, Routes.ADD_BOOK);
 }
 
 class ProfileHeader extends StatelessWidget {
-  final UserData profileData;
+  final UserData? profileData;
 
   const ProfileHeader({
-    Key key,
-    @required this.profileData,
+    Key? key,
+    required this.profileData,
   }) : super(key: key);
 
   @override
@@ -161,13 +160,13 @@ class ProfileHeader extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: CircleAvatar(
               radius: 100,
-              backgroundImage: NetworkImage(profile.photoURL),
+              backgroundImage: NetworkImage(profile.photoURL!),
               // AssetImage('assets/images/Explr Logo.png'),
             ),
           ),
           Text(
             // 'John Doe',
-            profile.displayName,
+            profile.displayName!,
             // '${profile.firstName} ${profile.lastName} ',
             style:
                 GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w400),
@@ -175,13 +174,11 @@ class ProfileHeader extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 5),
             child: Text(
-              (profileData.city != null || profileData.state != null)
-                  ? '${profileData.city} , ${profileData.state}'
+              (profileData!.city != null || profileData!.state != null)
+                  ? '${profileData!.city} , ${profileData!.state}'
                   : 'Update your location',
               style: GoogleFonts.poppins(
-                 
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400),
+                  fontSize: 13, fontWeight: FontWeight.w400),
             ),
           ),
         ],

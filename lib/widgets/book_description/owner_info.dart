@@ -19,7 +19,7 @@ class _OwnerInfoState extends State<OwnerInfo> {
         return Column(
           children: <Widget>[
             Text(
-              owner.displayName,
+              owner.displayName!,
               // '${owner.firstName} ${owner.lastName}',
               style: GoogleFonts.poppins(
                   color: Colors.black,
@@ -34,7 +34,7 @@ class _OwnerInfoState extends State<OwnerInfo> {
             //       fontWeight: FontWeight.w500),
             // ),
             Text(
-              owner.email,
+              owner.email!,
               style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontSize: 17,

@@ -1,4 +1,3 @@
-import 'package:geocoder/geocoder.dart';
 import 'package:latlong/latlong.dart';
 // import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
@@ -13,7 +12,7 @@ class LocationHelper {
   //   return [first.subAdminArea, first.adminArea, first.countryName];
   // }
 
-  Future<LatLng> getCurrentLocation() async {
+  Future<LatLng?> getCurrentLocation() async {
     final Location location = Location();
 
     bool serviceEnabled;
@@ -39,6 +38,4 @@ class LocationHelper {
 
     return LatLng(locationData.latitude, locationData.longitude);
   }
-
- 
 }

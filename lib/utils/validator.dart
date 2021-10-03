@@ -2,7 +2,7 @@ class Validator {
   static const String EMAIL_REGEX =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 
-  static String confirmationCode(String confirmationCode) {
+  static String? confirmationCode(String confirmationCode) {
     if (confirmationCode.isEmpty || confirmationCode.length != 6) {
       return 'Confirmation code must be 6 characters long';
     }
@@ -10,7 +10,7 @@ class Validator {
     return null;
   }
 
-  static String email(String email) {
+  static String? email(String email) {
     if (email.isEmpty || email.length < 5) {
       return 'Email must be at least 5 characters long';
     }
@@ -22,7 +22,7 @@ class Validator {
     return null;
   }
 
-  static String password(String password) {
+  static String? password(String password) {
     if (password.isEmpty || password.length < 6) {
       return 'Password must be at least 6 characters long';
     }
