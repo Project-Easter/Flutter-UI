@@ -11,19 +11,24 @@
 <!-- ## PROJECT-EASTER  -->
 <div align="center">
 <a href="https://github.com/Project-Easter/Flutter-UI/blob/main/LICENSE" target="blank">
-<img src="https://img.shields.io/github/license/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator license" />
+<img src="https://img.shields.io/github/license/Project-Easter/Flutter-UI?style=plastic" alt="github-profile-readme-generator license" />
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/fork" target="blank">
-<img src="https://img.shields.io/github/forks/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator forks"/>
+<img src="https://img.shields.io/github/forks/Project-Easter/Flutter-UI?style=plastic" alt="github-profile-readme-generator forks"/>
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/stargazers" target="blank">
-<img src="https://img.shields.io/github/stars/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator stars"/>
+<img src="https://img.shields.io/github/stars/Project-Easter/Flutter-UI?style=plastic" alt="github-profile-readme-generator stars"/>
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/issues" target="blank">
-<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator issues"/>
+<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI?color=blue&style=plastic" alt="github-profile-readme-generator issues"/>
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/pulls" target="blank">
-<img src="https://img.shields.io/github/issues-pr/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator pull-requests"/>
+<img src="https://img.shields.io/github/issues-pr/Project-Easter/Flutter-UI?color=&style=plastic" alt="github-profile-readme-generator pull-requests"/>
+</a>
+<a href="https://github.com/Project-Easter/Flutter-UI/pulls?q=is%3Apr+is%3Aclosed+label%3Ahacktoberfest-accepted" target="blank">
+<img src="https://img.shields.io/github/issues-closed/Project-Easter/Flutter-UI/hacktoberfest-accepted?color=teal&style=plastic" alt="github-profile-readme-generator hacktoberfest-accepted issues"/>
+<a href="https://github.com/Project-Easter/Flutter-UI/issues?q=is%3Aissue+is%3Aopen+label%3AHacktoberfest" target="blank">
+<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI/Hacktoberfest?color=red&style=plastic" alt="github-profile-readme-generator Hacktoberfest issues"/>
 </a>
 <!---<a href="https://discord.gg/HHMs7Eg" target="blank">
 <img src="https://img.shields.io/discord/735303195105951764?label=Join%20Community&logo=discord&style=flat-square" alt="join discord community of github profile readme generator"/>
@@ -102,6 +107,12 @@
 git clone https://github.com/<Your GitHub Username>/Flutter-UI.git
 ```
 
+* After cloning the repo, run this command to add the [main repository](https://github.com/Project-Easter/Flutter-UI.git) as `upstream` to sync with it. Run this command to add `upstream`:
+
+```
+git remote add upstream https://github.com/Project-Easter/Flutter-UI.git
+```
+
 **Step 3: Create a branch:**
 * Creating your own branch separates your changes with *main* branch. For example, if things go wrong or you are not satisfied with them, then you can delete your branch and the *main* project won't be affected.
 
@@ -167,7 +178,7 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 * Please follow the linting rules and standard practices as specified in [`analysis_option.yaml`](analysis_options.yaml) to avoid unnecessary warnings
 
 
-PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇
+PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇. Just make sure that you don't put any labels on it or assign it to yourself or anyone. Tag us(<a href="https://github.com/Mohitmadhav">@Mohitmadhav</a> and <a href="https://github.com/ankitoscar">@ankitoscar</a>) in your issue, we will reach out to your issues and assign it to you with proper labels.
 
 ## 🙋‍♂️ Discussion <a name="discussion"></a>
 You can participate in our discussions at `Github Discussions` which has the following topics:
