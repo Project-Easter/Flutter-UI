@@ -46,13 +46,13 @@
 <!-- - [ Table of Contents](#-table-of-contents) -->
 - [📝 Table of Contents](#-table-of-contents)
 - [🎯 Aim <a name = "aim"></a>](#-aim-)
-- [💥 Screenshots (Old) <a name="screenshots"></a>](#-screenshots-old-)
+- [📸 Screenshots (Old) <a name="screenshots"></a>](#-screenshots-old-)
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
-- [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
+- [🧢 How to contribute <a name="usage"></a>](#-how-to-contribute-)
 - [📜 Important Guidelines <a name="imp"></a>](#-important-guidelines-)
-- [🙋‍♂️ Discussion <a name="discussion"></a>](#-discussion-)
-- [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
-- [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
+- [🗣️ Discussion <a name="discussion"></a>](#-discussion-)
+- [💼 1st Release Features <a name="features"></a>](#-1st-release-features-)
+- [🤖 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
 - [🙏 Show your support <a name="star"></a>](#-show-your-support-)
 ## 🎯 Aim <a name = "aim"></a>
@@ -62,7 +62,7 @@
 * In the future, we want our project to be used by people ranging from hardcore bibliophiles searching for a book they want to read in their locality to university students searching for other students for exchanging their course books.
 * Our horizon is not limited as we want to reach each and every one.
 
-## 💥 Screenshots (Old) <a name="screenshots"></a>
+## 📸 Screenshots (Old) <a name="screenshots"></a>
 
 <p align = "Center">
  <img  src="https://user-images.githubusercontent.com/59333817/111777617-88d6ee80-88d9-11eb-994b-ecea2fc9b01c.jpeg" width="30%" height="30%" />
@@ -90,7 +90,7 @@
 * [Mapbox API](https://www.mapbox.com/)
 * [Google Books API](https://developers.google.com/books/docs/v1/using)
 
-## 🍰 How to contribute <a name="usage"></a>
+## 🧢 How to contribute <a name="usage"></a>
 
 **Step 1: Fork this repository**
 * A fork will create a copy of this repository in your GitHub account.
@@ -180,28 +180,28 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 
 PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇. Just make sure that you don't put any labels on it or assign it to yourself or anyone. Tag us(<a href="https://github.com/Mohitmadhav">@Mohitmadhav</a> and <a href="https://github.com/ankitoscar">@ankitoscar</a>) in your issue, we will reach out to your issues and assign it to you with proper labels.
 
-## 🙋‍♂️ Discussion <a name="discussion"></a>
+## 🗣️ Discussion ! <a name="discussion"></a>
 You can participate in our discussions at `Github Discussions` which has the following topics:
 
 1. [**Welcome**](https://github.com/Project-Easter/Flutter-UI/discussions/90) : Here you can introduce yourself and get a basic idea about the project from maintainers and contributors.
 
 2. [**Code Refactoring**](https://github.com/Project-Easter/Flutter-UI/discussions/91) : Here you can share ideas about refactoring and adding modularity in the codebase and also mention where these changes cahn be done.
 
-## 🎈 1st Release Features <a name="features"></a>
+## 💼 1st Release Features! <a name="features"></a>
 
 Features to be implemented:
 
-* Facebook/Email Authentication
-* User Library
-* Adding Bookmarks 
-* Getting books within a location range
-* Themes 
-* App Terms and Conditions
-* Auto-generated mail after the exchange  
-* Book Recommendations via ML
+* Facebook/Email Authentication.
+* User Library.
+* Adding Bookmarks.
+* Getting books within a location range.
+* New and Interesting Themes. 
+* App Terms and Conditions.
+* Auto-generated mail after the exchange.  
+* Book Recommendations via Machine Learning.
 * Manually changing the location. 
 
-## 🚩 Further Project Details <a name="further_details"></a>
+## 🤖 Further Project Details <a name="further_details"></a>
 
 * [Design (Might get changed in future)](https://www.figma.com/file/uhWQuE4EKDHR8AqH4p3eFK/Books-App?node-id=0%3A1)
 * [Presentation](https://docs.google.com/presentation/d/1JixGIcBdiv_HLNc6sxt516U3mi4K08a_/edit#slide=id.p5)
