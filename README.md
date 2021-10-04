@@ -26,7 +26,7 @@
 <img src="https://img.shields.io/github/issues-pr/Project-Easter/Flutter-UI?color=&style=plastic" alt="github-profile-readme-generator pull-requests"/>
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/pulls?q=is%3Apr+is%3Aclosed+label%3Ahacktoberfest-accepted" target="blank">
-<img src="https://img.shields.io/github/issues-closed/Project-Easter/Flutter-UI/hacktoberfest-accepted?color=teal&style=plastic" alt="github-profile-readme-generator hacktoberfest-accepted issues"/>
+<img src="https://img.shields.io/github/issues-pr-closed/Project-Easter/Flutter-UI/hacktoberfest-accepted?color=teal&style=plastic" alt="github-profile-readme-generator hacktoberfest-accepted issues"/>
 <a href="https://github.com/Project-Easter/Flutter-UI/issues?q=is%3Aissue+is%3Aopen+label%3AHacktoberfest" target="blank">
 <img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI/Hacktoberfest?color=red&style=plastic" alt="github-profile-readme-generator Hacktoberfest issues"/>
 </a>
