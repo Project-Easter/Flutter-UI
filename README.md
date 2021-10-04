@@ -85,10 +85,12 @@
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
-* [Flutter](https://flutter.dev/)  
+* [Flutter](https://flutter.dev/) 
+* [Dart](https://dart.dev/) 
 * [Firebase](https://firebase.google.com/)
-* [Mapbox API](https://www.mapbox.com/)
-* [Google Books API](https://developers.google.com/books/docs/v1/using)
+* [REST API](https://flutter.dev/docs/cookbook/networking/fetch-data)
+<!-- * [Mapbox API](https://www.mapbox.com/)
+* [Google Books API](https://developers.google.com/books/docs/v1/using) -->
 
 ## 🍰 How to contribute <a name="usage"></a>
 
