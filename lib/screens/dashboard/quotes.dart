@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quotes/quotes.dart';
 
 class Quotation extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -11,7 +10,7 @@ class Quotation extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: Column(children: <Widget>[
           Text(
-            Quotes.getFirst().content,
+            Quotes.getRandom().content,
             softWrap: true,
             maxLines: 3,
             overflow: TextOverflow.visible,
@@ -23,7 +22,7 @@ class Quotation extends StatelessWidget {
           Align(
             alignment: Alignment.bottomRight,
             child: Text(
-              Quotes.getFirst().author,
+              Quotes.getRandom().author,
               style: GoogleFonts.lato(fontSize: 14),
             ),
           )
