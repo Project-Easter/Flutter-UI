@@ -1,14 +1,16 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
+import 'package:books_app/utils/keys_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class FirebaseAuthService {
+class FirebaseAuthService extends ChangeNotifier {
   static String fbauthtoken = '';
   static String googleAuthToken = '';
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  TokenStorage _tokenStorage = TokenStorage();
 
   dynamic get currentUserFromFireBase {
     return firebaseAuth.currentUser;
@@ -18,9 +20,14 @@ class FirebaseAuthService {
     return firebaseAuth.currentUser.uid;
   }
 
+  Stream<User> get onAuthStateChanged {
+    return firebaseAuth.authStateChanges();
+  }
+
   Future<void> googleSignout() async {
     GoogleSignIn().disconnect();
     await firebaseAuth.signOut();
+    await _tokenStorage.deleteSessionKey();
   }
 
   UserData makeUserDataFromAuthUser(User user) {
@@ -83,6 +90,7 @@ class FirebaseAuthService {
     }
   }
 
+  //for register
   Future<UserCredential> signUpWithEmail(
       BuildContext context, String email, String pass) async {
     try {
@@ -103,5 +111,31 @@ class FirebaseAuthService {
       print(e);
     }
     return null;
+  }
+
+  // for login
+  Future<void> signInWithEmail(
+      BuildContext context, String email, String pass) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: pass);
+      // return userCredential;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: blackButton,
+            content: Text('No user found for that email.')));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: blackButton,
+            content: Text('Wrong password provided for that user.')));
+      }
+    }
+  }
+
+  // sign out from app
+  Future<void> signOut() async {
+    await firebaseAuth.signOut();
+    await _tokenStorage.deleteSessionKey();
   }
 }

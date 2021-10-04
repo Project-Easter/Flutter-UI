@@ -1,3 +1,4 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
@@ -8,6 +9,7 @@ import 'package:books_app/screens/explore_nearby.dart';
 import 'package:books_app/screens/profile/private_profile.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
+import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/app_bar.dart';
 import 'package:books_app/widgets/custom_navigation_bar.dart';
@@ -35,6 +37,7 @@ class _HomeState extends State<Home> {
   TextStyle name = GoogleFonts.muli(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   final FirebaseAuthService _authService = FirebaseAuthService();
+  TokenStorage _tokenStorage = TokenStorage();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -107,6 +110,25 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    checkForExpiredSession();
+    _tokenStorage.writeCurrentSessionTime();
+  }
+
+  Future<void> checkForExpiredSession() async {
+    final String value = await _tokenStorage.readPreviousSessionTime();
+    if (value != null) {
+      final int diff = DateTime.now().difference(DateTime.parse(value)).inDays;
+      // print("diff" + diff.toString());
+      if (diff >= 2) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Session Expired!'),
+          backgroundColor: blackButton,
+        ));
+        _authService.signOut();
+        // FirebaseAuthService().signOut();
+        // await flutterSecureStorage.delete(key: 'SessionCreatedAt');
+      }
+    }
   }
 
   void _selectedTab(int index) {
