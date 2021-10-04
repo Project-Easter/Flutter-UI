@@ -1,4 +1,5 @@
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/main.dart';
 import 'package:books_app/screens/add_book.dart';
 import 'package:books_app/screens/auth/confirm_email.dart';
 import 'package:books_app/screens/auth/forgot_password.dart';
@@ -52,6 +53,8 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
       case Routes.LIBRARY:
         return MaterialPageRoute<dynamic>(builder: (_) => LibraryPage());
+      case Routes.WRAPPER:
+        return MaterialPageRoute<dynamic>(builder: (_) => Wrapper());
       // case Routes.VERIFY_MOBILE:
       //   return MaterialPageRoute<dynamic>(builder: (_) => const EnterMobile());
       // case Routes.OTP:
