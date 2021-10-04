@@ -2,6 +2,8 @@ import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
+
 import 'package:books_app/widgets/book_description/genres.dart';
 import 'package:books_app/widgets/book_description/owner_info.dart';
 import 'package:books_app/widgets/button.dart';
@@ -12,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 class BookDescription extends StatefulWidget {
+
   final Book bookFromList;
   const BookDescription({Key key, this.bookFromList}) : super(key: key);
   @override
@@ -20,7 +23,10 @@ class BookDescription extends StatefulWidget {
 
 class _BookDescriptionState extends State<BookDescription>
     with SingleTickerProviderStateMixin {
-  final FirebaseAuthService _authService = FirebaseAuthService();
+  final FirebaseAuthService _authService =
+  FirebaseAuthService();
+  // final DatabaseService _databaseService =
+  // DatabaseService(uid: uid as String);
   TabController _tabController;
 
   Widget bookDescription(String description) {
@@ -58,8 +64,8 @@ class _BookDescriptionState extends State<BookDescription>
   @override
   Widget build(BuildContext context) {
     final dynamic uid = _authService.getUID;
-    // final DatabaseService _databaseService =
-    //     DatabaseService(uid: uid as String);
+    final DatabaseService _databaseService =
+        DatabaseService(uid: uid as String);
     print(widget.bookFromList.rating);
     print(_tabController.index);
     return Scaffold(
@@ -133,8 +139,9 @@ class _BookDescriptionState extends State<BookDescription>
                       alignment: Alignment.topRight,
                       onPressed: () async {
                         try {
-                          setState(() {
+                          setState (() {
                             widget.bookFromList.changeBookMark();
+                            _databaseService.updateBookMark(widget.bookFromList);
                           });
                           // _databaseService.updateBookMark(widget.bookFromList);
                         } catch (e) {

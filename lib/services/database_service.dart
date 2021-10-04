@@ -89,14 +89,7 @@ class DatabaseService {
   //   // .map(_messageFromSnapshot);
   // }
 
-  void removeBook(String isbn) {
-    booksCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .doc(isbn)
-        .delete()
-        .catchError((dynamic e) => print(e.toString()));
-  }
+
 
   // Future<DocumentReference> sendMessage(Message message) async {
   //   // final newMessage = Message(
@@ -126,25 +119,26 @@ class DatabaseService {
   //   // );
   //   //update receiver inbox
   // }
-
-  void updateBookMark(Book book) {
+  void removeBook(String isbn) {
+    booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(isbn)
+        .delete()
+        .catchError((dynamic e) => print(e.toString()));
+  }
+  Future<void> updateBookMark(Book book) async {
     //Get
+    print("Hello there");
+
     final DocumentReference docReference =
         booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
-    docReference
-        .get()
-        .then((DocumentSnapshot doc) => () {
-              if (doc.exists) {
-                docReference.set(<String, dynamic>{
-                  'isBookMarked': book.isBookMarked,
-                }, SetOptions(merge: true));
-              } else {
-                addBook(book);
-              }
-            })
-        .catchError((dynamic e) {
-      print(e.toString());
-    });
+    docReference.update(<String, dynamic>{
+          'isBookMarked': book.isBookMarked,
+        }
+
+    );
+
   }
 
   Future<void> updateGenres(List<String> genres) async {

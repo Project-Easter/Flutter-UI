@@ -17,7 +17,7 @@ class BookList extends StatefulWidget {
 class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) {
-    print('BookList length is ${widget.bookList}.length');
+    print('BookList length is ${widget.bookList.length}');
     SizeConfig().init(context);
     return Column(
       children: <Widget>[
