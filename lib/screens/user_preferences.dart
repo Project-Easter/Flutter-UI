@@ -203,7 +203,7 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                LocationRange(locationRange),
+                // LocationRange(locationRange),
                 TextFormField(
                   controller: _book,
                   keyboardType: TextInputType.name,

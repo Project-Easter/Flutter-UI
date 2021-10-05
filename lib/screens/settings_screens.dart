@@ -132,31 +132,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 // size: 14,
               ),
             ),
-            ListTile(
-              contentPadding: const EdgeInsets.only(left: 15, right: 0),
-              title: Text(
-                'Set Location Range',
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400, fontSize: 18),
-              ),
-              trailing: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(_currentSlidervalue.toStringAsFixed(2),
-                    style: GoogleFonts.poppins()),
-              ),
-            ),
-            Slider(
-              label: _currentSlidervalue.round().toString(),
-              value: _currentSlidervalue,
-              min: 0,
-              max: 50,
-              onChanged: (double value) {
-                setState(() {
-                  _currentSlidervalue = value;
-                });
-                sliderValue = value;
-              },
-            ),
+            // ListTile(
+            //   contentPadding: const EdgeInsets.only(left: 15, right: 0),
+            //   title: Text(
+            //     'Set Location Range',
+            //     style: GoogleFonts.poppins(
+            //         fontWeight: FontWeight.w400, fontSize: 18),
+            //   ),
+            //   trailing: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 10),
+            //     child: Text(_currentSlidervalue.toStringAsFixed(2),
+            //         style: GoogleFonts.poppins()),
+            //   ),
+            // ),
+            // Slider(
+            //   label: _currentSlidervalue.round().toString(),
+            //   value: _currentSlidervalue,
+            //   min: 0,
+            //   max: 50,
+            //   onChanged: (double value) {
+            //     setState(() {
+            //       _currentSlidervalue = value;
+            //     });
+            //     sliderValue = value;
+            //   },
+            // ),
             ListTile(
               contentPadding: const EdgeInsets.only(left: 15, right: 0),
               title: Text(
