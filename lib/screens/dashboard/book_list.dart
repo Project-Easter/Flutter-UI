@@ -30,27 +30,28 @@ class _BookListState extends State<BookList> {
                     fontSize: 24, fontWeight: FontWeight.w600)),
           ),
         ),
-        SizedBox(
-          height: getProportionateScreenHeight(350),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: widget.bookList.length,
-            itemBuilder: (BuildContext context, int index) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ChangeNotifierProvider<Book>.value(
-                value: widget.bookList[index],
-                child: BookCard(),
+        if (widget.bookList != null && widget.bookList.isNotEmpty)
+          SizedBox(
+            height: getProportionateScreenHeight(350),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.bookList.length,
+              itemBuilder: (BuildContext context, int index) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ChangeNotifierProvider<Book>.value(
+                  value: widget.bookList[index],
+                  child: BookCard(),
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
 
   @override
   void initState() {
-    widget.bookList.shuffle();
+    widget.bookList?.shuffle();
     super.initState();
   }
 }
