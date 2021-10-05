@@ -1,4 +1,5 @@
 class Routes {
+  static const String WRAPPER = '/wrapper';
   static const String LOGIN = '/login';
   static const String REGISTER = '/register';
   static const String INITIAL_PAGE = '/initial';

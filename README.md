@@ -11,19 +11,24 @@
 <!-- ## PROJECT-EASTER  -->
 <div align="center">
 <a href="https://github.com/Project-Easter/Flutter-UI/blob/main/LICENSE" target="blank">
-<img src="https://img.shields.io/github/license/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator license" />
+<img src="https://img.shields.io/github/license/Project-Easter/Flutter-UI?style=plastic" alt="github-profile-readme-generator license" />
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/fork" target="blank">
-<img src="https://img.shields.io/github/forks/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator forks"/>
+<img src="https://img.shields.io/github/forks/Project-Easter/Flutter-UI?style=plastic" alt="github-profile-readme-generator forks"/>
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/stargazers" target="blank">
-<img src="https://img.shields.io/github/stars/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator stars"/>
+<img src="https://img.shields.io/github/stars/Project-Easter/Flutter-UI?style=plastic" alt="github-profile-readme-generator stars"/>
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/issues" target="blank">
-<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator issues"/>
+<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI?color=blue&style=plastic" alt="github-profile-readme-generator issues"/>
 </a>
 <a href="https://github.com/Project-Easter/Flutter-UI/pulls" target="blank">
-<img src="https://img.shields.io/github/issues-pr/Project-Easter/Flutter-UI?style=flat-square" alt="github-profile-readme-generator pull-requests"/>
+<img src="https://img.shields.io/github/issues-pr/Project-Easter/Flutter-UI?color=&style=plastic" alt="github-profile-readme-generator pull-requests"/>
+</a>
+<a href="https://github.com/Project-Easter/Flutter-UI/pulls?q=is%3Apr+is%3Aclosed+label%3Ahacktoberfest-accepted" target="blank">
+<img src="https://img.shields.io/github/issues-pr-closed/Project-Easter/Flutter-UI/hacktoberfest-accepted?color=teal&style=plastic" alt="github-profile-readme-generator hacktoberfest-accepted issues"/>
+<a href="https://github.com/Project-Easter/Flutter-UI/issues?q=is%3Aissue+is%3Aopen+label%3AHacktoberfest" target="blank">
+<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI/Hacktoberfest?color=red&style=plastic" alt="github-profile-readme-generator Hacktoberfest issues"/>
 </a>
 <!---<a href="https://discord.gg/HHMs7Eg" target="blank">
 <img src="https://img.shields.io/discord/735303195105951764?label=Join%20Community&logo=discord&style=flat-square" alt="join discord community of github profile readme generator"/>
@@ -45,7 +50,7 @@
 - [⛏️ Built With <a name = "tech_stack"></a>](#️-built-with-)
 - [🍰 How to contribute <a name="usage"></a>](#-how-to-contribute-)
 - [📜 Important Guidelines <a name="imp"></a>](#-important-guidelines-)
-- [🙋‍♂️ Discussion <a name="discussion"></a>](#-discussion-)
+- [🙋‍♂️ Discussion <a name="discussion"></a>](#️-discussion-)
 - [🎈 1st Release Features <a name="features"></a>](#-1st-release-features-)
 - [🚩 Further Project Details <a name="further_details"></a>](#-further-project-details-)
 - [⚡ Flutter Resources <a name="resources"></a>](#-flutter-resources-)
@@ -80,10 +85,12 @@
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
-* [Flutter](https://flutter.dev/)  
+* [Flutter](https://flutter.dev/) 
+* [Dart](https://dart.dev/) 
 * [Firebase](https://firebase.google.com/)
-* [Mapbox API](https://www.mapbox.com/)
-* [Google Books API](https://developers.google.com/books/docs/v1/using)
+* [REST API](https://flutter.dev/docs/cookbook/networking/fetch-data)
+<!-- * [Mapbox API](https://www.mapbox.com/)
+* [Google Books API](https://developers.google.com/books/docs/v1/using) -->
 
 ## 🍰 How to contribute <a name="usage"></a>
 
@@ -100,6 +107,12 @@
 
 ```
 git clone https://github.com/<Your GitHub Username>/Flutter-UI.git
+```
+
+* After cloning the repo, run this command to add the [main repository](https://github.com/Project-Easter/Flutter-UI.git) as `upstream` to sync with it. Run this command to add `upstream`:
+
+```
+git remote add upstream https://github.com/Project-Easter/Flutter-UI.git
 ```
 
 **Step 3: Create a branch:**
@@ -160,6 +173,7 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 * Then only you'll be assigned with the issues and your PRs will be considered.
 * Create you branches with branchname *hacktober/your-first-name* only in your forked repository.
 * You can only work on one issue at a time.
+* Any changes in the documentation will be marked as **invalid** or **spam** 
 * **Do not** make any changes in the **main** branch or the original repository. 
 * **Refrain** to make the pull requests without getting an issue assigned. 
 * Follow the given pull request template properly.
@@ -167,7 +181,7 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 * Please follow the linting rules and standard practices as specified in [`analysis_option.yaml`](analysis_options.yaml) to avoid unnecessary warnings
 
 
-PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇
+PS: Feel free to share your ideas and opening <a href="https://github.com/Project-Easter/Flutter-UI/issues/new?assignees=&labels=&template=issue_template.md&title=">issues</a> for new bugs or features 😇. Just make sure that you don't put any labels on it or assign it to yourself or anyone. Tag us(<a href="https://github.com/Mohitmadhav">@Mohitmadhav</a> and <a href="https://github.com/ankitoscar">@ankitoscar</a>) in your issue, we will reach out to your issues and assign it to you with proper labels.
 
 ## 🙋‍♂️ Discussion <a name="discussion"></a>
 You can participate in our discussions at `Github Discussions` which has the following topics:
@@ -181,14 +195,10 @@ You can participate in our discussions at `Github Discussions` which has the fol
 Features to be implemented:
 
 * Facebook/Email Authentication
-* User Library
-* Adding Bookmarks 
-* Getting books within a location range
-* Themes 
-* App Terms and Conditions
-* Auto-generated mail after the exchange  
-* Book Recommendations via ML
-* Manually changing the location. 
+* User Library (Owned/Saved/Borrowed Books)
+* Firebase Chat
+* Getting nearby books (Within 10 km)
+* Dashboard Book Recommendations
 
 ## 🚩 Further Project Details <a name="further_details"></a>
 

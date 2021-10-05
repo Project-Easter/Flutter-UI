@@ -13,6 +13,8 @@ class PrivateProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserData profileData = Provider.of<UserData>(context);
     final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
+    final FirebaseAuthService firebaseAuthService =
+        Provider.of<FirebaseAuthService>(context);
     // final UserData profileData =Provider.of<UserData>(context);
     int ownedBooksLength;
     if (booksData.isEmpty) {
@@ -45,8 +47,8 @@ class PrivateProfile extends StatelessWidget {
             children: <Widget>[
               ProfileHeader(profileData: profileData),
               const Divider(
-                // color: Colors.black54,
-              ),
+                  // color: Colors.black54,
+                  ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -107,26 +109,26 @@ class PrivateProfile extends StatelessWidget {
                     Button(
                       name: 'Add your Book',
                       color: blackButton,
-                      myFunction: ()async {
-Navigator.pushNamed(context, Routes.ADD_BOOK);
+                      myFunction: () async {
+                        Navigator.pushNamed(context, Routes.ADD_BOOK);
                       },
                     ),
                     // Button(
                     //      blackButton, 'Add you Book', Routes.ADD_BOOK),
                     // button(context, blackButton, 'Settings', Routes.SETTINGS),
-                    
+
                     GestureDetector(
                       onTap: () {
-                        FirebaseAuthService().googleSignout();
+                        // firebaseAuthService.googleSignout();
                       },
                       child: Button(
-                        name: 'Logout', 
-                        color: greenButton,
-                        myFunction: ()async {
-                         Navigator.pushReplacementNamed(context,Routes.INITIAL_PAGE);
-                        }
-                        
-                      ),
+                          name: 'Logout',
+                          color: greenButton,
+                          myFunction: () async {
+                            firebaseAuthService.signOut();
+                            // Navigator.pushReplacementNamed(
+                            //     context, Routes.INITIAL_PAGE);
+                          }),
                       // child: button(
                       //     context, greenButton, 'Logout', Routes.INITIAL_PAGE),
                     )
@@ -161,8 +163,12 @@ class ProfileHeader extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: CircleAvatar(
               radius: 100,
-              backgroundImage: NetworkImage(profile.photoURL),
-              // AssetImage('assets/images/Explr Logo.png'),
+              child: Image(
+                image: AssetImage('assets/images/Explr Logo.png'),
+                fit: BoxFit.contain,
+              )
+              // NetworkImage(profile.photoURL),
+              ,
             ),
           ),
           Text(
@@ -179,9 +185,7 @@ class ProfileHeader extends StatelessWidget {
                   ? '${profileData.city} , ${profileData.state}'
                   : 'Update your location',
               style: GoogleFonts.poppins(
-                 
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400),
+                  fontSize: 13, fontWeight: FontWeight.w400),
             ),
           ),
         ],
