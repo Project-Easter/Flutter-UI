@@ -1,3 +1,4 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
@@ -41,11 +42,13 @@ class UserChoice extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: AspectRatio(
                   aspectRatio: 343 / 52,
-                  child: MaterialButton(
+                  child: TextButton(
                     child: Text(
                       'Personalize',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500, fontSize: 16),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
                     ),
                     onPressed: () async {
                       await showGeneralDialog(
@@ -59,8 +62,10 @@ class UserChoice extends StatelessWidget {
                                   Animation<double> animation2) =>
                               UserPreference(userData));
                     },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                    ),
                   ),
                 ),
               ),
