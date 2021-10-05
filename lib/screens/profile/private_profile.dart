@@ -163,9 +163,12 @@ class ProfileHeader extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             child: CircleAvatar(
               radius: 100,
-              backgroundImage:
-                  // NetworkImage(profile.photoURL),
-                  AssetImage('assets/images/Explr Logo.png'),
+              child: Image(
+                image: AssetImage('assets/images/Explr Logo.png'),
+                fit: BoxFit.contain,
+              )
+              // NetworkImage(profile.photoURL),
+              ,
             ),
           ),
           Text(
