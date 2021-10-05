@@ -1,40 +1,13 @@
 import 'package:books_app/constants/genres.dart';
-//import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-double sliderValue = 10.0;
 String uID = FirebaseAuthService().getUID;
-
-class LocationRange extends StatefulWidget {
-  dynamic locationRange;
-  LocationRange(this.locationRange);
-
-  @override
-  _LocationRangeState createState() => _LocationRangeState();
-}
-
-class MultiSelectDialogItem<V> {
-  final V value;
-  final String label;
-  const MultiSelectDialogItem(this.value, this.label);
-}
-
-// DatabaseService _databaseService = DatabaseService(uid: uID);
-
-// class MultiSelectDialog<V> extends StatefulWidget {
-//   final List<MultiSelectDialogItem<V>> items;
-
-//   final Set<V> initialSelectedValues;
-//   const MultiSelectDialog({Key key, this.items, this.initialSelectedValues})
-//       : super(key: key);
-
-//   @override
-//   State<StatefulWidget> createState() => _MultiSelectDialogState<V>();
-// }
+DatabaseService _databaseService = DatabaseService(uid: uID);
 
 class UserPreference extends StatefulWidget {
   final UserData userData;
@@ -43,144 +16,25 @@ class UserPreference extends StatefulWidget {
   _UserPreferenceState createState() => _UserPreferenceState();
 }
 
-// ignore: must_be_immutable
-class _LocationRangeState extends State<LocationRange> {
-  double _currentSlidervalue = 10.0;
-  String s;
-  @override
-  Widget build(BuildContext context) {
-    s = _currentSlidervalue.toStringAsFixed(2);
-    return Column(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            'Set Location Range',
-            style: GoogleFonts.poppins(fontSize: 15),
-          ),
-        ),
-        Slider(
-          label: _currentSlidervalue.round().toString(),
-          value: widget.locationRange as double ?? _currentSlidervalue,
-          min: 0,
-          max: 50,
-          onChanged: (double value) {
-            setState(() {
-              widget.locationRange = value;
-              _currentSlidervalue = value;
-            });
-            sliderValue = value;
-          },
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            '$s km',
-            style: GoogleFonts.poppins(),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-// class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
-//   final Set<V> _selectedValues = <V>{};
-
-//   @override
-//   Widget build(BuildContext context) {
-//     print('Select genres');
-//     print(uID);
-//     return AlertDialog(
-//       title: const Text('Select Genres'),
-//       contentPadding: const EdgeInsets.only(top: 12.0),
-//       content: SingleChildScrollView(
-//         child: ListTileTheme(
-//           contentPadding: const EdgeInsets.fromLTRB(14.0, 0.0, 24.0, 0.0),
-//           child: ListBody(
-//             children: widget.items.map(_buildItem).toList(),
-//           ),
-//         ),
-//       ),
-//       actions: <Widget>[
-//         MaterialButton(
-//           child: const Text('CANCEL'),
-//           onPressed: _onCancelTap,
-//         ),
-//         MaterialButton(
-//           child: const Text('OK'),
-//           onPressed: () => _onSubmitTap(_selectedValues),
-//         )
-//       ],
-//     );
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     if (widget.initialSelectedValues != null) {
-//       _selectedValues.addAll(widget.initialSelectedValues);
-//     }
-//   }
-
-//   Widget _buildItem(MultiSelectDialogItem<V> item) {
-//     final bool checked = _selectedValues.contains(item.value);
-//     return CheckboxListTile(
-//       value: checked,
-//       title: Text(item.label),
-//       controlAffinity: ListTileControlAffinity.leading,
-//       onChanged: (bool checked) => _onItemCheckedChange(item.value, checked),
-//     );
-//   }
-
-//   void _onCancelTap() {
-//     Navigator.of(context).pop();
-//   }
-
-//   void _onItemCheckedChange(V itemValue, bool checked) {
-//     setState(() {
-//       if (checked) {
-//         _selectedValues.add(itemValue);
-//       } else {
-//         _selectedValues.remove(itemValue);
-//       }
-//     });
-//   }
-
-//   Future<void> _onSubmitTap(Set<V> selectedItems) async {
-//     final List<dynamic> items = selectedItems.toList();
-//     items.removeRange(0, 1);
-//     print(items);
-//     final List<String> selectedGenres = <String>[];
-//     for (final dynamic element in items) {
-//       final String x = element.toString();
-//       print(genres[int.parse(x)]);
-//       selectedGenres.add(genres[int.parse(x)]);
-//     }
-
-//     print(selectedGenres);
-//     await _databaseService.updateGenres(selectedGenres);
-//     Navigator.of(context).pop();
-//   }
-// }
-
 class _UserPreferenceState extends State<UserPreference> {
-  final TextEditingController _author = TextEditingController();
-  final TextEditingController _book = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  // final TextEditingController _author = TextEditingController();
+  // final TextEditingController _book = TextEditingController();
 
   List<String> tags = [];
 
   @override
   Widget build(BuildContext context) {
-    // final String favBook = widget.userData.preferences['favBook'] as String;
-    // final String favAuthor = widget.userData.preferences['favAuthor'] as String;
-    final String location =
-        widget.userData.preferences['locationRange'] as String;
-    final double locationRange = double.parse(location);
-    // final TextEditingController _author =
-    //     TextEditingController(text: favAuthor);
-    // final TextEditingController _book = TextEditingController(text: favBook);
+    // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final String favBook = widget.userData.preferences['favBook'] as String;
+    final String favAuthor = widget.userData.preferences['favAuthor'] as String;
+    // final String location =
+    //     widget.userData.preferences['locationRange'] as String;
+
+    final TextEditingController _author =
+        TextEditingController(text: favAuthor);
+    final TextEditingController _book = TextEditingController(text: favBook);
 
     return Form(
       key: _formKey,
@@ -203,7 +57,6 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                LocationRange(locationRange),
                 TextFormField(
                   controller: _book,
                   keyboardType: TextInputType.name,
@@ -252,30 +105,6 @@ class _UserPreferenceState extends State<UserPreference> {
                 ),
                 Text('Select Book genres', style: GoogleFonts.muli()),
                 _genresChoice(),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // ButtonTheme(
-                //   minWidth: 220,
-                //   height: 40,
-                //   child: ElevatedButton(
-                //     style: ElevatedButton.styleFrom(
-                //       shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(11)),
-                //       primary: Colors.blue,
-                //     ),
-                //     onPressed: () {
-                //       // _showMultiSelect(context);
-                //     },
-                //     child: Text(
-                //       'Select Book Genres',
-                //       style: GoogleFonts.muli(
-                //           color: Colors.white,
-                //           fontSize: 15,
-                //           fontWeight: FontWeight.w500),
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -307,7 +136,7 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  Widget _genresChoice() {
+  ChipsChoice<String> _genresChoice() {
     return ChipsChoice<String>.multiple(
       value: tags,
       onChanged: (List<String> val) => setState(() => tags = val),
@@ -335,6 +164,6 @@ class _UserPreferenceState extends State<UserPreference> {
       selectedGenres.add(genres[int.parse(x)]);
     }
     print(selectedGenres);
-    // await _databaseService.updateGenres(selectedGenres);
+    await _databaseService.updateGenres(selectedGenres);
   }
 }
