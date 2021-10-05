@@ -30,6 +30,7 @@ class FirebaseAuthService extends ChangeNotifier {
     await _tokenStorage.deleteSessionKey();
   }
 
+  //for sign up using google
   UserData makeUserDataFromAuthUser(User user) {
     const String photoUrl = 'assets/images/Explr Logo.png';
     final UserData userData = UserData(
@@ -39,6 +40,24 @@ class FirebaseAuthService extends ChangeNotifier {
       emailVerified: user.emailVerified,
       phoneNumber: user.phoneNumber ?? 'Phone',
       photoURL: user.photoURL ?? photoUrl,
+      city: null,
+      state: null,
+      countryName: null,
+    );
+    return userData;
+  }
+
+  //for sign up using email and password
+  UserData makeUserDataForSignUp(User user, String username, String phone) {
+    const String photoUrl = 'assets/images/Explr Logo.png';
+    final UserData userData = UserData(
+      uid: user.uid,
+      displayName: username ?? 'Your name',
+      email: user.email ?? 'your@email.com',
+      emailVerified: user.emailVerified,
+      phoneNumber: phone ?? 'Phone',
+      photoURL: user.photoURL ?? photoUrl,
+      isAnonymous: user.isAnonymous,
       city: null,
       state: null,
       countryName: null,
@@ -91,11 +110,21 @@ class FirebaseAuthService extends ChangeNotifier {
   }
 
   //for register
-  Future<UserCredential> signUpWithEmail(
-      BuildContext context, String email, String pass) async {
+  Future<UserCredential> signUpWithEmail(BuildContext context, String username,
+      String phone, String email, String pass) async {
     try {
       final UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass);
+      if (userCredential != null) {
+        final UserData userData =
+            makeUserDataForSignUp(userCredential.user, username, phone);
+        await DatabaseService(uid: userCredential.user.uid)
+            .updateUserData(userData);
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: blackButton, content: Text('An error occured!.')));
+      }
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
