@@ -1,6 +1,7 @@
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/screens/dashboard/bookcard.dart';
 import 'package:books_app/utils/size_config.dart';
+import 'package:books_app/widgets/empty_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,9 @@ class _BookListState extends State<BookList> {
                 ),
               ),
             ),
-          ),
+          )
+        else
+          const EmptyPageWidget(headline: 'No books to display'),
       ],
     );
   }
