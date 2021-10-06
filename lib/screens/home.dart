@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
     print(uID);
 
     return MultiProvider(
-      providers: [
+      providers:<StreamProvider<dynamic>> [
         StreamProvider<UserData>.value(
           value: _databaseService.userData,
           catchError: (_, Object e) => null,
@@ -66,16 +66,7 @@ class _HomeState extends State<Home> {
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: FloatingActionButton(
-              //     heroTag: null,
-              //     child: const Icon(Icons.add_box_rounded),
-              //     onPressed: () {
-              //       Navigator.pushNamed(context, Routes.ADD_BOOK);
-              //     },
-              //   ),
-              // ),
+              
               FloatingActionButton(
                 heroTag: 'map',
                 child: const Icon(Icons.location_on),
