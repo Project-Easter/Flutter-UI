@@ -119,11 +119,7 @@ class _BookDescriptionState extends State<BookDescription>
                       ),
                     ),
 
-                    Text(
-                      widget.bookFromList.title,
-                      textAlign: TextAlign.center,
-
-                  ),
+                   
                   Text(
                     widget.bookFromList.title,
                     textAlign: TextAlign.center,
