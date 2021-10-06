@@ -32,18 +32,22 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: AspectRatio(
         aspectRatio: 343 / 52,
         child: MaterialButton(
+          height: height * 0.08,
+          minWidth: width * 0.6,
           color: color,
           child: Text(
             name,
             style: GoogleFonts.poppins(
                 color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
           ),
-          onPressed:  myFunction,
+          onPressed: myFunction,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
