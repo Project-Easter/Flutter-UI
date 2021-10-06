@@ -39,7 +39,7 @@ class _BookDescriptionState extends State<BookDescription>
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),
           child: ReadMoreText(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia nibh in urna varius scelerisque. Sed a condimentum odio, non gravida neque. Donec cursus sapien aliquet urna mollis tincidunt. Mauris eget justo velit. Cras non odio nisl. Etiam vel lectus sed lectus tempor posuere id vestibulum lectus. Nulla lacinia eros et nulla feugiat tempus. Aenean porttitor odio enim, vehicula commodo orci scelerisque id. Aliquam convallis purus et sagittis rutrum. Morbi finibus maximus tortor, vitae dapibus ipsum fermentum faucibus. Pellentesque euismod, est a finibus congue, enim quam facilisis leo, quis tincidunt sapien dolor ut magna. In elementum accumsan ligula, eu tincidunt.",
+            widget.bookFromList.description,
             style: GoogleFonts.poppins(
                 color: Colors.blueGrey,
                 fontWeight: FontWeight.w500,
