@@ -10,12 +10,14 @@ import 'package:books_app/screens/profile/private_profile.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/keys_storage.dart';
+import 'package:books_app/utils/location_helper.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/app_bar.dart';
 import 'package:books_app/widgets/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -42,16 +44,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final String uID = _authService.getUID;
+    final DatabaseService _databaseService =
+        DatabaseService(uid: uID.toString());
+    print(uID);
+    final LocationHelper _locationHelper = LocationHelper();
     print(uID);
 
     return MultiProvider(
-      providers: [
+      providers:<StreamProvider<dynamic>> [
         StreamProvider<UserData>.value(
-          value: DatabaseService(uid: uID).userData,
+          value: _databaseService.userData,
           catchError: (_, Object e) => null,
         ),
         StreamProvider<List<Book>>.value(
-          value: DatabaseService(uid: uID).booksData,
+          value: _databaseService.booksData,
         ),
       ],
       child: Scaffold(
@@ -60,22 +66,33 @@ class _HomeState extends State<Home> {
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: FloatingActionButton(
-              //     heroTag: null,
-              //     child: const Icon(Icons.add_box_rounded),
-              //     onPressed: () {
-              //       Navigator.pushNamed(context, Routes.ADD_BOOK);
-              //     },
-              //   ),
-              // ),
+              
               FloatingActionButton(
                 heroTag: 'map',
                 child: const Icon(Icons.location_on),
                 backgroundColor: Colors.blueAccent,
                 onPressed: () async {
-                  await Navigator.pushNamed(context, Routes.LOCATION);
+                  // we are not navigating to the map anymore.
+                  // await Navigator.pushNamed(context, Routes.LOCATION);
+
+                  // get lat/long
+                  await _locationHelper
+                      .getCurrentLocation()
+                      .then((LatLng value) async {
+                    // updating address using lat/long
+                    await _databaseService
+                        .updateUserLocation(value.latitude, value.longitude)
+                        .then((dynamic value) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: blackButton,
+                        content: Text('Location Updated Successfully!'),
+                      ));
+                    });
+                  }).onError((String error, stackTrace) {
+                    print(error);
+                    print(stackTrace);
+                    SnackBar(content: Text(error.toString()));
+                  });
                 },
               ),
             ],
