@@ -173,9 +173,6 @@ class ProfileHeader extends StatelessWidget {
                     : 'Update your location by pressing on the floating action button at the bottom right corner',
                 style: GoogleFonts.poppins(
                     fontSize: 13, fontWeight: FontWeight.w400),
-                softWrap: true,
-                overflow: TextOverflow.visible,
-                maxLines: 2,
                 textAlign: TextAlign.center,
               ),
             ),
