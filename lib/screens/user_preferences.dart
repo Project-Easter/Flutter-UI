@@ -1,3 +1,4 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/genres.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
@@ -148,6 +149,9 @@ class _UserPreferenceState extends State<UserPreference> {
       choiceStyle: const C2ChoiceStyle(
         borderRadius: BorderRadius.all(Radius.circular(5)),
         borderColor: Colors.grey,
+      ),
+      choiceActiveStyle: const C2ChoiceStyle(
+        color: blackButton,
       ),
       wrapped: true,
     );
