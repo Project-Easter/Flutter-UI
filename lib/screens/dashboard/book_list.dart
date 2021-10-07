@@ -1,6 +1,7 @@
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/screens/dashboard/bookcard.dart';
 import 'package:books_app/utils/size_config.dart';
+import 'package:books_app/widgets/empty_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class BookList extends StatefulWidget {
 class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) {
-    print('BookList length is ${widget.bookList}.length');
+    print('BookList length is ${widget.bookList.length}');
     SizeConfig().init(context);
     return Column(
       children: <Widget>[
@@ -30,27 +31,30 @@ class _BookListState extends State<BookList> {
                     fontSize: 24, fontWeight: FontWeight.w600)),
           ),
         ),
-        SizedBox(
-          height: getProportionateScreenHeight(350),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: widget.bookList.length,
-            itemBuilder: (BuildContext context, int index) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ChangeNotifierProvider<Book>.value(
-                value: widget.bookList[index],
-                child: BookCard(),
+        if (widget.bookList != null && widget.bookList.isNotEmpty)
+          SizedBox(
+            height: getProportionateScreenHeight(350),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.bookList.length,
+              itemBuilder: (BuildContext context, int index) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ChangeNotifierProvider<Book>.value(
+                  value: widget.bookList[index],
+                  child: BookCard(),
+                ),
               ),
             ),
-          ),
-        ),
+          )
+        else
+          const EmptyPageWidget(headline: 'No books to display'),
       ],
     );
   }
 
   @override
   void initState() {
-    widget.bookList.shuffle();
+    widget.bookList?.shuffle();
     super.initState();
   }
 }
