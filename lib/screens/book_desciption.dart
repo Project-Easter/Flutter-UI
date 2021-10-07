@@ -2,6 +2,7 @@ import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:books_app/widgets/book_description/genres.dart';
 import 'package:books_app/widgets/book_description/owner_info.dart';
 import 'package:books_app/widgets/button.dart';
@@ -58,8 +59,8 @@ class _BookDescriptionState extends State<BookDescription>
   @override
   Widget build(BuildContext context) {
     final dynamic uid = _authService.getUID;
-    // final DatabaseService _databaseService =
-    //     DatabaseService(uid: uid as String);
+    final DatabaseService _databaseService =
+        DatabaseService(uid: uid as String);
     print(widget.bookFromList.rating);
     print(_tabController.index);
     return Scaffold(
@@ -222,7 +223,7 @@ class _BookDescriptionState extends State<BookDescription>
                       color: blackButton,
                       name: 'Remove this Book',
                       myFunction: () async {
-                        // _databaseService.removeBook(widget.bookFromList.isbn);
+                        _databaseService.removeBook(widget.bookFromList.isbn);
                         Navigator.of(context).pop();
                         print('Book Removed');
                       })

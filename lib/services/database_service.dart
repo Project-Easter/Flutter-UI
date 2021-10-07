@@ -20,7 +20,7 @@ class DatabaseService {
   }
 
   Stream<List<Book>> get booksData {
-    return booksCollection
+    return userDataCollection
         .doc(uid)
         .collection('ownedBooks')
         .snapshots()
@@ -37,9 +37,9 @@ class DatabaseService {
   }
 
   //Update Users Location
-  Future addBook(Book book) async {
-    //GET BOOK FROM API or an existing List
-    return booksCollection
+  Future<void> addBook(Book book) async {
+    //GET BOOK FROM API or an existing List and adds to both users and books collection
+    await userDataCollection
         .doc(uid)
         .collection('ownedBooks')
         .doc(book.isbn)
@@ -48,10 +48,36 @@ class DatabaseService {
       'isbn': book.isbn,
       'isBookMarked': book.isBookMarked,
       'isOwned': book.isOwned ?? false,
+      'isLent': book.isLent,
+      'isBorrowed': book.isBorrowed,
       'title': book.title,
       'description': book.description,
       'imageUrl': book.imageUrl,
-      'author': book.author
+      'author': book.author,
+      'pages': book.pages,
+      'infoLink': book.infoLink,
+      'genre': book.genre,
+      'userid': uid
+    });
+    await booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(book.isbn)
+        .set(<String, dynamic>{
+      'rating': book.rating,
+      'isbn': book.isbn,
+      'isBookMarked': book.isBookMarked,
+      'isOwned': book.isOwned ?? false,
+      'isLent': book.isLent,
+      'isBorrowed': book.isBorrowed,
+      'title': book.title,
+      'description': book.description,
+      'imageUrl': book.imageUrl,
+      'author': book.author,
+      'pages': book.pages,
+      'infoLink': book.infoLink,
+      'genre': book.genre,
+      'userid': uid
     });
   }
 
@@ -90,7 +116,14 @@ class DatabaseService {
   // }
 
   void removeBook(String isbn) {
+    print(isbn);
     booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(isbn)
+        .delete()
+        .catchError((dynamic e) => print(e.toString()));
+    userDataCollection
         .doc(uid)
         .collection('ownedBooks')
         .doc(isbn)
@@ -127,7 +160,7 @@ class DatabaseService {
   //   //update receiver inbox
   // }
 
-  void updateBookMark(Book book) {
+  Future<void> updateBookMark(Book book) async {
     //Get
     final DocumentReference docReference =
         booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
@@ -238,7 +271,7 @@ class DatabaseService {
     return snapshot.docs.map((QueryDocumentSnapshot doc) {
       // print(doc.data);
       return Book(
-          rating: doc.data()['rating'] as double,
+          // rating: doc.data()['rating'] as double,
           isOwned: doc.data()['isOwned'] as bool,
           isBookMarked: doc.data()['isBookMarked'] as bool,
           imageUrl: doc.data()['imageUrl'] as String,

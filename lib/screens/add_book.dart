@@ -17,8 +17,7 @@ class AddBook extends StatefulWidget {
 }
 
 class _AddBookState extends State<AddBook> {
-  final FirebaseAuthService _authService =
-      FirebaseAuthService();
+  final FirebaseAuthService _authService = FirebaseAuthService();
   final GlobalKey<FormState> _bookKey = GlobalKey<FormState>();
   final TextEditingController _bookName = TextEditingController();
   final TextEditingController _authorName = TextEditingController();
@@ -128,34 +127,43 @@ class _AddBookState extends State<AddBook> {
                       padding: const EdgeInsets.all(10.0),
                       // child: button(context, blackButton, 'Add your Book', ''),
                       child: Button(
-                        name: 'Add your Book',
-                        color: blackButton,
-                        myFunction: () async {
-                          if (_bookKey.currentState.validate()) {
-                            _bookKey.currentState.save();
-                            final dynamic result =
-                                await bookList.getBooksbyISBN(_isbnCode.text);
-                            if (result != null) {
-                              final Book book = makeBook(result);
-                              // bookList.postAddedBook(book);
-                              await _databaseService.addBook(book);
-
-                              final SnackBar snackbar = SnackBar(
-                                content: const Text('Your book has been added'),
-                                action: SnackBarAction(
-                                  label: 'Close',
-                                  onPressed: () {
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
-                                  },
-                                ),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackbar);
+                          name: 'Add your Book',
+                          color: blackButton,
+                          myFunction: () async {
+                            if (_bookKey.currentState.validate()) {
+                              _bookKey.currentState.save();
+                              final dynamic result =
+                                  await bookList.getBooksbyISBN(_isbnCode.text);
+                              if (result != null) {
+                                final Book book = bookList.makeBookforDB(
+                                    result, _isbnCode.text);
+                                // bookList.postAddedBook(book);
+                                await _databaseService.addBook(book);
+                                Navigator.of(context).pop();
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Your book has been added',
+                                      style: TextStyle(color: blackButton)),
+                                  duration: Duration(seconds: 3),
+                                  // action: SnackBarAction(
+                                  //   label: 'Close',
+                                  //   onPressed: () {
+                                  //     ScaffoldMessenger.of(context)
+                                  //         .hideCurrentSnackBar();
+                                  //   },
+                                  // ),
+                                ));
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                      "Book not found in Google book's database"),
+                                  backgroundColor: blackButton,
+                                  duration: Duration(seconds: 3),
+                                ));
+                              }
                             }
-                          }
-                        }
-                      ),
+                          }),
                     ),
                   ],
                 ),
@@ -165,37 +173,5 @@ class _AddBookState extends State<AddBook> {
         ),
       ),
     );
-  }
-
-//This Function is to Make Books FROM JSON result
-//Add Book Driver
-  Book makeBook(dynamic result) {
-    Book book;
-    if (result != null) {
-      final String title = result['title'] as String;
-      final String author = result['author'] as String;
-      final String description = result['description'] as String;
-      final String isbn = result['isbn'] as String;
-      String imageLink = result['image'] as String;
-      imageLink = imageLink.replaceFirst('http', 'https', 0);
-
-      if (imageLink.isEmpty) {
-        print('imageLink is empty');
-      }
-      print('ISBN' + isbn);
-      print('Title:' + title);
-      print('Author:' + author);
-      print('ImageLink:' + imageLink);
-      print('Description' + description);
-      book = Book(
-        isbn: isbn,
-        title: title,
-        description: description,
-        imageUrl: imageLink,
-        author: author,
-        isOwned: true,
-      );
-    }
-    return book;
   }
 }
