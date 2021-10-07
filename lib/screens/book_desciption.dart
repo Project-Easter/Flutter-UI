@@ -114,52 +114,49 @@ class _BookDescriptionState extends State<BookDescription>
                         ),
                       ),
                     ),
-
-
-                   
-                  Text(
-                    widget.bookFromList.title,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
+                    Text(
+                      widget.bookFromList.title,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  Text(
-                    widget.bookFromList.author,
-                    style: GoogleFonts.poppins(
-                      color: Colors.black.withOpacity(0.5),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
+                    Text(
+                      widget.bookFromList.author,
+                      style: GoogleFonts.poppins(
+                        color: Colors.black.withOpacity(0.5),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 100),
-                    child: IconButton(
-                      alignment: Alignment.topRight,
-                      onPressed: () async {
-                        try {
-                          setState (() {
-                            widget.bookFromList.changeBookMark();
-                            _databaseService.updateBookMark(widget.bookFromList);
-                          });
-                          // _databaseService.updateBookMark(widget.bookFromList);
-                        } catch (e) {
-                          print(e.toString());
-                        }
-                        print('Book Marked');
-                      },
-                      icon: widget.bookFromList.isBookMarked
-                          ? const Icon(Icons.bookmark)
-                          : const Icon(Icons.bookmark_outline_rounded),
-                      iconSize: 20,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 100),
+                      child: IconButton(
+                        alignment: Alignment.topRight,
+                        onPressed: () async {
+                          try {
+                            setState(() {
+                              widget.bookFromList.changeBookMark();
+                              _databaseService
+                                  .updateBookMark(widget.bookFromList);
+                            });
+                            // _databaseService.updateBookMark(widget.bookFromList);
+                          } catch (e) {
+                            print(e.toString());
+                          }
+                          print('Book Marked');
+                        },
+                        icon: widget.bookFromList.isBookMarked
+                            ? const Icon(Icons.bookmark)
+                            : const Icon(Icons.bookmark_outline_rounded),
+                        iconSize: 20,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )),
-
+                  ],
+                ),
+              )),
               SliverToBoxAdapter(
                 child: TabBar(
                   controller: _tabController,
@@ -208,35 +205,42 @@ class _BookDescriptionState extends State<BookDescription>
                     endIndent: 15,
                   ),
                   // Reviews(),
-                  if (widget.bookFromList.isOwned != null)
-                    Button(
-                        color: blackButton,
-                        name: 'Rate this Book',
-                        myFunction: () async {
-                          final int stars = await showDialog(
-                              context: context, builder: (_) => RatingDialog());
-                          if (stars == null) return;
-                          print('Selected rate stars: $stars');
-                          // _databaseService.updateRating(
-                          //     stars.toDouble(), widget.bookFromList.isbn);
-                          print('Update Ratings');
-                        }),
-                  // else
-                  Button(
-                      color: blackButton,
-                      name: 'Exchange this Book',
-                      myFunction: () async {}),
+
                   if (widget.bookFromList.isOwned == true)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: <Widget>[
+                          Button(
+                              color: blackButton,
+                              name: 'Rate this Book',
+                              myFunction: () async {
+                                final int stars = await showDialog(
+                                    context: context,
+                                    builder: (_) => RatingDialog());
+                                if (stars == null) return;
+                                print('Selected rate stars: $stars');
+                                // _databaseService.updateRating(
+                                //     stars.toDouble(), widget.bookFromList.isbn);
+                                print('Update Ratings');
+                              }),
+                          Button(
+                              color: blackButton,
+                              name: 'Remove this Book',
+                              myFunction: () async {
+                                _databaseService
+                                    .removeBook(widget.bookFromList.isbn);
+                                Navigator.of(context).pop();
+                                print('Book Removed');
+                              }),
+                        ],
+                      ),
+                    )
+                  else
                     Button(
                         color: blackButton,
-                        name: 'Remove this Book',
-                        myFunction: () async {
-                          // _databaseService.removeBook(widget.bookFromList.isbn);
-                          Navigator.of(context).pop();
-                          print('Book Removed');
-                        })
-                  else
-                    const SizedBox(),
+                        name: 'Exchange this Book',
+                        myFunction: () async {}),
                 ],
               ),
               ListView(
