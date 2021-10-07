@@ -134,7 +134,7 @@ class _AddBookState extends State<AddBook> {
                               _bookKey.currentState.save();
                               final dynamic result =
                                   await bookList.getBooksbyISBN(_isbnCode.text);
-                              if (result != null) {
+                              if (result['totalItems'] != 0) {
                                 final Book book = bookList.makeBookforDB(
                                     result, _isbnCode.text);
                                 // bookList.postAddedBook(book);
