@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
@@ -97,25 +98,67 @@ class Books with ChangeNotifier {
   //   }
   //   return result;
   // }
-Future<dynamic> getBooksbyISBN(String isbn) async {
+  Future<dynamic> getBooksbyISBN(String isbn) async {
     //Add Books from Google API
-    const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn';
+    const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
+    final Map<String, dynamic> res = <String, dynamic>{
+      'kind': 'books#volumes',
+      'totalItems': 0
+    };
     try {
-      final http.Response response = await http.get(url + isbn);
+      final http.Response response = await http.get(url + isbn.trim());
       final dynamic result = jsonDecode(response.body);
       // print("Result From get Books From ISBN:");
-
-      // print(result);
-      if (result != null) {
-        return result;
-      }
-      return null;
+      // print(result["items"][0]);
+      return result;
     } catch (e) {
       print(e.toString());
     }
-    return null;
+    return res;
   }
 
+  Book makeBookforDB(dynamic result, String isbnCode) {
+    // print(result);
+    Book book;
+
+    // final String id = result['items'][0]['id'] as String;
+    final String title = result['items'][0]['volumeInfo']['title'] as String;
+    final String author =
+        result['items'][0]['volumeInfo']['authors'][0] as String;
+    final String description =
+        result['items'][0]['volumeInfo']['description'] as String;
+    final String isbn = isbnCode;
+    final String infoLink =
+        result['items'][0]['volumeInfo']['infoLink'] as String;
+    final int pages = result['items'][0]['volumeInfo']['pageCount'] as int;
+    String imageLink;
+    try {
+      imageLink =
+          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'] as String;
+      imageLink = imageLink.replaceFirst('http', 'https', 0);
+    } catch (e) {
+      imageLink =
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
+      print('imageLink is empty');
+    }
+
+    print(FirebaseAuth.instance.currentUser.uid);
+    print('ISBN' + isbn.toString());
+    print('Title:' + title.toString());
+    print('Author:' + author.toString());
+    print('ImageLink:' + imageLink.toString());
+    print('Description' + description.toString());
+    book = Book(
+        isbn: isbn,
+        title: title,
+        author: author,
+        imageUrl: imageLink,
+        description: description,
+        isOwned: true,
+        pages: pages ?? 0,
+        infoLink: infoLink);
+    return book;
+  }
 
   // Future<dynamic> getBooksbyTitle(String title) async {
   //   final Response response =
@@ -236,7 +279,6 @@ Future<dynamic> getBooksbyISBN(String isbn) async {
     }
   }
 
-  
   Future<dynamic> getISBNFromName(String title) async {
     const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
     try {

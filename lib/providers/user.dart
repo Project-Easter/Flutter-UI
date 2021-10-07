@@ -1,5 +1,3 @@
-
-
 class UserData {
   String uid;
   String displayName;
@@ -33,4 +31,3 @@ class UserData {
       this.preferences,
       this.locationRange});
 }
-

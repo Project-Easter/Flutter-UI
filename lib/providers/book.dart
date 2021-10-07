@@ -1,43 +1,43 @@
 import 'package:flutter/cupertino.dart';
 
 class Book with ChangeNotifier {
-  final String id;
+  // final String id;
   final String isbn;
   final String title;
   final String author;
   final String imageUrl;
+  final String userid;
   double rating;
   final String description;
-  final String category;
+  final String genre;
   bool isBookMarked;
   bool isOwned;
   bool isLent;
   bool isBorrowed;
-  final String pages;
+  final int pages;
   final String infoLink;
-  // ignore: sort_constructors_first
+
   Book({
-    this.infoLink,
-    this.id,
+    // this.id,
     this.isbn,
     this.title,
     this.author,
     this.imageUrl,
+    this.userid,
+    this.description,
+    this.genre,
     this.rating = 0,
     this.isBookMarked = false,
     this.isOwned = false,
     this.isLent = false,
     this.isBorrowed = false,
-    this.description,
-    this.category,
-    this.pages,
+    // this.category,
+    this.pages = 0,
+    this.infoLink,
   });
   //change isBookMarkedStatus
   void changeBookMark() {
     isBookMarked = !isBookMarked;
     notifyListeners();
   }
-
-  
 }
-
