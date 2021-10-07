@@ -42,7 +42,7 @@ class UserChoice extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: AspectRatio(
                   aspectRatio: 343 / 52,
-                  child: TextButton(
+                  child: ElevatedButton(
                     child: Text(
                       'Personalize',
                       style: GoogleFonts.poppins(
