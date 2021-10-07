@@ -257,7 +257,7 @@ class Books with ChangeNotifier {
 
   Future<dynamic> topBooks() async {
     const String recommendedURL =
-        'https://www.googleapis.com/books/v1/volumes?q=isbn';
+        'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 
     try {
       final http.Response response = await http.get(Uri.parse(recommendedURL));
