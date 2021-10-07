@@ -151,7 +151,7 @@ class _UserPreferenceState extends State<UserPreference> {
         borderColor: Colors.grey,
       ),
       choiceActiveStyle: const C2ChoiceStyle(
-        color: activeChip,
+        color: blackButton,
       ),
       wrapped: true,
     );
