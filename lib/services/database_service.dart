@@ -159,24 +159,14 @@ class DatabaseService {
   //   // );
   //   //update receiver inbox
   // }
-
   Future<void> updateBookMark(Book book) async {
     //Get
+    print("Hello there");
+
     final DocumentReference docReference =
         booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
-    docReference
-        .get()
-        .then((DocumentSnapshot doc) => () {
-              if (doc.exists) {
-                docReference.set(<String, dynamic>{
-                  'isBookMarked': book.isBookMarked,
-                }, SetOptions(merge: true));
-              } else {
-                addBook(book);
-              }
-            })
-        .catchError((dynamic e) {
-      print(e.toString());
+    docReference.update(<String, dynamic>{
+      'isBookMarked': book.isBookMarked,
     });
   }
 

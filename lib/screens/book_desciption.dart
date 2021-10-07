@@ -22,6 +22,8 @@ class BookDescription extends StatefulWidget {
 class _BookDescriptionState extends State<BookDescription>
     with SingleTickerProviderStateMixin {
   final FirebaseAuthService _authService = FirebaseAuthService();
+  // final DatabaseService _databaseService =
+  // DatabaseService(uid: uid as String);
   TabController _tabController;
 
   Widget bookDescription(String description) {
@@ -136,6 +138,8 @@ class _BookDescriptionState extends State<BookDescription>
                         try {
                           setState(() {
                             widget.bookFromList.changeBookMark();
+                            _databaseService
+                                .updateBookMark(widget.bookFromList);
                           });
                           // _databaseService.updateBookMark(widget.bookFromList);
                         } catch (e) {
