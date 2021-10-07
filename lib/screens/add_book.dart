@@ -136,7 +136,7 @@ class _AddBookState extends State<AddBook> {
                                   await bookList.getBooksbyISBN(_isbnCode.text);
                               if (result['totalItems'] != 0) {
                                 final Book book = bookList.makeBookforDB(
-                                    result, _isbnCode.text);
+                                    result, _isbnCode.text, _authorName.text);
                                 // bookList.postAddedBook(book);
                                 await _databaseService.addBook(book);
                                 Navigator.of(context).pop();
