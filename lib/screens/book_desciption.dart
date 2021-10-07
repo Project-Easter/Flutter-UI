@@ -114,49 +114,52 @@ class _BookDescriptionState extends State<BookDescription>
                         ),
                       ),
                     ),
-                    Text(
-                      widget.bookFromList.title,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
+
+
+                   
+                  Text(
+                    widget.bookFromList.title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
                     ),
-                    Text(
-                      widget.bookFromList.author,
-                      style: GoogleFonts.poppins(
-                        color: Colors.black.withOpacity(0.5),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                      ),
+                  ),
+                  Text(
+                    widget.bookFromList.author,
+                    style: GoogleFonts.poppins(
+                      color: Colors.black.withOpacity(0.5),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 100),
-                      child: IconButton(
-                        alignment: Alignment.topRight,
-                        onPressed: () async {
-                          try {
-                            setState(() {
-                              widget.bookFromList.changeBookMark();
-                              _databaseService
-                                  .updateBookMark(widget.bookFromList);
-                            });
-                            // _databaseService.updateBookMark(widget.bookFromList);
-                          } catch (e) {
-                            print(e.toString());
-                          }
-                          print('Book Marked');
-                        },
-                        icon: widget.bookFromList.isBookMarked
-                            ? const Icon(Icons.bookmark)
-                            : const Icon(Icons.bookmark_outline_rounded),
-                        iconSize: 20,
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 100),
+                    child: IconButton(
+                      alignment: Alignment.topRight,
+                      onPressed: () async {
+                        try {
+                          setState (() {
+                            widget.bookFromList.changeBookMark();
+                            _databaseService.updateBookMark(widget.bookFromList);
+                          });
+                          // _databaseService.updateBookMark(widget.bookFromList);
+                        } catch (e) {
+                          print(e.toString());
+                        }
+                        print('Book Marked');
+                      },
+                      icon: widget.bookFromList.isBookMarked
+                          ? const Icon(Icons.bookmark)
+                          : const Icon(Icons.bookmark_outline_rounded),
+                      iconSize: 20,
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            )),
+
               SliverToBoxAdapter(
                 child: TabBar(
                   controller: _tabController,
