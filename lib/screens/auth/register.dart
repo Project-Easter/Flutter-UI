@@ -37,6 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Form(
                   key: formKey,
                   child: Column(
+
                     children: <Widget>[
                       UsernameTextField(_usernameController),
                       PhoneTextField(_phoneController),
@@ -49,6 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   name: 'Sign up',
                   color: blackButton,
                   myFunction: () async {
+
                     if (formKey.currentState.validate()) {
                       await FirebaseAuthService().signUpWithEmail(
                         context,
@@ -62,6 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       //     context, Routes.HOME, (route) => false);
                       // }
                     }
+
                   },
                 )
                 // AuthButton(
