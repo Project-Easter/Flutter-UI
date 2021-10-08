@@ -4,15 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ConfirmationCodeTextField extends AuthField {
-  const ConfirmationCodeTextField()
-      : super(
-            // onChanged: onChanged,
-            text: 'Confirmation code',
-            obscureText: false,
-            validator: Validator.confirmationCode);
-}
-
 class EmailTextField extends AuthField {
   const EmailTextField(TextEditingController controller)
       : super(
