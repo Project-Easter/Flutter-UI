@@ -81,14 +81,14 @@ class _HomeState extends State<Home> {
                       .then((LatLng value) async {
                     // updating address using lat/long
                     await _databaseService
-                        .updateUserLocation(value.latitude, value.longitude)
+                        .updateUserLocation(value!.latitude!, value!.longitude!)
                         .then((dynamic value) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         backgroundColor: blackButton,
                         content: Text('Location Updated Successfully!'),
                       ));
                     });
-                  }).onError((String error, stackTrace) {
+                  }).onError((String error, StackTrace stackTrace) {
                     print(error);
                     print(stackTrace);
                     SnackBar(content: Text(error.toString()));

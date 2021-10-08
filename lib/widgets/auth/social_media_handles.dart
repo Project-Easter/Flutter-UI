@@ -7,7 +7,7 @@ class SocialMediaHandles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(25)),
           color: Colors.white),
       child: SizedBox(
