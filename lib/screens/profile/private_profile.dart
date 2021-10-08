@@ -12,7 +12,7 @@ class PrivateProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserData profileData = Provider.of<UserData>(context);
-    final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
+    final List<Book> booksData = Provider.of<List<Book>>(context);
     final FirebaseAuthService firebaseAuthService =
         Provider.of<FirebaseAuthService>(context);
     // final UserData profileData =Provider.of<UserData>(context);
@@ -24,14 +24,14 @@ class PrivateProfile extends StatelessWidget {
           booksData.where((Book book) => book.isOwned == true).length;
     }
     final List<Book> ownedBooks = <Book>[];
-    for (var book in booksData) {
-      if (book.isOwned == true) {
+    for (Book? book in booksData) {
+      if (book!.isOwned == true) {
         ownedBooks.add(book);
       }
     }
     final List<Book> savedBooks = <Book>[];
-    for (var book in booksData) {
-      if (book.isBookMarked == true) {
+    for (Book? book in booksData) {
+      if (book!.isBookMarked == true) {
         savedBooks.add(book);
       }
     }
@@ -131,11 +131,11 @@ class PrivateProfile extends StatelessWidget {
 }
 
 class ProfileHeader extends StatelessWidget {
-  final UserData profileData;
+  final UserData? profileData;
 
   const ProfileHeader({
-    Key key,
-    @required this.profileData,
+    Key? key,
+    required this.profileData,
   }) : super(key: key);
 
   @override
@@ -159,7 +159,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           Text(
-            profile.displayName,
+            profile.displayName!,
             style:
                 GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w400),
           ),
@@ -168,8 +168,8 @@ class ProfileHeader extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(top: 5),
               child: Text(
-                (profileData.city != null || profileData.state != null)
-                    ? '${profileData.city} , ${profileData.state}'
+                (profileData!.city != null || profileData!.state != null)
+                    ? '${profileData!.city} , ${profileData!.state}'
                     : 'Update your location by pressing on the floating action button at the bottom right corner',
                 style: GoogleFonts.poppins(
                     fontSize: 13, fontWeight: FontWeight.w400),

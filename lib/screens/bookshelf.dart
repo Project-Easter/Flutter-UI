@@ -33,7 +33,7 @@ class _LibraryPageState extends State<LibraryPage> {
 
     // ignore: always_specify_types
     if (savedBooks.isEmpty && ownedBooks.isEmpty) {
-      return const EmptyPageWidget(
+      return EmptyPageWidget(
         headline: 'This page will contain all the your book data ',
       );
     } else {

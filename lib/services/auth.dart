@@ -17,10 +17,10 @@ class FirebaseAuthService extends ChangeNotifier {
   }
 
   String get getUID {
-    return firebaseAuth.currentUser.uid;
+    return firebaseAuth.currentUser!.uid;
   }
 
-  Stream<User> get onAuthStateChanged {
+  Stream<User>? get onAuthStateChanged {
     return firebaseAuth.authStateChanges();
   }
 
@@ -52,10 +52,10 @@ class FirebaseAuthService extends ChangeNotifier {
     const String photoUrl = 'assets/images/Explr Logo.png';
     final UserData userData = UserData(
       uid: user.uid,
-      displayName: username ?? 'Your name',
+      displayName: username,
       email: user.email ?? 'your@email.com',
       emailVerified: user.emailVerified,
-      phoneNumber: phone ?? 'Phone',
+      phoneNumber: phone,
       photoURL: user.photoURL ?? photoUrl,
       isAnonymous: user.isAnonymous,
       city: null,
@@ -66,9 +66,9 @@ class FirebaseAuthService extends ChangeNotifier {
   }
 
   Future signInWithGoogle() async {
-    final GoogleSignInAccount attempt = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? attempt = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication authentication =
-        await attempt.authentication;
+        await attempt!.authentication;
 
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: authentication.accessToken,
@@ -77,15 +77,15 @@ class FirebaseAuthService extends ChangeNotifier {
 
     final UserCredential result =
         await firebaseAuth.signInWithCredential(credential);
-    final User user = result.user;
+    final User? user = result.user;
 
     if (user != null) {
       assert(!user.isAnonymous);
       print('The user here is $user');
 
-      final User currentUser = firebaseAuth.currentUser;
-      assert(user.uid == currentUser.uid);
-      final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
+      final User? currentUser = firebaseAuth.currentUser;
+      assert(user.uid == currentUser!.uid);
+      final String googleIdtoken = await firebaseAuth.currentUser!.getIdToken();
 
       // try {
       //   print('entered try catch');
@@ -110,7 +110,7 @@ class FirebaseAuthService extends ChangeNotifier {
   }
 
   //for register
-  Future<UserCredential> signUpWithEmail(BuildContext context, String username,
+  Future<UserCredential?> signUpWithEmail(BuildContext context, String username,
       String phone, String email, String pass) async {
     try {
       final UserCredential userCredential = await FirebaseAuth.instance

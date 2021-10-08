@@ -4,7 +4,7 @@ import 'package:books_app/utils/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
-  final String uid;
+  final String? uid;
   final CollectionReference userDataCollection =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference booksCollection =
@@ -13,7 +13,7 @@ class DatabaseService {
   final CollectionReference chatCollection =
       FirebaseFirestore.instance.collection('chat');
 
-  DatabaseService({this.uid});
+  DatabaseService({required this.uid});
 
   Stream<List<UserData>> get allUsers {
     return userDataCollection.snapshots().map(getAllUserData);
@@ -37,12 +37,12 @@ class DatabaseService {
   }
 
   //Update Users Location
-  Future<void> addBook(Book book) async {
+  Future<void> addBook(Book ?book) async {
     //GET BOOK FROM API or an existing List and adds to both users and books collection
     await userDataCollection
         .doc(uid)
         .collection('ownedBooks')
-        .doc(book.isbn)
+        .doc(book!.isbn)
         .set(<String, dynamic>{
       'rating': book.rating,
       'isbn': book.isbn,
@@ -91,9 +91,9 @@ class DatabaseService {
       return UserData(
         // uid: uid,
         uid: doc.data()['uid'] as String,
-        displayName: doc.data()['displayName'] as String ?? 'Enter Name',
-        email: doc.data()['email'] as String ?? 'example@example.com',
-        phoneNumber: doc.data()['phoneNumber'] as String ?? '8844883333',
+        displayName: doc.data()['displayName'] as String,
+        email: doc.data()['email'] as String,
+        phoneNumber: doc.data()['phoneNumber'] as String,
         state: doc.data()['state'] as String,
         city: doc.data()['city'] as String,
         photoURL: doc.data()['photoURL'] as String,
@@ -288,11 +288,11 @@ class DatabaseService {
     return UserData(
       uid: uid,
       displayName:
-          documentSnapshot.data()['displayName'] as String ?? 'Enter Name',
+          documentSnapshot.data()['displayName'] as String,
       email:
-          documentSnapshot.data()['email'] as String ?? 'example@example.com',
+          documentSnapshot.data()['email'] as String,
       phoneNumber:
-          documentSnapshot.data()['phoneNumber'] as String ?? '8844883333',
+          documentSnapshot.data()['phoneNumber'] as String,
       state: documentSnapshot.data()['state'] as String,
       city: documentSnapshot.data()['city'] as String,
       photoURL: documentSnapshot.data()['photoURL'] as String,

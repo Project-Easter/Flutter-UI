@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
     PrivateProfile(),
   ];
 
-  TextStyle name = GoogleFonts.muli(
+  TextStyle name = GoogleFonts.lato(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   final FirebaseAuthService _authService = FirebaseAuthService();
   TokenStorage _tokenStorage = TokenStorage();

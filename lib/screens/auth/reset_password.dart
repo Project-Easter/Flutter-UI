@@ -7,20 +7,21 @@ import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  final String email;
+  final String? email;
 
-  const ResetPasswordScreen({Key key, @required this.email}) : super(key: key);
+  const ResetPasswordScreen({required Key key, required this.email})
+      : super(key: key);
 
   @override
   _ResetPasswordScreenState createState() =>
-      _ResetPasswordScreenState(email: email);
+      _ResetPasswordScreenState(email: email!);
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController _passwordController = TextEditingController();
-  String email;
+  String? email;
 
   _ResetPasswordScreenState({this.email});
 

@@ -59,13 +59,13 @@ class Books with ChangeNotifier {
     _savedBooks = <Book>[];
     print('Getter SavedBooks called');
     for (final Book book in _recommendedBooks) {
-      if (book.isBookMarked) {
+      if (book.isBookMarked!) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
     }
     for (final Book book in _discoverNew) {
-      if (book.isBookMarked) {
+      if (book.isBookMarked!) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
@@ -75,13 +75,13 @@ class Books with ChangeNotifier {
 
   Future<dynamic> getBooksbyISBN(String isbn) async {
     //Add Books from Google API
-    const String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
+    const  String url = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
     final Map<String, dynamic> res = <String, dynamic>{
       'kind': 'books#volumes',
       'totalItems': 0
     };
     try {
-      final http.Response response = await http.get(url + isbn.trim());
+      final http.Response response = await http.get(url+ isbn.trim());
       final dynamic result = jsonDecode(response.body);
       // print("Result From get Books From ISBN:");
       // print(result["items"][0]);
@@ -140,7 +140,7 @@ class Books with ChangeNotifier {
         description: description,
         imageUrl: imageLink,
         author: author,
-        infoLink: infoLink,
+        infoLink: infoLink, userid: '',
       );
     }
     notifyListeners();
@@ -170,7 +170,7 @@ class Books with ChangeNotifier {
       print('imageLink is empty');
     }
 
-    print(FirebaseAuth.instance.currentUser.uid);
+    print(FirebaseAuth.instance.currentUser!.uid);
     print('ISBN' + isbn.toString());
     print('Title:' + title.toString());
     print('Author:' + author.toString());
@@ -183,7 +183,7 @@ class Books with ChangeNotifier {
         imageUrl: imageLink,
         description: description,
         isOwned: true,
-        pages: pages ?? 0,
+        pages: pages,
         infoLink: infoLink);
     return book;
   }
@@ -199,7 +199,7 @@ class Books with ChangeNotifier {
       final List list = result['items'] as List;
 
       if (result != null) {
-        final List<Book> recommendedBooks = <Book>[];
+        final List<Book?> recommendedBooks = <Book>[];
 
         for (dynamic value in list) {
           recommendedBooks.add(makeBook(value));
@@ -211,4 +211,24 @@ class Books with ChangeNotifier {
       print(e.toString());
     }
   }
+
+  // Future<dynamic> getISBNFromName(String title) async {
+  //   const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
+  //   final String uri = url + title;
+  //   try {
+  //     final http.Response response = await http.get(Uri.parse(uri));
+  //     final dynamic resultJson = jsonDecode(response.body);
+  //     if (resultJson != null) {
+  //       final String isbn = resultJson['items'][0]['volumeInfo']
+  //               ['industryIdentifiers'][1]['identifier']
+  //           .toString();
+  //       return isbn;
+  //     }
+  //     return null;
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
+
+
 }

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EmptyPageWidget extends StatelessWidget {
-  final String headline;
+  final String? headline;
 
-  const EmptyPageWidget({Key key, @required this.headline}) : super(key: key);
+  const EmptyPageWidget({Key? key, required this.headline}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       // Image.asset('assets/images/Placeholder.png'),
       const SizedBox(height: 20),
-         
+
       const CircleAvatar(
         radius: 55,
         backgroundImage: AssetImage('assets/images/chat_placeholder.png'),
@@ -24,7 +24,7 @@ class EmptyPageWidget extends StatelessWidget {
         child: Center(
           child: Text(
             // 'This page will contain all the your book data ',
-            headline,
+            headline!,
             textAlign: TextAlign.center,
             style:
                 GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w400),

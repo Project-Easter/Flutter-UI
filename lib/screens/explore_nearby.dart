@@ -15,7 +15,7 @@ class _ExploreNearbyState extends State<ExploreNearby> {
     // final List<Book> within10km = Provider.of<Books>(context).within10km;
     // final List<Book> within20km = Provider.of<Books>(context).within20km;
     // final UserData userData = Provider.of<UserData>(context);
-    return const Scaffold(
+    return Scaffold(
       body: EmptyPageWidget(
           headline: 'No books available right now. Keep your location updated'),
     );

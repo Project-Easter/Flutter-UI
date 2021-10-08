@@ -1,19 +1,19 @@
 class UserData {
-  String uid;
-  String displayName;
-  String email;
-  bool emailVerified;
-  String refreshToken;
-  bool isAnonymous;
-  String phoneNumber;
-  String photoURL;
-  String city;
-  String state;
-  double latitude;
-  double longitude;
-  double locationRange;
-  String countryName;
-  Map<String, dynamic> preferences;
+  String? uid;
+  String? displayName;
+  String? email;
+  bool? emailVerified;
+  String? refreshToken;
+  bool? isAnonymous;
+  String? phoneNumber;
+  String? photoURL;
+  String? city;
+  String? state;
+  double? latitude;
+  double? longitude;
+  double? locationRange;
+  String? countryName;
+  Map<String, dynamic>? preferences;
   UserData(
       {this.uid,
       this.countryName,

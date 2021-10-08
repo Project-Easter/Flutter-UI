@@ -1,15 +1,12 @@
-import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/utils/location_helper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong/latlong.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetLocation extends StatefulWidget {
@@ -33,10 +30,11 @@ class _GetLocationState extends State<GetLocation> {
         future: LocationHelper().getCurrentLocation(),
         builder: (BuildContext context, AsyncSnapshot<LatLng> snapshot) {
           if (snapshot.hasData) {
-          //  Provider.of<UserData>(context).up
+            //  Provider.of<UserData>(context).up
             // Provider.of<UserModel>(context).updateLocation(snapshot.data.latitude, snapshot.data.longitude);
             print(snapshot.data);
-            print(snapshot.data.latitude);
+            print(snapshot.data?.latitude);
+            //Flutter map is null safety, but LatLng is not. Find another solution.
             return FlutterMap(
               options: MapOptions(
                 center: LatLng(snapshot.data.latitude, snapshot.data.longitude),
@@ -176,12 +174,12 @@ class _GetLocationState extends State<GetLocation> {
         await placemarkFromCoordinates(latitude, longitude);
     print(newPlace[0]);
     final Placemark placeMark = newPlace[0];
-    name = placeMark.name;
-    final String locality = placeMark.locality;
-    streetAddress = placeMark.street;
+    name = placeMark.name!;
+    final String? locality = placeMark.locality;
+    streetAddress = placeMark.street!;
 
-    final String postalCode = placeMark.postalCode;
-    final String country = placeMark.country;
+    final String? postalCode = placeMark.postalCode;
+    final String? country = placeMark.country;
     address = '$name, $locality, $postalCode, $country';
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('address', address);

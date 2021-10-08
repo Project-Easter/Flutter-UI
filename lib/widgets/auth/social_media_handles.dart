@@ -46,6 +46,7 @@ class SocialMediaHandles extends StatelessWidget {
                     margin: EdgeInsets.only(left: 15),
                     child: SignInButton(
                       Buttons.Google,
+                      onPressed: () {},
                     ),
                   )),
             ),

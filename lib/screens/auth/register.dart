@@ -1,7 +1,6 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/services/auth.dart';
-import 'package:books_app/widgets/auth/auth_error_message.dart';
 import 'package:books_app/widgets/auth/auth_navigation.dart';
 import 'package:books_app/widgets/auth/auth_page_title.dart';
 import 'package:books_app/widgets/button.dart';
@@ -49,7 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   name: 'Sign up',
                   color: blackButton,
                   myFunction: () async {
-                    if (formKey.currentState.validate()) {
+                    if (formKey.currentState!.validate()) {
                       await FirebaseAuthService().signUpWithEmail(
                         context,
                         _usernameController.text,
