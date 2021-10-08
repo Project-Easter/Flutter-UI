@@ -237,14 +237,9 @@ PODS:
     - FBSDKLoginKit/Login (= 8.2.0)
   - FBSDKLoginKit/Login (8.2.0):
     - FBSDKCoreKit (~> 8.2.0)
-  - Firebase/Analytics (7.3.0):
-    - Firebase/Core
   - Firebase/Auth (7.3.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 7.3.0)
-  - Firebase/Core (7.3.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (= 7.3.0)
   - Firebase/CoreOnly (7.3.0):
     - FirebaseCore (= 7.3.0)
   - Firebase/Firestore (7.3.0):
@@ -253,10 +248,6 @@ PODS:
   - Firebase/Storage (7.3.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 7.3.0)
-  - firebase_analytics (7.0.1):
-    - Firebase/Analytics (= 7.3.0)
-    - firebase_core
-    - Flutter
   - firebase_auth (0.20.1):
     - Firebase/Auth (= 7.3.0)
     - firebase_core
@@ -268,15 +259,6 @@ PODS:
     - Firebase/Storage (= 7.3.0)
     - firebase_core
     - Flutter
-  - FirebaseAnalytics (7.3.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstallations (~> 7.0)
-    - GoogleAppMeasurement (= 7.3.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/MethodSwizzler (~> 7.0)
-    - GoogleUtilities/Network (~> 7.0)
-    - "GoogleUtilities/NSData+zlib (~> 7.0)"
-    - nanopb (~> 2.30906.0)
   - FirebaseAuth (7.3.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
@@ -303,11 +285,6 @@ PODS:
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 2.30906.0)
-  - FirebaseInstallations (7.11.0):
-    - FirebaseCore (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
-    - PromisesObjC (~> 1.2)
   - FirebaseStorage (7.3.0):
     - FirebaseCore (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
@@ -315,21 +292,15 @@ PODS:
   - flutter_login_facebook (0.3.0):
     - FBSDKLoginKit (~> 8.0)
     - Flutter
+  - flutter_secure_storage (3.3.1):
+    - Flutter
   - geocoder (0.0.1):
     - Flutter
   - geocoding (1.0.5):
     - Flutter
-  - geolocator (6.2.0):
-    - Flutter
   - google_sign_in (0.0.1):
     - Flutter
     - GoogleSignIn (~> 5.0)
-  - GoogleAppMeasurement (7.3.0):
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/MethodSwizzler (~> 7.0)
-    - GoogleUtilities/Network (~> 7.0)
-    - "GoogleUtilities/NSData+zlib (~> 7.0)"
-    - nanopb (~> 2.30906.0)
   - GoogleDataTransport (8.1.0):
     - nanopb (~> 2.30906.0)
   - GoogleSignIn (5.0.2):
@@ -344,16 +315,12 @@ PODS:
     - PromisesObjC (~> 1.2)
   - GoogleUtilities/Logger (7.4.1):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (7.4.1):
-    - GoogleUtilities/Logger
   - GoogleUtilities/Network (7.4.1):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
   - "GoogleUtilities/NSData+zlib (7.4.1)"
   - GoogleUtilities/Reachability (7.4.1):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.4.1):
     - GoogleUtilities/Logger
   - "gRPC-C++ (1.28.2)":
     - "gRPC-C++/Implementation (= 1.28.2)"
@@ -407,15 +374,14 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
-  - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - flutter_login_facebook (from `.symlinks/plugins/flutter_login_facebook/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - geocoder (from `.symlinks/plugins/geocoder/ios`)
   - geocoding (from `.symlinks/plugins/geocoding/ios`)
-  - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
@@ -432,14 +398,11 @@ SPEC REPOS:
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Firebase
-    - FirebaseAnalytics
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseFirestore
-    - FirebaseInstallations
     - FirebaseStorage
-    - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
     - GoogleUtilities
@@ -455,8 +418,6 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
-  firebase_analytics:
-    :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -467,12 +428,12 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_login_facebook:
     :path: ".symlinks/plugins/flutter_login_facebook/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
   geocoder:
     :path: ".symlinks/plugins/geocoder/ios"
   geocoding:
     :path: ".symlinks/plugins/geocoding/ios"
-  geolocator:
-    :path: ".symlinks/plugins/geolocator/ios"
   google_sign_in:
     :path: ".symlinks/plugins/google_sign_in/ios"
   image_cropper:
@@ -496,24 +457,20 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
   FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
-  firebase_analytics: 41043f6e14fc9bc27c3f05217ab7f2b0ad9b41eb
   firebase_auth: 7220e26fc14a501a63093edc10443de6bca0d7e8
   firebase_core: 91b27774a52f41f8b58484a75edf71197ac01c59
   firebase_storage: 554b8ce9192bfe0bd35f63da42d0d1f6ae819ccc
-  FirebaseAnalytics: 2580c2d62535ae7b644143d48941fcc239ea897a
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
   FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
   FirebaseCoreDiagnostics: d50e11039e5984d92c8a512be2395f13df747350
   FirebaseFirestore: 1906bf163afdb7c432d2e3b5c40ceb9dd2df5820
-  FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
   FirebaseStorage: 5002b1895bfe74a5ce92ad54f966e6162d0da2e5
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_login_facebook: 86e1415ecde2d59ca72c5760fd53d1d1952017fb
+  flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   geocoder: 3cfab70531a0b367e917bafe82df4c30f6d4c45a
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
-  geolocator: f5e3de65e241caba7ce3e8a618803387bda73384
   google_sign_in: 6bd214b9c154f881422f5fe27b66aaa7bbd580cc
-  GoogleAppMeasurement: 8d3c0aeede16ab7764144b5a4ca8e1d4323841b7
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: f8a43108b38a68eebe8b3540e1f4f2d28843ce20

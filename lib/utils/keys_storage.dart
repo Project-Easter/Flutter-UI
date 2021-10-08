@@ -22,4 +22,25 @@ class TokenStorage {
     const FlutterSecureStorage _globalToken = FlutterSecureStorage();
     await _globalToken.write(key: 'global_token', value: authToken);
   }
+
+  // Below 3 functions are used to check if user login session is expired or not. It will be expired if user is inactive for 2 days.
+  void writeCurrentSessionTime() {
+    //this is code to write new timestamp in storage.
+    const FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
+    flutterSecureStorage.write(
+        key: 'SessionCreatedAt', value: DateTime.now().toString());
+  }
+
+  Future<String> readPreviousSessionTime() async {
+    //this is code to read previous timestamp in storage.
+    const FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
+    final String value =
+        await flutterSecureStorage.read(key: 'SessionCreatedAt');
+    return value;
+  }
+
+  Future<void> deleteSessionKey() async {
+    const FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
+    await flutterSecureStorage.delete(key: 'SessionCreatedAt');
+  }
 }

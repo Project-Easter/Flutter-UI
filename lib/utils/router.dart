@@ -1,4 +1,5 @@
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/main.dart';
 import 'package:books_app/screens/add_book.dart';
 import 'package:books_app/screens/auth/forgot_password.dart';
 import 'package:books_app/screens/auth/login.dart';
@@ -9,8 +10,6 @@ import 'package:books_app/screens/home.dart';
 import 'package:books_app/screens/initial_screen.dart';
 import 'package:books_app/screens/more.dart';
 import 'package:books_app/screens/profile/edit_profile.dart';
-import 'package:books_app/screens/profile/otp_verification.dart';
-import 'package:books_app/screens/profile/verify_mobile.dart';
 import 'package:books_app/screens/settings_screens.dart';
 import 'package:books_app/services/user_location.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +46,8 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
       case Routes.LIBRARY:
         return MaterialPageRoute<dynamic>(builder: (_) => LibraryPage());
+      case Routes.WRAPPER:
+        return MaterialPageRoute<dynamic>(builder: (_) => Wrapper());
       // case Routes.VERIFY_MOBILE:
       //   return MaterialPageRoute<dynamic>(builder: (_) => const EnterMobile());
       // case Routes.OTP:

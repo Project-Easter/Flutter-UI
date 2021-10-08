@@ -1,6 +1,6 @@
-
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
+import 'package:books_app/utils/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -20,7 +20,7 @@ class DatabaseService {
   }
 
   Stream<List<Book>> get booksData {
-    return booksCollection
+    return userDataCollection
         .doc(uid)
         .collection('ownedBooks')
         .snapshots()
@@ -33,13 +33,13 @@ class DatabaseService {
         .doc(uid)
         .snapshots()
         .map((DocumentSnapshot snapshot) => _userDataFromSnapShot(snapshot));
-        // .map(_userDataFromSnapShot);
+    // .map(_userDataFromSnapShot);
   }
 
   //Update Users Location
-  Future addBook(Book book) async {
-    //GET BOOK FROM API or an existing List
-    return booksCollection
+  Future<void> addBook(Book book) async {
+    //GET BOOK FROM API or an existing List and adds to both users and books collection
+    await userDataCollection
         .doc(uid)
         .collection('ownedBooks')
         .doc(book.isbn)
@@ -48,10 +48,36 @@ class DatabaseService {
       'isbn': book.isbn,
       'isBookMarked': book.isBookMarked,
       'isOwned': book.isOwned ?? false,
+      'isLent': book.isLent,
+      'isBorrowed': book.isBorrowed,
       'title': book.title,
       'description': book.description,
       'imageUrl': book.imageUrl,
-      'author': book.author
+      'author': book.author,
+      'pages': book.pages,
+      'infoLink': book.infoLink,
+      'genre': book.genre,
+      'userid': uid
+    });
+    await booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(book.isbn)
+        .set(<String, dynamic>{
+      'rating': book.rating,
+      'isbn': book.isbn,
+      'isBookMarked': book.isBookMarked,
+      'isOwned': book.isOwned ?? false,
+      'isLent': book.isLent,
+      'isBorrowed': book.isBorrowed,
+      'title': book.title,
+      'description': book.description,
+      'imageUrl': book.imageUrl,
+      'author': book.author,
+      'pages': book.pages,
+      'infoLink': book.infoLink,
+      'genre': book.genre,
+      'userid': uid
     });
   }
 
@@ -90,7 +116,14 @@ class DatabaseService {
   // }
 
   void removeBook(String isbn) {
+    print(isbn);
     booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(isbn)
+        .delete()
+        .catchError((dynamic e) => print(e.toString()));
+    userDataCollection
         .doc(uid)
         .collection('ownedBooks')
         .doc(isbn)
@@ -126,24 +159,26 @@ class DatabaseService {
   //   // );
   //   //update receiver inbox
   // }
-
-  void updateBookMark(Book book) {
+  Future<void> updateBookMark(Book book) async {
     //Get
-    final DocumentReference docReference =
-        booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
-    docReference
-        .get()
-        .then((DocumentSnapshot doc) => () {
-              if (doc.exists) {
-                docReference.set(<String, dynamic>{
-                  'isBookMarked': book.isBookMarked,
-                }, SetOptions(merge: true));
-              } else {
-                addBook(book);
-              }
-            })
-        .catchError((dynamic e) {
-      print(e.toString());
+    print('Check bookmark');
+
+    // final DocumentReference docReference =
+    //     booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
+    await userDataCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(book.isbn)
+        .update(<String, bool>{
+      'isBookMarked': book.isBookMarked,
+    });
+
+    await booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(book.isbn)
+        .update(<String, bool>{
+      'isBookMarked': book.isBookMarked,
     });
   }
 
@@ -222,13 +257,13 @@ class DatabaseService {
   }
 
   Future updateUserLocation(double latitude, double longitude) async {
-    // List<String> addresses =
-    //     await LocationHelper().getAddressFromLatLng(latitude, longitude);
+    final List<String> addresses =
+        await LocationHelper().getAddressFromLatLng(latitude, longitude);
 
     return userDataCollection.doc(uid).set(<String, dynamic>{
-      // 'city': addresses[0],
-      // 'state': addresses[1],
-      // 'country': addresses[2],
+      'city': addresses[0],
+      'state': addresses[1],
+      'country': addresses[2],
       'latitude': latitude,
       'longitude': longitude,
     }, SetOptions(merge: true));
@@ -238,7 +273,7 @@ class DatabaseService {
     return snapshot.docs.map((QueryDocumentSnapshot doc) {
       // print(doc.data);
       return Book(
-          rating: doc.data()['rating'] as double,
+          // rating: doc.data()['rating'] as double,
           isOwned: doc.data()['isOwned'] as bool,
           isBookMarked: doc.data()['isBookMarked'] as bool,
           imageUrl: doc.data()['imageUrl'] as String,

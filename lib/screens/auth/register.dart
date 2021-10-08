@@ -17,6 +17,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   // final BackendService authService = BackendService();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -37,8 +39,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
 
                     children: <Widget>[
+                      UsernameTextField(_usernameController),
+                      PhoneTextField(_phoneController),
                       EmailTextField(_emailController),
-                      PasswordTextField(_passwordController)
+                      PasswordTextField(_passwordController),
                     ],
                   ),
                 ),
@@ -48,13 +52,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   myFunction: () async {
 
                     if (formKey.currentState.validate()) {
-                      final UserCredential userCredential =
-                          await FirebaseAuthService().signUpWithEmail(context,
-                              _emailController.text, _passwordController.text);
-                      if (userCredential != null) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, Routes.HOME, (route) => false);
-                      }
+                      await FirebaseAuthService().signUpWithEmail(
+                        context,
+                        _usernameController.text,
+                        _phoneController.text,
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+                      // if (userCredential != null) {
+                      // Navigator.pushNamedAndRemoveUntil(
+                      //     context, Routes.HOME, (route) => false);
+                      // }
                     }
 
                   },

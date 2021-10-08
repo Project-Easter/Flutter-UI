@@ -34,6 +34,12 @@ final ThemeData lightTheme = ThemeData(
       brightness: Brightness.light, primary: Colors.black),
   accentIconTheme: const IconThemeData(color: Colors.white),
   dividerColor: Colors.transparent,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: const Color(0xff181926),
+      onPrimary: Colors.white,
+    ),
+  ),
 );
 
 ThemeData bookTheme() {

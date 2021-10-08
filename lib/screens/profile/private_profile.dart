@@ -13,6 +13,8 @@ class PrivateProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final UserData profileData = Provider.of<UserData>(context);
     final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
+    final FirebaseAuthService firebaseAuthService =
+        Provider.of<FirebaseAuthService>(context);
     // final UserData profileData =Provider.of<UserData>(context);
     int ownedBooksLength;
     if (booksData.isEmpty) {
@@ -22,17 +24,17 @@ class PrivateProfile extends StatelessWidget {
           booksData.where((Book book) => book.isOwned == true).length;
     }
     final List<Book> ownedBooks = <Book>[];
-    booksData.forEach((Book book) {
+    for (var book in booksData) {
       if (book.isOwned == true) {
         ownedBooks.add(book);
       }
-    });
+    }
     final List<Book> savedBooks = <Book>[];
-    booksData.forEach((Book book) {
+    for (var book in booksData) {
       if (book.isBookMarked == true) {
         savedBooks.add(book);
       }
-    });
+    }
 
     if (profileData == null || booksData == null) {
       return const Center(child: CircularProgressIndicator());
@@ -45,8 +47,8 @@ class PrivateProfile extends StatelessWidget {
             children: <Widget>[
               ProfileHeader(profileData: profileData),
               const Divider(
-                // color: Colors.black54,
-              ),
+                  // color: Colors.black54,
+                  ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -107,29 +109,16 @@ class PrivateProfile extends StatelessWidget {
                     Button(
                       name: 'Add your Book',
                       color: blackButton,
-                      myFunction: ()async {
-Navigator.pushNamed(context, Routes.ADD_BOOK);
+                      myFunction: () async {
+                        Navigator.pushNamed(context, Routes.ADD_BOOK);
                       },
                     ),
-                    // Button(
-                    //      blackButton, 'Add you Book', Routes.ADD_BOOK),
-                    // button(context, blackButton, 'Settings', Routes.SETTINGS),
-                    
-                    GestureDetector(
-                      onTap: () {
-                        FirebaseAuthService().googleSignout();
-                      },
-                      child: Button(
-                        name: 'Logout', 
+                    Button(
+                        name: 'Logout',
                         color: greenButton,
-                        myFunction: ()async {
-                         Navigator.pushReplacementNamed(context,Routes.INITIAL_PAGE);
-                        }
-                        
-                      ),
-                      // child: button(
-                      //     context, greenButton, 'Logout', Routes.INITIAL_PAGE),
-                    )
+                        myFunction: () async {
+                          firebaseAuthService.signOut();
+                        })
                   ],
                 ),
               ),
@@ -159,29 +148,33 @@ class ProfileHeader extends StatelessWidget {
           Container(
             width: 300,
             padding: const EdgeInsets.all(5),
-            child: CircleAvatar(
+            child: const CircleAvatar(
               radius: 100,
-              backgroundImage: NetworkImage(profile.photoURL),
-              // AssetImage('assets/images/Explr Logo.png'),
+              child: Image(
+                image: AssetImage('assets/images/Explr Logo.png'),
+                fit: BoxFit.contain,
+              )
+              // NetworkImage(profile.photoURL),
+              ,
             ),
           ),
           Text(
-            // 'John Doe',
             profile.displayName,
-            // '${profile.firstName} ${profile.lastName} ',
             style:
                 GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w400),
           ),
-          Container(
-            margin: const EdgeInsets.only(top: 5),
-            child: Text(
-              (profileData.city != null || profileData.state != null)
-                  ? '${profileData.city} , ${profileData.state}'
-                  : 'Update your location',
-              style: GoogleFonts.poppins(
-                 
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              margin: const EdgeInsets.only(top: 5),
+              child: Text(
+                (profileData.city != null || profileData.state != null)
+                    ? '${profileData.city} , ${profileData.state}'
+                    : 'Update your location by pressing on the floating action button at the bottom right corner',
+                style: GoogleFonts.poppins(
+                    fontSize: 13, fontWeight: FontWeight.w400),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ],

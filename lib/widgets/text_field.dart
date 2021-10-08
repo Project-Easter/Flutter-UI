@@ -25,6 +25,28 @@ class PasswordTextField extends AuthField {
             controller: controller);
 }
 
+class UsernameTextField extends AuthField {
+  const UsernameTextField(TextEditingController controller)
+      : super(
+            // onChanged: onChanged,
+            text: 'Username',
+            obscureText: false,
+            validator: Validator.username,
+            controller: controller,
+            keyboardType: TextInputType.name);
+}
+
+class PhoneTextField extends AuthField {
+  const PhoneTextField(TextEditingController controller)
+      : super(
+            // onChanged: onChanged,
+            text: 'Phone',
+            obscureText: false,
+            validator: Validator.phone,
+            controller: controller,
+            keyboardType: TextInputType.phone);
+}
+
 class AuthField extends StatelessWidget {
   // final void Function(String) onChanged;
   final String text;

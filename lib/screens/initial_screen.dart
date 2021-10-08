@@ -1,5 +1,6 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/services/auth.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/auth/social_media_handles.dart';
 import 'package:books_app/widgets/button.dart';
@@ -7,6 +8,7 @@ import 'package:books_app/widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class InitialScreen extends StatefulWidget {
   @override
@@ -22,6 +24,8 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuthService firebaseAuthService =
+        Provider.of<FirebaseAuthService>(context);
     SizeConfig().init(context);
     return Scaffold(
         body: SizedBox(
@@ -55,7 +59,10 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.muli(color: blackButton, fontSize: 30, fontWeight: FontWeight.w600),
+                    style: GoogleFonts.muli(
+                        color: blackButton,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
                     height: 25,
@@ -66,14 +73,10 @@ class _InitialScreenState extends State<InitialScreen> {
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-<<<<<<< HEAD
                         children: <Widget>[
                           EmailTextField(_emailController),
                           PasswordTextField(_passwordController)
                         ],
-=======
-                        children: const <Widget>[EmailTextField(), PasswordTextField()],
->>>>>>> 6add99a4b3dfe78ada5b2da97b21bbcbfabeab59
                       ),
                     ),
                   ),
@@ -84,11 +87,10 @@ class _InitialScreenState extends State<InitialScreen> {
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        final bool isFormValid = formKey.currentState.validate();
-                        if (!isFormValid)
-                          return;
-                        else
-                          Navigator.pushNamed(context, Routes.HOME);
+                        if (formKey.currentState.validate()) {
+                          firebaseAuthService.signInWithEmail(context,
+                              _emailController.text, _passwordController.text);
+                        }
                       },
                     ),
                     // child: AuthButton(
@@ -169,7 +171,8 @@ class _InitialScreenState extends State<InitialScreen> {
       width: 250,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           // primary: Color(0xFF246BFD),
           primary: blackButton,
         ),
