@@ -161,11 +161,23 @@ class DatabaseService {
   // }
   Future<void> updateBookMark(Book book) async {
     //Get
-    print("Hello there");
+    print('Check bookmark');
 
-    final DocumentReference docReference =
-        booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
-    docReference.update(<String, dynamic>{
+    // final DocumentReference docReference =
+    //     booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
+    await userDataCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(book.isbn)
+        .update(<String, bool>{
+      'isBookMarked': book.isBookMarked,
+    });
+
+    await booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .doc(book.isbn)
+        .update(<String, bool>{
       'isBookMarked': book.isBookMarked,
     });
   }

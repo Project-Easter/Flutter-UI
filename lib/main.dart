@@ -1,10 +1,7 @@
 import 'package:books_app/common/themes.dart';
 import 'package:books_app/constants/colors.dart';
-import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/books.dart';
 import 'package:books_app/providers/theme.dart';
-import 'package:books_app/providers/user.dart';
-import 'package:books_app/screens/book_desciption.dart';
 import 'package:books_app/screens/home.dart';
 import 'package:books_app/screens/initial_screen.dart';
 import 'package:books_app/services/auth.dart';
