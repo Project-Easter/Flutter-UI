@@ -38,48 +38,24 @@ class _LibraryPageState extends State<LibraryPage> {
       );
     } else {
       return SingleChildScrollView(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            if (ownedBooks.isNotEmpty)
-              BookList('Owned Books', ownedBooks)
-            else
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: EmptyPageWidget(headline: 'No books owned'),
-              ),
-            if (savedBooks.isNotEmpty)
-              BookList('Saved Books', savedBooks)
-            else
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: EmptyPageWidget(headline: 'No saved books right now'),
-              ),
-
-            if (lentBooks.isNotEmpty)
-              BookList('Lent Books', lentBooks)
-            else
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: EmptyPageWidget(headline: 'No books lent'),
-              ),
-
-            if (borrowedBooks.isNotEmpty)
-              BookList('Borrowed', borrowedBooks)
-            else
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: EmptyPageWidget(headline: 'No books borrowed'),
-              ),
-
-            // if (ownedBooks != <Book>[]) BookList('Owned Books', ownedBooks)
-
-            // HorizontalList(170, lentBooks, 'Lent Books'),
-            // HorizontalList(170, borrowedBooks, 'Borrowed Books'),
-            // HorizontalList(170, savedBooks, 'Saved Books'),
-          ],
-        ),
+        child: Column(children: <Widget>[
+          if (ownedBooks.isNotEmpty)
+            BookList('Owned Books', ownedBooks)
+          else
+            const EmptyPageWidget(headline: 'No books owned'),
+          if (savedBooks.isNotEmpty)
+            BookList('Saved Books', savedBooks)
+          else
+            const EmptyPageWidget(headline: 'No saved books right now'),
+          if (lentBooks.isNotEmpty)
+            BookList('Lent Books', lentBooks)
+          else
+            const EmptyPageWidget(headline: 'No books lent'),
+          if (borrowedBooks.isNotEmpty)
+            BookList('Borrowed', borrowedBooks)
+          else
+            const EmptyPageWidget(headline: 'No books borrowed'),
+        ]),
       );
     }
   }
