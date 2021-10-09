@@ -108,7 +108,6 @@ class PrivateProfile extends StatelessWidget {
                   children: <Widget>[
                     Button(
                       name: 'Add your Book',
-                      color: blackButton,
                       myFunction: () async {
                         Navigator.pushNamed(context, Routes.ADD_BOOK);
                       },

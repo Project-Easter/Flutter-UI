@@ -212,7 +212,7 @@ class _BookDescriptionState extends State<BookDescription>
                       child: Column(
                         children: <Widget>[
                           Button(
-                              color: blackButton,
+                              // color: blackButton,
                               name: 'Rate this Book',
                               myFunction: () async {
                                 final int stars = await showDialog(
@@ -225,7 +225,7 @@ class _BookDescriptionState extends State<BookDescription>
                                 print('Update Ratings');
                               }),
                           Button(
-                              color: blackButton,
+                              // color: blackButton,
                               name: 'Remove this Book',
                               myFunction: () async {
                                 _databaseService
@@ -238,7 +238,7 @@ class _BookDescriptionState extends State<BookDescription>
                     )
                   else
                     Button(
-                        color: blackButton,
+                        // color: blackButton,
                         name: 'Exchange this Book',
                         myFunction: () async {}),
                 ],
@@ -260,7 +260,7 @@ class _BookDescriptionState extends State<BookDescription>
                           ),
                         ),
                         Button(
-                          color: blackButton,
+                          // color: blackButton,
                           name: 'Visit Profile',
                           myFunction: () async {
                             Navigator.pushNamed(context, Routes.PUBLIC_PROFILE);
