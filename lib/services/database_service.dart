@@ -17,8 +17,9 @@ class DatabaseService {
 
   DatabaseService({this.uid});
 
-  Stream<List<UserData>> get allUsers {
-    return userDataCollection.snapshots().map(getAllUserData);
+  Future<List<UserData>> get allUsers {
+    // we can limit the user we are loading at once and do lazyloading
+    return userDataCollection.get().then(getAllUserData);
   }
 
   Stream<List<Book>> get booksData {
@@ -39,8 +40,7 @@ class DatabaseService {
   }
 
   Future<List<Book>> getBooks({String uid}) async {
-    print(uid);
-    List<Book> res =  await booksCollection
+    List<Book> res = await booksCollection
         .doc(uid)
         .collection('ownedBooks')
         .get()

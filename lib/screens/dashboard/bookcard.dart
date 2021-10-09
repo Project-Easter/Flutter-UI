@@ -14,65 +14,71 @@ class BookCard extends StatelessWidget {
     final String _playStoreLink = book.infoLink;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        children: <Widget>[
-          GestureDetector(
-            child: Container(
-              height: getProportionateScreenHeight(200),
-              width: getProportionateScreenWidth(100),
-              decoration: BoxDecoration(
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(color: Colors.grey, blurRadius: 15)
-                  ],
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: NetworkImage(book.imageUrl), fit: BoxFit.fill)),
-            ),
-            onTap: () async {
-              (book.infoLink != null)
-                  ? await _canLaunchUrl(_playStoreLink)
-                  : Navigator.of(context).push<dynamic>(
-                      MaterialPageRoute<dynamic>(
-                        builder: (BuildContext context) => BookDescription(
-                          bookFromList: book,
-                        ),
-                      ),
-                    );
-            },
-          ),
-          Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(5),
-                width: getProportionateScreenWidth(100),
-                child: Text(
-                  book.title,
-                  softWrap: true,
-                  textWidthBasis: TextWidthBasis.parent,
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+      // temporary fix for null book entries, but need to make sure that no null entries get
+      // entered into db
+      child: book.title != null && book.imageUrl != null
+          ? Column(
+              children: <Widget>[
+                GestureDetector(
+                  child: Container(
+                    height: getProportionateScreenHeight(200),
+                    width: getProportionateScreenWidth(100),
+                    decoration: BoxDecoration(
+                        boxShadow: const <BoxShadow>[
+                          BoxShadow(color: Colors.grey, blurRadius: 15)
+                        ],
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            image: NetworkImage(book.imageUrl),
+                            fit: BoxFit.fill)),
                   ),
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+                  onTap: () async {
+                    (book.infoLink != null)
+                        ? await _canLaunchUrl(_playStoreLink)
+                        : Navigator.of(context).push<dynamic>(
+                            MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) =>
+                                  BookDescription(
+                                bookFromList: book,
+                              ),
+                            ),
+                          );
+                  },
                 ),
-              ),
-              Text(
-                book.author,
-                textAlign: TextAlign.left,
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
+                Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      width: getProportionateScreenWidth(100),
+                      child: Text(
+                        book.title,
+                        softWrap: true,
+                        textWidthBasis: TextWidthBasis.parent,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    ),
+                    Text(
+                      book.author,
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                      ),
+                      softWrap: true,
+                      maxLines: 2,
+                      overflow: TextOverflow.visible,
+                    ),
+                  ],
                 ),
-                softWrap: true,
-                maxLines: 2,
-                overflow: TextOverflow.visible,
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            )
+          : Center(),
     );
   }
 

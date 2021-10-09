@@ -15,6 +15,7 @@ class ExploreNearby extends StatefulWidget {
 }
 
 class _ExploreNearbyState extends State<ExploreNearby> {
+
   // LocationRange distance;
   @override
   Widget build(BuildContext context) {
@@ -23,62 +24,65 @@ class _ExploreNearbyState extends State<ExploreNearby> {
     final List<Book> within5km = Provider.of<Books>(context).within5km;
     final List<Book> within10km = Provider.of<Books>(context).within10km;
     final List<Book> within20km = Provider.of<Books>(context).within20km;
-    final List<Book> morethan20km = Provider.of<Books>(context).within20km;
+    final List<Book> morethan20km = Provider.of<Books>(context).morethan20km;
 
     final DatabaseService _databaseService =
         DatabaseService(uid: userData.uid.toString());
     final LocationHelper _locationHelper = LocationHelper();
 
-    return StreamBuilder<List<UserData>>(
-        stream: _databaseService.allUsers,
+    return FutureBuilder<List<UserData>>(
+        future: _databaseService.allUsers,
         builder: (BuildContext ctx, AsyncSnapshot<List<UserData>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
-            // data parsing
             final List<UserData> users = snapshot.data;
-            print(users.length);
+            print('users: ${users.length}');
 
             for (UserData element in users) {
+              // first of we are calculating distances
               final num dist = _locationHelper.calculateDistance(
                   lat1: userData.latitude,
                   lat2: element.latitude,
                   lon1: userData.longitude,
                   lon2: element.longitude);
 
-              print(dist);
-              if (dist <= 3) {
+              // print('Distance: $dist');
+              if (element.uid != null) if (dist <= 3) {
+                // print('dist <= 3: ' + element.uid.toString());
                 _databaseService
                     .getBooks(uid: element.uid)
                     .then((List<Book> value) {
                   within3km.addAll(value);
                 });
               } else if (dist > 3 && dist <= 5) {
+                // print('dist > 3 && dist <= 5: ' + element.uid.toString());
                 _databaseService
                     .getBooks(uid: element.uid)
                     .then((List<Book> value) {
                   within5km.addAll(value);
                 });
               } else if (dist > 5 && dist <= 10) {
+                // print('dist > 5 && dist <= 10: ' + element.uid.toString());
                 _databaseService
                     .getBooks(uid: element.uid)
                     .then((List<Book> value) {
                   within10km.addAll(value);
                 });
               } else if (dist > 10 && dist <= 20) {
+                // print('dist > 10 && dist <= 20: ' + element.uid.toString());
                 _databaseService
                     .getBooks(uid: element.uid)
                     .then((List<Book> value) {
                   within20km.addAll(value);
                 });
-              } else {
-                print('else ' + element.uid.toString());
+              } else if (dist > 20) {
+                print('dist > 20: ' + element.uid.toString());
                 _databaseService
                     .getBooks(uid: element.uid)
                     .then((List<Book> value) {
-                  print(value.length);
                   morethan20km.addAll(value);
                 });
               }
@@ -86,34 +90,44 @@ class _ExploreNearbyState extends State<ExploreNearby> {
 
             return Scaffold(
                 body: SingleChildScrollView(
-              child: (within3km.isNotEmpty ||
-                      within5km.isNotEmpty ||
-                      within10km.isNotEmpty ||
-                      within20km.isNotEmpty ||
-                      morethan20km.isNotEmpty)
-                  ? Column(
-                      children: <Widget>[
-                        //within 5 km
-                        BookList('Within 3 km', within3km),
+                    child: Column(
+              children: <Widget>[
+                //within 5 km
+                BookList(
+                  'Within 3 km',
+                  within3km,
+                  subtitle: '(${within3km.length} books nearby)',
+                ),
 
-                        //within 5 km
-                        BookList('Within 5 km', within5km),
+                //within 5 km
+                BookList(
+                  'Within 5 km',
+                  within5km,
+                  subtitle: '(${within5km.length} books nearby)',
+                ),
 
-                        //within 10 km
-                        BookList('Within 10 km', within10km),
+                //within 10 km
+                BookList(
+                  'Within 10 km',
+                  within10km,
+                  subtitle: '(${within10km.length} books nearby)',
+                ),
 
-                        //within 20 km
-                        BookList('Within 20 km', within20km),
+                //within 20 km
+                BookList(
+                  'Within 20 km',
+                  within20km,
+                  subtitle: '(${within20km.length} books nearby)',
+                ),
 
-                        //more 20 km
-                        BookList('More than 20 km', morethan20km),
-                      ],
-                    )
-                  : const EmptyPageWidget(
-                      headline:
-                          'No books available right now. Keep your location updated',
-                    ),
-            ));
+                //more 20 km
+                BookList(
+                  'More than 20 km',
+                  morethan20km.toSet().toList(),
+                  subtitle: '(${morethan20km.length} books nearby)',
+                ),
+              ],
+            )));
           }
         });
   }
