@@ -22,6 +22,12 @@ final ThemeData darkTheme = ThemeData(
   colorScheme: const ColorScheme.light(primary: Colors.white),
   accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.transparent,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: Colors.white,
+      onPrimary: const Color(0xff181926),
+    ),
+  ),
 );
 
 final ThemeData lightTheme = ThemeData(
