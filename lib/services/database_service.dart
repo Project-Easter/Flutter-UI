@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/utils/location_helper.dart';
@@ -34,6 +36,37 @@ class DatabaseService {
         .snapshots()
         .map((DocumentSnapshot snapshot) => _userDataFromSnapShot(snapshot));
     // .map(_userDataFromSnapShot);
+  }
+
+  Future<List<Book>> getBooks({String uid}) async {
+    print(uid);
+    List<Book> res =  await booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .get()
+        .then((QuerySnapshot value) => booksList(value));
+    return res;
+  }
+
+  List<Book> booksList(QuerySnapshot querySnapshot) {
+    return querySnapshot.docs
+        .map((QueryDocumentSnapshot e) => Book(
+              title: e.data()['title'] as String,
+              author: e.data()['author'] as String,
+              description: e.data()['description'] as String,
+              genre: e.data()['genre'] as String,
+              imageUrl: e.data()['imageUrl'] as String,
+              infoLink: e.data()['infoLink'] as String,
+              isbn: e.data()['isbn'] as String,
+              isBookMarked: e.data()['isBookMarked'] as bool,
+              isBorrowed: e.data()['isBorrowed'] as bool,
+              isLent: e.data()['isLent'] as bool,
+              isOwned: e.data()['isOwned'] as bool,
+              pages: e.data()['pages'] as int,
+              rating: e.data()['rating'] as double,
+              userid: e.data()['userid'] as String,
+            ))
+        .toList();
   }
 
   //Update Users Location
@@ -86,7 +119,7 @@ class DatabaseService {
   List<UserData> getAllUserData(QuerySnapshot querySnapshot) {
     // ignore: unrelated_type_equality_checks
     return querySnapshot.docs.where((QueryDocumentSnapshot uid) {
-      return uid != uid;
+      return this.uid != uid.id;
     }).map((QueryDocumentSnapshot doc) {
       return UserData(
         // uid: uid,
@@ -291,5 +324,5 @@ class DatabaseService {
     );
   }
 
-  //**End of DB service
+//**End of DB service
 }

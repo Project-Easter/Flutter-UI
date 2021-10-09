@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +8,13 @@ import 'package:http/http.dart' as http;
 import 'book.dart';
 
 class Books with ChangeNotifier {
+  // Explore Books
+  final List<Book> _within3km = <Book>[];
+  final List<Book> _within5km = <Book>[];
+  final List<Book> _within10km = <Book>[];
+  final List<Book> _within20km = <Book>[];
+  final List<Book> _morethan20km = <Book>[];
+
   //Owned Books
   final List<Book> _ownedBooks = <Book>[];
 
@@ -38,6 +46,25 @@ class Books with ChangeNotifier {
   }
 
   //********EXPLORE NEARBY TO BE IMPLEMENTED*******///
+  List<Book> get within3km {
+    return _within3km;
+  }
+
+  List<Book> get within5km {
+    return _within5km;
+  }
+
+  List<Book> get within10km {
+    return _within10km;
+  }
+
+  List<Book> get within20km {
+    return _within20km;
+  }
+
+  List<Book> get morethan20km {
+    return _morethan20km;
+  }
 
   List<Book> get lentBooks {
     return _lentBooks;

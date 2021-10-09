@@ -1,5 +1,7 @@
 import 'package:geocoder/geocoder.dart';
 import 'package:latlong/latlong.dart';
+import 'dart:math' show cos, sqrt, asin;
+
 // import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
@@ -11,6 +13,12 @@ class LocationHelper {
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
     final Address first = add.first;
     return [first.subAdminArea, first.adminArea, first.countryName];
+  }
+
+  num calculateDistance({double lat1, double lon1, double lat2, double lon2}) {
+    final Distance distance = Distance();
+    return distance.as(
+        LengthUnit.Kilometer, LatLng(lat1, lon1), LatLng(lat2, lon2));
   }
 
   Future<LatLng> getCurrentLocation() async {
@@ -39,6 +47,4 @@ class LocationHelper {
 
     return LatLng(locationData.latitude, locationData.longitude);
   }
-
- 
 }

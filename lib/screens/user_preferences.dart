@@ -12,7 +12,9 @@ DatabaseService _databaseService = DatabaseService(uid: uID);
 
 class UserPreference extends StatefulWidget {
   final UserData userData;
+
   const UserPreference(this.userData);
+
   @override
   _UserPreferenceState createState() => _UserPreferenceState();
 }
@@ -28,8 +30,12 @@ class _UserPreferenceState extends State<UserPreference> {
   @override
   Widget build(BuildContext context) {
     // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final String favBook = widget.userData.preferences['favBook'] as String;
-    final String favAuthor = widget.userData.preferences['favAuthor'] as String;
+    final String favBook = widget.userData.preferences != null
+        ? widget.userData.preferences['favBook'] as String
+        : '';
+    final String favAuthor = widget.userData.preferences != null
+        ? widget.userData.preferences['favAuthor'] as String
+        : '';
     // final String location =
     //     widget.userData.preferences['locationRange'] as String;
 
