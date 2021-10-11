@@ -1,8 +1,10 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.grey,
+  buttonColor: blueButton,
   // ignore: deprecated_member_use
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
@@ -18,7 +20,6 @@ final ThemeData darkTheme = ThemeData(
   // brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-  accentColor: Colors.white,
   colorScheme: const ColorScheme.light(primary: Colors.white),
   accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.transparent,
@@ -33,6 +34,7 @@ final ThemeData darkTheme = ThemeData(
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
+  buttonColor: greenButton,
   brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,

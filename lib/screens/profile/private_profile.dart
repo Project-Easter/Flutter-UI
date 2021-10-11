@@ -114,7 +114,8 @@ class PrivateProfile extends StatelessWidget {
                     ),
                     Button(
                         name: 'Logout',
-                        color: greenButton,
+                        color: Theme.of(context).buttonColor,
+                        textColor: Colors.white,
                         myFunction: () async {
                           firebaseAuthService.signOut();
                         })

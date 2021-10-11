@@ -72,8 +72,7 @@ class _EditProfileState extends State<EditProfile> {
                     child: CircleAvatar(
                       radius: 100,
                       backgroundImage: _imageUrl == ''
-                          ? NetworkImage(
-                             userProvider.photoURL)
+                          ? NetworkImage(userProvider.photoURL)
                           : NetworkImage(_imageUrl),
                     ),
                   ),
@@ -168,7 +167,8 @@ class _EditProfileState extends State<EditProfile> {
               child: Column(
                 children: <Widget>[
                   Button(
-                    color: greenButton,
+                    color: Theme.of(context).buttonColor,
+                    textColor: Colors.white,
                     name: 'Update',
                     myFunction: () async {
                       if (_formKey.currentState.validate()) {

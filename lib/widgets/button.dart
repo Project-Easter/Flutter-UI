@@ -27,8 +27,9 @@ class Button extends StatelessWidget {
   final Color color;
   final String name;
   final VoidCallback myFunction;
+  final Color textColor;
 
-  const Button({this.color, this.name, this.myFunction});
+  const Button({this.color, this.name, this.myFunction, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +51,7 @@ class Button extends StatelessWidget {
           child: Text(
             name,
             style: GoogleFonts.poppins(
-                // color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 16),
+                color: textColor, fontWeight: FontWeight.w500, fontSize: 16),
           ),
           onPressed: myFunction,
         ),
