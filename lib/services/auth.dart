@@ -8,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService extends ChangeNotifier {
   static String fbauthtoken = '';
-  static String googleAuthToken = '';
+  // static String googleAuthToken = '';
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   TokenStorage _tokenStorage = TokenStorage();
 
@@ -65,7 +65,7 @@ class FirebaseAuthService extends ChangeNotifier {
     return userData;
   }
 
-  Future signInWithGoogle() async {
+  Future<User> signInWithGoogle() async {
     final GoogleSignInAccount attempt = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication authentication =
         await attempt.authentication;
@@ -85,7 +85,7 @@ class FirebaseAuthService extends ChangeNotifier {
 
       final User currentUser = firebaseAuth.currentUser;
       assert(user.uid == currentUser.uid);
-      final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
+      // final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
 
       // try {
       //   print('entered try catch');
@@ -107,6 +107,7 @@ class FirebaseAuthService extends ChangeNotifier {
       await DatabaseService(uid: user.uid).updateUserData(userData);
       return user;
     }
+    return null;
   }
 
   //for register

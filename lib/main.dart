@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Explr',
       home: Wrapper(),
-      onGenerateRoute: RouteGenerator.generateRoute,
+      onGenerateRoute: RouteGenerator().generateRoute,
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:books_app/providers/books.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/location_helper.dart';
-import 'package:books_app/widgets/empty_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +14,6 @@ class ExploreNearby extends StatefulWidget {
 }
 
 class _ExploreNearbyState extends State<ExploreNearby> {
-
   // LocationRange distance;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,7 @@ class _ExploreNearbyState extends State<ExploreNearby> {
     final List<Book> within5km = Provider.of<Books>(context).within5km;
     final List<Book> within10km = Provider.of<Books>(context).within10km;
     final List<Book> within20km = Provider.of<Books>(context).within20km;
-    List<Book> morethan20km = Provider.of<Books>(context).morethan20km;
+    final List<Book> morethan20km = Provider.of<Books>(context).morethan20km;
 
     final DatabaseService _databaseService =
         DatabaseService(uid: userData.uid.toString());
@@ -51,7 +49,7 @@ class _ExploreNearbyState extends State<ExploreNearby> {
                     lon2: element.longitude);
 
                 // print('Distance: $dist');
-                if (element.uid != null) if (dist <= 3  ) {
+                if (element.uid != null) if (dist <= 3) {
                   // print('dist <= 3: ' + element.uid.toString());
                   _databaseService
                       .getBooks(uid: element.uid)

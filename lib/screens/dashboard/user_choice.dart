@@ -1,4 +1,3 @@
-import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/user_preferences.dart';
 import 'package:flutter/material.dart';

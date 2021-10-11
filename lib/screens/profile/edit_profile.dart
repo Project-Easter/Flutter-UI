@@ -31,9 +31,9 @@ class _EditProfileState extends State<EditProfile> {
   String _imageUrl = '';
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserData>(context);
+    final UserData userProvider = Provider.of<UserData>(context);
     final String uID = _authService.getUID;
-    final String image = userProvider.photoURL;
+    // final String image = userProvider.photoURL;
     // final UserData userData = snapshot.data as UserData
 
     return Scaffold(
@@ -200,8 +200,8 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Future loadAdressPrefs() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
+  Future<void> loadAdressPrefs() async {
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     _address = _prefs.getString('address');
   }

@@ -14,7 +14,7 @@ import 'package:readmore/readmore.dart';
 
 class BookDescription extends StatefulWidget {
   final Book bookFromList;
-  const BookDescription({Key key, this.bookFromList}) : super(key: key);
+   const BookDescription({Key key, this.bookFromList}) : super(key: key);
   @override
   _BookDescriptionState createState() => _BookDescriptionState();
 }
@@ -91,7 +91,7 @@ class _BookDescriptionState extends State<BookDescription>
         ),
         body: NestedScrollView(
           scrollDirection: Axis.vertical,
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           headerSliverBuilder: (BuildContext context, bool value) {
             return <SliverToBoxAdapter>[
               SliverToBoxAdapter(

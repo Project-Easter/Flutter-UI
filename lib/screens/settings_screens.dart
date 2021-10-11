@@ -68,7 +68,7 @@ class UserTile extends StatelessWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  double _currentSlidervalue = 10.0;
+  // double _currentSlidervalue = 10.0;
   double sliderValue = 10.0;
   bool _darkTheme = false;
   bool _switchValue = true;
@@ -107,7 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ])),
         body: ListView(
           padding: const EdgeInsets.only(right: 5, left: 5, bottom: 5),
-          children: ListTile.divideTiles(context: context, tiles: [
+          children: ListTile.divideTiles(context: context, tiles: <Widget>[
             ListTile(
               title: Text(
                 'Account Settings',

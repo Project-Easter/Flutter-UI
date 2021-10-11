@@ -30,7 +30,7 @@ class _BookListState extends State<BookList> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+              children: <Widget>[
                 Text(widget.title,
                     style: GoogleFonts.poppins(
                         fontSize: 24, fontWeight: FontWeight.w600)),

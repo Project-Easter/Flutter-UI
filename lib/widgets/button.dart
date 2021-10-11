@@ -32,8 +32,8 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: AspectRatio(

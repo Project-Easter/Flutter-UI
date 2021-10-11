@@ -6,12 +6,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DatabaseService {
   final String uid;
   final CollectionReference userDataCollection =
-      FirebaseFirestore.instance.collection('users');
+  FirebaseFirestore.instance.collection('users');
   final CollectionReference booksCollection =
-      FirebaseFirestore.instance.collection('books');
+  FirebaseFirestore.instance.collection('books');
 
   final CollectionReference chatCollection =
-      FirebaseFirestore.instance.collection('chat');
+  FirebaseFirestore.instance.collection('chat');
 
   DatabaseService({this.uid});
 
@@ -84,21 +84,21 @@ class DatabaseService {
   List<Book> booksList(QuerySnapshot querySnapshot) {
     return querySnapshot.docs
         .map((QueryDocumentSnapshot e) => Book(
-              title: e.data()['title'] as String,
-              author: e.data()['author'] as String,
-              description: e.data()['description'] as String,
-              genre: e.data()['genre'] as String,
-              imageUrl: e.data()['imageUrl'] as String,
-              infoLink: e.data()['infoLink'] as String,
-              isbn: e.data()['isbn'] as String,
-              isBookMarked: e.data()['isBookMarked'] as bool,
-              isBorrowed: e.data()['isBorrowed'] as bool,
-              isLent: e.data()['isLent'] as bool,
-              isOwned: e.data()['isOwned'] as bool,
-              pages: e.data()['pages'] as int,
-              rating: e.data()['rating'] as double,
-              userid: e.data()['userid'] as String,
-            ))
+      title: e.data()['title'] as String,
+      author: e.data()['author'] as String,
+      description: e.data()['description'] as String,
+      genre: e.data()['genre'] as String,
+      imageUrl: e.data()['imageUrl'] as String,
+      infoLink: e.data()['infoLink'] as String,
+      isbn: e.data()['isbn'] as String,
+      isBookMarked: e.data()['isBookMarked'] as bool,
+      isBorrowed: e.data()['isBorrowed'] as bool,
+      isLent: e.data()['isLent'] as bool,
+      isOwned: e.data()['isOwned'] as bool,
+      pages: e.data()['pages'] as int,
+      rating: e.data()['rating'] as double,
+      userid: e.data()['userid'] as String,
+    ))
         .toList();
   }
 
@@ -237,10 +237,10 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future updatePreferences(
+  Future<void> updatePreferences(
       String favAuthor, String favBook, String locationRange) async {
     return userDataCollection.doc(uid).set(<String, dynamic>{
-      'preferences': {
+      'preferences': <String, dynamic>{
         'favAuthor': favAuthor,
         'favBook': favBook,
         'locationRange': locationRange
@@ -266,7 +266,7 @@ class DatabaseService {
 
   //*********Updates***************//
   //1.0->Update Rating a book by giving Star
-  Future updateUser(
+  Future<void> updateUser(
       String name, String city, String state, String photoURL) async {
     return userDataCollection.doc(uid).set(<String, dynamic>{
       'city': city,
@@ -277,10 +277,10 @@ class DatabaseService {
   }
 
   //2.0->Update BookMark toggle bookmark
-  Future updateUserData(UserData userData) async {
+  Future<void> updateUserData(UserData userData) async {
     return userDataCollection.doc(uid).set(
       <String, dynamic>
-      // ignore: always_specify_types
+        // ignore: always_specify_types
       {
         'uid': uid,
         // 'token':
@@ -305,9 +305,9 @@ class DatabaseService {
     );
   }
 
-  Future updateUserLocation(double latitude, double longitude) async {
+  Future<void> updateUserLocation(double latitude, double longitude) async {
     final List<String> addresses =
-        await LocationHelper().getAddressFromLatLng(latitude, longitude);
+    await LocationHelper().getAddressFromLatLng(latitude, longitude);
 
     return userDataCollection.doc(uid).set(<String, dynamic>{
       'city': addresses[0],
@@ -322,7 +322,7 @@ class DatabaseService {
     return snapshot.docs.map((QueryDocumentSnapshot doc) {
       // print(doc.data);
       return Book(
-          // rating: doc.data()['rating'] as double,
+        // rating: doc.data()['rating'] as double,
           isOwned: doc.data()['isOwned'] as bool,
           isBookMarked: doc.data()['isBookMarked'] as bool,
           imageUrl: doc.data()['imageUrl'] as String,
@@ -337,16 +337,16 @@ class DatabaseService {
     return UserData(
       uid: uid,
       displayName:
-          documentSnapshot.data()['displayName'] as String ?? 'Enter Name',
+      documentSnapshot.data()['displayName'] as String ?? 'Enter Name',
       email:
-          documentSnapshot.data()['email'] as String ?? 'example@example.com',
+      documentSnapshot.data()['email'] as String ?? 'example@example.com',
       phoneNumber:
-          documentSnapshot.data()['phoneNumber'] as String ?? '8844883333',
+      documentSnapshot.data()['phoneNumber'] as String ?? '8844883333',
       state: documentSnapshot.data()['state'] as String,
       city: documentSnapshot.data()['city'] as String,
       photoURL: documentSnapshot.data()['photoURL'] as String,
       preferences:
-          documentSnapshot.data()['preferences'] as Map<String, dynamic>,
+      documentSnapshot.data()['preferences'] as Map<String, dynamic>,
       latitude: documentSnapshot.data()['latitude'] as double,
       longitude: documentSnapshot.data()['longitude'] as double,
     );

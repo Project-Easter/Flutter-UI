@@ -25,7 +25,7 @@ class _UserPreferenceState extends State<UserPreference> {
   // final TextEditingController _author = TextEditingController();
   // final TextEditingController _book = TextEditingController();
 
-  List<String> tags = [];
+  List<String> tags = <String>[];
 
   @override
   Widget build(BuildContext context) {
@@ -149,8 +149,8 @@ class _UserPreferenceState extends State<UserPreference> {
       onChanged: (List<String> val) => setState(() => tags = val),
       choiceItems: C2Choice.listFrom<String, String>(
         source: genres,
-        value: (i, v) => v,
-        label: (i, v) => v,
+        value: (int i, String v) => v,
+        label: (int i, String v) => v,
       ),
       choiceStyle: const C2ChoiceStyle(
         borderRadius: BorderRadius.all(Radius.circular(5)),

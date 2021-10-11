@@ -7,7 +7,7 @@ class SocialMediaHandles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(25)),
           color: Colors.white),
       child: SizedBox(
@@ -43,9 +43,10 @@ class SocialMediaHandles extends StatelessWidget {
                     }
                   },
                   child: Container(
-                    margin: EdgeInsets.only(left: 15),
+                    margin: const EdgeInsets.only(left: 15),
                     child: SignInButton(
                       Buttons.Google,
+                      onPressed: () {},
                     ),
                   )),
             ),

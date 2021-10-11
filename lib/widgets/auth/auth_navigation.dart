@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class AuthNavigation {
+  String dummmy = '';
   static PreferredSizeWidget from(BuildContext context) {
     return AppBar(
       elevation: 0.0,

@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
-  primarySwatch: Colors.grey,
-  // ignore: deprecated_member_use
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
   primaryTextTheme: const TextTheme(
@@ -18,10 +16,9 @@ final ThemeData darkTheme = ThemeData(
   // brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-  accentColor: Colors.white,
-  colorScheme: const ColorScheme.light(primary: Colors.white),
-  accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.transparent,
+  colorScheme: const ColorScheme.light(primary: Colors.white)
+      .copyWith(primary: Colors.grey, secondary: Colors.white),
 );
 
 final ThemeData lightTheme = ThemeData(
@@ -32,7 +29,6 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   colorScheme: const ColorScheme.dark(
       brightness: Brightness.light, primary: Colors.black),
-  accentIconTheme: const IconThemeData(color: Colors.white),
   dividerColor: Colors.transparent,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

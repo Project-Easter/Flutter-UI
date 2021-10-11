@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -223,7 +221,7 @@ class Books with ChangeNotifier {
       final http.Response response = await http.get(Uri.parse(recommendedURL));
       final dynamic result = jsonDecode(response.body);
       print('result from Google API topBook func is $result');
-      final List list = result['items'] as List;
+      final List<dynamic> list = result['items'] as List<dynamic>;
 
       if (result != null) {
         final List<Book> recommendedBooks = <Book>[];
