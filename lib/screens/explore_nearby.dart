@@ -51,7 +51,7 @@ class _ExploreNearbyState extends State<ExploreNearby> {
                     lon2: element.longitude);
 
                 // print('Distance: $dist');
-                if (element.uid != null) if (dist <= 3) {
+                if (element.uid != null) if (dist <= 3  ) {
                   // print('dist <= 3: ' + element.uid.toString());
                   _databaseService
                       .getBooks(uid: element.uid)

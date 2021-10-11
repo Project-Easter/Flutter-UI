@@ -42,8 +42,8 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => Home());
       case Routes.SETTINGS:
         return MaterialPageRoute<dynamic>(builder: (_) => SettingsScreen());
-      case Routes.LOCATION:
-        return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
+      // case Routes.LOCATION:
+      //   return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
       case Routes.LIBRARY:
         return MaterialPageRoute<dynamic>(builder: (_) => LibraryPage());
       case Routes.WRAPPER:

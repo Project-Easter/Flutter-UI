@@ -78,7 +78,7 @@ class BookCard extends StatelessWidget {
                 ),
               ],
             )
-          : Center(),
+          : const Center(),
     );
   }
 

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/utils/location_helper.dart';
@@ -39,37 +37,6 @@ class DatabaseService {
     // .map(_userDataFromSnapShot);
   }
 
-  Future<List<Book>> getBooks({String uid}) async {
-    List<Book> res = await booksCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .get()
-        .then((QuerySnapshot value) => booksList(value));
-    return res;
-  }
-
-  List<Book> booksList(QuerySnapshot querySnapshot) {
-    return querySnapshot.docs
-        .map((QueryDocumentSnapshot e) => Book(
-              title: e.data()['title'] as String,
-              author: e.data()['author'] as String,
-              description: e.data()['description'] as String,
-              genre: e.data()['genre'] as String,
-              imageUrl: e.data()['imageUrl'] as String,
-              infoLink: e.data()['infoLink'] as String,
-              isbn: e.data()['isbn'] as String,
-              isBookMarked: e.data()['isBookMarked'] as bool,
-              isBorrowed: e.data()['isBorrowed'] as bool,
-              isLent: e.data()['isLent'] as bool,
-              isOwned: e.data()['isOwned'] as bool,
-              pages: e.data()['pages'] as int,
-              rating: e.data()['rating'] as double,
-              userid: e.data()['userid'] as String,
-            ))
-        .toList();
-  }
-
-  //Update Users Location
   Future<void> addBook(Book book) async {
     //GET BOOK FROM API or an existing List and adds to both users and books collection
     await userDataCollection
@@ -114,6 +81,28 @@ class DatabaseService {
     });
   }
 
+  List<Book> booksList(QuerySnapshot querySnapshot) {
+    return querySnapshot.docs
+        .map((QueryDocumentSnapshot e) => Book(
+              title: e.data()['title'] as String,
+              author: e.data()['author'] as String,
+              description: e.data()['description'] as String,
+              genre: e.data()['genre'] as String,
+              imageUrl: e.data()['imageUrl'] as String,
+              infoLink: e.data()['infoLink'] as String,
+              isbn: e.data()['isbn'] as String,
+              isBookMarked: e.data()['isBookMarked'] as bool,
+              isBorrowed: e.data()['isBorrowed'] as bool,
+              isLent: e.data()['isLent'] as bool,
+              isOwned: e.data()['isOwned'] as bool,
+              pages: e.data()['pages'] as int,
+              rating: e.data()['rating'] as double,
+              userid: e.data()['userid'] as String,
+            ))
+        .toList();
+  }
+
+  //Update Users Location
   ///This is for chat TEST.
   //Get All users Data
   List<UserData> getAllUserData(QuerySnapshot querySnapshot) {
@@ -135,6 +124,15 @@ class DatabaseService {
         longitude: doc.data()['longitude'] as double,
       );
     }).toList();
+  }
+
+  Future<List<Book>> getBooks({String uid}) async {
+    final List<Book> res = await booksCollection
+        .doc(uid)
+        .collection('ownedBooks')
+        .get()
+        .then((QuerySnapshot value) => booksList(value));
+    return res;
   }
 
   // Stream<QuerySnapshot> getMessageStream(String from, String to) {
@@ -198,21 +196,39 @@ class DatabaseService {
 
     // final DocumentReference docReference =
     //     booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
-    await userDataCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .doc(book.isbn)
-        .update(<String, bool>{
-      'isBookMarked': book.isBookMarked,
-    });
+    if (book.isOwned) {
+      await userDataCollection
+          .doc(uid)
+          .collection('ownedBooks')
+          .doc(book.isbn)
+          .update(<String, bool>{
+        'isBookMarked': book.isBookMarked,
+      });
 
-    await booksCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .doc(book.isbn)
-        .update(<String, bool>{
-      'isBookMarked': book.isBookMarked,
-    });
+      await booksCollection
+          .doc(uid)
+          .collection('ownedBooks')
+          .doc(book.isbn)
+          .update(<String, bool>{
+        'isBookMarked': book.isBookMarked,
+      });
+    } else {
+      await userDataCollection
+          .doc(uid)
+          .collection('savedBooks')
+          .doc(book.isbn)
+          .update(<String, bool>{
+        'isBookMarked': book.isBookMarked,
+      });
+
+      await booksCollection
+          .doc(uid)
+          .collection('savedBooks')
+          .doc(book.isbn)
+          .update(<String, bool>{
+        'isBookMarked': book.isBookMarked,
+      });
+    }
   }
 
   Future<void> updateGenres(List<String> genres) async {

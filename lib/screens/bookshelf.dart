@@ -77,45 +77,5 @@ class _LibraryPageState extends State<LibraryPage> {
     );
   }
 
-  // void openDialog() {
-  //   showDialog<Text>(
-  //     context: context,
-  //     builder: (BuildContext ctx) {
-  //       return AlertDialog(
-  //         actions: <Widget>[
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.pop(context);
-  //             },
-  //             child: Text(
-  //               'CANCEL',
-  //               style: GoogleFonts.poppins(
-  //                   color: Colors.black,
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w300),
-  //             ),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.pop(context);
-  //             },
-  //             child: Text(
-  //               'OK',
-  //               style: GoogleFonts.poppins(
-  //                   color: Colors.black,
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w300),
-  //             ),
-  //           )
-  //         ],
-  //         // ignore: sized_box_for_whitespace
-  //         content: Container(
-  //           width: 350,
-  //           height: 200,
-  //           child: FilterItems(),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+  
 }
