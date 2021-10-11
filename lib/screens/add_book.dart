@@ -63,6 +63,11 @@ class _AddBookState extends State<AddBook> {
                             fontSize: 14,
                             color: Theme.of(context).colorScheme.primary,
                           ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
                         ),
                         onFieldSubmitted: (String value) {
                           setState(() {
@@ -83,6 +88,11 @@ class _AddBookState extends State<AddBook> {
                           hintStyle: GoogleFonts.poppins(
                             fontSize: 14,
                             color: Theme.of(context).colorScheme.primary,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                         onFieldSubmitted: (String value) {
@@ -114,6 +124,11 @@ class _AddBookState extends State<AddBook> {
                           hintStyle: GoogleFonts.poppins(
                             fontSize: 14,
                             color: Theme.of(context).colorScheme.primary,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                         onFieldSubmitted: (String value) {
