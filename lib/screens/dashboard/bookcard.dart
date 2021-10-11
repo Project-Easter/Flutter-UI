@@ -21,8 +21,9 @@ class BookCard extends StatelessWidget {
               height: getProportionateScreenHeight(200),
               width: getProportionateScreenWidth(100),
               decoration: BoxDecoration(
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(color: Colors.grey, blurRadius: 15)
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: Theme.of(context).accentColor, blurRadius: 15)
                   ],
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(

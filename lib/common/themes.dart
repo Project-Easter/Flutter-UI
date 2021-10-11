@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.grey,
+  accentColor: Colors.grey[900],
   buttonColor: blueButton,
   // ignore: deprecated_member_use
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
+
   primaryTextTheme: const TextTheme(
     headline6: TextStyle(color: Colors.white),
   ),
@@ -34,6 +36,7 @@ final ThemeData darkTheme = ThemeData(
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
+  accentColor: Colors.grey,
   buttonColor: greenButton,
   brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
