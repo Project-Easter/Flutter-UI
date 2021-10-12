@@ -17,7 +17,7 @@ import 'package:books_app/widgets/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
     PrivateProfile(),
   ];
 
-  TextStyle name = GoogleFonts.muli(
+  TextStyle name = GoogleFonts.mali(
       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   final FirebaseAuthService _authService = FirebaseAuthService();
   TokenStorage _tokenStorage = TokenStorage();
@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
     print(uID);
 
     return MultiProvider(
-      providers:<StreamProvider<dynamic>> [
+      providers: <StreamProvider<dynamic>>[
         StreamProvider<UserData>.value(
           value: _databaseService.userData,
           catchError: (_, Object e) => null,
@@ -66,7 +66,6 @@ class _HomeState extends State<Home> {
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              
               FloatingActionButton(
                 heroTag: 'map',
                 child: const Icon(Icons.location_on),

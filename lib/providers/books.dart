@@ -81,7 +81,8 @@ class Books with ChangeNotifier {
       'totalItems': 0
     };
     try {
-      final http.Response response = await http.get(url + isbn.trim());
+      final http.Response response =
+          await http.get(Uri.parse(url + isbn.trim()));
       final dynamic result = jsonDecode(response.body);
       // print("Result From get Books From ISBN:");
       // print(result["items"][0]);
@@ -95,7 +96,7 @@ class Books with ChangeNotifier {
   Future<dynamic> getISBNFromName(String title) async {
     const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
     try {
-      final http.Response response = await http.get(url + title);
+      final http.Response response = await http.get(Uri.parse(url + title));
       final dynamic resultJson = jsonDecode(response.body);
       if (resultJson != null) {
         final String isbn = resultJson['items'][0]['volumeInfo']

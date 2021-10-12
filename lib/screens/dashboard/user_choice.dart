@@ -26,7 +26,7 @@ class UserChoice extends StatelessWidget {
               Text(
                 'Whats Your Choice?',
                 style:
-                    GoogleFonts.muli(fontSize: 24, fontWeight: FontWeight.w700),
+                    GoogleFonts.mali(fontSize: 24, fontWeight: FontWeight.w700),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
@@ -34,7 +34,7 @@ class UserChoice extends StatelessWidget {
                   'Share your interests for best recommendations of books within your location range',
                   softWrap: true,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.muli(
+                  style: GoogleFonts.mali(
                       fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ),

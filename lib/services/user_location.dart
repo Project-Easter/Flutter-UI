@@ -8,7 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,11 +30,11 @@ class _GetLocationState extends State<GetLocation> {
         DatabaseService(uid: _uID.toString());
     return Scaffold(
       // ignore: always_specify_types
-      body: FutureBuilder(
+      body: FutureBuilder<LatLng>(
         future: LocationHelper().getCurrentLocation(),
         builder: (BuildContext context, AsyncSnapshot<LatLng> snapshot) {
           if (snapshot.hasData) {
-          //  Provider.of<UserData>(context).up
+            //  Provider.of<UserData>(context).up
             // Provider.of<UserModel>(context).updateLocation(snapshot.data.latitude, snapshot.data.longitude);
             print(snapshot.data);
             print(snapshot.data.latitude);

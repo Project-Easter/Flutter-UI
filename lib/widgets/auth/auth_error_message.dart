@@ -16,7 +16,7 @@ class AuthErrorMessage extends StatelessWidget {
           errorMessage,
           textAlign: TextAlign.center,
           softWrap: true,
-          style: GoogleFonts.muli(color: Colors.red, fontSize: 15),
+          style: GoogleFonts.mali(color: Colors.red, fontSize: 15),
         ),
       );
     }

@@ -86,7 +86,7 @@ class _BookDescriptionState extends State<BookDescription>
           ),
           title: Text(
             'Book Description',
-            style: GoogleFonts.muli(color: Colors.black),
+            style: GoogleFonts.mali(color: Colors.black),
           ),
         ),
         body: NestedScrollView(

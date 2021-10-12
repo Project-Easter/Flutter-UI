@@ -29,10 +29,9 @@ class DatabaseService {
 
   //get user data from stream with uid
   Stream<UserData> get userData {
-    return userDataCollection
-        .doc(uid)
-        .snapshots()
-        .map((DocumentSnapshot snapshot) => _userDataFromSnapShot(snapshot));
+    return userDataCollection.doc(uid).snapshots().map(
+        (DocumentSnapshot<dynamic> snapshot) =>
+            _userDataFromSnapShot(snapshot));
     // .map(_userDataFromSnapShot);
   }
 
@@ -90,16 +89,18 @@ class DatabaseService {
     }).map((QueryDocumentSnapshot doc) {
       return UserData(
         // uid: uid,
-        uid: doc.data()['uid'] as String,
-        displayName: doc.data()['displayName'] as String ?? 'Enter Name',
-        email: doc.data()['email'] as String ?? 'example@example.com',
-        phoneNumber: doc.data()['phoneNumber'] as String ?? '8844883333',
-        state: doc.data()['state'] as String,
-        city: doc.data()['city'] as String,
-        photoURL: doc.data()['photoURL'] as String,
-        preferences: doc.data()['preferences'] as Map<String, dynamic>,
-        latitude: doc.data()['latitude'] as double,
-        longitude: doc.data()['longitude'] as double,
+        uid: (doc.data() as Map)['uid'] as String,
+        displayName:
+            (doc.data() as Map)['displayName'] as String ?? 'Enter Name',
+        email: (doc.data() as Map)['email'] as String ?? 'example@example.com',
+        phoneNumber:
+            (doc.data() as Map)['phoneNumber'] as String ?? '8844883333',
+        state: (doc.data() as Map)['state'] as String,
+        city: (doc.data() as Map)['city'] as String,
+        photoURL: (doc.data() as Map)['photoURL'] as String,
+        preferences: (doc.data() as Map)['preferences'] as Map<String, dynamic>,
+        latitude: (doc.data() as Map)['latitude'] as double,
+        longitude: (doc.data() as Map)['longitude'] as double,
       );
     }).toList();
   }
@@ -274,32 +275,32 @@ class DatabaseService {
       // print(doc.data);
       return Book(
           // rating: doc.data()['rating'] as double,
-          isOwned: doc.data()['isOwned'] as bool,
-          isBookMarked: doc.data()['isBookMarked'] as bool,
-          imageUrl: doc.data()['imageUrl'] as String,
-          title: doc.data()['title'] as String,
-          isbn: doc.data()['isbn'] as String,
-          author: doc.data()['author'] as String,
-          description: doc.data()['description'] as String);
+          isOwned: (doc.data() as Map)['isOwned'] as bool,
+          isBookMarked: (doc.data() as Map)['isBookMarked'] as bool,
+          imageUrl: (doc.data() as Map)['imageUrl'] as String,
+          title: (doc.data() as Map)['title'] as String,
+          isbn: (doc.data() as Map)['isbn'] as String,
+          author: (doc.data() as Map)['author'] as String,
+          description: (doc.data() as Map)['description'] as String);
     }).toList();
   }
 
   UserData _userDataFromSnapShot(DocumentSnapshot documentSnapshot) {
     return UserData(
       uid: uid,
-      displayName:
-          documentSnapshot.data()['displayName'] as String ?? 'Enter Name',
-      email:
-          documentSnapshot.data()['email'] as String ?? 'example@example.com',
-      phoneNumber:
-          documentSnapshot.data()['phoneNumber'] as String ?? '8844883333',
-      state: documentSnapshot.data()['state'] as String,
-      city: documentSnapshot.data()['city'] as String,
-      photoURL: documentSnapshot.data()['photoURL'] as String,
-      preferences:
-          documentSnapshot.data()['preferences'] as Map<String, dynamic>,
-      latitude: documentSnapshot.data()['latitude'] as double,
-      longitude: documentSnapshot.data()['longitude'] as double,
+      displayName: (documentSnapshot.data() as Map)['displayName'] as String ??
+          'Enter Name',
+      email: (documentSnapshot.data() as Map)['email'] as String ??
+          'example@example.com',
+      phoneNumber: (documentSnapshot.data() as Map)['phoneNumber'] as String ??
+          '8844883333',
+      state: (documentSnapshot.data() as Map)['state'] as String,
+      city: (documentSnapshot.data() as Map)['city'] as String,
+      photoURL: (documentSnapshot.data() as Map)['photoURL'] as String,
+      preferences: (documentSnapshot.data() as Map)['preferences']
+          as Map<String, dynamic>,
+      latitude: (documentSnapshot.data() as Map)['latitude'] as double,
+      longitude: (documentSnapshot.data() as Map)['longitude'] as double,
     );
   }
 

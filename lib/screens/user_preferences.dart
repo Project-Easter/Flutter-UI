@@ -3,7 +3,7 @@ import 'package:books_app/constants/genres.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
-import 'package:chips_choice/chips_choice.dart';
+import 'package:chips_choice_null_safety/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,7 +43,7 @@ class _UserPreferenceState extends State<UserPreference> {
         title: Center(
           child: Text(
             'User Preferences',
-            style: GoogleFonts.muli(),
+            style: GoogleFonts.mali(),
           ),
         ),
         shape: const RoundedRectangleBorder(
@@ -65,7 +65,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   // initialValue: favBook,
                   decoration: InputDecoration(
                     hintText: 'Favourite Book',
-                    hintStyle: GoogleFonts.muli(),
+                    hintStyle: GoogleFonts.mali(),
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
@@ -90,7 +90,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                       hintText: 'Favourite Author',
-                      hintStyle: GoogleFonts.muli()),
+                      hintStyle: GoogleFonts.mali()),
                   onSaved: (String val) {
                     _author.text = val;
                   },
@@ -104,7 +104,7 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text('Select Book genres', style: GoogleFonts.muli()),
+                Text('Select Book genres', style: GoogleFonts.mali()),
                 _genresChoice(),
               ],
             ),
@@ -122,14 +122,14 @@ class _UserPreferenceState extends State<UserPreference> {
             },
             child: Text(
               'Save',
-              style: GoogleFonts.muli(fontWeight: FontWeight.bold),
+              style: GoogleFonts.mali(fontWeight: FontWeight.bold),
             ),
           ),
           MaterialButton(
             onPressed: () => Navigator.pop(context, false),
             child: Text(
               'Cancel',
-              style: GoogleFonts.muli(fontWeight: FontWeight.bold),
+              style: GoogleFonts.mali(fontWeight: FontWeight.bold),
             ),
           )
         ],
