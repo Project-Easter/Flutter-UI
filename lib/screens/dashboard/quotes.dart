@@ -13,7 +13,7 @@ class Quotation extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Consumer<QuoteService>(
-            builder: (BuildContext context, QuoteService quote, Widget child) {
+            builder: (BuildContext context, QuoteService quote, Widget? child) {
           return Column(children: <Widget>[
             Text(
               quote.content,

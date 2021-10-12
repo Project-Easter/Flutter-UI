@@ -11,7 +11,7 @@ String uID = FirebaseAuthService().getUID;
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
 class UserPreference extends StatefulWidget {
-  final UserData userData;
+  final UserData? userData;
   const UserPreference(this.userData);
   @override
   _UserPreferenceState createState() => _UserPreferenceState();
@@ -28,8 +28,9 @@ class _UserPreferenceState extends State<UserPreference> {
   @override
   Widget build(BuildContext context) {
     // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final String favBook = widget.userData.preferences['favBook'] as String;
-    final String favAuthor = widget.userData.preferences['favAuthor'] as String;
+    final String? favBook = widget.userData!.preferences!['favBook'] as String?;
+    final String? favAuthor =
+        widget.userData!.preferences!['favAuthor'] as String?;
     // final String location =
     //     widget.userData.preferences['locationRange'] as String;
 
@@ -67,8 +68,8 @@ class _UserPreferenceState extends State<UserPreference> {
                     hintText: 'Favourite Book',
                     hintStyle: GoogleFonts.mali(),
                   ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
                       return 'Book name cannot be empty';
                     }
                     return null;
@@ -76,8 +77,8 @@ class _UserPreferenceState extends State<UserPreference> {
                   onChanged: (String v) {
                     print(v);
                   },
-                  onSaved: (String val) {
-                    _book.text = val;
+                  onSaved: (String? val) {
+                    _book.text = val!;
                   },
                 ),
                 const SizedBox(
@@ -91,11 +92,11 @@ class _UserPreferenceState extends State<UserPreference> {
                   decoration: InputDecoration(
                       hintText: 'Favourite Author',
                       hintStyle: GoogleFonts.mali()),
-                  onSaved: (String val) {
-                    _author.text = val;
+                  onSaved: (String? val) {
+                    _author.text = val!;
                   },
-                  validator: (String value) {
-                    if (value.isEmpty) {
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
                       return 'Author cannot be empty';
                     }
                     return null;
@@ -114,9 +115,9 @@ class _UserPreferenceState extends State<UserPreference> {
           MaterialButton(
             onPressed: () async {
               //Validate Author and BookName
-              if (_formKey.currentState.validate()) {
+              if (_formKey.currentState!.validate()) {
                 _onSubmitTap();
-                _formKey.currentState.save();
+                _formKey.currentState!.save();
                 Navigator.pop(context);
               }
             },

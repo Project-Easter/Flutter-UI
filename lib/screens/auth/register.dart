@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: blackButton,
                   myFunction: () async {
 
-                    if (formKey.currentState.validate()) {
+                    if (formKey.currentState!.validate()) {
                       await FirebaseAuthService().signUpWithEmail(
                         context,
                         _usernameController.text,

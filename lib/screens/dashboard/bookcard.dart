@@ -11,7 +11,7 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final Book book = Provider.of<Book>(context);
-    final String _playStoreLink = book.infoLink;
+    final String? _playStoreLink = book.infoLink;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
@@ -26,11 +26,11 @@ class BookCard extends StatelessWidget {
                   ],
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                      image: NetworkImage(book.imageUrl), fit: BoxFit.fill)),
+                      image: NetworkImage(book.imageUrl!), fit: BoxFit.fill)),
             ),
             onTap: () async {
               (book.infoLink != null)
-                  ? await _canLaunchUrl(_playStoreLink)
+                  ? await _canLaunchUrl(_playStoreLink!)
                   : Navigator.of(context).push<dynamic>(
                       MaterialPageRoute<dynamic>(
                         builder: (BuildContext context) => BookDescription(
@@ -46,7 +46,7 @@ class BookCard extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 width: getProportionateScreenWidth(100),
                 child: Text(
-                  book.title,
+                  book.title!,
                   softWrap: true,
                   textWidthBasis: TextWidthBasis.parent,
                   style: GoogleFonts.poppins(
@@ -59,7 +59,7 @@ class BookCard extends StatelessWidget {
                 ),
               ),
               Text(
-                book.author,
+                book.author!,
                 textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w500,

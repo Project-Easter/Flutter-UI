@@ -1,5 +1,4 @@
 import 'package:books_app/constants/colors.dart';
-import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/bookshelf.dart';
@@ -52,12 +51,14 @@ class _HomeState extends State<Home> {
 
     return MultiProvider(
       providers: <StreamProvider<dynamic>>[
-        StreamProvider<UserData>.value(
+        StreamProvider<UserData?>.value(
           value: _databaseService.userData,
-          catchError: (_, Object e) => null,
+          catchError: (_, Object? e) => null,
+          initialData: null,
         ),
         StreamProvider<List<Book>>.value(
           value: _databaseService.booksData,
+          initialData: [],
         ),
       ],
       child: Scaffold(
@@ -77,10 +78,10 @@ class _HomeState extends State<Home> {
                   // get lat/long
                   await _locationHelper
                       .getCurrentLocation()
-                      .then((LatLng value) async {
+                      .then((LatLng? value) async {
                     // updating address using lat/long
                     await _databaseService
-                        .updateUserLocation(value.latitude, value.longitude)
+                        .updateUserLocation(value!.latitude, value.longitude)
                         .then((dynamic value) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         backgroundColor: blackButton,
@@ -131,7 +132,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> checkForExpiredSession() async {
-    final String value = await _tokenStorage.readPreviousSessionTime();
+    final String? value = await _tokenStorage.readPreviousSessionTime();
     if (value != null) {
       final int diff = DateTime.now().difference(DateTime.parse(value)).inDays;
       // print("diff" + diff.toString());

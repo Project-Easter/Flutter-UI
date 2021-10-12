@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AuthErrorMessage extends StatelessWidget {
-  final String errorMessage;
+  final String? errorMessage;
 
   const AuthErrorMessage({this.errorMessage});
 
@@ -13,7 +13,7 @@ class AuthErrorMessage extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
         child: Text(
-          errorMessage,
+          errorMessage!,
           textAlign: TextAlign.center,
           softWrap: true,
           style: GoogleFonts.mali(color: Colors.red, fontSize: 15),

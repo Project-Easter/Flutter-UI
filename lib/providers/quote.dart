@@ -10,8 +10,8 @@ class QuoteService extends ChangeNotifier {
   Future<void> getQuote() async {
     try {
       final BaseServices baseServices = BaseServices();
-      final Map<String, dynamic> response = await baseServices.getAPI(apiUrl);
-      content = response['content'].toString();
+      final Map<String, dynamic>? response = await baseServices.getAPI(apiUrl);
+      content = response!['content'].toString();
       author = response['author'].toString();
       print(content + ' ' + author);
       notifyListeners();

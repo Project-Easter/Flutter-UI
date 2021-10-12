@@ -20,8 +20,8 @@ class GetLocation extends StatefulWidget {
 
 class _GetLocationState extends State<GetLocation> {
   String address = '';
-  String name = '';
-  String streetAddress = '';
+  String? name = '';
+  String? streetAddress = '';
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +30,17 @@ class _GetLocationState extends State<GetLocation> {
         DatabaseService(uid: _uID.toString());
     return Scaffold(
       // ignore: always_specify_types
-      body: FutureBuilder<LatLng>(
+      body: FutureBuilder<LatLng?>(
         future: LocationHelper().getCurrentLocation(),
-        builder: (BuildContext context, AsyncSnapshot<LatLng> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<LatLng?> snapshot) {
           if (snapshot.hasData) {
             //  Provider.of<UserData>(context).up
             // Provider.of<UserModel>(context).updateLocation(snapshot.data.latitude, snapshot.data.longitude);
             print(snapshot.data);
-            print(snapshot.data.latitude);
+            print(snapshot.data!.latitude);
             return FlutterMap(
               options: MapOptions(
-                center: LatLng(snapshot.data.latitude, snapshot.data.longitude),
+                center: LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
                 zoom: 13.0,
               ),
               layers: [
@@ -56,7 +56,7 @@ class _GetLocationState extends State<GetLocation> {
                       width: 120.0,
                       height: 120.0,
                       point: LatLng(
-                          snapshot.data.latitude, snapshot.data.longitude),
+                          snapshot.data!.latitude, snapshot.data!.longitude),
                       builder: (BuildContext ctx) => Container(
                         child: IconButton(
                           icon: const Icon(
@@ -65,10 +65,10 @@ class _GetLocationState extends State<GetLocation> {
                           ),
                           onPressed: () async {
                             await _databaseService.updateUserLocation(
-                                snapshot.data.latitude,
-                                snapshot.data.longitude);
-                            await _getAddrress(snapshot.data.latitude,
-                                snapshot.data.longitude);
+                                snapshot.data!.latitude,
+                                snapshot.data!.longitude);
+                            await _getAddrress(snapshot.data!.latitude,
+                                snapshot.data!.longitude);
                             showModalBottomSheet<void>(
                                 context: context,
                                 builder: (BuildContext ctx) {
@@ -178,11 +178,11 @@ class _GetLocationState extends State<GetLocation> {
     print(newPlace[0]);
     final Placemark placeMark = newPlace[0];
     name = placeMark.name;
-    final String locality = placeMark.locality;
+    final String? locality = placeMark.locality;
     streetAddress = placeMark.street;
 
-    final String postalCode = placeMark.postalCode;
-    final String country = placeMark.country;
+    final String? postalCode = placeMark.postalCode;
+    final String? country = placeMark.country;
     address = '$name, $locality, $postalCode, $country';
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('address', address);

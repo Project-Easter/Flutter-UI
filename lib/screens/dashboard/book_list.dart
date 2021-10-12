@@ -7,8 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class BookList extends StatefulWidget {
-  final String title;
-  final List<Book> bookList;
+  final String? title;
+  final List<Book?> bookList;
   const BookList(this.title, this.bookList);
 
   @override
@@ -26,7 +26,7 @@ class _BookListState extends State<BookList> {
           padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text(widget.title,
+            child: Text(widget.title!,
                 style: GoogleFonts.poppins(
                     fontSize: 24, fontWeight: FontWeight.w600)),
           ),
@@ -39,7 +39,7 @@ class _BookListState extends State<BookList> {
               itemCount: widget.bookList.length,
               itemBuilder: (BuildContext context, int index) => Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ChangeNotifierProvider<Book>.value(
+                child: ChangeNotifierProvider<Book?>.value(
                   value: widget.bookList[index],
                   child: BookCard(),
                 ),
@@ -54,7 +54,7 @@ class _BookListState extends State<BookList> {
 
   @override
   void initState() {
-    widget.bookList?.shuffle();
+    widget.bookList.shuffle();
     super.initState();
   }
 }

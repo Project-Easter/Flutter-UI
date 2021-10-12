@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Form(
               key: formKey,
               child: Column(
-                children: [
+                children: <AuthField>[
                   EmailTextField(_emailController),
                   PasswordTextField(_passwordController)
                 ],

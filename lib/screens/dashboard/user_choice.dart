@@ -1,4 +1,3 @@
-import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/user_preferences.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:provider/provider.dart';
 class UserChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final UserData userData = Provider.of<UserData>(context);
+    final UserData? userData = Provider.of<UserData?>(context);
     print('User Choice');
     print(userData);
 

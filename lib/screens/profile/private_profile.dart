@@ -12,7 +12,7 @@ class PrivateProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserData profileData = Provider.of<UserData>(context);
-    final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
+    final List<Book> booksData = Provider.of<List<Book>>(context);
     final FirebaseAuthService firebaseAuthService =
         Provider.of<FirebaseAuthService>(context);
     // final UserData profileData =Provider.of<UserData>(context);
@@ -134,8 +134,8 @@ class ProfileHeader extends StatelessWidget {
   final UserData profileData;
 
   const ProfileHeader({
-    Key key,
-    @required this.profileData,
+    Key? key,
+    required this.profileData,
   }) : super(key: key);
 
   @override
@@ -159,7 +159,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           Text(
-            profile.displayName,
+            profile.displayName!,
             style:
                 GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w400),
           ),

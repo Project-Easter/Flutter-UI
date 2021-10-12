@@ -46,7 +46,7 @@ class PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [
+      children: <Container>[
         Container(
           margin: const EdgeInsets.only(top: 10),
           alignment: Alignment.topLeft,
@@ -80,7 +80,7 @@ class TermsCondition extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [
+      children: <Container>[
         Container(
           margin: const EdgeInsets.only(top: 10),
           alignment: Alignment.topLeft,

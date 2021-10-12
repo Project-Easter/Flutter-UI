@@ -45,11 +45,11 @@ final ThemeData lightTheme = ThemeData(
 ThemeData bookTheme() {
   TextTheme _bookTextTheme(TextTheme base) {
     return base.copyWith(
-        headline4: base.headline4.copyWith(
+        headline4: base.headline4!.copyWith(
             fontFamily: 'Poppins',
             fontSize: 36.0,
             color: const Color.fromRGBO(24, 25, 38, 1)),
-        bodyText1: base.bodyText1.copyWith(
+        bodyText1: base.bodyText1!.copyWith(
           fontFamily: 'Poppins',
           fontSize: 16.0,
           color: Colors.white10,

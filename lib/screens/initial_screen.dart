@@ -87,7 +87,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        if (formKey.currentState.validate()) {
+                        if (formKey.currentState!.validate()) {
                           firebaseAuthService.signInWithEmail(context,
                               _emailController.text, _passwordController.text);
                         }

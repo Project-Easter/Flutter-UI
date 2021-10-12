@@ -57,11 +57,11 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final FirebaseAuthService firebaseAuthService =
         Provider.of<FirebaseAuthService>(context);
-    return StreamBuilder<User>(
+    return StreamBuilder<User?>(
         stream: firebaseAuthService.onAuthStateChanged,
-        builder: (_, AsyncSnapshot<User> snapshot) {
+        builder: (_, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            final User user = snapshot.data;
+            final User? user = snapshot.data;
             return user == null ? InitialScreen() : Home();
           } else {
             return const Center(
