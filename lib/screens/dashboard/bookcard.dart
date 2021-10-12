@@ -23,7 +23,8 @@ class BookCard extends StatelessWidget {
               decoration: BoxDecoration(
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                        color: Theme.of(context).accentColor, blurRadius: 15)
+                        color: Theme.of(context).colorScheme.secondary,
+                        blurRadius: 15)
                   ],
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(

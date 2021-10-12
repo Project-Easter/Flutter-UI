@@ -1,5 +1,4 @@
 import 'package:books_app/constants/colors.dart';
-import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/bookshelf.dart';
@@ -51,7 +50,7 @@ class _HomeState extends State<Home> {
     print(uID);
 
     return MultiProvider(
-      providers:<StreamProvider<dynamic>> [
+      providers: <StreamProvider<dynamic>>[
         StreamProvider<UserData>.value(
           value: _databaseService.userData,
           catchError: (_, Object e) => null,
@@ -66,7 +65,6 @@ class _HomeState extends State<Home> {
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              
               FloatingActionButton(
                 heroTag: 'map',
                 child: const Icon(Icons.location_on),

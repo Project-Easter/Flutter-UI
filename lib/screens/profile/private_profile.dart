@@ -1,4 +1,3 @@
-import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
@@ -114,7 +113,7 @@ class PrivateProfile extends StatelessWidget {
                     ),
                     Button(
                         name: 'Logout',
-                        color: Theme.of(context).buttonColor,
+                        color: Theme.of(context).colorScheme.onSecondary,
                         textColor: Colors.white,
                         myFunction: () async {
                           firebaseAuthService.signOut();

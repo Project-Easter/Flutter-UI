@@ -253,7 +253,7 @@ class _BookDescriptionState extends State<BookDescription>
                       children: <Widget>[
                         Button(
                           name: 'Exchange this Book',
-                          color: Theme.of(context).buttonColor,
+                          color: Theme.of(context).colorScheme.onSecondary,
                           textColor: Colors.white,
                           myFunction: () => showErrorDialog(
                             context,

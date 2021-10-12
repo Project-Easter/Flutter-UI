@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 
 final ThemeData darkTheme = ThemeData(
   primarySwatch: Colors.grey,
-  accentColor: Colors.grey[900],
-  buttonColor: blueButton,
-  // ignore: deprecated_member_use
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
-
   primaryTextTheme: const TextTheme(
     headline6: TextStyle(color: Colors.white),
   ),
@@ -22,8 +18,11 @@ final ThemeData darkTheme = ThemeData(
   // brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-  colorScheme: const ColorScheme.light(primary: Colors.white),
-  accentIconTheme: const IconThemeData(color: Colors.black),
+  colorScheme: ColorScheme.light(
+      primary: Colors.white,
+      secondary: Colors.grey[900],
+      onSecondary: blueButton),
+  // accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.transparent,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -36,14 +35,15 @@ final ThemeData darkTheme = ThemeData(
 final ThemeData lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
-  accentColor: Colors.grey,
-  buttonColor: greenButton,
   brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: Colors.white,
   colorScheme: const ColorScheme.dark(
-      brightness: Brightness.light, primary: Colors.black),
-  accentIconTheme: const IconThemeData(color: Colors.white),
+      brightness: Brightness.light,
+      primary: Colors.black,
+      secondary: Colors.grey,
+      onSecondary: greenButton),
+  // accentIconTheme: const IconThemeData(color: Colors.white),
   dividerColor: Colors.transparent,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
