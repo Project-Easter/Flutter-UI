@@ -15,7 +15,6 @@ import 'package:books_app/widgets/app_bar.dart';
 import 'package:books_app/widgets/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 
@@ -35,10 +34,11 @@ class _HomeState extends State<Home> {
     PrivateProfile(),
   ];
 
-  TextStyle name = GoogleFonts.muli(
-      color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
+  // TextStyle name = GoogleFonts.muli(
+  //     color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30);
   final FirebaseAuthService _authService = FirebaseAuthService();
   TokenStorage _tokenStorage = TokenStorage();
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -58,6 +58,8 @@ class _HomeState extends State<Home> {
         StreamProvider<List<Book>>.value(
           value: _databaseService.booksData,
         ),
+        
+      
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -67,8 +69,11 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               FloatingActionButton(
                 heroTag: 'map',
-                child: const Icon(Icons.location_on),
-                backgroundColor: Colors.blueAccent,
+                child: Icon(
+                  Icons.location_on,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+                // backgroundColor: Theme.of(context).primaryColor,
                 onPressed: () async {
                   // we are not navigating to the map anymore.
                   // await Navigator.pushNamed(context, Routes.LOCATION);
@@ -95,38 +100,52 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-          bottomNavigationBar: FloatingNavbar(
-            showSelectedLabels: true,
-            currentIndex: _selectedIndex,
-            onTap: _selectedTab,
-            showUnselectedLabels: true,
-            items: <FloatingNavbarItem>[
-              FloatingNavbarItem(
-                icon: Icons.home_filled,
-                title: 'Home',
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+              boxShadow: [
+                BoxShadow(
+                    color: Theme.of(context).colorScheme.secondary,
+                    spreadRadius: 1,
+                    blurRadius: 10),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0),
               ),
-              FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
-              FloatingNavbarItem(
-                  icon: Icons.chat_bubble_rounded, title: 'Chats'),
-              FloatingNavbarItem(
-                  icon: Icons.favorite_rounded, title: 'Library'),
-              FloatingNavbarItem(
-                  icon: Icons.account_circle_rounded, title: 'Profile'),
-            ],
+              child: FloatingNavbar(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                selectedBackgroundColor:
+                    Theme.of(context).colorScheme.onPrimary,
+                unselectedItemColor: Theme.of(context).colorScheme.primary,
+                selectedItemColor: Theme.of(context).colorScheme.secondary,
+                showSelectedLabels: true,
+                currentIndex: _selectedIndex,
+                onTap: _selectedTab,
+                showUnselectedLabels: true,
+                elevation: 2,
+                // borderRadius: 5,
+                // itemBorderRadius: 5,
+                items: <FloatingNavbarItem>[
+                  FloatingNavbarItem(
+                    icon: Icons.home_filled,
+                    title: 'Home',
+                  ),
+                  FloatingNavbarItem(icon: Icons.explore, title: 'Explore'),
+                  FloatingNavbarItem(
+                      icon: Icons.chat_bubble_rounded, title: 'Chats'),
+                  FloatingNavbarItem(
+                      icon: Icons.favorite_rounded, title: 'Library'),
+                  FloatingNavbarItem(
+                      icon: Icons.account_circle_rounded, title: 'Profile'),
+                ],
+              ),
+            ),
           )),
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkForExpiredSession();
-    _tokenStorage.writeCurrentSessionTime();
   }
 
   Future<void> checkForExpiredSession() async {
@@ -144,6 +163,18 @@ class _HomeState extends State<Home> {
         // await flutterSecureStorage.delete(key: 'SessionCreatedAt');
       }
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkForExpiredSession();
+    _tokenStorage.writeCurrentSessionTime();
   }
 
   void _selectedTab(int index) {

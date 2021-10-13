@@ -1,19 +1,25 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData darkTheme = ThemeData(
+   floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: blueButton,
+   
+  ),
   primarySwatch: Colors.grey,
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
-  primaryTextTheme: const TextTheme(
-    headline6: TextStyle(color: Colors.white),
+  primaryTextTheme: TextTheme(
+    headline6: GoogleFonts.muli(color: Colors.white),
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromRGBO(18, 19, 33, 1),
     iconTheme: IconThemeData(color: Colors.white),
     actionsIconTheme: IconThemeData(color: Colors.white),
     foregroundColor: Colors.white,
+    shadowColor: Colors.white54,
   ),
   // brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
@@ -33,12 +39,34 @@ final ThemeData darkTheme = ThemeData(
 );
 
 final ThemeData lightTheme = ThemeData(
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: blueButton,
+    
+   
+  ),
+  textTheme: Typography(platform: defaultTargetPlatform).black,
+  appBarTheme: AppBarTheme(
+    backgroundColor: Color(0xFFE5E5E5),
+    iconTheme: IconThemeData(color: Colors.black),
+    actionsIconTheme: IconThemeData(color: Colors.black),
+    foregroundColor: Colors.black,
+    shadowColor: Colors.grey,
+
+    // titleTextStyle: GoogleFonts.muli(
+    //   // fontSize: 10,
+    //   color: Colors.black,
+    // ),
+  ),
+  primaryTextTheme: TextTheme(
+    headline6: GoogleFonts.muli(color: Colors.black),
+  ),
   primarySwatch: Colors.grey,
-  primaryColor: Colors.white,
+  primaryColor: Colors.black,
   brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: Color(0xFFE5E5E5),
   colorScheme: const ColorScheme.dark(
+    
       brightness: Brightness.light,
       primary: Colors.black,
       secondary: Colors.grey,
