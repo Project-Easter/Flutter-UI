@@ -124,7 +124,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               trailing: IconButton(
                 padding: EdgeInsets.zero,
-                icon: const Icon(Icons.arrow_forward_ios, size: 14),
+                icon: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 onPressed: () =>
                     Navigator.pushNamed(context, Routes.EDIT_PROFILE),
 

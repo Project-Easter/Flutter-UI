@@ -27,7 +27,7 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider<FirebaseAuthService>(
           create: (_) => FirebaseAuthService(),
-        )
+        ),
       ],
       child: MyApp(),
     ),
