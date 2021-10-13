@@ -1,38 +1,73 @@
+import 'package:books_app/constants/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData darkTheme = ThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: blueButton,
+  ),
   primarySwatch: Colors.grey,
-  // ignore: deprecated_member_use
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
-  primaryTextTheme: const TextTheme(
-    headline6: TextStyle(color: Colors.white),
+  primaryTextTheme: TextTheme(
+    headline6: GoogleFonts.mali(color: Colors.white),
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromRGBO(18, 19, 33, 1),
     iconTheme: IconThemeData(color: Colors.white),
     actionsIconTheme: IconThemeData(color: Colors.white),
     foregroundColor: Colors.white,
+    shadowColor: Colors.white54,
   ),
   // brightness: Brightness.dark,
   backgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
-  accentColor: Colors.white,
-  colorScheme: const ColorScheme.light(primary: Colors.white),
-  accentIconTheme: const IconThemeData(color: Colors.black),
+  colorScheme: ColorScheme.light(
+      primary: Colors.white,
+      secondary: Colors.grey[900]!,
+      onSecondary: blueButton),
+  // accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.transparent,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: Colors.white,
+      onPrimary: const Color(0xff181926),
+    ),
+  ),
 );
 
 final ThemeData lightTheme = ThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: blueButton,
+  ),
+  textTheme: Typography(platform: defaultTargetPlatform).black,
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Color(0xFFE5E5E5),
+    iconTheme: IconThemeData(color: Colors.black),
+    actionsIconTheme: IconThemeData(color: Colors.black),
+    foregroundColor: Colors.black,
+    shadowColor: Colors.grey,
+
+    // titleTextStyle: GoogleFonts.muli(
+    //   // fontSize: 10,
+    //   color: Colors.black,
+    // ),
+  ),
+  primaryTextTheme: TextTheme(
+    headline6: GoogleFonts.mali(color: Colors.black),
+  ),
   primarySwatch: Colors.grey,
-  primaryColor: Colors.white,
+  primaryColor: Colors.black,
   brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: const Color(0xFFE5E5E5),
   colorScheme: const ColorScheme.dark(
-      brightness: Brightness.light, primary: Colors.black),
-  accentIconTheme: const IconThemeData(color: Colors.white),
+      brightness: Brightness.light,
+      primary: Colors.black,
+      secondary: Colors.grey,
+      onSecondary: greenButton),
+  // accentIconTheme: const IconThemeData(color: Colors.white),
   dividerColor: Colors.transparent,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/button.dart';
@@ -167,7 +166,8 @@ class _EditProfileState extends State<EditProfile> {
               child: Column(
                 children: <Widget>[
                   Button(
-                    color: greenButton,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    textColor: Colors.white,
                     name: 'Update',
                     myFunction: () async {
                       if (_formKey.currentState!.validate()) {

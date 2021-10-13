@@ -54,8 +54,8 @@ ItemBuilder _defaultItemBuilder({
                         item.title,
                         style: TextStyle(
                           color: currentIndex == items.indexOf(item)
-                              ? selectedItemColor
-                              : unselectedItemColor,
+                              ? backgroundColor
+                              : selectedBackgroundColor,
                           fontSize: fontSize,
                         ),
                       )
@@ -99,13 +99,17 @@ class FloatingNavbar extends StatefulWidget {
     required this.onTap,
     ItemBuilder? itemBuilder,
     this.backgroundColor = Colors.white,
-    this.selectedBackgroundColor = Colors.black,
-    this.selectedItemColor = Colors.white,
+    required this.selectedBackgroundColor,
+    // = Colors.black
+    // ,
+    required this.selectedItemColor,
+    //  = Colors.white,
     this.iconSize = 24.0,
     this.fontSize = 11.0,
     this.borderRadius = 8,
     this.itemBorderRadius = 20,
-    this.unselectedItemColor = Colors.black,
+    required this.unselectedItemColor,
+    //  = Colors.black,
     this.margin = const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
     this.padding = const EdgeInsets.only(bottom: 8, top: 8),
     this.width = double.infinity,
@@ -158,37 +162,38 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
     return BottomAppBar(
       color: Colors.transparent,
       elevation: widget.elevation,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            height: 70,
-            padding: widget.padding,
-            decoration: BoxDecoration(
-              boxShadow: const <BoxShadow>[
-                BoxShadow(
-                  spreadRadius: 0,
-                  blurRadius: 20,
-                  color: Colors.black26,
-                )
-              ],
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-              color: widget.backgroundColor,
-            ),
-            width: widget.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: items.map((FloatingNavbarItem f) {
-                  return widget.itemBuilder(context, f);
-                }).toList(),
-              ),
+      child: Container(
+        height: 70,
+        padding: widget.padding,
+        decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              spreadRadius: 0,
+              blurRadius: 2,
+              color: Theme.of(context).colorScheme.primary,
+            )
+          ],
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          color: widget.backgroundColor,
+        ),
+        width: widget.width,
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30.0),
+            topRight: Radius.circular(30.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisSize: MainAxisSize.max,
+              children: items.map((FloatingNavbarItem f) {
+                return widget.itemBuilder(context, f);
+              }).toList(),
             ),
           ),
-        ],
+        ),
       ),
     );
   }

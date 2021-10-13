@@ -27,8 +27,9 @@ class Button extends StatelessWidget {
   final Color? color;
   final String? name;
   final VoidCallback? myFunction;
+  final Color? textColor;
 
-  const Button({this.color, this.name, this.myFunction});
+  const Button({this.color, this.name, this.myFunction, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +39,21 @@ class Button extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: AspectRatio(
         aspectRatio: 343 / 52,
-        child: MaterialButton(
-          height: height * 0.08,
-          minWidth: width * 0.6,
-          color: color,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: color,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            minimumSize: Size(width * 0.6, height * 0.08),
+          ),
+          // height: height * 0.08,
+          // minWidth: width * 0.6,
           child: Text(
             name!,
             style: GoogleFonts.poppins(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+                color: textColor, fontWeight: FontWeight.w500, fontSize: 16),
           ),
           onPressed: myFunction,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
       ),
     );

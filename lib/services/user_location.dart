@@ -40,7 +40,8 @@ class _GetLocationState extends State<GetLocation> {
             print(snapshot.data!.latitude);
             return FlutterMap(
               options: MapOptions(
-                center: LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
+                center:
+                    LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
                 zoom: 13.0,
               ),
               layers: [

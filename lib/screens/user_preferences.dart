@@ -41,10 +41,12 @@ class _UserPreferenceState extends State<UserPreference> {
     return Form(
       key: _formKey,
       child: AlertDialog(
+        backgroundColor: Theme.of(context).backgroundColor,
         title: Center(
           child: Text(
             'User Preferences',
-            style: GoogleFonts.mali(),
+            style:
+                GoogleFonts.mali(color: Theme.of(context).colorScheme.primary),
           ),
         ),
         shape: const RoundedRectangleBorder(
@@ -66,7 +68,9 @@ class _UserPreferenceState extends State<UserPreference> {
                   // initialValue: favBook,
                   decoration: InputDecoration(
                     hintText: 'Favourite Book',
-                    hintStyle: GoogleFonts.mali(),
+                    fillColor: Theme.of(context).colorScheme.primary,
+                    hintStyle: GoogleFonts.mali(
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                   validator: (String? value) {
                     if (value!.isEmpty) {
@@ -123,14 +127,18 @@ class _UserPreferenceState extends State<UserPreference> {
             },
             child: Text(
               'Save',
-              style: GoogleFonts.mali(fontWeight: FontWeight.bold),
+              style: GoogleFonts.mali(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           MaterialButton(
             onPressed: () => Navigator.pop(context, false),
             child: Text(
               'Cancel',
-              style: GoogleFonts.mali(fontWeight: FontWeight.bold),
+              style: GoogleFonts.mali(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold),
             ),
           )
         ],
