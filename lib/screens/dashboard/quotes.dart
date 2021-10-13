@@ -4,11 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class Quotation extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  void getQuotes(BuildContext context) {
     final QuoteService quoteService =
         Provider.of<QuoteService>(context, listen: false);
     quoteService.getQuote();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    getQuotes(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(30.0),
