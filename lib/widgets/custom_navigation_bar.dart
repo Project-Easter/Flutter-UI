@@ -179,7 +179,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
         ),
         width: widget.width,
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30.0),
             topRight: Radius.circular(30.0),
           ),

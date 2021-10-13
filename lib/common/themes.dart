@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData darkTheme = ThemeData(
-   floatingActionButtonTheme: FloatingActionButtonThemeData(
+   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: blueButton,
    
   ),
@@ -39,13 +39,13 @@ final ThemeData darkTheme = ThemeData(
 );
 
 final ThemeData lightTheme = ThemeData(
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: blueButton,
     
    
   ),
   textTheme: Typography(platform: defaultTargetPlatform).black,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xFFE5E5E5),
     iconTheme: IconThemeData(color: Colors.black),
     actionsIconTheme: IconThemeData(color: Colors.black),
@@ -64,7 +64,7 @@ final ThemeData lightTheme = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.light,
   backgroundColor: const Color(0xFFE5E5E5),
-  scaffoldBackgroundColor: Color(0xFFE5E5E5),
+  scaffoldBackgroundColor: const Color(0xFFE5E5E5),
   colorScheme: const ColorScheme.dark(
     
       brightness: Brightness.light,

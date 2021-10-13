@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
                         content: Text('Location Updated Successfully!'),
                       ));
                     });
-                  }).onError((String error, stackTrace) {
+                  }).onError((String error, StackTrace stackTrace) {
                     print(error);
                     print(stackTrace);
                     SnackBar(content: Text(error.toString()));
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-              boxShadow: [
+              boxShadow:<BoxShadow> [
                 BoxShadow(
                     color: Theme.of(context).colorScheme.secondary,
                     spreadRadius: 1,
