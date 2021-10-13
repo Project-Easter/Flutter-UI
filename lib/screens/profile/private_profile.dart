@@ -1,4 +1,3 @@
-import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/providers/book.dart';
 import 'package:books_app/providers/user.dart';
@@ -108,14 +107,14 @@ class PrivateProfile extends StatelessWidget {
                   children: <Widget>[
                     Button(
                       name: 'Add your Book',
-                      color: blackButton,
                       myFunction: () async {
                         Navigator.pushNamed(context, Routes.ADD_BOOK);
                       },
                     ),
                     Button(
                         name: 'Logout',
-                        color: greenButton,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        textColor: Colors.white,
                         myFunction: () async {
                           firebaseAuthService.signOut();
                         })

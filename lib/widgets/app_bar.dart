@@ -5,24 +5,24 @@ import 'package:google_fonts/google_fonts.dart';
 // ignore: non_constant_identifier_names
 AppBar MyAppBar(BuildContext buildContext) {
   return AppBar(
-    shadowColor: Colors.black,
+    // shadowColor: Colors.black,
     bottomOpacity: 0.5,
     titleSpacing: 5,
     elevation: 0.0,
-    backgroundColor: Colors.white,
+    // backgroundColor: Theme.of(buildContext).backgroundColor,
     leading: Padding(
       padding: const EdgeInsets.all(12.0),
       child: Image.asset('assets/images/ExplrLogo(150x150).png'),
     ),
     title: Text(
       'Explr',
-      style: GoogleFonts.muli(color: Colors.black),
+      style: GoogleFonts.muli(),
     ),
     actions: <Widget>[
       IconButton(
-        icon: const Icon(
+        icon: Icon(
           Icons.settings,
-          color: Colors.black,
+          // color: Colors.black,
           size: 20,
         ),
         onPressed: () {
