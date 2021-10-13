@@ -52,10 +52,12 @@ dependencies:
   flutter_signin_button: ^2.0.0
   
 dev_pub helpdependencies:
-  flutter_test:
-    sdk: flutter
   flutter_launcher_icons: ^0.8.1
   test: ^1.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
 
 flutter_icons:
   android: true
