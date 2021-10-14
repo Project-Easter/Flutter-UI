@@ -1,4 +1,6 @@
-class UserData {
+import 'package:flutter/cupertino.dart';
+
+class UserData extends ChangeNotifier {
   String? uid;
   String? displayName;
   String? email;

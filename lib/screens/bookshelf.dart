@@ -30,7 +30,6 @@ class _LibraryPageState extends State<LibraryPage> {
         savedBooks.add(book);
       }
     }
-
     // ignore: always_specify_types
     if (savedBooks.isEmpty && ownedBooks.isEmpty) {
       return const EmptyPageWidget(

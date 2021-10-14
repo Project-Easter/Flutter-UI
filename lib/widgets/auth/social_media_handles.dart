@@ -26,27 +26,20 @@ class SocialMediaHandles extends StatelessWidget {
                     ),
                     side: const BorderSide(color: Colors.black87),
                   ),
-                  onPressed: () async {
-                    print('Google Sign in presws');
-                    try {
-                      final dynamic res =
-                          await FirebaseAuthService().signInWithGoogle();
-
-                      print('This is the google response');
-                      print(res);
-                      if (res != null) {
-                        print(res.toString());
-                        Navigator.pushNamed(context, Routes.HOME);
-                      }
-                    } catch (e) {
-                      print(e.toString());
-                    }
-                  },
+                  onPressed: () {},
                   child: Container(
                     margin: const EdgeInsets.only(left: 15),
                     child: SignInButton(
                       Buttons.Google,
-                      onPressed: () {},
+                      elevation: 0.0,
+                      onPressed: () async {
+                        print('Google Sign in pressed');
+                        try {
+                          await FirebaseAuthService().signInWithGoogle();
+                        } catch (e) {
+                          print(e.toString());
+                        }
+                      },
                     ),
                   )),
             ),

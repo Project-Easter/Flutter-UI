@@ -281,6 +281,7 @@ class DatabaseService {
       return Book(
           // rating: doc.data()['rating'] as double,
           isOwned: (doc.data()! as Map<String, dynamic>)['isOwned'] as bool?,
+          userid: (doc.data()! as Map<String, dynamic>)['uid'] as String?,
           isBookMarked:
               (doc.data()! as Map<String, dynamic>)['isBookMarked'] as bool?,
           imageUrl:

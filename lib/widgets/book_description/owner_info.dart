@@ -9,7 +9,7 @@ class OwnerInfo extends StatefulWidget {
 }
 
 class _OwnerInfoState extends State<OwnerInfo> {
-  // UserData ownerData;
+  //UserData userdata;
   @override
   Widget build(BuildContext context) {
     return Padding(
