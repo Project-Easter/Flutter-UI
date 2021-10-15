@@ -1,5 +1,6 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
+import 'package:books_app/services/auth.dart';
 import 'package:books_app/widgets/auth/auth_navigation.dart';
 import 'package:books_app/widgets/auth/auth_page_title.dart';
 import 'package:books_app/widgets/button.dart';
@@ -16,6 +17,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   TextEditingController _emailController = TextEditingController();
   // final BackendService authService = BackendService();
 
+  String _message;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            _message != null ? showAlert() : Container(),
             const AuthPageTitle(name: 'Reset password'),
             // AuthErrorMessage(errorMessage: error.toString()),
             Form(
@@ -38,29 +41,60 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             Button(
               name: 'Continue',
               color: blackButton,
-              myFunction: () {
+              myFunction: () async {
+                await FirebaseAuthService()
+                    .ResetPassword(_emailController.text);
+                setState(() {
+                  _message =
+                      "Password reset link has been sent to you on email ${_emailController.text}.You will be redirected to signIn page";
+                });
+
+                print(_message);
+                await Future<dynamic>.delayed(Duration(seconds: 4), () {});
                 Navigator.pushReplacementNamed(context, Routes.INITIAL_PAGE);
               },
             )
-            // AuthButton(
-            //   text: 'Continue',
-            //   formKey: formKey,
-            //   onClick: onSubmit,
-            //   onSuccess: onSuccess,
-            //   onError: onError,
-            // )
           ],
         ),
       ),
     );
   }
 
-  // Future<String> onSubmit() async {
-  //   return authService.forgotPassword(email).toString();
-  // }
-
-  // void onSuccess() {
-  //   Navigator.of(context).push<dynamic>(MaterialPageRoute<dynamic>(
-  //       builder: (BuildContext context) => ResetPasswordScreen(email: email)));
-  // }
+  Widget showAlert() {
+    if (_message != null) {
+      return Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          color: Colors.amberAccent,
+          width: double.infinity,
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Icon(Icons.error_outline),
+              ),
+              Expanded(
+                child: Text(
+                  _message,
+                  maxLines: 3,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      _message = null;
+                    });
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+    }
+  }
 }
