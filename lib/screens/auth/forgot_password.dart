@@ -27,7 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _message != null ? showAlert() : Container(),
+            showAlert() ,
             const AuthPageTitle(name: 'Reset password'),
             // AuthErrorMessage(errorMessage: error.toString()),
             Form(
@@ -46,11 +46,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     .ResetPassword(_emailController.text);
                 setState(() {
                   _message =
-                      "Password reset link has been sent to you on email ${_emailController.text}.You will be redirected to signIn page";
+                      'Password reset link has been sent to you on email ${_emailController.text}.You will be redirected to signIn page';
                 });
 
                 print(_message);
-                await Future<dynamic>.delayed(Duration(seconds: 4), () {});
+                await Future<dynamic>.delayed(const Duration(seconds: 4), () {});
                 Navigator.pushReplacementNamed(context, Routes.INITIAL_PAGE);
               },
             )
@@ -67,11 +67,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Container(
           color: Colors.amberAccent,
           width: double.infinity,
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+              const Padding(
+                padding: EdgeInsets.only(right: 8.0),
                 child: Icon(Icons.error_outline),
               ),
               Expanded(
@@ -83,7 +83,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: IconButton(
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                   onPressed: () {
                     setState(() {
                       _message = null;
@@ -96,5 +96,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ),
       );
     }
+    else
+      return Container();
   }
 }
