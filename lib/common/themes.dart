@@ -11,7 +11,7 @@ final ThemeData darkTheme = ThemeData(
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
   primaryTextTheme: TextTheme(
-    headline6: GoogleFonts.mali(color: Colors.white),
+    headline6: GoogleFonts.lato(color: Colors.white),
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromRGBO(18, 19, 33, 1),
@@ -55,7 +55,7 @@ final ThemeData lightTheme = ThemeData(
     // ),
   ),
   primaryTextTheme: TextTheme(
-    headline6: GoogleFonts.mali(color: Colors.black),
+    headline6: GoogleFonts.lato(color: Colors.black),
   ),
   primarySwatch: Colors.grey,
   primaryColor: Colors.black,

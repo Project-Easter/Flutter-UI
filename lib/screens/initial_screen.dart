@@ -59,7 +59,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.mali(
+                    style: GoogleFonts.lato(
                         color: blackButton,
                         fontSize: 30,
                         fontWeight: FontWeight.w600),
@@ -143,7 +143,7 @@ class _InitialScreenState extends State<InitialScreen> {
       child: TextButton(
         child: Text('Forgot password?',
             textAlign: TextAlign.center,
-            style: GoogleFonts.mali(
+            style: GoogleFonts.lato(
               color: const Color.fromRGBO(224, 39, 20, 1),
               fontSize: 14,
               fontWeight: FontWeight.w600,

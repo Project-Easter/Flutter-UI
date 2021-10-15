@@ -46,7 +46,7 @@ class _UserPreferenceState extends State<UserPreference> {
           child: Text(
             'User Preferences',
             style:
-                GoogleFonts.mali(color: Theme.of(context).colorScheme.primary),
+                GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
           ),
         ),
         shape: const RoundedRectangleBorder(
@@ -69,7 +69,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   decoration: InputDecoration(
                     hintText: 'Favourite Book',
                     fillColor: Theme.of(context).colorScheme.primary,
-                    hintStyle: GoogleFonts.mali(
+                    hintStyle: GoogleFonts.lato(
                         color: Theme.of(context).colorScheme.primary),
                   ),
                   validator: (String? value) {
@@ -95,7 +95,7 @@ class _UserPreferenceState extends State<UserPreference> {
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                       hintText: 'Favourite Author',
-                      hintStyle: GoogleFonts.mali()),
+                      hintStyle: GoogleFonts.lato()),
                   onSaved: (String? val) {
                     _author.text = val!;
                   },
@@ -109,7 +109,7 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text('Select Book genres', style: GoogleFonts.mali()),
+                Text('Select Book genres', style: GoogleFonts.lato()),
                 _genresChoice(),
               ],
             ),
@@ -127,7 +127,7 @@ class _UserPreferenceState extends State<UserPreference> {
             },
             child: Text(
               'Save',
-              style: GoogleFonts.mali(
+              style: GoogleFonts.lato(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold),
             ),
@@ -136,7 +136,7 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () => Navigator.pop(context, false),
             child: Text(
               'Cancel',
-              style: GoogleFonts.mali(
+              style: GoogleFonts.lato(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold),
             ),
