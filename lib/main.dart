@@ -38,12 +38,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final dynamic myAppUser = FirebaseAuthService().currentUserFromFireBase;
-    return MaterialApp(
-      theme: Provider.of<ThemeNotifier>(context).getTheme(),
-      debugShowCheckedModeBanner: false,
-      title: 'Explr',
-      home: Wrapper(),
-      onGenerateRoute: RouteGenerator.generateRoute,
+    return Listener(
+        onPointerUp: (_) {
+          final FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+            currentFocus.focusedChild.unfocus();
+          }
+        },
+      child: MaterialApp(
+        theme: Provider.of<ThemeNotifier>(context).getTheme(),
+        debugShowCheckedModeBanner: false,
+        title: 'Explr',
+        home: Wrapper(),
+        onGenerateRoute: RouteGenerator.generateRoute,
+      ),
     );
   }
 }
