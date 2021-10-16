@@ -108,8 +108,10 @@ class DatabaseService {
   List<UserData> getAllUserData(QuerySnapshot querySnapshot) {
     // ignore: unrelated_type_equality_checks
     return querySnapshot.docs.where((QueryDocumentSnapshot uid) {
-      return this.uid != uid.id;
+      // return this.uid != uid.id;
+      return true;
     }).map((QueryDocumentSnapshot doc) {
+      print(doc.data());
       return UserData(
         // uid: uid,
         uid: doc.data()['uid'] as String,

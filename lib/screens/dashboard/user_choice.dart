@@ -16,7 +16,7 @@ class UserChoice extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          border: Border.all(),
+          border: Border.all(color: Theme.of(context).colorScheme.primary),
         ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),

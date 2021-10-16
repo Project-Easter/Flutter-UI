@@ -39,7 +39,7 @@ class _AddBookState extends State<AddBook> {
               child: Text(
                 'Add your Book',
                 style: GoogleFonts.poppins(
-                    color: Colors.black,
+                    // color: Colors.black,
                     fontWeight: FontWeight.w400,
                     fontSize: 30),
               ),
@@ -61,6 +61,12 @@ class _AddBookState extends State<AddBook> {
                           hintText: 'Enter Book Name',
                           hintStyle: GoogleFonts.poppins(
                             fontSize: 14,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                         onFieldSubmitted: (String value) {
@@ -81,6 +87,12 @@ class _AddBookState extends State<AddBook> {
                           hintText: 'Enter Author Name',
                           hintStyle: GoogleFonts.poppins(
                             fontSize: 14,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                         onFieldSubmitted: (String value) {
@@ -111,6 +123,12 @@ class _AddBookState extends State<AddBook> {
                           hintText: 'Enter ISBN Code of the book',
                           hintStyle: GoogleFonts.poppins(
                             fontSize: 14,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                         onFieldSubmitted: (String value) {
@@ -128,7 +146,7 @@ class _AddBookState extends State<AddBook> {
                       // child: button(context, blackButton, 'Add your Book', ''),
                       child: Button(
                           name: 'Add your Book',
-                          color: blackButton,
+                          // color: blackButton,
                           myFunction: () async {
                             if (_bookKey.currentState.validate()) {
                               _bookKey.currentState.save();
