@@ -49,11 +49,11 @@ class PhoneTextField extends AuthField {
 
 class AuthField extends StatelessWidget {
   // final void Function(String) onChanged;
-  final String text;
-  final bool obscureText;
-  final String Function(String) validator;
+  final String? text;
+  final bool? obscureText;
+  final String? Function(String?)? validator;
   final TextInputType keyboardType;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   const AuthField({
     // this.onChanged,
@@ -85,7 +85,7 @@ class AuthField extends StatelessWidget {
           ),
           child: TextFormField(
             controller: controller,
-            obscureText: obscureText,
+            obscureText: obscureText!,
             validator: validator,
             textAlign: TextAlign.start,
             keyboardType: keyboardType,

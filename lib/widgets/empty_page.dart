@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class EmptyPageWidget extends StatelessWidget {
   final String headline;
 
-  const EmptyPageWidget({Key key, @required this.headline}) : super(key: key);
+  const EmptyPageWidget({Key? key, required this.headline}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 ItemBuilder _defaultItemBuilder({
-  Function(int val) onTap,
-  List<FloatingNavbarItem> items,
-  int currentIndex,
-  Color selectedBackgroundColor,
-  Color selectedItemColor,
-  Color unselectedItemColor,
-  Color backgroundColor,
-  double fontSize,
-  double iconSize,
-  double itemBorderRadius,
-  double borderRadius,
-  bool showSelectedLabels,
-  bool showUnselectedLabels,
+  Function(int val)? onTap,
+  List<FloatingNavbarItem>? items,
+  int? currentIndex,
+  Color? selectedBackgroundColor,
+  Color? selectedItemColor,
+  Color? unselectedItemColor,
+  Color? backgroundColor,
+  double? fontSize,
+  double? iconSize,
+  double? itemBorderRadius,
+  double? borderRadius,
+  bool? showSelectedLabels,
+  bool? showUnselectedLabels,
 }) {
   return (BuildContext context, FloatingNavbarItem item) => Expanded(
         child: Row(
@@ -23,13 +23,13 @@ ItemBuilder _defaultItemBuilder({
             AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               decoration: BoxDecoration(
-                  color: currentIndex == items.indexOf(item)
+                  color: currentIndex == items!.indexOf(item)
                       ? selectedBackgroundColor
                       : backgroundColor,
-                  borderRadius: BorderRadius.circular(itemBorderRadius)),
+                  borderRadius: BorderRadius.circular(itemBorderRadius!)),
               child: InkWell(
                 onTap: () {
-                  onTap(items.indexOf(item));
+                  onTap!(items.indexOf(item));
                 },
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
@@ -93,22 +93,22 @@ class FloatingNavbar extends StatefulWidget {
   final bool showUnselectedLabels;
 
   FloatingNavbar({
-    Key key,
-    @required this.items,
-    @required this.currentIndex,
-    @required this.onTap,
-    ItemBuilder itemBuilder,
+    Key? key,
+    required this.items,
+    required this.currentIndex,
+    required this.onTap,
+    ItemBuilder? itemBuilder,
     this.backgroundColor = Colors.white,
-    this.selectedBackgroundColor,
+    required this.selectedBackgroundColor,
     // = Colors.black
     // ,
-    this.selectedItemColor,
+    required this.selectedItemColor,
     //  = Colors.white,
     this.iconSize = 24.0,
     this.fontSize = 11.0,
     this.borderRadius = 8,
     this.itemBorderRadius = 20,
-    this.unselectedItemColor,
+    required this.unselectedItemColor,
     //  = Colors.black,
     this.margin = const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
     this.padding = const EdgeInsets.only(bottom: 8, top: 8),
@@ -148,8 +148,8 @@ class FloatingNavbarItem {
   final Widget customWidget;
 
   FloatingNavbarItem({
-    @required this.icon,
-    @required this.title,
+    required this.icon,
+    required this.title,
     this.customWidget = const SizedBox(),
   });
 }
@@ -166,7 +166,7 @@ class _FloatingNavbarState extends State<FloatingNavbar> {
         height: 70,
         padding: widget.padding,
         decoration: BoxDecoration(
-          boxShadow:<BoxShadow>[
+          boxShadow: <BoxShadow>[
             BoxShadow(
               spreadRadius: 0,
               blurRadius: 2,

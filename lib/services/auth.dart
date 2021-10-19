@@ -17,10 +17,10 @@ class FirebaseAuthService extends ChangeNotifier {
   }
 
   String get getUID {
-    return firebaseAuth.currentUser.uid;
+    return firebaseAuth.currentUser!.uid;
   }
 
-  Stream<User> get onAuthStateChanged {
+  Stream<User?> get onAuthStateChanged {
     return firebaseAuth.authStateChanges();
   }
 
@@ -52,10 +52,10 @@ class FirebaseAuthService extends ChangeNotifier {
     const String photoUrl = 'assets/images/Explr Logo.png';
     final UserData userData = UserData(
       uid: user.uid,
-      displayName: username ?? 'Your name',
+      displayName: username,
       email: user.email ?? 'your@email.com',
       emailVerified: user.emailVerified,
-      phoneNumber: phone ?? 'Phone',
+      phoneNumber: phone,
       photoURL: user.photoURL ?? photoUrl,
       isAnonymous: user.isAnonymous,
       city: null,
@@ -65,60 +65,58 @@ class FirebaseAuthService extends ChangeNotifier {
     return userData;
   }
 
-  Future signInWithGoogle() async {
-    final GoogleSignInAccount attempt = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication authentication =
-        await attempt.authentication;
+  Future<void> signInWithGoogle() async {
+    final GoogleSignInAccount? attempt = await GoogleSignIn().signIn();
+    if (attempt != null) {
+      final GoogleSignInAuthentication authentication =
+          await attempt.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: authentication.accessToken,
+        idToken: authentication.idToken,
+      );
 
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: authentication.accessToken,
-      idToken: authentication.idToken,
-    );
+      final UserCredential result =
+          await firebaseAuth.signInWithCredential(credential);
+      final User? user = result.user;
 
-    final UserCredential result =
-        await firebaseAuth.signInWithCredential(credential);
-    final User user = result.user;
+      if (user != null) {
+        assert(!user.isAnonymous);
+        print('The user here is $user');
+        final User currentUser = firebaseAuth.currentUser!;
+        assert(user.uid == currentUser.uid);
+        await firebaseAuth.currentUser!.getIdToken();
+        final UserData userData = makeUserDataFromAuthUser(user);
+        await DatabaseService(uid: user.uid).updateUserData(userData);
+        // try {
+        //   print('entered try catch');
+        //   googleAuthToken =
+        //       await BackendService().loginWithSocialMedia(googleIdtoken);
 
-    if (user != null) {
-      assert(!user.isAnonymous);
-      print('The user here is $user');
+        //   print(
+        //       'Google auth token from loginWithSocialMedia is $googleAuthToken');
 
-      final User currentUser = firebaseAuth.currentUser;
-      assert(user.uid == currentUser.uid);
-      final String googleIdtoken = await firebaseAuth.currentUser.getIdToken();
+        //   TokenStorage().storeAuthToken(googleAuthToken);
+        //   //Add a timer for token expiration time
 
-      // try {
-      //   print('entered try catch');
-      //   googleAuthToken =
-      //       await BackendService().loginWithSocialMedia(googleIdtoken);
+        //   TokenStorage().loadAuthToken();
+        // } catch (e) {
+        //   print('Damn we got an error: ' + e.toString());
+        // }
 
-      //   print(
-      //       'Google auth token from loginWithSocialMedia is $googleAuthToken');
-
-      //   TokenStorage().storeAuthToken(googleAuthToken);
-      //   //Add a timer for token expiration time
-
-      //   TokenStorage().loadAuthToken();
-      // } catch (e) {
-      //   print('Damn we got an error: ' + e.toString());
-      // }
-
-      final UserData userData = makeUserDataFromAuthUser(user);
-      await DatabaseService(uid: user.uid).updateUserData(userData);
-      return user;
+      }
     }
   }
 
   //for register
-  Future<UserCredential> signUpWithEmail(BuildContext context, String username,
+  Future<UserCredential?> signUpWithEmail(BuildContext context, String username,
       String phone, String email, String pass) async {
     try {
       final UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass);
       if (userCredential != null) {
         final UserData userData =
-            makeUserDataForSignUp(userCredential.user, username, phone);
-        await DatabaseService(uid: userCredential.user.uid)
+            makeUserDataForSignUp(userCredential.user!, username, phone);
+        await DatabaseService(uid: userCredential.user!.uid)
             .updateUserData(userData);
         Navigator.pop(context);
       } else {

@@ -24,17 +24,17 @@ import 'package:google_fonts/google_fonts.dart';
 // }
 
 class Button extends StatelessWidget {
-  final Color color;
-  final String name;
-  final VoidCallback myFunction;
-  final Color textColor;
+  final Color? color;
+  final String? name;
+  final VoidCallback? myFunction;
+  final Color? textColor;
 
   const Button({this.color, this.name, this.myFunction, this.textColor});
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: AspectRatio(
@@ -49,7 +49,7 @@ class Button extends StatelessWidget {
           // height: height * 0.08,
           // minWidth: width * 0.6,
           child: Text(
-            name,
+            name!,
             style: GoogleFonts.poppins(
                 color: textColor, fontWeight: FontWeight.w500, fontSize: 16),
           ),

@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData darkTheme = ThemeData(
-   floatingActionButtonTheme: const FloatingActionButtonThemeData(
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: blueButton,
-   
   ),
   primarySwatch: Colors.grey,
   textTheme: Typography(platform: defaultTargetPlatform).white,
   primaryColor: Colors.white,
   primaryTextTheme: TextTheme(
-    headline6: GoogleFonts.muli(color: Colors.white),
+    headline6: GoogleFonts.lato(color: Colors.white),
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromRGBO(18, 19, 33, 1),
@@ -26,7 +25,7 @@ final ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: const Color.fromRGBO(18, 19, 33, 1),
   colorScheme: ColorScheme.light(
       primary: Colors.white,
-      secondary: Colors.grey[900],
+      secondary: Colors.grey[900]!,
       onSecondary: blueButton),
   // accentIconTheme: const IconThemeData(color: Colors.black),
   dividerColor: Colors.transparent,
@@ -41,8 +40,6 @@ final ThemeData darkTheme = ThemeData(
 final ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: blueButton,
-    
-   
   ),
   textTheme: Typography(platform: defaultTargetPlatform).black,
   appBarTheme: const AppBarTheme(
@@ -58,7 +55,7 @@ final ThemeData lightTheme = ThemeData(
     // ),
   ),
   primaryTextTheme: TextTheme(
-    headline6: GoogleFonts.muli(color: Colors.black),
+    headline6: GoogleFonts.lato(color: Colors.black),
   ),
   primarySwatch: Colors.grey,
   primaryColor: Colors.black,
@@ -66,7 +63,6 @@ final ThemeData lightTheme = ThemeData(
   backgroundColor: const Color(0xFFE5E5E5),
   scaffoldBackgroundColor: const Color(0xFFE5E5E5),
   colorScheme: const ColorScheme.dark(
-    
       brightness: Brightness.light,
       primary: Colors.black,
       secondary: Colors.grey,
@@ -84,11 +80,11 @@ final ThemeData lightTheme = ThemeData(
 ThemeData bookTheme() {
   TextTheme _bookTextTheme(TextTheme base) {
     return base.copyWith(
-        headline4: base.headline4.copyWith(
+        headline4: base.headline4!.copyWith(
             fontFamily: 'Poppins',
             fontSize: 36.0,
             color: const Color.fromRGBO(24, 25, 38, 1)),
-        bodyText1: base.bodyText1.copyWith(
+        bodyText1: base.bodyText1!.copyWith(
           fontFamily: 'Poppins',
           fontSize: 16.0,
           color: Colors.white10,
