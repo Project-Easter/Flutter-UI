@@ -17,7 +17,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   TextEditingController _emailController = TextEditingController();
   // final BackendService authService = BackendService();
 
-  String _message;
+  String? _message;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +76,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               Expanded(
                 child: Text(
-                  _message,
+                  _message!,
                   maxLines: 3,
                 ),
               ),
@@ -86,7 +86,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   icon: const Icon(Icons.close),
                   onPressed: () {
                     setState(() {
-                      _message = null;
+                      _message = '';
                     });
                   },
                 ),
