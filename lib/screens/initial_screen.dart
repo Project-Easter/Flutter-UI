@@ -60,7 +60,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   ),
                   Text(
                     'Explr',
-                    style: GoogleFonts.muli(
+                    style: GoogleFonts.lato(
                         color: blackButton,
                         fontSize: 30,
                         fontWeight: FontWeight.w600),
@@ -88,10 +88,12 @@ class _InitialScreenState extends State<InitialScreen> {
                       name: 'Sign in',
                       color: blackButton,
                       myFunction: () async {
-                        if (formKey.currentState.validate()) {
+                        if (formKey.currentState!.validate()) {
                           firebaseAuthService.signInWithEmail(context,
                               _emailController.text, _passwordController.text);
                         }
+
+                        print("sign in");
                       },
                     ),
                     // child: AuthButton(
@@ -144,7 +146,7 @@ class _InitialScreenState extends State<InitialScreen> {
       child: TextButton(
         child: Text('Forgot password?',
             textAlign: TextAlign.center,
-            style: GoogleFonts.muli(
+            style: GoogleFonts.lato(
               color: const Color.fromRGBO(224, 39, 20, 1),
               fontSize: 14,
               fontWeight: FontWeight.w600,

@@ -15,7 +15,7 @@ import 'package:books_app/widgets/app_bar.dart';
 import 'package:books_app/widgets/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -51,15 +51,15 @@ class _HomeState extends State<Home> {
 
     return MultiProvider(
       providers: <StreamProvider<dynamic>>[
-        StreamProvider<UserData>.value(
+        StreamProvider<UserData?>.value(
           value: _databaseService.userData,
-          catchError: (_, Object e) => null,
+          catchError: (_, Object? e) => null,
+          initialData: null,
         ),
         StreamProvider<List<Book>>.value(
           value: _databaseService.booksData,
+          initialData: [],
         ),
-
-
       ],
       child: Scaffold(
           appBar: MyAppBar(context),
@@ -81,10 +81,10 @@ class _HomeState extends State<Home> {
                   // get lat/long
                   await _locationHelper
                       .getCurrentLocation()
-                      .then((LatLng value) async {
+                      .then((LatLng? value) async {
                     // updating address using lat/long
                     await _databaseService
-                        .updateUserLocation(value.latitude, value.longitude)
+                        .updateUserLocation(value!.latitude, value.longitude)
                         .then((dynamic value) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         backgroundColor: blackButton,
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-              boxShadow:<BoxShadow> [
+              boxShadow: <BoxShadow>[
                 BoxShadow(
                     color: Theme.of(context).colorScheme.secondary,
                     spreadRadius: 1,
@@ -149,7 +149,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> checkForExpiredSession() async {
-    final String value = await _tokenStorage.readPreviousSessionTime();
+    final String? value = await _tokenStorage.readPreviousSessionTime();
     if (value != null) {
       final int diff = DateTime.now().difference(DateTime.parse(value)).inDays;
       // print("diff" + diff.toString());

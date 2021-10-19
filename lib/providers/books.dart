@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -6,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'book.dart';
 
 class Books with ChangeNotifier {
+
   // Explore Books
   final List<Book> _within3km = <Book>[];
   final List<Book> _within5km = <Book>[];
@@ -43,7 +45,7 @@ class Books with ChangeNotifier {
     return <Book>[..._discoverNew];
   }
 
-  //********EXPLORE NEARBY TO BE IMPLEMENTED*******///
+//********EXPLORE NEARBY TO BE IMPLEMENTED*******///
   List<Book> get within3km {
     return _within3km;
   }
@@ -84,13 +86,13 @@ class Books with ChangeNotifier {
     _savedBooks = <Book>[];
     print('Getter SavedBooks called');
     for (final Book book in _recommendedBooks) {
-      if (book.isBookMarked) {
+      if (book.isBookMarked!) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
     }
     for (final Book book in _discoverNew) {
-      if (book.isBookMarked) {
+      if (book.isBookMarked!) {
         _savedBooks.insert(0, book);
         print('${book.title} Book Inserted in SavedBook List');
       }
@@ -106,7 +108,8 @@ class Books with ChangeNotifier {
       'totalItems': 0
     };
     try {
-      final http.Response response = await http.get(url + isbn.trim());
+      final http.Response response =
+      await http.get(Uri.parse(url + isbn.trim()));
       final dynamic result = jsonDecode(response.body);
       // print("Result From get Books From ISBN:");
       // print(result["items"][0]);
@@ -120,11 +123,11 @@ class Books with ChangeNotifier {
   Future<dynamic> getISBNFromName(String title) async {
     const String url = 'https://www.googleapis.com/books/v1/volumes?q=';
     try {
-      final http.Response response = await http.get(url + title);
+      final http.Response response = await http.get(Uri.parse(url + title));
       final dynamic resultJson = jsonDecode(response.body);
       if (resultJson != null) {
         final String isbn = resultJson['items'][0]['volumeInfo']
-                ['industryIdentifiers'][1]['identifier']
+        ['industryIdentifiers'][1]['identifier']
             .toString();
         return isbn;
       }
@@ -134,15 +137,15 @@ class Books with ChangeNotifier {
     }
   }
 
-  Book makeBook(dynamic result) {
-    Book book;
+  Book? makeBook(dynamic result) {
+    Book? book;
 
     if (result != null) {
       final String title = result['volumeInfo']['title'].toString();
       final String author = result['volumeInfo']['authors'][0].toString();
       final String description = result['volumeInfo']['description'].toString();
       final String isbn = result['volumeInfo']['industryIdentifiers'][0]
-              ['identifier']
+      ['identifier']
           .toString();
       final String infoLink = result['volumeInfo']['infoLink'].toString();
 
@@ -152,7 +155,7 @@ class Books with ChangeNotifier {
         imageLink = imageLink.replaceFirst('http', 'https', 0);
       } catch (e) {
         imageLink =
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
       }
       print(imageLink.length);
       if (imageLink.isEmpty) {
@@ -175,27 +178,27 @@ class Books with ChangeNotifier {
   Book makeBookforDB(dynamic result, String isbnCode, String inputAuthor) {
     // print(result);
     Book book;
-    final String description =
-        result['items'][0]['volumeInfo']['description'] as String;
+    final String? description =
+    result['items'][0]['volumeInfo']['description'] as String?;
     final String isbn = isbnCode;
-    final String infoLink =
-        result['items'][0]['volumeInfo']['infoLink'] as String;
-    final int pages = result['items'][0]['volumeInfo']['pageCount'] as int;
-    String imageLink, title, author;
+    final String? infoLink =
+    result['items'][0]['volumeInfo']['infoLink'] as String?;
+    final int? pages = result['items'][0]['volumeInfo']['pageCount'] as int?;
+    String? imageLink, title, author;
     try {
-      title = result['items'][0]['volumeInfo']['title'] as String;
-      author = result['items'][0]['volumeInfo']['authors'][0] as String;
-      imageLink =
-          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'] as String;
-      imageLink = imageLink.replaceFirst('http', 'https', 0);
+      title = result['items'][0]['volumeInfo']['title'] as String?;
+      author = result['items'][0]['volumeInfo']['authors'][0] as String?;
+      imageLink = result['items'][0]['volumeInfo']['imageLinks']['thumbnail']
+      as String?;
+      imageLink = imageLink!.replaceFirst('http', 'https', 0);
     } catch (e) {
       imageLink =
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
       author = inputAuthor;
       print('imageLink is empty');
     }
 
-    print(FirebaseAuth.instance.currentUser.uid);
+    print(FirebaseAuth.instance.currentUser!.uid);
     print('ISBN' + isbn.toString());
     print('Title:' + title.toString());
     print('Author:' + author.toString());
@@ -215,18 +218,18 @@ class Books with ChangeNotifier {
 
   Future<dynamic> topBooks() async {
     const String recommendedURL =
-        'https://www.googleapis.com/books/v1/volumes?q=isbn';
+        'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 
     try {
       final http.Response response = await http.get(Uri.parse(recommendedURL));
-      final dynamic result = jsonDecode(response.body);
-      print('result from Google API topBook func is $result');
-      final List<dynamic> list = result['items'] as List<dynamic>;
+      if (response != null) {
+        final dynamic result = jsonDecode(response.body);
+        print('result from Google API topBook func is $result');
+        final List? list = result['items'] as List?;
 
-      if (result != null) {
-        final List<Book> recommendedBooks = <Book>[];
+        final List<Book?> recommendedBooks = <Book?>[];
 
-        for (dynamic value in list) {
+        for (dynamic value in list!) {
           recommendedBooks.add(makeBook(value));
         }
         return recommendedBooks;

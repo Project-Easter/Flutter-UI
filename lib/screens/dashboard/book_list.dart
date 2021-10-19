@@ -7,11 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class BookList extends StatefulWidget {
-  final String title;
-  final String subtitle;
-  final List<Book> bookList;
+  final String? title;
+  final String? subtitle;
+  final List<Book?> bookList;
 
-  const BookList(this.title,this.bookList,{ this.subtitle});
+  const BookList(this.title,this.bookList,{this.subtitle});
 
   @override
   _BookListState createState() => _BookListState();
@@ -31,11 +31,11 @@ class _BookListState extends State<BookList> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text(widget.title,
+                Text(widget.title!,
                     style: GoogleFonts.poppins(
                         fontSize: 24, fontWeight: FontWeight.w600)),
                 if (widget.subtitle != null)
-                  Text(widget.subtitle,
+                  Text(widget.subtitle!,
                       style: GoogleFonts.poppins(
                           fontSize: 12, fontWeight: FontWeight.w400)),
               ],
@@ -50,7 +50,7 @@ class _BookListState extends State<BookList> {
               itemCount: widget.bookList.length,
               itemBuilder: (BuildContext context, int index) => Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ChangeNotifierProvider<Book>.value(
+                child: ChangeNotifierProvider<Book?>.value(
                   value: widget.bookList[index],
                   child: BookCard(),
                 ),
@@ -65,7 +65,7 @@ class _BookListState extends State<BookList> {
 
   @override
   void initState() {
-    widget.bookList?.shuffle();
+    widget.bookList.shuffle();
     super.initState();
   }
 }

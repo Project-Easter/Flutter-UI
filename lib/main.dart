@@ -1,6 +1,7 @@
 import 'package:books_app/common/themes.dart';
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/books.dart';
+import 'package:books_app/providers/quote.dart';
 import 'package:books_app/providers/theme.dart';
 import 'package:books_app/screens/home.dart';
 import 'package:books_app/screens/initial_screen.dart';
@@ -28,6 +29,9 @@ Future<void> main() async {
         ChangeNotifierProvider<FirebaseAuthService>(
           create: (_) => FirebaseAuthService(),
         ),
+        ChangeNotifierProvider<QuoteService>(
+          create: (_) => QuoteService(),
+        )
       ],
       child: MyApp(),
     ),
@@ -41,8 +45,9 @@ class MyApp extends StatelessWidget {
     return Listener(
       onPointerUp: (_) {
         final FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-          currentFocus.focusedChild.unfocus();
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
+          currentFocus.focusedChild!.unfocus();
         }
       },
       child: MaterialApp(
@@ -50,7 +55,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Explr',
         home: Wrapper(),
-        onGenerateRoute: RouteGenerator.generateRoute,
+        onGenerateRoute: RouteGenerator().generateRoute,
       ),
     );
   }
@@ -61,11 +66,11 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final FirebaseAuthService firebaseAuthService =
     Provider.of<FirebaseAuthService>(context);
-    return StreamBuilder<User>(
+    return StreamBuilder<User?>(
         stream: firebaseAuthService.onAuthStateChanged,
-        builder: (_, AsyncSnapshot<User> snapshot) {
+        builder: (_, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            final User user = snapshot.data;
+            final User? user = snapshot.data;
             return user == null ? InitialScreen() : Home();
           } else {
             return const Center(

@@ -12,7 +12,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class GoogleBooks extends StatefulWidget {
-  final String title;
+  final String? title;
   const GoogleBooks({this.title});
 
   @override
@@ -49,11 +49,15 @@ class _GoogleBooksState extends State<GoogleBooks> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else {
-            print('${snapshot.data} is the Google book snap');
+          } else if (snapshot.data != null) {
+            print('$snapshot.data is the Google book snap');
             // Extracting data from snapshot object
-            final List<Book> recommendedBooksML = snapshot.data as List<Book>;
+            final List<Book?> recommendedBooksML = snapshot.data as List<Book?>;
             return BookList(widget.title, recommendedBooksML);
+          } else {
+            return const Center(
+              child: Text('No data found! Check your Internet Connection.'),
+            );
           }
         });
   }

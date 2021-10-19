@@ -20,19 +20,19 @@ class _EditProfileState extends State<EditProfile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
   final ImagePicker _imagePicker = ImagePicker();
-  PickedFile image;
+  PickedFile? image;
 
-  String _name;
-  String _address;
-  String _city;
+  String? _name;
+  String? _address;
+  String? _city;
 
-  String _state;
-  String _imageUrl = '';
+  String? _state;
+  String? _imageUrl = '';
   @override
   Widget build(BuildContext context) {
     final UserData userProvider = Provider.of<UserData>(context);
     final String uID = _authService.getUID;
-    // final String image = userProvider.photoURL;
+    final String? image = userProvider.photoURL;
     // final UserData userData = snapshot.data as UserData
 
     return Scaffold(
@@ -71,8 +71,8 @@ class _EditProfileState extends State<EditProfile> {
                     child: CircleAvatar(
                       radius: 100,
                       backgroundImage: _imageUrl == ''
-                          ? NetworkImage(userProvider.photoURL)
-                          : NetworkImage(_imageUrl),
+                          ? NetworkImage(userProvider.photoURL!)
+                          : NetworkImage(_imageUrl!),
                     ),
                   ),
                   Row(
@@ -81,8 +81,8 @@ class _EditProfileState extends State<EditProfile> {
                       IconButton(
                         icon: const Icon(Icons.photo_camera, size: 30),
                         onPressed: () async {
-                          final String imageFromFirebase =
-                              await uploadImageCamera(uID);
+                          final String? imageFromFirebase =
+                          await uploadImageCamera(uID);
                           setState(() {
                             _imageUrl = imageFromFirebase;
                           });
@@ -92,7 +92,7 @@ class _EditProfileState extends State<EditProfile> {
                         icon: const Icon(Icons.photo_library, size: 30),
                         onPressed: () async {
                           final String imageFromFirebase =
-                              await uploadImageGallery(uID);
+                          await uploadImageGallery(uID);
                           setState(() {
                             _imageUrl = imageFromFirebase;
                           });
@@ -109,9 +109,9 @@ class _EditProfileState extends State<EditProfile> {
                               hintText: 'Your Name',
                               labelText: 'Enter your name'),
                           // initialValue: userData.displayName,
-                          validator: (String val) =>
-                              val.isEmpty ? 'Please enter a name' : null,
-                          onSaved: (String value) {
+                          validator: (String? val) =>
+                          val!.isEmpty ? 'Please enter a name' : null,
+                          onSaved: (String? value) {
                             setState(() {
                               _name = value;
                             });
@@ -124,9 +124,9 @@ class _EditProfileState extends State<EditProfile> {
                           decoration: const InputDecoration(
                               hintText: 'Pune', labelText: 'Enter your City'),
                           initialValue: _address,
-                          validator: (String val) =>
-                              val.isEmpty ? 'Please enter a value' : null,
-                          onSaved: (String value) {
+                          validator: (String? val) =>
+                          val!.isEmpty ? 'Please enter a value' : null,
+                          onSaved: (String? value) {
                             setState(() {
                               _city = value;
                             });
@@ -140,9 +140,9 @@ class _EditProfileState extends State<EditProfile> {
                               hintText: 'Maharashtra',
                               labelText: 'Enter your State'),
                           // initialValue: userData.state,
-                          validator: (String val) =>
-                              val.isEmpty ? 'Please enter a value' : null,
-                          onSaved: (String value) {
+                          validator: (String? val) =>
+                          val!.isEmpty ? 'Please enter a value' : null,
+                          onSaved: (String? value) {
                             setState(() {
                               _state = value;
                             });
@@ -170,7 +170,7 @@ class _EditProfileState extends State<EditProfile> {
                     textColor: Colors.white,
                     name: 'Update',
                     myFunction: () async {
-                      if (_formKey.currentState.validate()) {
+                      if (_formKey.currentState!.validate()) {
                         print(_name);
                         print(_city);
                         print(_state);
@@ -199,20 +199,20 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Future<void> loadAdressPrefs() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+  Future loadAdressPrefs() async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     _address = _prefs.getString('address');
   }
 
-  Future<String> uploadImageCamera(String uID) async {
+  Future<String?> uploadImageCamera(String uID) async {
     image = await _imagePicker.getImage(source: ImageSource.camera);
-    final File file = File(image.path);
+    final File file = File(image!.path);
     if (image != null) {
       // Provider.of<UserModel>(context, listen: false)
       //     .updateAvatar();
       final TaskSnapshot snapshot =
-          await _firebaseStorage.ref().child('images/$uID').putFile(file);
+      await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     }
@@ -221,14 +221,14 @@ class _EditProfileState extends State<EditProfile> {
 
   Future<String> uploadImageGallery(String uID) async {
     image = await _imagePicker.getImage(source: ImageSource.gallery);
-    final File file = File(image.path);
+    final File file = File(image!.path);
     print(file.toString());
     print('${file.uri}is the fileeeeeee');
     if (image != null) {
-      print('${image.path} has firebase imageeeeeeeee.');
+      print('${image!.path} has firebase imageeeeeeeee.');
 
       final TaskSnapshot snapshot =
-          await _firebaseStorage.ref().child('images/$uID').putFile(file);
+      await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
       // Provider.of<UserModel>(context, listen: false).updateAvatar(file);
       //PROFILE_PIC_ROUTE + file.toString()

@@ -37,10 +37,10 @@ class _ExploreNearbyState extends State<ExploreNearby> {
                 child: CircularProgressIndicator(),
               );
             } else {
-              final List<UserData> users = snapshot.data;
-              print('users: ${users.length}');
+              final List<UserData>? users = snapshot.data;
+              print('users: ${users?.length}');
 
-              for (UserData element in users) {
+              for (UserData element in users!) {
                 // first of we are calculating distances
                 final num dist = _locationHelper.calculateDistance(
                     lat1: userData.latitude,

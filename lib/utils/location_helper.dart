@@ -1,26 +1,26 @@
-import 'package:geocoder/geocoder.dart';
-import 'package:latlong/latlong.dart';
-
+import 'package:geocode/geocode.dart';
+import 'package:latlong2/latlong.dart';
 // import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 
 class LocationHelper {
-  Future<List<String>> getAddressFromLatLng(double lat, double lang) async {
-    final Coordinates coordinates = Coordinates(lat, lang);
-    final List<Address> add =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    final Address first = add.first;
-    return <String>[first.subAdminArea, first.adminArea, first.countryName];
-  }
 
-  num calculateDistance({double lat1, double lon1, double lat2, double lon2}) {
+  num calculateDistance({double? lat1, double? lon1, double? lat2, double? lon2}) {
     const Distance distance = Distance();
     return distance.as(
-        LengthUnit.Kilometer, LatLng(lat1, lon1), LatLng(lat2, lon2));
+        LengthUnit.Kilometer, LatLng(lat1!, lon1!), LatLng(lat2!, lon2!));
   }
 
-  Future<LatLng> getCurrentLocation() async {
+  Future<List<String?>> getAddressFromLatLng(double lat, double lang) async {
+    // final Coordinates coordinates = Coordinates(latitude: lat, longitude: lang);
+    final Address addr =
+        await GeoCode().reverseGeocoding(latitude: lat, longitude: lang);
+    // final Address first = add;
+    return <String?>[addr.streetAddress, addr.city, addr.countryName];
+  } //need to be changed
+
+  Future<LatLng?> getCurrentLocation() async {
     final Location location = Location();
 
     bool serviceEnabled;
@@ -44,6 +44,6 @@ class LocationHelper {
 
     locationData = await location.getLocation();
 
-    return LatLng(locationData.latitude, locationData.longitude);
+    return LatLng(locationData.latitude!, locationData.longitude!);
   }
 }

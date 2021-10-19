@@ -24,10 +24,10 @@ import 'package:google_fonts/google_fonts.dart';
 // }
 
 class Button extends StatelessWidget {
-  final Color color;
-  final String name;
-  final VoidCallback myFunction;
-  final Color textColor;
+  final Color? color;
+  final String? name;
+  final VoidCallback? myFunction;
+  final Color? textColor;
 
   const Button({this.color, this.name, this.myFunction, this.textColor});
 
@@ -49,7 +49,7 @@ class Button extends StatelessWidget {
           // height: height * 0.08,
           // minWidth: width * 0.6,
           child: Text(
-            name,
+            name!,
             style: GoogleFonts.poppins(
                 color: textColor, fontWeight: FontWeight.w500, fontSize: 16),
           ),

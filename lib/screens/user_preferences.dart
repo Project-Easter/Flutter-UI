@@ -3,7 +3,7 @@ import 'package:books_app/constants/genres.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
-import 'package:chips_choice/chips_choice.dart';
+import 'package:chips_choice_null_safety/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,10 +11,8 @@ String uID = FirebaseAuthService().getUID;
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
 class UserPreference extends StatefulWidget {
-  final UserData userData;
-
+  final UserData? userData;
   const UserPreference(this.userData);
-
   @override
   _UserPreferenceState createState() => _UserPreferenceState();
 }
@@ -25,22 +23,19 @@ class _UserPreferenceState extends State<UserPreference> {
   // final TextEditingController _author = TextEditingController();
   // final TextEditingController _book = TextEditingController();
 
-  List<String> tags = <String>[];
+  List<String> tags = [];
 
   @override
   Widget build(BuildContext context) {
     // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final String favBook = widget.userData.preferences != null
-        ? widget.userData.preferences['favBook'] as String
-        : '';
-    final String favAuthor = widget.userData.preferences != null
-        ? widget.userData.preferences['favAuthor'] as String
-        : '';
+    final String? favBook = widget.userData!.preferences!['favBook'] as String?;
+    final String? favAuthor =
+    widget.userData!.preferences!['favAuthor'] as String?;
     // final String location =
     //     widget.userData.preferences['locationRange'] as String;
 
     final TextEditingController _author =
-        TextEditingController(text: favAuthor);
+    TextEditingController(text: favAuthor);
     final TextEditingController _book = TextEditingController(text: favBook);
 
     return Form(
@@ -51,7 +46,7 @@ class _UserPreferenceState extends State<UserPreference> {
           child: Text(
             'User Preferences',
             style:
-                GoogleFonts.muli(color: Theme.of(context).colorScheme.primary),
+            GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
           ),
         ),
         shape: const RoundedRectangleBorder(
@@ -74,11 +69,11 @@ class _UserPreferenceState extends State<UserPreference> {
                   decoration: InputDecoration(
                     hintText: 'Favourite Book',
                     fillColor: Theme.of(context).colorScheme.primary,
-                    hintStyle: GoogleFonts.muli(
+                    hintStyle: GoogleFonts.lato(
                         color: Theme.of(context).colorScheme.primary),
                   ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
                       return 'Book name cannot be empty';
                     }
                     return null;
@@ -86,8 +81,8 @@ class _UserPreferenceState extends State<UserPreference> {
                   onChanged: (String v) {
                     print(v);
                   },
-                  onSaved: (String val) {
-                    _book.text = val;
+                  onSaved: (String? val) {
+                    _book.text = val!;
                   },
                 ),
                 const SizedBox(
@@ -100,12 +95,12 @@ class _UserPreferenceState extends State<UserPreference> {
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                       hintText: 'Favourite Author',
-                      hintStyle: GoogleFonts.muli()),
-                  onSaved: (String val) {
-                    _author.text = val;
+                      hintStyle: GoogleFonts.lato()),
+                  onSaved: (String? val) {
+                    _author.text = val!;
                   },
-                  validator: (String value) {
-                    if (value.isEmpty) {
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
                       return 'Author cannot be empty';
                     }
                     return null;
@@ -114,7 +109,7 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text('Select Book genres', style: GoogleFonts.muli()),
+                Text('Select Book genres', style: GoogleFonts.lato()),
                 _genresChoice(),
               ],
             ),
@@ -124,15 +119,15 @@ class _UserPreferenceState extends State<UserPreference> {
           MaterialButton(
             onPressed: () async {
               //Validate Author and BookName
-              if (_formKey.currentState.validate()) {
+              if (_formKey.currentState!.validate()) {
                 _onSubmitTap();
-                _formKey.currentState.save();
+                _formKey.currentState!.save();
                 Navigator.pop(context);
               }
             },
             child: Text(
               'Save',
-              style: GoogleFonts.muli(
+              style: GoogleFonts.lato(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold),
             ),
@@ -141,7 +136,7 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () => Navigator.pop(context, false),
             child: Text(
               'Cancel',
-              style: GoogleFonts.muli(
+              style: GoogleFonts.lato(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold),
             ),
@@ -157,8 +152,8 @@ class _UserPreferenceState extends State<UserPreference> {
       onChanged: (List<String> val) => setState(() => tags = val),
       choiceItems: C2Choice.listFrom<String, String>(
         source: genres,
-        value: (int i, String v) => v,
-        label: (int i, String v) => v,
+        value: (i, v) => v,
+        label: (i, v) => v,
       ),
       choiceStyle: const C2ChoiceStyle(
         borderRadius: BorderRadius.all(Radius.circular(5)),
