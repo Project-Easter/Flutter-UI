@@ -11,7 +11,7 @@ class PrivateProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserData profileData = Provider.of<UserData>(context);
-    final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
+    final List<Book> booksData = Provider.of<List<Book>>(context);
     final FirebaseAuthService firebaseAuthService =
         Provider.of<FirebaseAuthService>(context);
     // final UserData profileData =Provider.of<UserData>(context);
@@ -23,13 +23,13 @@ class PrivateProfile extends StatelessWidget {
           booksData.where((Book book) => book.isOwned == true).length;
     }
     final List<Book> ownedBooks = <Book>[];
-    for (var book in booksData) {
+    for (Book book in booksData) {
       if (book.isOwned == true) {
         ownedBooks.add(book);
       }
     }
     final List<Book> savedBooks = <Book>[];
-    for (var book in booksData) {
+    for (Book book in booksData) {
       if (book.isBookMarked == true) {
         savedBooks.add(book);
       }
@@ -133,8 +133,8 @@ class ProfileHeader extends StatelessWidget {
   final UserData profileData;
 
   const ProfileHeader({
-    Key key,
-    @required this.profileData,
+    Key? key,
+    required this.profileData,
   }) : super(key: key);
 
   @override
@@ -158,7 +158,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           Text(
-            profile.displayName,
+            profile.displayName!,
             style:
                 GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w400),
           ),

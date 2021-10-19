@@ -13,8 +13,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 class BookDescription extends StatefulWidget {
-  final Book bookFromList;
-  const BookDescription({Key key, this.bookFromList}) : super(key: key);
+  final Book? bookFromList;
+  const BookDescription({Key? key, this.bookFromList}) : super(key: key);
   @override
   _BookDescriptionState createState() => _BookDescriptionState();
 }
@@ -22,9 +22,9 @@ class BookDescription extends StatefulWidget {
 class _BookDescriptionState extends State<BookDescription>
     with SingleTickerProviderStateMixin {
   final FirebaseAuthService _authService = FirebaseAuthService();
-  TabController _tabController;
+  TabController? _tabController;
 
-  Widget bookDescription(String description) {
+  Widget bookDescription(String? description) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -39,7 +39,7 @@ class _BookDescriptionState extends State<BookDescription>
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),
           child: ReadMoreText(
-            widget.bookFromList.description,
+            widget.bookFromList!.description!,
             style: GoogleFonts.poppins(
                 color: Colors.blueGrey,
                 fontWeight: FontWeight.w500,
@@ -61,8 +61,8 @@ class _BookDescriptionState extends State<BookDescription>
     final dynamic uid = _authService.getUID;
     final DatabaseService _databaseService =
         DatabaseService(uid: uid as String);
-    print(widget.bookFromList.rating);
-    print(_tabController.index);
+    print(widget.bookFromList!.rating);
+    print(_tabController!.index);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -86,12 +86,12 @@ class _BookDescriptionState extends State<BookDescription>
           ),
           title: Text(
             'Book Description',
-            style: GoogleFonts.muli(color: Colors.black),
+            style: GoogleFonts.lato(color: Colors.black),
           ),
         ),
         body: NestedScrollView(
           scrollDirection: Axis.vertical,
-          physics: AlwaysScrollableScrollPhysics(),
+          physics: const AlwaysScrollableScrollPhysics(),
           headerSliverBuilder: (BuildContext context, bool value) {
             return <SliverToBoxAdapter>[
               SliverToBoxAdapter(
@@ -109,13 +109,14 @@ class _BookDescriptionState extends State<BookDescription>
                           ],
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                              image: NetworkImage(widget.bookFromList.imageUrl),
+                              image:
+                                  NetworkImage(widget.bookFromList!.imageUrl!),
                               fit: BoxFit.fill),
                         ),
                       ),
                     ),
                     Text(
-                      widget.bookFromList.title,
+                      widget.bookFromList!.title!,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         color: Colors.black,
@@ -124,7 +125,7 @@ class _BookDescriptionState extends State<BookDescription>
                       ),
                     ),
                     Text(
-                      widget.bookFromList.author,
+                      widget.bookFromList!.author!,
                       style: GoogleFonts.poppins(
                         color: Colors.black.withOpacity(0.5),
                         fontWeight: FontWeight.w500,
@@ -138,9 +139,9 @@ class _BookDescriptionState extends State<BookDescription>
                         onPressed: () async {
                           try {
                             setState(() {
-                              widget.bookFromList.changeBookMark();
+                              widget.bookFromList!.changeBookMark();
                               _databaseService
-                                  .updateBookMark(widget.bookFromList);
+                                  .updateBookMark(widget.bookFromList!);
                             });
                             // _databaseService.updateBookMark(widget.bookFromList);
                           } catch (e) {
@@ -148,7 +149,7 @@ class _BookDescriptionState extends State<BookDescription>
                           }
                           print('Book Marked');
                         },
-                        icon: widget.bookFromList.isBookMarked
+                        icon: widget.bookFromList!.isBookMarked!
                             ? const Icon(Icons.bookmark)
                             : const Icon(Icons.bookmark_outline_rounded),
                         iconSize: 20,
@@ -192,7 +193,7 @@ class _BookDescriptionState extends State<BookDescription>
               ListView(
                 physics: const ClampingScrollPhysics(),
                 children: <Widget>[
-                  bookDescription(widget.bookFromList.description),
+                  bookDescription(widget.bookFromList!.description),
                   const Divider(
                     thickness: 1,
                     indent: 15,
@@ -206,7 +207,7 @@ class _BookDescriptionState extends State<BookDescription>
                   ),
                   // Reviews(),
 
-                  if (widget.bookFromList.isOwned == true)
+                  if (widget.bookFromList!.isOwned == true)
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -215,7 +216,7 @@ class _BookDescriptionState extends State<BookDescription>
                               // color: blackButton,
                               name: 'Rate this Book',
                               myFunction: () async {
-                                final int stars = await showDialog(
+                                final int? stars = await showDialog(
                                     context: context,
                                     builder: (_) => RatingDialog());
                                 if (stars == null) return;
@@ -229,7 +230,7 @@ class _BookDescriptionState extends State<BookDescription>
                               name: 'Remove this Book',
                               myFunction: () async {
                                 _databaseService
-                                    .removeBook(widget.bookFromList.isbn);
+                                    .removeBook(widget.bookFromList!.isbn);
                                 Navigator.of(context).pop();
                                 print('Book Removed');
                               }),
@@ -285,7 +286,7 @@ class _BookDescriptionState extends State<BookDescription>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 

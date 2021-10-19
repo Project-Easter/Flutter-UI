@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AddBook extends StatefulWidget {
-  const AddBook({Key key}) : super(key: key);
+  const AddBook({Key? key}) : super(key: key);
   @override
   _AddBookState createState() => _AddBookState();
 }
@@ -107,8 +107,8 @@ class _AddBookState extends State<AddBook> {
                           horizontal: 15, vertical: 3),
                       child: TextFormField(
                         controller: _isbnCode,
-                        validator: (String value) {
-                          if (value.isEmpty) {
+                        validator: (String? value) {
+                          if (value!.isEmpty) {
                             return 'Please enter a valid ISBN value';
                           }
                           if (value.length < 10 || value.length > 13) {
@@ -148,8 +148,8 @@ class _AddBookState extends State<AddBook> {
                           name: 'Add your Book',
                           // color: blackButton,
                           myFunction: () async {
-                            if (_bookKey.currentState.validate()) {
-                              _bookKey.currentState.save();
+                            if (_bookKey.currentState!.validate()) {
+                              _bookKey.currentState!.save();
                               final dynamic result =
                                   await bookList.getBooksbyISBN(_isbnCode.text);
                               if (result['totalItems'] != 0) {

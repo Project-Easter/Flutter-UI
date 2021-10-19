@@ -9,14 +9,14 @@ class UserImagePicker extends StatefulWidget {
 }
 
 class _UserImagePickerState extends State<UserImagePicker> {
-  File _imageFile;
+  File? _imageFile;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         CircleAvatar(
-          backgroundImage: _imageFile != null ? FileImage(_imageFile) : null,
+          backgroundImage: _imageFile != null ? FileImage(_imageFile!) : null,
           radius: 35,
         ),
         TextButton.icon(
@@ -29,8 +29,8 @@ class _UserImagePickerState extends State<UserImagePicker> {
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final PickedFile pickedImage =
-        await picker.getImage(source: ImageSource.camera);
+    final PickedFile pickedImage = await (picker.getImage(
+        source: ImageSource.camera) as Future<PickedFile>);
     final File pickedImageFile = File(pickedImage.path);
     setState(() {
       _imageFile = pickedImageFile;

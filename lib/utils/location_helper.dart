@@ -1,19 +1,19 @@
-import 'package:geocoder/geocoder.dart';
-import 'package:latlong/latlong.dart';
+import 'package:geocode/geocode.dart';
+import 'package:latlong2/latlong.dart';
 // import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 
 class LocationHelper {
-  Future<List<String>> getAddressFromLatLng(double lat, double lang) async {
-    final Coordinates coordinates = Coordinates(lat, lang);
-    final List<Address> add =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    final Address first = add.first;
-    return [first.subAdminArea, first.adminArea, first.countryName];
-  }
+  Future<List<String?>> getAddressFromLatLng(double lat, double lang) async {
+    // final Coordinates coordinates = Coordinates(latitude: lat, longitude: lang);
+    final Address addr =
+        await GeoCode().reverseGeocoding(latitude: lat, longitude: lang);
+    // final Address first = add;
+    return <String?>[addr.streetAddress, addr.city, addr.countryName];
+  } //need to be changed
 
-  Future<LatLng> getCurrentLocation() async {
+  Future<LatLng?> getCurrentLocation() async {
     final Location location = Location();
 
     bool serviceEnabled;
@@ -37,8 +37,6 @@ class LocationHelper {
 
     locationData = await location.getLocation();
 
-    return LatLng(locationData.latitude, locationData.longitude);
+    return LatLng(locationData.latitude!, locationData.longitude!);
   }
-
- 
 }

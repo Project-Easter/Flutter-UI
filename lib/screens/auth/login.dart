@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Form(
               key: formKey,
               child: Column(
-                children: [
+                children: <AuthField>[
                   EmailTextField(_emailController),
                   PasswordTextField(_passwordController)
                 ],
@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
       alignment: Alignment.topRight,
       child: TextButton(
         child: Text('Forgot password?',
-            style: GoogleFonts.muli(
+            style: GoogleFonts.lato(
               color: const Color.fromRGBO(224, 39, 20, 1),
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -82,14 +82,14 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
               Text(
                 'Dont have an account?',
-                style: GoogleFonts.muli(color: Colors.black, fontSize: 18),
+                style: GoogleFonts.lato(color: Colors.black, fontSize: 18),
               ),
               const SizedBox(
                 width: 4,
               ),
               Text(
                 'Register',
-                style: GoogleFonts.muli(
+                style: GoogleFonts.lato(
                     color: const Color.fromRGBO(224, 39, 20, 1),
                     fontSize: 18,
                     fontWeight: FontWeight.w600),

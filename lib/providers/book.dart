@@ -2,20 +2,20 @@ import 'package:flutter/cupertino.dart';
 
 class Book with ChangeNotifier {
   // final String id;
-  final String isbn;
-  final String title;
-  final String author;
-  final String imageUrl;
-  final String userid;
+  final String? isbn;
+  final String? title;
+  final String? author;
+  final String? imageUrl;
+  final String? userid;
   double rating;
-  final String description;
-  final String genre;
-  bool isBookMarked;
-  bool isOwned;
+  final String? description;
+  final String? genre;
+  bool? isBookMarked;
+  bool? isOwned;
   bool isLent;
   bool isBorrowed;
   final int pages;
-  final String infoLink;
+  final String? infoLink;
 
   Book({
     // this.id,
@@ -37,7 +37,7 @@ class Book with ChangeNotifier {
   });
   //change isBookMarkedStatus
   void changeBookMark() {
-    isBookMarked = !isBookMarked;
+    isBookMarked = !isBookMarked!;
     notifyListeners();
   }
 }

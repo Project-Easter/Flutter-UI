@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class TokenStorage {
-  static String authToken;
+  static String? authToken;
   // String get authToken { return _authToken; }
   static String urlTemplate =
       'https://api.mapbox.com/styles/v1/aivankum/ckrusiaw57nch17w9vkwnki1e/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWl2YW5rdW0iLCJhIjoiY2tyamJ3bzR5MDEwdzJ2cGNxaXNha3M0ZyJ9.Z9T5-SYG3_-hfv3LezwZEQ';
@@ -31,10 +31,10 @@ class TokenStorage {
         key: 'SessionCreatedAt', value: DateTime.now().toString());
   }
 
-  Future<String> readPreviousSessionTime() async {
+  Future<String?> readPreviousSessionTime() async {
     //this is code to read previous timestamp in storage.
     const FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
-    final String value =
+    final String? value =
         await flutterSecureStorage.read(key: 'SessionCreatedAt');
     return value;
   }

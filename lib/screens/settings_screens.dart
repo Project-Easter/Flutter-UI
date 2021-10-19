@@ -37,7 +37,7 @@ class UserTile extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.only(left: 9.0, top: 4.0),
                   child: Text(
-                    snapshot.data.displayName,
+                    snapshot.data!.displayName!,
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w400, fontSize: 19),
                   ),

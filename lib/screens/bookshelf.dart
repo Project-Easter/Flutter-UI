@@ -14,7 +14,7 @@ class LibraryPage extends StatefulWidget {
 class _LibraryPageState extends State<LibraryPage> {
   @override
   Widget build(BuildContext context) {
-    final List<Book> booksData = Provider.of<List<Book>>(context) ?? <Book>[];
+    final List<Book> booksData = Provider.of<List<Book>>(context);
     final List<Book> ownedBooks = <Book>[];
     final List<Book> lentBooks = <Book>[];
     final List<Book> borrowedBooks = <Book>[];
@@ -30,7 +30,6 @@ class _LibraryPageState extends State<LibraryPage> {
         savedBooks.add(book);
       }
     }
-
     // ignore: always_specify_types
     if (savedBooks.isEmpty && ownedBooks.isEmpty) {
       return const EmptyPageWidget(
