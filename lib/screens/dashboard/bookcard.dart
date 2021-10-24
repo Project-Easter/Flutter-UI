@@ -31,9 +31,11 @@ class BookCard extends StatelessWidget {
                       image: NetworkImage(book.imageUrl!), fit: BoxFit.fill)),
             ),
             onTap: () async {
-              (book.infoLink != null)
-                  ? await _canLaunchUrl(_playStoreLink!)
-                  : Navigator.of(context).push<dynamic>(
+              // (book.infoLink != null)
+              //     ? await _canLaunchUrl(_playStoreLink!)
+              //     : 
+                  
+                  Navigator.of(context).push<dynamic>(
                 MaterialPageRoute<dynamic>(
                   builder: (BuildContext context) => BookDescription(
                     bookFromList: book,
