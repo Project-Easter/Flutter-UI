@@ -69,14 +69,14 @@ class FirebaseAuthService extends ChangeNotifier {
     final GoogleSignInAccount? attempt = await GoogleSignIn().signIn();
     if (attempt != null) {
       final GoogleSignInAuthentication authentication =
-          await attempt.authentication;
+      await attempt.authentication;
       final OAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: authentication.accessToken,
         idToken: authentication.idToken,
       );
 
       final UserCredential result =
-          await firebaseAuth.signInWithCredential(credential);
+      await firebaseAuth.signInWithCredential(credential);
       final User? user = result.user;
 
       if (user != null) {
@@ -115,7 +115,7 @@ class FirebaseAuthService extends ChangeNotifier {
           .createUserWithEmailAndPassword(email: email, password: pass);
       if (userCredential != null) {
         final UserData userData =
-            makeUserDataForSignUp(userCredential.user!, username, phone);
+        makeUserDataForSignUp(userCredential.user!, username, phone);
         await DatabaseService(uid: userCredential.user!.uid)
             .updateUserData(userData);
         Navigator.pop(context);

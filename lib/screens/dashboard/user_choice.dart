@@ -25,7 +25,7 @@ class UserChoice extends StatelessWidget {
               Text(
                 'Whats Your Choice?',
                 style:
-                    GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.w700),
+                GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.w700),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 8, 30, 0),
@@ -51,14 +51,14 @@ class UserChoice extends StatelessWidget {
                     ),
                     onPressed: () async {
                       await showGeneralDialog(
-                          // barrierColor: Colors.black.withOpacity(0.5),
+                        // barrierColor: Colors.black.withOpacity(0.5),
                           barrierLabel: 'Animation',
                           barrierDismissible: true,
                           transitionDuration: const Duration(milliseconds: 500),
                           context: context,
                           pageBuilder: (BuildContext context,
-                                  Animation<double> animation1,
-                                  Animation<double> animation2) =>
+                              Animation<double> animation1,
+                              Animation<double> animation2) =>
                               UserPreference(userData));
                     },
                     style: TextButton.styleFrom(

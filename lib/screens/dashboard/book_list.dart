@@ -8,8 +8,10 @@ import 'package:provider/provider.dart';
 
 class BookList extends StatefulWidget {
   final String? title;
+  final String? subtitle;
   final List<Book?> bookList;
-  const BookList(this.title, this.bookList);
+
+  const BookList(this.title,this.bookList,{this.subtitle});
 
   @override
   _BookListState createState() => _BookListState();
@@ -18,7 +20,6 @@ class BookList extends StatefulWidget {
 class _BookListState extends State<BookList> {
   @override
   Widget build(BuildContext context) {
-    print('BookList length is ${widget.bookList.length}');
     SizeConfig().init(context);
     return Column(
       children: <Widget>[
@@ -26,9 +27,19 @@ class _BookListState extends State<BookList> {
           padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text(widget.title!,
-                style: GoogleFonts.poppins(
-                    fontSize: 24, fontWeight: FontWeight.w600)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Text(widget.title!,
+                    style: GoogleFonts.poppins(
+                        fontSize: 24, fontWeight: FontWeight.w600)),
+                if (widget.subtitle != null)
+                  Text(widget.subtitle!,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12, fontWeight: FontWeight.w400)),
+              ],
+            ),
           ),
         ),
         if (widget.bookList != null && widget.bookList.isNotEmpty)

@@ -12,27 +12,27 @@ class AboutUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: <Widget>[
-        Container(
-          margin: const EdgeInsets.only(top: 10),
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.all(10),
-          child: Text('About Us',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.poppins(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30)),
-        ),
-        Container(
-          padding: const EdgeInsets.all(10),
-          child: Text(
-            text,
-            textAlign: TextAlign.justify,
-          ),
-        )
-      ],
-    ));
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.all(10),
+              child: Text('About Us',
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.poppins(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30)),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                text,
+                textAlign: TextAlign.justify,
+              ),
+            )
+          ],
+        ));
   }
 }
 
@@ -46,27 +46,27 @@ class PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: <Container>[
-        Container(
-          margin: const EdgeInsets.only(top: 10),
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.all(10),
-          child: Text('Privacy Policy',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.poppins(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30)),
-        ),
-        Container(
-          padding: const EdgeInsets.all(10),
-          child: Text(
-            text,
-            textAlign: TextAlign.justify,
-          ),
-        )
-      ],
-    ));
+          children: <Container>[
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.all(10),
+              child: Text('Privacy Policy',
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.poppins(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30)),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                text,
+                textAlign: TextAlign.justify,
+              ),
+            )
+          ],
+        ));
   }
 }
 
@@ -80,26 +80,26 @@ class TermsCondition extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: <Container>[
-        Container(
-          margin: const EdgeInsets.only(top: 10),
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.all(10),
-          child: Text('Terms and Condition',
-              textAlign: TextAlign.left,
-              style: GoogleFonts.poppins(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 28)),
-        ),
-        Container(
-          padding: const EdgeInsets.all(10),
-          child: Text(
-            text,
-            textAlign: TextAlign.justify,
-          ),
-        )
-      ],
-    ));
+          children: <Container>[
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.all(10),
+              child: Text('Terms and Condition',
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.poppins(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28)),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                text,
+                textAlign: TextAlign.justify,
+              ),
+            )
+          ],
+        ));
   }
 }

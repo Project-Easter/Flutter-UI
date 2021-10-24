@@ -1,6 +1,7 @@
 import 'package:books_app/constants/colors.dart';
 import 'package:books_app/constants/routes.dart';
 import 'package:books_app/services/auth.dart';
+import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/auth/social_media_handles.dart';
 import 'package:books_app/widgets/button.dart';
@@ -91,6 +92,8 @@ class _InitialScreenState extends State<InitialScreen> {
                           firebaseAuthService.signInWithEmail(context,
                               _emailController.text, _passwordController.text);
                         }
+
+                        print("sign in");
                       },
                     ),
                     // child: AuthButton(

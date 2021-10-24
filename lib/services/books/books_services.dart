@@ -18,5 +18,4 @@ class BooksServices extends BaseServices {
     final Map<String, dynamic>? data = await getAPI('$baseHost?q=$name');
     return data;
   }
-
 }

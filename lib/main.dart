@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Explr',
         home: Wrapper(),
-        onGenerateRoute: RouteGenerator.generateRoute,
+        onGenerateRoute: RouteGenerator().generateRoute,
       ),
     );
   }
@@ -65,7 +65,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuthService firebaseAuthService =
-        Provider.of<FirebaseAuthService>(context);
+    Provider.of<FirebaseAuthService>(context);
     return StreamBuilder<User?>(
         stream: firebaseAuthService.onAuthStateChanged,
         builder: (_, AsyncSnapshot<User?> snapshot) {
@@ -75,8 +75,8 @@ class Wrapper extends StatelessWidget {
           } else {
             return const Center(
                 child: CircularProgressIndicator(
-              color: blackButton,
-            ));
+                  color: blackButton,
+                ));
           }
         });
   }

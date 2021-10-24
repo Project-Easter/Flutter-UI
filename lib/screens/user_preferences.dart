@@ -30,12 +30,12 @@ class _UserPreferenceState extends State<UserPreference> {
     // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final String? favBook = widget.userData!.preferences!['favBook'] as String?;
     final String? favAuthor =
-        widget.userData!.preferences!['favAuthor'] as String?;
+    widget.userData!.preferences!['favAuthor'] as String?;
     // final String location =
     //     widget.userData.preferences['locationRange'] as String;
 
     final TextEditingController _author =
-        TextEditingController(text: favAuthor);
+    TextEditingController(text: favAuthor);
     final TextEditingController _book = TextEditingController(text: favBook);
 
     return Form(
@@ -46,7 +46,7 @@ class _UserPreferenceState extends State<UserPreference> {
           child: Text(
             'User Preferences',
             style:
-                GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
+            GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
           ),
         ),
         shape: const RoundedRectangleBorder(

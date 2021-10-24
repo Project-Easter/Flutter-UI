@@ -60,7 +60,7 @@ class _BookDescriptionState extends State<BookDescription>
   Widget build(BuildContext context) {
     final dynamic uid = _authService.getUID;
     final DatabaseService _databaseService =
-        DatabaseService(uid: uid as String);
+    DatabaseService(uid: uid as String);
     print(widget.bookFromList!.rating);
     print(_tabController!.index);
     return SafeArea(
@@ -96,68 +96,68 @@ class _BookDescriptionState extends State<BookDescription>
             return <SliverToBoxAdapter>[
               SliverToBoxAdapter(
                   child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Container(
-                        height: 192,
-                        width: 140,
-                        decoration: BoxDecoration(
-                          boxShadow: const <BoxShadow>[
-                            BoxShadow(color: Colors.grey, blurRadius: 15)
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image:
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 192,
+                            width: 140,
+                            decoration: BoxDecoration(
+                              boxShadow: const <BoxShadow>[
+                                BoxShadow(color: Colors.grey, blurRadius: 15)
+                              ],
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image:
                                   NetworkImage(widget.bookFromList!.imageUrl!),
-                              fit: BoxFit.fill),
+                                  fit: BoxFit.fill),
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          widget.bookFromList!.title!,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          widget.bookFromList!.author!,
+                          style: GoogleFonts.poppins(
+                            color: Colors.black.withOpacity(0.5),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 100),
+                          child: IconButton(
+                            alignment: Alignment.topRight,
+                            onPressed: () async {
+                              try {
+                                setState(() {
+                                  widget.bookFromList!.changeBookMark();
+                                  _databaseService
+                                      .updateBookMark(widget.bookFromList!);
+                                });
+                                // _databaseService.updateBookMark(widget.bookFromList);
+                              } catch (e) {
+                                print(e.toString());
+                              }
+                              print('Book Marked');
+                            },
+                            icon: widget.bookFromList!.isBookMarked!
+                                ? const Icon(Icons.bookmark)
+                                : const Icon(Icons.bookmark_outline_rounded),
+                            iconSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      widget.bookFromList!.title!,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      widget.bookFromList!.author!,
-                      style: GoogleFonts.poppins(
-                        color: Colors.black.withOpacity(0.5),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 100),
-                      child: IconButton(
-                        alignment: Alignment.topRight,
-                        onPressed: () async {
-                          try {
-                            setState(() {
-                              widget.bookFromList!.changeBookMark();
-                              _databaseService
-                                  .updateBookMark(widget.bookFromList!);
-                            });
-                            // _databaseService.updateBookMark(widget.bookFromList);
-                          } catch (e) {
-                            print(e.toString());
-                          }
-                          print('Book Marked');
-                        },
-                        icon: widget.bookFromList!.isBookMarked!
-                            ? const Icon(Icons.bookmark)
-                            : const Icon(Icons.bookmark_outline_rounded),
-                        iconSize: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+                  )),
               SliverToBoxAdapter(
                 child: TabBar(
                   controller: _tabController,
@@ -213,7 +213,7 @@ class _BookDescriptionState extends State<BookDescription>
                       child: Column(
                         children: <Widget>[
                           Button(
-                              // color: blackButton,
+                            // color: blackButton,
                               name: 'Rate this Book',
                               myFunction: () async {
                                 final int? stars = await showDialog(
@@ -226,7 +226,7 @@ class _BookDescriptionState extends State<BookDescription>
                                 print('Update Ratings');
                               }),
                           Button(
-                              // color: blackButton,
+                            // color: blackButton,
                               name: 'Remove this Book',
                               myFunction: () async {
                                 _databaseService
@@ -239,7 +239,7 @@ class _BookDescriptionState extends State<BookDescription>
                     )
                   else
                     Button(
-                        // color: blackButton,
+                      // color: blackButton,
                         name: 'Exchange this Book',
                         myFunction: () async {}),
                 ],
@@ -296,15 +296,15 @@ class _BookDescriptionState extends State<BookDescription>
     super.initState();
   }
 
-  // Widget ratings() {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(15.0),
-  //     child: Text(
-  //       'Note : The exchange will be done on the consent of both the users and an autogenerated mail will be sent to both when the exchange gets finally completed',
-  //       style: GoogleFonts.muli(
-  //           color: Colors.redAccent, fontWeight: FontWeight.bold),
-  //       softWrap: true,
-  //     ),
-  //   );
-  // }
+// Widget ratings() {
+//   return Padding(
+//     padding: const EdgeInsets.all(15.0),
+//     child: Text(
+//       'Note : The exchange will be done on the consent of both the users and an autogenerated mail will be sent to both when the exchange gets finally completed',
+//       style: GoogleFonts.muli(
+//           color: Colors.redAccent, fontWeight: FontWeight.bold),
+//       softWrap: true,
+//     ),
+//   );
+// }
 }

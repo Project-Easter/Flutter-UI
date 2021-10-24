@@ -102,11 +102,11 @@ ThemeData bookTheme() {
     inputDecorationTheme: const InputDecorationTheme(
         focusedBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0),
+            BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20))),
         enabledBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0),
+            BorderSide(color: Color.fromRGBO(24, 25, 38, 1), width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(20)))),
   );
 }

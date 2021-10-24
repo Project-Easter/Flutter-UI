@@ -11,11 +11,10 @@ import 'package:books_app/screens/initial_screen.dart';
 import 'package:books_app/screens/more.dart';
 import 'package:books_app/screens/profile/edit_profile.dart';
 import 'package:books_app/screens/settings_screens.dart';
-import 'package:books_app/services/user_location.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.INITIAL_PAGE:
         return MaterialPageRoute<dynamic>(builder: (_) => InitialScreen());
@@ -42,8 +41,8 @@ class RouteGenerator {
         return MaterialPageRoute<dynamic>(builder: (_) => Home());
       case Routes.SETTINGS:
         return MaterialPageRoute<dynamic>(builder: (_) => SettingsScreen());
-      case Routes.LOCATION:
-        return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
+      // case Routes.LOCATION:
+      //   return MaterialPageRoute<dynamic>(builder: (_) => GetLocation());
       case Routes.LIBRARY:
         return MaterialPageRoute<dynamic>(builder: (_) => LibraryPage());
       case Routes.WRAPPER:

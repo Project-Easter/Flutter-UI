@@ -26,30 +26,30 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const AuthPageTitle(name: 'Log in'),
-            // AuthErrorMessage(errorMessage: error.toString()),
-            Form(
-              key: formKey,
-              child: Column(
-                children: <AuthField>[
-                  EmailTextField(_emailController),
-                  PasswordTextField(_passwordController)
-                ],
-              ),
-            ),
-            Button(
-              name: 'Sign in',
-              color: blackButton,
-              myFunction: () {
-                Navigator.pushNamed(context, Routes.HOME);
-              },
-            ),
-            buildForgotPasswordButton(),
-            buildRegisterButton(),
-          ],
-        )),
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                const AuthPageTitle(name: 'Log in'),
+                // AuthErrorMessage(errorMessage: error.toString()),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: <AuthField>[
+                      EmailTextField(_emailController),
+                      PasswordTextField(_passwordController)
+                    ],
+                  ),
+                ),
+                Button(
+                  name: 'Sign in',
+                  color: blackButton,
+                  myFunction: () {
+                    Navigator.pushNamed(context, Routes.HOME);
+                  },
+                ),
+                buildForgotPasswordButton(),
+                buildRegisterButton(),
+              ],
+            )),
       ),
     );
   }

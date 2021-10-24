@@ -82,7 +82,7 @@ class _EditProfileState extends State<EditProfile> {
                         icon: const Icon(Icons.photo_camera, size: 30),
                         onPressed: () async {
                           final String? imageFromFirebase =
-                              await uploadImageCamera(uID);
+                          await uploadImageCamera(uID);
                           setState(() {
                             _imageUrl = imageFromFirebase;
                           });
@@ -92,7 +92,7 @@ class _EditProfileState extends State<EditProfile> {
                         icon: const Icon(Icons.photo_library, size: 30),
                         onPressed: () async {
                           final String imageFromFirebase =
-                              await uploadImageGallery(uID);
+                          await uploadImageGallery(uID);
                           setState(() {
                             _imageUrl = imageFromFirebase;
                           });
@@ -110,7 +110,7 @@ class _EditProfileState extends State<EditProfile> {
                               labelText: 'Enter your name'),
                           // initialValue: userData.displayName,
                           validator: (String? val) =>
-                              val!.isEmpty ? 'Please enter a name' : null,
+                          val!.isEmpty ? 'Please enter a name' : null,
                           onSaved: (String? value) {
                             setState(() {
                               _name = value;
@@ -125,7 +125,7 @@ class _EditProfileState extends State<EditProfile> {
                               hintText: 'Pune', labelText: 'Enter your City'),
                           initialValue: _address,
                           validator: (String? val) =>
-                              val!.isEmpty ? 'Please enter a value' : null,
+                          val!.isEmpty ? 'Please enter a value' : null,
                           onSaved: (String? value) {
                             setState(() {
                               _city = value;
@@ -141,7 +141,7 @@ class _EditProfileState extends State<EditProfile> {
                               labelText: 'Enter your State'),
                           // initialValue: userData.state,
                           validator: (String? val) =>
-                              val!.isEmpty ? 'Please enter a value' : null,
+                          val!.isEmpty ? 'Please enter a value' : null,
                           onSaved: (String? value) {
                             setState(() {
                               _state = value;
@@ -212,7 +212,7 @@ class _EditProfileState extends State<EditProfile> {
       // Provider.of<UserModel>(context, listen: false)
       //     .updateAvatar();
       final TaskSnapshot snapshot =
-          await _firebaseStorage.ref().child('images/$uID').putFile(file);
+      await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     }
@@ -228,7 +228,7 @@ class _EditProfileState extends State<EditProfile> {
       print('${image!.path} has firebase imageeeeeeeee.');
 
       final TaskSnapshot snapshot =
-          await _firebaseStorage.ref().child('images/$uID').putFile(file);
+      await _firebaseStorage.ref().child('images/$uID').putFile(file);
       final String downloadUrl = await snapshot.ref.getDownloadURL();
       // Provider.of<UserModel>(context, listen: false).updateAvatar(file);
       //PROFILE_PIC_ROUTE + file.toString()

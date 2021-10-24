@@ -5,6 +5,13 @@ import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 
 class LocationHelper {
+
+  num calculateDistance({double? lat1, double? lon1, double? lat2, double? lon2}) {
+    const Distance distance = Distance();
+    return distance.as(
+        LengthUnit.Kilometer, LatLng(lat1!, lon1!), LatLng(lat2!, lon2!));
+  }
+
   Future<List<String?>> getAddressFromLatLng(double lat, double lang) async {
     // final Coordinates coordinates = Coordinates(latitude: lat, longitude: lang);
     final Address addr =

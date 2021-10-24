@@ -46,7 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     .ResetPassword(_emailController.text);
                 setState(() {
                   _message =
-                      'Password reset link has been sent to you on email ${_emailController.text}.You will be redirected to signIn page';
+                  'Password reset link has been sent to you on email ${_emailController.text}.You will be redirected to signIn page';
                 });
 
                 print(_message);

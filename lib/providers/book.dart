@@ -20,9 +20,9 @@ class Book with ChangeNotifier {
   Book({
     // this.id,
     this.isbn,
-    this.title,
+    this.title='',
     this.author,
-    this.imageUrl,
+    this.imageUrl = '',
     this.userid,
     this.description,
     this.genre,

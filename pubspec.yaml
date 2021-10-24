@@ -51,7 +51,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   
 dev_pub helpdependencies:
-  flutter_launcher_icons: ^0.8.1
+  flutter_launcher_icons: ^0.9.2
 
 dev_dependencies:
   test: ^1.18.2
