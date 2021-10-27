@@ -20,16 +20,31 @@ class UserPreference extends StatefulWidget {
 class _UserPreferenceState extends State<UserPreference> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // final TextEditingController _author = TextEditingController();
-  // final TextEditingController _book = TextEditingController();
+  final TextEditingController _author = TextEditingController();
+  final TextEditingController _book = TextEditingController();
 
   List<String> tags = [];
+  String a="";
+  String b="";
 
   @override
   Widget build(BuildContext context) {
+    String favBook;
+    String favAuthor;
     // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final String? favBook = widget.userData!.preferences!['favBook'] as String?;
-    final String? favAuthor =
+    if (a == null && b == null) {
+    print('helllllloooo');
+    favBook = widget.userData!.preferences!['favBook'] as String;
+    favAuthor = widget.userData!.preferences!['favAuthor'] as String;
+    a = favBook;
+    b = favAuthor;
+    } else {
+    print('{{}}}');
+    favBook = a;
+    favAuthor = b;
+    }
+    // final String? favBook = widget.userData!.preferences!['favBook'] as String?;
+    // final String? favAuthor =
     widget.userData!.preferences!['favAuthor'] as String?;
     // final String location =
     //     widget.userData.preferences['locationRange'] as String;
@@ -39,117 +54,135 @@ class _UserPreferenceState extends State<UserPreference> {
     final TextEditingController _book = TextEditingController(text: favBook);
 
     return Form(
-      key: _formKey,
-      child: AlertDialog(
-        backgroundColor: Theme.of(context).backgroundColor,
-        title: Center(
-          child: Text(
-            'User Preferences',
-            style:
-            GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0))),
-        // ignore: sized_box_for_whitespace
-        content: Container(
-          height: 300,
-          width: 250,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _book,
-                  keyboardType: TextInputType.name,
-                  textAlign: TextAlign.start,
-                  // initialValue: favBook,
-                  decoration: InputDecoration(
-                    hintText: 'Favourite Book',
-                    fillColor: Theme.of(context).colorScheme.primary,
-                    hintStyle: GoogleFonts.lato(
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Book name cannot be empty';
-                    }
-                    return null;
-                  },
-                  onChanged: (String v) {
-                    print(v);
-                  },
-                  onSaved: (String? val) {
-                    _book.text = val!;
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  // initialValue: favAuthor,
-                  controller: _author,
-                  keyboardType: TextInputType.name,
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                      hintText: 'Favourite Author',
-                      hintStyle: GoogleFonts.lato()),
-                  onSaved: (String? val) {
-                    _author.text = val!;
-                  },
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'Author cannot be empty';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text('Select Book genres', style: GoogleFonts.lato()),
-                _genresChoice(),
-              ],
-            ),
-          ),
-        ),
-        actions: <Widget>[
-          MaterialButton(
-            onPressed: () async {
-              //Validate Author and BookName
-              if (_formKey.currentState!.validate()) {
-                _onSubmitTap();
-                _formKey.currentState!.save();
-                Navigator.pop(context);
-              }
-            },
-            child: Text(
-              'Save',
-              style: GoogleFonts.lato(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          MaterialButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(
-              'Cancel',
-              style: GoogleFonts.lato(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold),
-            ),
-          )
-        ],
-      ),
+    key: _formKey,
+    child: AlertDialog(
+    backgroundColor: Theme.of(context).backgroundColor,
+    title: Center(
+    child: Text(
+    'User Preferences',
+    style:
+    GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
+    ),
+    ),
+    shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+    // ignore: sized_box_for_whitespace
+    content: Container(
+    height: 300,
+    width: 250,
+    child: SingleChildScrollView(
+    child: Column(
+    children: <Widget>[
+    const SizedBox(
+    height: 20,
+    ),
+    TextFormField(
+    controller: _book,
+    keyboardType: TextInputType.name,
+    textAlign: TextAlign.start,
+    decoration: InputDecoration(
+    hintText: 'Favourite Book',
+    fillColor: Theme.of(context).colorScheme.primary,
+    hintStyle: GoogleFonts.lato(
+    color: Theme.of(context).colorScheme.primary),
+    ),
+    validator: (String? value) {
+    if (value!.isEmpty) {
+    return 'Book name cannot be empty';
+    }
+    return null;
+    },
+    onChanged: (String v) {
+    a = v;
+    print(v);
+    },
+    onSaved: (String? val) {
+    _book.text = val!;
+    },
+    ),
+    const SizedBox(
+    height: 10,
+    ),
+    TextFormField(
+    controller: _author,
+    keyboardType: TextInputType.name,
+    textAlign: TextAlign.start,
+    decoration: InputDecoration(
+    hintText: 'Favourite Author',
+    hintStyle: GoogleFonts.lato()),
+    onSaved: (String? val) {
+    _author.text = val!;
+    },
+    validator: (String? value) {
+    if (value!.isEmpty) {
+    return 'Author cannot be empty';
+    }
+    return null;
+    },
+    onChanged: (String v) {
+    b = v;
+    // _author.text=v;
+    print(v);
+    },
+    ),
+    const SizedBox(
+    height: 20,
+    ),
+    Text('Select Book genres', style: GoogleFonts.lato()),
+    _genresChoice(),
+    ],
+    ),
+    ),
+    ),
+    actions: <Widget>[
+    MaterialButton(
+    onPressed: () async {
+    //Validate Author and BookName
+    if (_formKey.currentState!.validate()) {
+    _onSubmitTap();
+    _formKey.currentState!.save();
+    Navigator.pop(context);
+    }
+
+    // _onSubmitTap();
+    // _formKey.currentState.save();
+    // Navigator.pop(context);
+    },
+    child: Text(
+    'Save',
+    style: GoogleFonts.lato(
+    color: Theme.of(context).colorScheme.primary,
+    fontWeight: FontWeight.bold),
+    ),
+    ),
+    MaterialButton(
+    onPressed: () => Navigator.pop(context, false),
+    child: Text(
+    'Cancel',
+    style: GoogleFonts.lato(
+    color: Theme.of(context).colorScheme.primary,
+    fontWeight: FontWeight.bold),
+    ),
+    )
+    ],
+    ),
     );
   }
 
   ChipsChoice<String> _genresChoice() {
+    print('*******');
+    // print(_author.text);
+    print(a);
+    print(tags);
+    // print(_user.value)
+
     return ChipsChoice<String>.multiple(
       value: tags,
-      onChanged: (List<String> val) => setState(() => tags = val),
+      onChanged: (List<String> val) => setState(() {
+        tags = val;
+        a = a;
+        b = b;
+      }),
       choiceItems: C2Choice.listFrom<String, String>(
         source: genres,
         value: (i, v) => v,
@@ -168,15 +201,35 @@ class _UserPreferenceState extends State<UserPreference> {
 
   Future<void> _onSubmitTap() async {
     final List<dynamic> items = tags.toList();
-    items.removeRange(0, 1);
     print(items);
+    print('^^^^^');
+    print(a);
     final List<String> selectedGenres = <String>[];
     for (final dynamic element in items) {
       final String x = element.toString();
-      print(genres[int.parse(x)]);
-      selectedGenres.add(genres[int.parse(x)]);
+      // );
+      selectedGenres.add(x);
     }
     print(selectedGenres);
+    // print("BBBBBBBB");
+    // print(_author.text);
     await _databaseService.updateGenres(selectedGenres);
+    await _databaseService.updatePreferences(b, a);
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('User preferences have been saved',
+            style: TextStyle(color: blackButton)),
+        duration: Duration(seconds: 3),
+
+        // action: SnackBarAction(
+        //   label: 'Close',
+        //   onPressed: () {
+        //     ScaffoldMessenger.of(context)
+        //         .hideCurrentSnackBar();
+        //   },
+        // ),
+      ));
+    }
   }
 }
+
