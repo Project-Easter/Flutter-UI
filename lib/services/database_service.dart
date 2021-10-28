@@ -47,6 +47,13 @@ class DatabaseService {
     // .map(_userDataFromSnapShot);
   }
 
+  Stream<UserData> getUserData(String? userid) {
+    return userDataCollection.doc(userid).snapshots().map(
+        (DocumentSnapshot<dynamic> snapshot) =>
+            _userDataFromSnapShot(snapshot as DocumentSnapshot<Object>));
+    // .map(_userDataFromSnapShot);
+  }
+
   Future<void> addBook(Book book) async {
     //GET BOOK FROM API or an existing List and adds to both users and books collection
     await userDataCollection
@@ -94,21 +101,43 @@ class DatabaseService {
   List<Book> booksList(QuerySnapshot querySnapshot) {
     return querySnapshot.docs
         .map((QueryDocumentSnapshot e) => Book(
-      title: (e.data()! as Map<String, dynamic>)['title'] as String? ?? '',
-      author: (e.data()! as Map<String, dynamic>)['author'] as String? ?? '',
-      description: (e.data()! as Map<String, dynamic>)['description'] as String? ?? '',
-      genre: (e.data()! as Map<String, dynamic>)['genre'] as String? ?? '',
-      imageUrl: (e.data()! as Map<String, dynamic>)['imageUrl'] as String? ?? '',
-      infoLink: (e.data()! as Map<String, dynamic>)['infoLink'] as String? ?? '',
-      isbn: (e.data()! as Map<String, dynamic>)['isbn'] as String? ?? '',
-      isBookMarked: (e.data()! as Map<String, dynamic>)['isBookMarked'] as bool? ?? false,
-      isBorrowed: (e.data()! as Map<String, dynamic>)['isBorrowed'] as bool? ?? false,
-      isLent: (e.data()! as Map<String, dynamic>)['isLent'] as bool? ?? false,
-      isOwned: (e.data()! as Map<String, dynamic>)['isOwned'] as bool? ?? false,
-      pages: (e.data()! as Map<String, dynamic>)['pages'] as int? ?? 0,
-      rating: (e.data()! as Map<String, dynamic>)['rating'] as double? ?? 0.0,
-      userid: (e.data()! as Map<String, dynamic>)['userid'] as String? ?? '',
-    ))
+              title:
+                  (e.data()! as Map<String, dynamic>)['title'] as String? ?? '',
+              author:
+                  (e.data()! as Map<String, dynamic>)['author'] as String? ??
+                      '',
+              description: (e.data()! as Map<String, dynamic>)['description']
+                      as String? ??
+                  '',
+              genre:
+                  (e.data()! as Map<String, dynamic>)['genre'] as String? ?? '',
+              imageUrl:
+                  (e.data()! as Map<String, dynamic>)['imageUrl'] as String? ??
+                      '',
+              infoLink:
+                  (e.data()! as Map<String, dynamic>)['infoLink'] as String? ??
+                      '',
+              isbn:
+                  (e.data()! as Map<String, dynamic>)['isbn'] as String? ?? '',
+              isBookMarked: (e.data()! as Map<String, dynamic>)['isBookMarked']
+                      as bool? ??
+                  false,
+              isBorrowed:
+                  (e.data()! as Map<String, dynamic>)['isBorrowed'] as bool? ??
+                      false,
+              isLent: (e.data()! as Map<String, dynamic>)['isLent'] as bool? ??
+                  false,
+              isOwned:
+                  (e.data()! as Map<String, dynamic>)['isOwned'] as bool? ??
+                      false,
+              pages: (e.data()! as Map<String, dynamic>)['pages'] as int? ?? 0,
+              rating:
+                  (e.data()! as Map<String, dynamic>)['rating'] as double? ??
+                      0.0,
+              userid:
+                  (e.data()! as Map<String, dynamic>)['userid'] as String? ??
+                      '',
+            ))
         .toList();
   }
 
@@ -121,7 +150,6 @@ class DatabaseService {
       // return this.uid != uid.id;
       return true;
     }).map((QueryDocumentSnapshot doc) {
-      print(doc.data());
       return UserData(
         // uid: uid,
         uid: (doc.data()! as Map<String, dynamic>)['uid'] as String?,
@@ -133,7 +161,8 @@ class DatabaseService {
         phoneNumber:
             (doc.data()! as Map<String, dynamic>)['phoneNumber'] as String? ??
                 '8844883333',
-        state: (doc.data()! as Map<String, dynamic>)['state'] as String?,
+        streetAddress:
+            (doc.data()! as Map<String, dynamic>)['streetAddress'] as String?,
         city: (doc.data()! as Map<String, dynamic>)['city'] as String?,
         photoURL: (doc.data()! as Map<String, dynamic>)['photoURL'] as String?,
         preferences: (doc.data()! as Map<String, dynamic>)['preferences']
@@ -268,10 +297,10 @@ class DatabaseService {
   //*********Updates***************//
   //1.0->Update Rating a book by giving Star
   Future<void> updateUser(
-      String name, String city, String state, String photoURL) async {
-    return userDataCollection.doc(uid).set(<String, dynamic>{
+      String name, String city, String streetAddress, String photoURL) async {
+    return userDataCollection.doc(uid).set(<String, String>{
       'city': city,
-      'state': state,
+      'streetAddress': streetAddress,
       'displayName': name,
       'photoURL': photoURL,
     }, SetOptions(merge: true));
@@ -281,7 +310,7 @@ class DatabaseService {
   Future<void> updateUserData(UserData userData) async {
     return userDataCollection.doc(uid).set(
       <String, dynamic>
-        // ignore: always_specify_types
+      // ignore: always_specify_types
       {
         'uid': uid,
         // 'token':
@@ -292,7 +321,7 @@ class DatabaseService {
         'phoneNumber': userData.phoneNumber,
         'photoURL': userData.photoURL,
         'city': userData.city,
-        'state': userData.state,
+        'streetAddress': userData.streetAddress,
         'country': userData.countryName,
         // ignore: always_specify_types
         'preferences': {
@@ -306,14 +335,13 @@ class DatabaseService {
     );
   }
 
-
   Future<void> updateUserLocation(double latitude, double longitude) async {
     final List<String?> addresses =
-    await LocationHelper().getAddressFromLatLng(latitude, longitude);
+        await LocationHelper().getAddressFromLatLng(latitude, longitude);
 
     return userDataCollection.doc(uid).set(<String, dynamic>{
-      'city': addresses[0],
-      'state': addresses[1],
+      'streetAddress': addresses[0],
+      'city': addresses[1],
       'country': addresses[2],
       'latitude': latitude,
       'longitude': longitude,
@@ -322,20 +350,19 @@ class DatabaseService {
 
   List<Book> _bookFromQuerySnapShot(QuerySnapshot snapshot) {
     return snapshot.docs.map((QueryDocumentSnapshot doc) {
-      // print(doc.data);
       return Book(
-        // rating: doc.data()['rating'] as double,
+          // rating: doc.data()['rating'] as double,
           isOwned: (doc.data()! as Map<String, dynamic>)['isOwned'] as bool?,
-          userid: (doc.data()! as Map<String, dynamic>)['uid'] as String?,
+          userid: (doc.data()! as Map<String, dynamic>)['userid'] as String?,
           isBookMarked:
-          (doc.data()! as Map<String, dynamic>)['isBookMarked'] as bool?,
+              (doc.data()! as Map<String, dynamic>)['isBookMarked'] as bool?,
           imageUrl:
-          (doc.data()! as Map<String, dynamic>)['imageUrl'] as String?,
+              (doc.data()! as Map<String, dynamic>)['imageUrl'] as String?,
           title: (doc.data()! as Map<String, dynamic>)['title'] as String?,
           isbn: (doc.data()! as Map<String, dynamic>)['isbn'] as String?,
           author: (doc.data()! as Map<String, dynamic>)['author'] as String?,
           description:
-          (doc.data()! as Map<String, dynamic>)['description'] as String?);
+              (doc.data()! as Map<String, dynamic>)['description'] as String?);
     }).toList();
   }
 
@@ -343,26 +370,26 @@ class DatabaseService {
     return UserData(
       uid: uid,
       displayName: (documentSnapshot.data()!
-      as Map<String, dynamic>)['displayName'] as String? ??
+              as Map<String, dynamic>)['displayName'] as String? ??
           'Enter Name',
       email: (documentSnapshot.data()! as Map<String, dynamic>)['email']
-      as String? ??
+              as String? ??
           'example@example.com',
       phoneNumber: (documentSnapshot.data()!
-      as Map<String, dynamic>)['phoneNumber'] as String? ??
+              as Map<String, dynamic>)['phoneNumber'] as String? ??
           '8844883333',
-      state: (documentSnapshot.data()! as Map<String, dynamic>)['state']
-      as String?,
+      streetAddress: (documentSnapshot.data()!
+          as Map<String, dynamic>)['streetAddress'] as String?,
       city:
-      (documentSnapshot.data()! as Map<String, dynamic>)['city'] as String?,
+          (documentSnapshot.data()! as Map<String, dynamic>)['city'] as String?,
       photoURL: (documentSnapshot.data()! as Map<String, dynamic>)['photoURL']
-      as String?,
+          as String?,
       preferences: (documentSnapshot.data()!
-      as Map<String, dynamic>)['preferences'] as Map<String, dynamic>?,
+          as Map<String, dynamic>)['preferences'] as Map<String, dynamic>?,
       latitude: (documentSnapshot.data()! as Map<String, dynamic>)['latitude']
-      as double?,
+          as double?,
       longitude: (documentSnapshot.data()! as Map<String, dynamic>)['longitude']
-      as double?,
+          as double?,
     );
   }
 //**End of DB service

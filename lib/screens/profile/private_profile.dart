@@ -13,7 +13,7 @@ class PrivateProfile extends StatelessWidget {
     final UserData profileData = Provider.of<UserData>(context);
     final List<Book> booksData = Provider.of<List<Book>>(context);
     final FirebaseAuthService firebaseAuthService =
-    Provider.of<FirebaseAuthService>(context);
+        Provider.of<FirebaseAuthService>(context);
     // final UserData profileData =Provider.of<UserData>(context);
     int ownedBooksLength;
     if (booksData.isEmpty) {
@@ -46,8 +46,8 @@ class PrivateProfile extends StatelessWidget {
             children: <Widget>[
               ProfileHeader(profileData: profileData),
               const Divider(
-                // color: Colors.black54,
-              ),
+                  // color: Colors.black54,
+                  ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -56,7 +56,7 @@ class PrivateProfile extends StatelessWidget {
                     Text(
                       'User Stats',
                       style: GoogleFonts.poppins(
-                        // color: Colors.black,
+                          // color: Colors.black,
                           fontSize: 30,
                           fontWeight: FontWeight.w400),
                     ),
@@ -68,7 +68,7 @@ class PrivateProfile extends StatelessWidget {
                           children: <Widget>[
                             Text(ownedBooksLength.toString(),
                                 style: GoogleFonts.poppins(
-                                  // color: Colors.black,
+                                    // color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.w400)),
                             const Text('Owned Books')
@@ -79,7 +79,7 @@ class PrivateProfile extends StatelessWidget {
                             Text('0',
                                 // borrowedBooksLength,
                                 style: GoogleFonts.poppins(
-                                  // color: Colors.black,
+                                    // color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.w400)),
                             const Text('Borrowed Books')
@@ -90,7 +90,7 @@ class PrivateProfile extends StatelessWidget {
                             Text('0',
                                 // lentBooksLength,
                                 style: GoogleFonts.poppins(
-                                  // color: Colors.black,
+                                    // color: Colors.black,
                                     fontSize: 30,
                                     fontWeight: FontWeight.w400)),
                             const Text('Lent Books')
@@ -142,42 +142,48 @@ class ProfileHeader extends StatelessWidget {
     // Provider.of<UserModel>(context).fetchUserData();
     return Consumer<UserData>(
         builder: (BuildContext context, UserData profile, _) {
-          return Column(
-            children: <Widget>[
-              Container(
-                width: 300,
-                padding: const EdgeInsets.all(5),
-                child: const CircleAvatar(
-                  radius: 100,
-                  child: Image(
-                    image: AssetImage('assets/images/Explr Logo.png'),
-                    fit: BoxFit.contain,
+      return Column(
+        children: <Widget>[
+          Container(
+            width: 300,
+            padding: const EdgeInsets.all(5),
+            child: profile.photoURL!.startsWith('assets')
+                ? CircleAvatar(
+                    radius: 100,
+                    child: Image.asset(
+                      'assets/images/Explr Logo.png',
+                      fit: BoxFit.contain,
+                    ),
                   )
-                  // NetworkImage(profile.photoURL),
-                  ,
-                ),
-              ),
-              Text(
-                profile.displayName!,
-                style:
+                : CircleAvatar(
+                    radius: 100,
+                    backgroundImage: NetworkImage(profile.photoURL!),
+                  )
+
+            // NetworkImage(profile.photoURL),
+            ,
+          ),
+          Text(
+            profile.displayName!,
+            style:
                 GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w400),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              margin: const EdgeInsets.only(top: 5),
+              child: Text(
+                (profileData.city != null || profileData.streetAddress != null)
+                    ? '${profileData.streetAddress} , ${profileData.city}'
+                    : 'Update your location by pressing on the floating action button at the bottom right corner',
+                style: GoogleFonts.poppins(
+                    fontSize: 13, fontWeight: FontWeight.w400),
+                textAlign: TextAlign.center,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    (profileData.city != null || profileData.state != null)
-                        ? '${profileData.city} , ${profileData.state}'
-                        : 'Update your location by pressing on the floating action button at the bottom right corner',
-                    style: GoogleFonts.poppins(
-                        fontSize: 13, fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          );
-        });
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

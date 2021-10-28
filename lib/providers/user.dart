@@ -10,7 +10,7 @@ class UserData extends ChangeNotifier {
   String? phoneNumber;
   String? photoURL;
   String? city;
-  String? state;
+  String? streetAddress;
   double? latitude;
   double? longitude;
   double? locationRange;
@@ -26,7 +26,7 @@ class UserData extends ChangeNotifier {
       this.phoneNumber,
       this.photoURL,
       this.city,
-      this.state,
+      this.streetAddress,
       this.refreshToken,
       this.latitude = 0.0,
       this.longitude = 0.0,
