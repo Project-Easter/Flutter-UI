@@ -10,6 +10,13 @@ import 'package:google_fonts/google_fonts.dart';
 String uID = FirebaseAuthService().getUID;
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
+class GenreChoice extends StatefulWidget {
+  // const GenreChoice({ Key? key }) : super(key: key);
+
+  @override
+  _GenreChoiceState createState() => _GenreChoiceState();
+}
+
 class UserPreference extends StatefulWidget {
   final UserData? userData;
   const UserPreference(this.userData);
@@ -17,25 +24,76 @@ class UserPreference extends StatefulWidget {
   _UserPreferenceState createState() => _UserPreferenceState();
 }
 
+class _GenreChoiceState extends State<GenreChoice> {
+  List<String> tags = [];
+  @override
+  Widget build(BuildContext context) {
+    print('*******');
+    // print(_author.text);
+    // print(a);
+    print(tags);
+    // print(_user.value)
+
+    return ChipsChoice<String>.multiple(
+      value: tags,
+      onChanged: (List<String> val) => setState(() {
+        tags = val;
+        // a = a;
+        // b = b;
+      }),
+      choiceItems: C2Choice.listFrom<String, String>(
+        source: genres,
+        value: (int i, String v) => v,
+        label: (int i, String v) => v,
+        tooltip: (int i, String v) => v,
+      ),
+      choiceStyle: const C2ChoiceStyle(
+        color: Colors.blue,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderColor: Colors.green,
+      ),
+      choiceActiveStyle: const C2ChoiceStyle(
+        color: blackButton,
+      ),
+      wrapped: true,
+    );
+  }
+}
+
 class _UserPreferenceState extends State<UserPreference> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // final TextEditingController _author = TextEditingController();
-  // final TextEditingController _book = TextEditingController();
+  final TextEditingController _author = TextEditingController();
+  final TextEditingController _book = TextEditingController();
 
   List<String> tags = [];
+  String a = '';
+  String b = '';
 
   @override
   Widget build(BuildContext context) {
+    String favBook;
+    String favAuthor;
     // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final String? favBook = widget.userData!.preferences!['favBook'] as String?;
-    final String? favAuthor =
+    if (a == null && b == null) {
+      print('helllllloooo');
+      favBook = widget.userData!.preferences!['favBook'] as String;
+      favAuthor = widget.userData!.preferences!['favAuthor'] as String;
+      a = favBook;
+      b = favAuthor;
+    } else {
+      print('{{}}}');
+      favBook = a;
+      favAuthor = b;
+    }
+    // final String? favBook = widget.userData!.preferences!['favBook'] as String?;
+    // final String? favAuthor =
     widget.userData!.preferences!['favAuthor'] as String?;
     // final String location =
     //     widget.userData.preferences['locationRange'] as String;
 
     final TextEditingController _author =
-    TextEditingController(text: favAuthor);
+        TextEditingController(text: favAuthor);
     final TextEditingController _book = TextEditingController(text: favBook);
 
     return Form(
@@ -46,7 +104,7 @@ class _UserPreferenceState extends State<UserPreference> {
           child: Text(
             'User Preferences',
             style:
-            GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
+                GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
           ),
         ),
         shape: const RoundedRectangleBorder(
@@ -57,7 +115,7 @@ class _UserPreferenceState extends State<UserPreference> {
           width: 250,
           child: SingleChildScrollView(
             child: Column(
-              children: <Widget>[
+              children: [
                 const SizedBox(
                   height: 20,
                 ),
@@ -65,7 +123,6 @@ class _UserPreferenceState extends State<UserPreference> {
                   controller: _book,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.start,
-                  // initialValue: favBook,
                   decoration: InputDecoration(
                     hintText: 'Favourite Book',
                     fillColor: Theme.of(context).colorScheme.primary,
@@ -79,6 +136,7 @@ class _UserPreferenceState extends State<UserPreference> {
                     return null;
                   },
                   onChanged: (String v) {
+                    a = v;
                     print(v);
                   },
                   onSaved: (String? val) {
@@ -89,7 +147,6 @@ class _UserPreferenceState extends State<UserPreference> {
                   height: 10,
                 ),
                 TextFormField(
-                  // initialValue: favAuthor,
                   controller: _author,
                   keyboardType: TextInputType.name,
                   textAlign: TextAlign.start,
@@ -105,12 +162,44 @@ class _UserPreferenceState extends State<UserPreference> {
                     }
                     return null;
                   },
+                  onChanged: (String v) {
+                    b = v;
+                    // _author.text=v;
+                    print(v);
+                  },
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text('Select Book genres', style: GoogleFonts.lato()),
-                _genresChoice(),
+                // _genresChoice(),
+                Builder(builder: (BuildContext ctx) {
+                  return ChipsChoice<String>.multiple(
+                    value: tags,
+                    onChanged: (List<String> val) => setState(() {
+                      tags = val;
+                      a = a;
+                      b = b;
+                    }),
+                    choiceItems: C2Choice.listFrom<String, String>(
+                      source: genres,
+                      value: (int i, String v) => v,
+                      label: (int i, String v) => v,
+                      tooltip: (int i, String v) => v,
+                    ),
+                    choiceStyle: const C2ChoiceStyle(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderColor: Colors.green,
+                    ),
+                    choiceActiveStyle: const C2ChoiceStyle(
+                      color: blackButton,
+                    ),
+                    wrapped: true,
+                  );
+                }),
+
+                // GenreChoice(),
               ],
             ),
           ),
@@ -120,9 +209,15 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () async {
               //Validate Author and BookName
               if (_formKey.currentState!.validate()) {
-                _onSubmitTap();
                 _formKey.currentState!.save();
-                Navigator.pop(context);
+                _onSubmitTap();
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('User preferences have been saved',
+                        style: TextStyle(color: blackButton)),
+                    duration: Duration(seconds: 3),
+                  ));
+                }
               }
             },
             child: Text(
@@ -146,37 +241,18 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  ChipsChoice<String> _genresChoice() {
-    return ChipsChoice<String>.multiple(
-      value: tags,
-      onChanged: (List<String> val) => setState(() => tags = val),
-      choiceItems: C2Choice.listFrom<String, String>(
-        source: genres,
-        value: (i, v) => v,
-        label: (i, v) => v,
-      ),
-      choiceStyle: const C2ChoiceStyle(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        borderColor: Colors.grey,
-      ),
-      choiceActiveStyle: const C2ChoiceStyle(
-        color: blackButton,
-      ),
-      wrapped: true,
-    );
-  }
-
-  Future<void> _onSubmitTap() async {
+  Future _onSubmitTap() async {
     final List<dynamic> items = tags.toList();
-    items.removeRange(0, 1);
-    print(items);
+
     final List<String> selectedGenres = <String>[];
     for (final dynamic element in items) {
       final String x = element.toString();
-      print(genres[int.parse(x)]);
-      selectedGenres.add(genres[int.parse(x)]);
+
+      selectedGenres.add(x);
     }
-    print(selectedGenres);
+
     await _databaseService.updateGenres(selectedGenres);
+    await _databaseService.updatePreferences(b, a);
+    Navigator.pop(context);
   }
 }

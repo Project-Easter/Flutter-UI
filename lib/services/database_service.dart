@@ -47,13 +47,6 @@ class DatabaseService {
     // .map(_userDataFromSnapShot);
   }
 
-  Stream<UserData> getUserData(String? userid) {
-    return userDataCollection.doc(userid).snapshots().map(
-        (DocumentSnapshot<dynamic> snapshot) =>
-            _userDataFromSnapShot(snapshot as DocumentSnapshot<Object>));
-    // .map(_userDataFromSnapShot);
-  }
-
   Future<void> addBook(Book book) async {
     //GET BOOK FROM API or an existing List and adds to both users and books collection
     await userDataCollection
@@ -141,7 +134,6 @@ class DatabaseService {
         .toList();
   }
 
-  //Update Users Location
   ///This is for chat TEST.
   //Get All users Data
   List<UserData> getAllUserData(QuerySnapshot querySnapshot) {
@@ -174,6 +166,7 @@ class DatabaseService {
     }).toList();
   }
 
+  //Update Users Location
   Future<List<Book>> getBooks({String? uid}) async {
     final List<Book> res = await booksCollection
         .doc(uid)
@@ -181,6 +174,13 @@ class DatabaseService {
         .get()
         .then((QuerySnapshot value) => booksList(value));
     return res;
+  }
+
+  Stream<UserData> getUserData(String? userid) {
+    return userDataCollection.doc(userid).snapshots().map(
+        (DocumentSnapshot<dynamic> snapshot) =>
+            _userDataFromSnapShot(snapshot as DocumentSnapshot<Object>));
+    // .map(_userDataFromSnapShot);
   }
 
   // Stream<QuerySnapshot> getMessageStream(String from, String to) {
@@ -267,13 +267,11 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  Future<void> updatePreferences(
-      String favAuthor, String favBook, String locationRange) async {
+  Future<void> updatePreferences(String favAuthor, String favBook) async {
     return userDataCollection.doc(uid).set(<String, dynamic>{
       'preferences': <String, dynamic>{
         'favAuthor': favAuthor,
         'favBook': favBook,
-        'locationRange': locationRange
       }
     }, SetOptions(merge: true));
   }
