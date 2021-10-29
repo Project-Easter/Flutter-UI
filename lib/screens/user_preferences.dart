@@ -10,11 +10,54 @@ import 'package:google_fonts/google_fonts.dart';
 String uID = FirebaseAuthService().getUID;
 DatabaseService _databaseService = DatabaseService(uid: uID);
 
+class GenreChoice extends StatefulWidget {
+  // const GenreChoice({ Key? key }) : super(key: key);
+
+  @override
+  _GenreChoiceState createState() => _GenreChoiceState();
+}
+
 class UserPreference extends StatefulWidget {
   final UserData? userData;
   const UserPreference(this.userData);
   @override
   _UserPreferenceState createState() => _UserPreferenceState();
+}
+
+class _GenreChoiceState extends State<GenreChoice> {
+  List<String> tags = [];
+  @override
+  Widget build(BuildContext context) {
+    print('*******');
+    // print(_author.text);
+    // print(a);
+    print(tags);
+    // print(_user.value)
+
+    return ChipsChoice<String>.multiple(
+      value: tags,
+      onChanged: (List<String> val) => setState(() {
+        tags = val;
+        // a = a;
+        // b = b;
+      }),
+      choiceItems: C2Choice.listFrom<String, String>(
+        source: genres,
+        value: (int i, String v) => v,
+        label: (int i, String v) => v,
+        tooltip: (int i, String v) => v,
+      ),
+      choiceStyle: const C2ChoiceStyle(
+        color: Colors.blue,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderColor: Colors.green,
+      ),
+      choiceActiveStyle: const C2ChoiceStyle(
+        color: blackButton,
+      ),
+      wrapped: true,
+    );
+  }
 }
 
 class _UserPreferenceState extends State<UserPreference> {
@@ -24,8 +67,8 @@ class _UserPreferenceState extends State<UserPreference> {
   final TextEditingController _book = TextEditingController();
 
   List<String> tags = [];
-  String a = "";
-  String b = "";
+  String a = '';
+  String b = '';
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +115,7 @@ class _UserPreferenceState extends State<UserPreference> {
           width: 250,
           child: SingleChildScrollView(
             child: Column(
-              children: <Widget>[
+              children: [
                 const SizedBox(
                   height: 20,
                 ),
@@ -129,7 +172,34 @@ class _UserPreferenceState extends State<UserPreference> {
                   height: 20,
                 ),
                 Text('Select Book genres', style: GoogleFonts.lato()),
-                _genresChoice(),
+                // _genresChoice(),
+                Builder(builder: (BuildContext ctx) {
+                  return ChipsChoice<String>.multiple(
+                    value: tags,
+                    onChanged: (List<String> val) => setState(() {
+                      tags = val;
+                      a = a;
+                      b = b;
+                    }),
+                    choiceItems: C2Choice.listFrom<String, String>(
+                      source: genres,
+                      value: (int i, String v) => v,
+                      label: (int i, String v) => v,
+                      tooltip: (int i, String v) => v,
+                    ),
+                    choiceStyle: const C2ChoiceStyle(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderColor: Colors.green,
+                    ),
+                    choiceActiveStyle: const C2ChoiceStyle(
+                      color: blackButton,
+                    ),
+                    wrapped: true,
+                  );
+                }),
+
+                // GenreChoice(),
               ],
             ),
           ),
@@ -139,14 +209,16 @@ class _UserPreferenceState extends State<UserPreference> {
             onPressed: () async {
               //Validate Author and BookName
               if (_formKey.currentState!.validate()) {
-                _onSubmitTap();
                 _formKey.currentState!.save();
-                Navigator.pop(context);
+                _onSubmitTap();
+                if (mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('User preferences have been saved',
+                        style: TextStyle(color: blackButton)),
+                    duration: Duration(seconds: 3),
+                  ));
+                }
               }
-
-              // _onSubmitTap();
-              // _formKey.currentState.save();
-              // Navigator.pop(context);
             },
             child: Text(
               'Save',
@@ -169,66 +241,18 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  ChipsChoice<String> _genresChoice() {
-    print('*******');
-    // print(_author.text);
-    print(a);
-    print(tags);
-    // print(_user.value)
-
-    return ChipsChoice<String>.multiple(
-      value: tags,
-      onChanged: (List<String> val) => setState(() {
-        tags = val;
-        a = a;
-        b = b;
-      }),
-      choiceItems: C2Choice.listFrom<String, String>(
-        source: genres,
-        value: (i, v) => v,
-        label: (i, v) => v,
-      ),
-      choiceStyle: const C2ChoiceStyle(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        borderColor: Colors.grey,
-      ),
-      choiceActiveStyle: const C2ChoiceStyle(
-        color: blackButton,
-      ),
-      wrapped: true,
-    );
-  }
-
-  Future<void> _onSubmitTap() async {
+  Future _onSubmitTap() async {
     final List<dynamic> items = tags.toList();
-    print(items);
-    print('^^^^^');
-    print(a);
+
     final List<String> selectedGenres = <String>[];
     for (final dynamic element in items) {
       final String x = element.toString();
-      // );
+
       selectedGenres.add(x);
     }
-    print(selectedGenres);
-    // print("BBBBBBBB");
-    // print(_author.text);
+
     await _databaseService.updateGenres(selectedGenres);
     await _databaseService.updatePreferences(b, a);
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('User preferences have been saved',
-            style: TextStyle(color: blackButton)),
-        duration: Duration(seconds: 3),
-
-        // action: SnackBarAction(
-        //   label: 'Close',
-        //   onPressed: () {
-        //     ScaffoldMessenger.of(context)
-        //         .hideCurrentSnackBar();
-        //   },
-        // ),
-      ));
-    }
+    Navigator.pop(context);
   }
 }
