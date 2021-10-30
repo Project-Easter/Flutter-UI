@@ -168,20 +168,32 @@ class _InitialScreenState extends State<InitialScreen> {
     Navigator.pushNamed(context, Routes.HOME);
   }
 
-  Widget _signUpwithEmail() {
-    return SizedBox(
-      height: 44,
-      width: 250,
-      child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          // primary: Color(0xFF246BFD),
-          primary: blackButton,
-        ),
-        onPressed: () async {
-          Navigator.pushNamed(context, Routes.REGISTER);
-        },
+  Widget _signUpWithEmail() {
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: AspectRatio(
+        aspectRatio: 343 / 52,
+        child: TextButton(
+          style: TextButton.styleFrom(
+            primary: Theme.of(context).backgroundColor,
+            shape: RoundedRectangleBorder(
+                side:
+                    BorderSide(color: Theme.of(context).colorScheme.background),
+                borderRadius: BorderRadius.circular(16)),
+            minimumSize: Size(width * 0.6, height * 0.08),
+          ),
+          child: Text(
+            'Sign up with Email',
+            style: GoogleFonts.poppins(
+                color: Theme.of(context).colorScheme.background,
+                fontWeight: FontWeight.w500,
+                fontSize: 15),
+          ),
+          onPressed: () async {
+            Navigator.pushNamed(context, Routes.REGISTER);
+          },
         icon: const Icon(
           Icons.mail_outline_outlined,
           color: Colors.white,
@@ -196,6 +208,36 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
     );
   }
+
+// OLD _signUpWithEmailButton
+  // Widget _signUpwithEmail() {
+  //   return SizedBox(
+  //     height: 44,
+  //     width: 250,
+  //     child: ElevatedButton.icon(
+  //       style: ElevatedButton.styleFrom(
+  //         shape:
+  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  //         // primary: Color(0xFF246BFD),
+  //         primary: blackButton,
+  //       ),
+  //       onPressed: () async {
+  //         Navigator.pushNamed(context, Routes.REGISTER);
+  //       },
+  //       icon: const Icon(
+  //         Icons.mail_outline_outlined,
+  //         color: Colors.white,
+  //       ),
+  //       label: Text(
+  //         'Sign up with email',
+  //         style: GoogleFonts.poppins(
+  //           fontWeight: FontWeight.w500,
+  //           color: Colors.white,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // Widget _skipButton() {
   //   return ElevatedButton(
