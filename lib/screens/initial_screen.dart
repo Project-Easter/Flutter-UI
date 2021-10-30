@@ -180,7 +180,7 @@ class _InitialScreenState extends State<InitialScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: AspectRatio(
         aspectRatio: 343 / 52,
-        child: TextButton(
+        child: TextButton.icon(
           style: TextButton.styleFrom(
             primary: Theme.of(context).backgroundColor,
             shape: RoundedRectangleBorder(
@@ -189,7 +189,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 borderRadius: BorderRadius.circular(16)),
             minimumSize: Size(width * 0.6, height * 0.08),
           ),
-          child: Text(
+          label: Text(
             'Sign up with Email',
             style: GoogleFonts.poppins(
                 color: Theme.of(context).colorScheme.background,
@@ -199,16 +199,8 @@ class _InitialScreenState extends State<InitialScreen> {
           onPressed: () async {
             Navigator.pushNamed(context, Routes.REGISTER);
           },
-        icon: const Icon(
-          Icons.mail_outline_outlined,
-          color: Colors.white,
-        ),
-        label: Text(
-          'Sign up with email',
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
+          icon: Icon(Icons.mail_outline_outlined,
+              color: Theme.of(context).colorScheme.background),
         ),
       ),
     );
