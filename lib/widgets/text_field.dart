@@ -74,6 +74,7 @@ class AuthField extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
+            border: Border.all(color: Theme.of(context).colorScheme.background),
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).backgroundColor,
             boxShadow: const <BoxShadow>[
