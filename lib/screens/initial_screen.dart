@@ -33,7 +33,7 @@ class _InitialScreenState extends State<InitialScreen> {
       height: double.infinity,
       width: double.infinity,
       child: Container(
-        color: const Color.fromRGBO(88, 188, 130, 1),
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Center(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -61,7 +61,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   Text(
                     'Explr',
                     style: GoogleFonts.lato(
-                        color: blackButton,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
                         fontSize: 30,
                         fontWeight: FontWeight.w600),
                   ),
@@ -86,7 +86,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     padding: const EdgeInsets.all(15.0),
                     child: Button(
                       name: 'Sign in',
-                      color: blackButton,
+                      color: Theme.of(context).colorScheme.background,
                       myFunction: () async {
                         if (formKey.currentState!.validate()) {
                           firebaseAuthService.signInWithEmail(context,
@@ -111,19 +111,22 @@ class _InitialScreenState extends State<InitialScreen> {
                       Container(
                         height: 1,
                         width: 120,
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       const SizedBox(width: 10),
                       Text(
                         ' or you can ',
                         style: GoogleFonts.poppins(
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Container(height: 1, width: 120, color: Colors.black),
+                      Container(
+                          height: 1,
+                          width: 120,
+                          color: Theme.of(context).colorScheme.background),
                     ],
                   ),
                   const SizedBox(height: 20),
