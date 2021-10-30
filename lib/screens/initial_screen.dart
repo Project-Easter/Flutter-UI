@@ -69,7 +69,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     height: 25,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Form(
                       key: formKey,
                       child: Column(
@@ -104,7 +104,6 @@ class _InitialScreenState extends State<InitialScreen> {
                     //   onError: onError,
                     // ),
                   ),
-                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -178,7 +177,7 @@ class _InitialScreenState extends State<InitialScreen> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: AspectRatio(
         aspectRatio: 343 / 52,
         child: TextButton(
