@@ -5,8 +5,8 @@ import 'package:location/location.dart';
 // import 'package:mapbox_gl/mapbox_gl.dart';
 
 class LocationHelper {
-
-  num calculateDistance({double? lat1, double? lon1, double? lat2, double? lon2}) {
+  num calculateDistance(
+      {double? lat1, double? lon1, double? lat2, double? lon2}) {
     const Distance distance = Distance();
     return distance.as(
         LengthUnit.Kilometer, LatLng(lat1!, lon1!), LatLng(lat2!, lon2!));
@@ -18,7 +18,7 @@ class LocationHelper {
         await GeoCode().reverseGeocoding(latitude: lat, longitude: lang);
     // final Address first = add;
     return <String?>[addr.streetAddress, addr.city, addr.countryName];
-  } //need to be changed
+  }
 
   Future<LatLng?> getCurrentLocation() async {
     final Location location = Location();
