@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
         ),
         StreamProvider<List<Book>>.value(
           value: _databaseService.booksData,
-          initialData: <Book>[],
+          initialData: const <Book>[],
         ),
       ],
       child: Scaffold(
