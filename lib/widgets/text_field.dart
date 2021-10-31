@@ -74,8 +74,9 @@ class AuthField extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
+            border: Border.all(color: Theme.of(context).colorScheme.background),
             borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Colors.black12,
@@ -93,8 +94,8 @@ class AuthField extends StatelessWidget {
               border: InputBorder.none,
               hintText: text,
               hintStyle: GoogleFonts.poppins(
-                fontSize: 14,
-              ),
+                  fontSize: 14,
+                  color: Theme.of(context).textTheme.bodyText1!.color),
               contentPadding: const EdgeInsets.all(10),
             ),
           ),

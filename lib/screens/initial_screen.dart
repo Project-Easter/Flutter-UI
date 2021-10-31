@@ -33,7 +33,7 @@ class _InitialScreenState extends State<InitialScreen> {
       height: double.infinity,
       width: double.infinity,
       child: Container(
-        color: const Color.fromRGBO(88, 188, 130, 1),
+        color: Theme.of(context).scaffoldBackgroundColor,
         child: Center(
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -61,7 +61,7 @@ class _InitialScreenState extends State<InitialScreen> {
                   Text(
                     'Explr',
                     style: GoogleFonts.lato(
-                        color: blackButton,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
                         fontSize: 30,
                         fontWeight: FontWeight.w600),
                   ),
@@ -69,7 +69,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     height: 25,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Form(
                       key: formKey,
                       child: Column(
@@ -86,7 +86,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     padding: const EdgeInsets.all(15.0),
                     child: Button(
                       name: 'Sign in',
-                      color: blackButton,
+                      color: Theme.of(context).colorScheme.background,
                       myFunction: () async {
                         if (formKey.currentState!.validate()) {
                           firebaseAuthService.signInWithEmail(context,
@@ -104,32 +104,37 @@ class _InitialScreenState extends State<InitialScreen> {
                     //   onError: onError,
                     // ),
                   ),
-                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
                         height: 1,
                         width: 120,
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       const SizedBox(width: 10),
                       Text(
                         ' or you can ',
                         style: GoogleFonts.poppins(
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.w400,
                           fontSize: 13,
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Container(height: 1, width: 120, color: Colors.black),
+                      Container(
+                          height: 1,
+                          width: 120,
+                          color: Theme.of(context).colorScheme.background),
                     ],
                   ),
                   const SizedBox(height: 20),
-                  _signUpwithEmail(),
+                  _signUpWithEmail(),
                   const SizedBox(height: 10),
-                  SocialMediaHandles(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: SocialMediaHandles(),
+                  ),
                   const SizedBox(height: 40),
                 ],
               ),
@@ -168,34 +173,68 @@ class _InitialScreenState extends State<InitialScreen> {
     Navigator.pushNamed(context, Routes.HOME);
   }
 
-  Widget _signUpwithEmail() {
-    return SizedBox(
-      height: 44,
-      width: 250,
-      child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          // primary: Color(0xFF246BFD),
-          primary: blackButton,
-        ),
-        onPressed: () async {
-          Navigator.pushNamed(context, Routes.REGISTER);
-        },
-        icon: const Icon(
-          Icons.mail_outline_outlined,
-          color: Colors.white,
-        ),
-        label: Text(
-          'Sign up with email',
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
+  Widget _signUpWithEmail() {
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: AspectRatio(
+        aspectRatio: 343 / 52,
+        child: TextButton.icon(
+          style: TextButton.styleFrom(
+            primary: Theme.of(context).backgroundColor,
+            shape: RoundedRectangleBorder(
+                side:
+                    BorderSide(color: Theme.of(context).colorScheme.background),
+                borderRadius: BorderRadius.circular(16)),
+            minimumSize: Size(width * 0.6, height * 0.08),
           ),
+          label: Text(
+            'Sign up with Email',
+            style: GoogleFonts.poppins(
+                color: Theme.of(context).colorScheme.background,
+                fontWeight: FontWeight.w500,
+                fontSize: 15),
+          ),
+          onPressed: () async {
+            Navigator.pushNamed(context, Routes.REGISTER);
+          },
+          icon: Icon(Icons.mail_outline_outlined,
+              color: Theme.of(context).colorScheme.background),
         ),
       ),
     );
   }
+
+// OLD _signUpWithEmailButton
+  // Widget _signUpwithEmail() {
+  //   return SizedBox(
+  //     height: 44,
+  //     width: 250,
+  //     child: ElevatedButton.icon(
+  //       style: ElevatedButton.styleFrom(
+  //         shape:
+  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  //         // primary: Color(0xFF246BFD),
+  //         primary: blackButton,
+  //       ),
+  //       onPressed: () async {
+  //         Navigator.pushNamed(context, Routes.REGISTER);
+  //       },
+  //       icon: const Icon(
+  //         Icons.mail_outline_outlined,
+  //         color: Colors.white,
+  //       ),
+  //       label: Text(
+  //         'Sign up with email',
+  //         style: GoogleFonts.poppins(
+  //           fontWeight: FontWeight.w500,
+  //           color: Colors.white,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // Widget _skipButton() {
   //   return ElevatedButton(
