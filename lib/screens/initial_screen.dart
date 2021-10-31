@@ -91,7 +91,7 @@ class _InitialScreenState extends State<InitialScreen> {
                               _emailController.text, _passwordController.text);
                         }
 
-                        print("sign in");
+                        print('sign in');
                       },
                     ),
                     // child: AuthButton(

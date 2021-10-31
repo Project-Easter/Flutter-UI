@@ -41,117 +41,111 @@ class _GetLocationState extends State<GetLocation> {
                     LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
                 zoom: 13.0,
               ),
-              layers: [
+              layers: <LayerOptions>[
                 TileLayerOptions(
                     urlTemplate: TokenStorage.urlTemplate,
-                    additionalOptions: {
+                    additionalOptions: <String, String>{
                       'accessToken': TokenStorage.mapboxToken,
                       'id': TokenStorage.mapboxId,
                     }),
                 MarkerLayerOptions(
-                  markers: [
+                  markers: <Marker>[
                     Marker(
                       width: 120.0,
                       height: 120.0,
                       point: LatLng(
                           snapshot.data!.latitude, snapshot.data!.longitude),
-                      builder: (BuildContext ctx) => Container(
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.location_on,
-                            size: 30,
-                          ),
-                          onPressed: () async {
-                            await _databaseService.updateUserLocation(
-                                snapshot.data!.latitude,
-                                snapshot.data!.longitude);
-                            await _getAddrress(snapshot.data!.latitude,
-                                snapshot.data!.longitude);
-                            showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext ctx) {
-                                  return Container(
-                                    height: 150,
-                                    color: Colors.white,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 2),
-                                            color: Colors.blue[700],
-                                            child: ListTile(
-                                              trailing: Container(
-                                                padding:
-                                                    const EdgeInsets.all(2),
-                                                height: 80,
-                                                width: 80,
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.white,
-                                                    shape: BoxShape.circle),
-                                                child: Icon(Icons.location_on,
-                                                    color: Colors.blue[700],
-                                                    size: 35),
-                                              ),
-                                              title: const Text(
-                                                'Address',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 22,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              subtitle: Text(
-                                                address,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            )),
-                                        // ListTile(
-                                        //   title: Text('Address'),
-                                        //   subtitle: Text(address),
-                                        // ),
-                                        const SizedBox(),
-                                        Container(
-                                            height: 45,
-                                            width: 150,
-                                            child: ElevatedButton(
-                                              style: ButtonStyle(
-                                                  shape: MaterialStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      13.0),
-                                                          side:
-                                                              const BorderSide(
-                                                                  color: Colors
-                                                                      .red))),
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all<
-                                                          Color>(Colors.red)),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text(
-                                                'Confirm',
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.white),
-                                              ),
-                                            )),
-                                        const SizedBox()
-                                      ],
-                                    ),
-                                  );
-                                });
-                          },
-                          color: Colors.red,
+                      builder: (BuildContext ctx) => IconButton(
+                        icon: const Icon(
+                          Icons.location_on,
+                          size: 30,
                         ),
+                        onPressed: () async {
+                          await _databaseService.updateUserLocation(
+                              snapshot.data!.latitude,
+                              snapshot.data!.longitude);
+                          await _getAddrress(snapshot.data!.latitude,
+                              snapshot.data!.longitude);
+                          showModalBottomSheet<void>(
+                              context: context,
+                              builder: (BuildContext ctx) {
+                                return Container(
+                                  height: 150,
+                                  color: Colors.white,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 2),
+                                          color: Colors.blue[700],
+                                          child: ListTile(
+                                            trailing: Container(
+                                              padding: const EdgeInsets.all(2),
+                                              height: 80,
+                                              width: 80,
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.circle),
+                                              child: Icon(Icons.location_on,
+                                                  color: Colors.blue[700],
+                                                  size: 35),
+                                            ),
+                                            title: const Text(
+                                              'Address',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            subtitle: Text(
+                                              address,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          )),
+                                      // ListTile(
+                                      //   title: Text('Address'),
+                                      //   subtitle: Text(address),
+                                      // ),
+                                      const SizedBox(),
+                                      SizedBox(
+                                          height: 45,
+                                          width: 150,
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(13.0),
+                                                        side: const BorderSide(
+                                                            color:
+                                                                Colors.red))),
+                                                backgroundColor:
+                                                    MaterialStateProperty.all<
+                                                        Color>(Colors.red)),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text(
+                                              'Confirm',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: Colors.white),
+                                            ),
+                                          )),
+                                      const SizedBox()
+                                    ],
+                                  ),
+                                );
+                              });
+                        },
+                        color: Colors.red,
                       ),
                     ),
                   ],

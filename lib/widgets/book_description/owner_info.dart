@@ -47,7 +47,7 @@ class _OwnerInfoState extends State<OwnerInfo> {
                 ],
               );
             }
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }),
     );
   }

@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
     SizeConfig().init(context);
     final String uID = _authService.getUID;
     final DatabaseService _databaseService =
-    DatabaseService(uid: uID.toString());
+        DatabaseService(uid: uID.toString());
     print(uID);
     final LocationHelper _locationHelper = LocationHelper();
     print(uID);
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
         ),
         StreamProvider<List<Book>>.value(
           value: _databaseService.booksData,
-          initialData: [],
+          initialData: <Book>[],
         ),
       ],
       child: Scaffold(
@@ -119,7 +119,7 @@ class _HomeState extends State<Home> {
               child: FloatingNavbar(
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 selectedBackgroundColor:
-                Theme.of(context).colorScheme.onPrimary,
+                    Theme.of(context).colorScheme.onPrimary,
                 unselectedItemColor: Theme.of(context).colorScheme.primary,
                 selectedItemColor: Theme.of(context).colorScheme.secondary,
                 showSelectedLabels: true,

@@ -25,7 +25,7 @@ class UserPreference extends StatefulWidget {
 }
 
 class _GenreChoiceState extends State<GenreChoice> {
-  List<String> tags = [];
+  List<String> tags = <String>[];
   @override
   Widget build(BuildContext context) {
     print('*******');
@@ -63,10 +63,10 @@ class _GenreChoiceState extends State<GenreChoice> {
 class _UserPreferenceState extends State<UserPreference> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _author = TextEditingController();
-  final TextEditingController _book = TextEditingController();
+  // final TextEditingController _author = TextEditingController();
+  // final TextEditingController _book = TextEditingController();
 
-  List<String> tags = [];
+  List<String> tags = <String>[];
   String a = '';
   String b = '';
 
@@ -115,7 +115,7 @@ class _UserPreferenceState extends State<UserPreference> {
           width: 250,
           child: SingleChildScrollView(
             child: Column(
-              children: [
+              children: <Widget>[
                 const SizedBox(
                   height: 20,
                 ),
@@ -241,7 +241,7 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  Future _onSubmitTap() async {
+  Future<void> _onSubmitTap() async {
     final List<dynamic> items = tags.toList();
 
     final List<String> selectedGenres = <String>[];
