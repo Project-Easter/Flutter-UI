@@ -1,16 +1,13 @@
-import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:books_app/utils/keys_storage.dart';
 import 'package:books_app/utils/location_helper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
 
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GetLocation extends StatefulWidget {
@@ -27,7 +24,7 @@ class _GetLocationState extends State<GetLocation> {
   Widget build(BuildContext context) {
     final dynamic _uID = FirebaseAuthService().getUID;
     final DatabaseService _databaseService =
-    DatabaseService(uid: _uID.toString());
+        DatabaseService(uid: _uID.toString());
     return Scaffold(
       // ignore: always_specify_types
       body: FutureBuilder<LatLng?>(
@@ -41,7 +38,7 @@ class _GetLocationState extends State<GetLocation> {
             return FlutterMap(
               options: MapOptions(
                 center:
-                LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
+                    LatLng(snapshot.data!.latitude, snapshot.data!.longitude),
                 zoom: 13.0,
               ),
               layers: [
@@ -78,7 +75,7 @@ class _GetLocationState extends State<GetLocation> {
                                     color: Colors.white,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                             padding: const EdgeInsets.only(
@@ -87,7 +84,7 @@ class _GetLocationState extends State<GetLocation> {
                                             child: ListTile(
                                               trailing: Container(
                                                 padding:
-                                                const EdgeInsets.all(2),
+                                                    const EdgeInsets.all(2),
                                                 height: 80,
                                                 width: 80,
                                                 decoration: const BoxDecoration(
@@ -103,7 +100,7 @@ class _GetLocationState extends State<GetLocation> {
                                                     color: Colors.white,
                                                     fontSize: 22,
                                                     fontWeight:
-                                                    FontWeight.bold),
+                                                        FontWeight.bold),
                                               ),
                                               subtitle: Text(
                                                 address,
@@ -124,19 +121,19 @@ class _GetLocationState extends State<GetLocation> {
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                   shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder>(
                                                       RoundedRectangleBorder(
                                                           borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              13.0),
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      13.0),
                                                           side:
-                                                          const BorderSide(
-                                                              color: Colors
-                                                                  .red))),
+                                                              const BorderSide(
+                                                                  color: Colors
+                                                                      .red))),
                                                   backgroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(Colors.red)),
+                                                      MaterialStateProperty.all<
+                                                          Color>(Colors.red)),
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
@@ -175,7 +172,7 @@ class _GetLocationState extends State<GetLocation> {
 
   Future<void> _getAddrress(double latitude, double longitude) async {
     final List<Placemark> newPlace =
-    await placemarkFromCoordinates(latitude, longitude);
+        await placemarkFromCoordinates(latitude, longitude);
     print(newPlace[0]);
     final Placemark placeMark = newPlace[0];
     name = placeMark.name;
