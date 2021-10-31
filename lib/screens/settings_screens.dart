@@ -29,11 +29,19 @@ class UserTile extends StatelessWidget {
               padding:
                   const EdgeInsets.only(top: 12, left: 0, right: 0, bottom: 10),
               child: Row(children: <Widget>[
-                const CircleAvatar(
-                  radius: 32,
-                  backgroundImage: AssetImage('assets/images/Explr Logo.png'),
-                  //  backgroundImage: NetworkImage(user.avatar,),
-                ),
+                if (snapshot.data!.photoURL!.startsWith('assets'))
+                  CircleAvatar(
+                    radius: 32,
+                    child: Image.asset(
+                      'assets/images/Explr Logo.png',
+                      fit: BoxFit.contain,
+                    ),
+                  )
+                else
+                  CircleAvatar(
+                    radius: 32,
+                    backgroundImage: NetworkImage(snapshot.data!.photoURL!),
+                  ),
                 Container(
                   padding: const EdgeInsets.only(left: 9.0, top: 4.0),
                   child: Text(

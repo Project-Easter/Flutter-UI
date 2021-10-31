@@ -30,9 +30,13 @@ class _AddBookState extends State<AddBook> {
         DatabaseService(uid: uid as String);
     final Books bookList = Provider.of<Books>(context, listen: false);
     return Scaffold(
-      appBar: MyAppBar(context),
+      appBar: AppBar(
+        elevation: 0.0,
+        leading: BackButton(),
+      ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(18.0),
