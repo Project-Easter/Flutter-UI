@@ -3,7 +3,6 @@ import 'package:books_app/constants/colors.dart';
 import 'package:books_app/providers/books.dart';
 import 'package:books_app/providers/quote.dart';
 import 'package:books_app/providers/theme.dart';
-import 'package:books_app/providers/user.dart';
 import 'package:books_app/screens/home.dart';
 import 'package:books_app/screens/initial_screen.dart';
 import 'package:books_app/services/auth.dart';

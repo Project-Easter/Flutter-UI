@@ -1,13 +1,11 @@
 import 'package:books_app/providers/user.dart';
-import 'package:books_app/screens/user_preferences.dart';
 import 'package:books_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class OwnerInfo extends StatefulWidget {
-  String? userid;
-  OwnerInfo({this.userid});
+  final String? userid;
+  const OwnerInfo({this.userid});
   @override
   _OwnerInfoState createState() => _OwnerInfoState();
 }
@@ -49,7 +47,7 @@ class _OwnerInfoState extends State<OwnerInfo> {
                 ],
               );
             }
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }),
     );
   }

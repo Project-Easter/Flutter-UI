@@ -27,7 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            showAlert() ,
+            showAlert(),
             const AuthPageTitle(name: 'Reset password'),
             // AuthErrorMessage(errorMessage: error.toString()),
             Form(
@@ -43,14 +43,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               color: blackButton,
               myFunction: () async {
                 await FirebaseAuthService()
-                    .ResetPassword(_emailController.text);
+                    .resetPassword(_emailController.text);
                 setState(() {
                   _message =
-                  'Password reset link has been sent to you on email ${_emailController.text}.You will be redirected to signIn page';
+                      'Password reset link has been sent to you on email ${_emailController.text}.You will be redirected to signIn page';
                 });
 
                 print(_message);
-                await Future<dynamic>.delayed(const Duration(seconds: 4), () {});
+                await Future<dynamic>.delayed(
+                    const Duration(seconds: 4), () {});
                 Navigator.pushReplacementNamed(context, Routes.INITIAL_PAGE);
               },
             )
@@ -95,8 +96,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
         ),
       );
-    }
-    else
+    } else
       return Container();
   }
 }

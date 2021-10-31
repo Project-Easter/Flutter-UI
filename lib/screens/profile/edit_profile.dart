@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -25,7 +24,6 @@ class _EditProfileState extends State<EditProfile> {
   PickedFile? image;
 
   String? _name;
-  String? _address;
   String? _city;
 
   String? _streetAddress;
@@ -216,12 +214,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<void> loadAdressPrefs() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
 
-    _address = _prefs.getString('address');
   }
 
   Future<String?> uploadImageCamera(String uID) async {
+    // ignore: deprecated_member_use
     image = await _imagePicker.getImage(source: ImageSource.camera);
     final File file = File(image!.path);
     if (image != null) {
@@ -236,6 +233,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<String> uploadImageGallery(String uID) async {
+    // ignore: deprecated_member_use
     image = await _imagePicker.getImage(source: ImageSource.gallery);
     final File file = File(image!.path);
     print(file.toString());

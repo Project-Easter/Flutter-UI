@@ -4,14 +4,14 @@ import 'package:books_app/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final Book book = Provider.of<Book>(context);
-    final String? _playStoreLink = book.infoLink;
+    //final String? _playStoreLink = book.infoLink;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
@@ -33,9 +33,9 @@ class BookCard extends StatelessWidget {
             onTap: () async {
               // (book.infoLink != null)
               //     ? await _canLaunchUrl(_playStoreLink!)
-              //     : 
-                  
-                  Navigator.of(context).push<dynamic>(
+              //     :
+
+              Navigator.of(context).push<dynamic>(
                 MaterialPageRoute<dynamic>(
                   builder: (BuildContext context) => BookDescription(
                     bookFromList: book,
@@ -80,7 +80,7 @@ class BookCard extends StatelessWidget {
     );
   }
 
-  Future<void> _canLaunchUrl(String url) async => canLaunch(url) != null
-      ? await launch(url)
-      : throw 'Could not open the play store link';
+  // Future<void> _canLaunchUrl(String url) async => canLaunch(url) != null
+  //     ? await launch(url)
+  //     : throw 'Could not open the play store link';
 }

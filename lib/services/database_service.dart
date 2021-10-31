@@ -91,9 +91,9 @@ class DatabaseService {
     });
   }
 
-  List<Book> booksList(QuerySnapshot querySnapshot) {
+  List<Book> booksList(QuerySnapshot<Object?> querySnapshot) {
     return querySnapshot.docs
-        .map((QueryDocumentSnapshot e) => Book(
+        .map((QueryDocumentSnapshot<Object?> e) => Book(
               title:
                   (e.data()! as Map<String, dynamic>)['title'] as String? ?? '',
               author:
@@ -136,12 +136,12 @@ class DatabaseService {
 
   ///This is for chat TEST.
   //Get All users Data
-  List<UserData> getAllUserData(QuerySnapshot querySnapshot) {
+  List<UserData> getAllUserData(QuerySnapshot<Object?> querySnapshot) {
     // ignore: unrelated_type_equality_checks
-    return querySnapshot.docs.where((QueryDocumentSnapshot uid) {
+    return querySnapshot.docs.where((QueryDocumentSnapshot<Object?> uid) {
       // return this.uid != uid.id;
       return true;
-    }).map((QueryDocumentSnapshot doc) {
+    }).map((QueryDocumentSnapshot<Object?> doc) {
       return UserData(
         // uid: uid,
         uid: (doc.data()! as Map<String, dynamic>)['uid'] as String?,
@@ -172,7 +172,7 @@ class DatabaseService {
         .doc(uid)
         .collection('ownedBooks')
         .get()
-        .then((QuerySnapshot value) => booksList(value));
+        .then((QuerySnapshot <Object?>value) => booksList(value));
     return res;
   }
 
@@ -346,8 +346,8 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  List<Book> _bookFromQuerySnapShot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((QueryDocumentSnapshot doc) {
+  List<Book> _bookFromQuerySnapShot(QuerySnapshot <Object?>snapshot) {
+    return snapshot.docs.map((QueryDocumentSnapshot <Object?>doc) {
       return Book(
           // rating: doc.data()['rating'] as double,
           isOwned: (doc.data()! as Map<String, dynamic>)['isOwned'] as bool?,
@@ -364,7 +364,7 @@ class DatabaseService {
     }).toList();
   }
 
-  UserData _userDataFromSnapShot(DocumentSnapshot documentSnapshot) {
+  UserData _userDataFromSnapShot(DocumentSnapshot <Object?>documentSnapshot) {
     return UserData(
       uid: uid,
       displayName: (documentSnapshot.data()!
