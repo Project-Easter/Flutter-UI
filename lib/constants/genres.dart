@@ -21,9 +21,9 @@ const List<String> genres = <String>[
   'Romance',
   'Philosophy',
   'Religion',
-  'Science Fiction',
-  'Self Development',
   'Sports',
+  'Science Fiction',
   'Travel',
   'Western',
+  'Self Development',
 ];

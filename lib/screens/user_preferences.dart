@@ -3,7 +3,9 @@ import 'package:books_app/constants/genres.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
-import 'package:chips_choice_null_safety/chips_choice.dart';
+import 'package:books_app/widgets/chip_choice.dart';
+// import 'package:chips_choice/chips_choice.dart';
+// import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,21 +25,25 @@ class _UserPreferenceState extends State<UserPreference> {
   // final TextEditingController _author = TextEditingController();
   // final TextEditingController _book = TextEditingController();
 
-  List<String> tags = [];
+  List<String> tags = <String>[];
+  late final String? favBook =
+      widget.userData!.preferences!['favBook'] as String?;
+  late final String? favAuthor =
+      widget.userData!.preferences!['favAuthor'] as String?;
+  late final dynamic selectedtags =
+      widget.userData!.preferences!['genres'].cast<String>();
 
+  late final TextEditingController _author =
+      TextEditingController(text: favAuthor);
+  late final TextEditingController _book = TextEditingController(text: favBook);
   @override
   Widget build(BuildContext context) {
     // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final String? favBook = widget.userData!.preferences!['favBook'] as String?;
-    final String? favAuthor =
-    widget.userData!.preferences!['favAuthor'] as String?;
+
     // final String location =
     //     widget.userData.preferences['locationRange'] as String;
 
-    final TextEditingController _author =
-    TextEditingController(text: favAuthor);
-    final TextEditingController _book = TextEditingController(text: favBook);
-
+    print(selectedtags);
     return Form(
       key: _formKey,
       child: AlertDialog(
@@ -46,14 +52,14 @@ class _UserPreferenceState extends State<UserPreference> {
           child: Text(
             'User Preferences',
             style:
-            GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
+                GoogleFonts.lato(color: Theme.of(context).colorScheme.primary),
           ),
         ),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
         // ignore: sized_box_for_whitespace
         content: Container(
-          height: 300,
+          height: 320,
           width: 250,
           child: SingleChildScrollView(
             child: Column(
@@ -95,7 +101,8 @@ class _UserPreferenceState extends State<UserPreference> {
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                       hintText: 'Favourite Author',
-                      hintStyle: GoogleFonts.lato()),
+                      hintStyle: GoogleFonts.lato(
+                          color: Theme.of(context).colorScheme.primary)),
                   onSaved: (String? val) {
                     _author.text = val!;
                   },
@@ -109,8 +116,17 @@ class _UserPreferenceState extends State<UserPreference> {
                 const SizedBox(
                   height: 20,
                 ),
-                Text('Select Book genres', style: GoogleFonts.lato()),
-                _genresChoice(),
+                Text('Select Book genres',
+                    style: GoogleFonts.lato(
+                        color: Theme.of(context).colorScheme.primary)),
+                const SizedBox(
+                  height: 20,
+                ),
+                MultipleChipChoice(
+                  value: tags,
+                  onChanged: (List<String> val) => setState(() => tags = val),
+                  selected: selectedtags,
+                ),
               ],
             ),
           ),
@@ -146,37 +162,38 @@ class _UserPreferenceState extends State<UserPreference> {
     );
   }
 
-  ChipsChoice<String> _genresChoice() {
-    return ChipsChoice<String>.multiple(
-      value: tags,
-      onChanged: (List<String> val) => setState(() => tags = val),
-      choiceItems: C2Choice.listFrom<String, String>(
-        source: genres,
-        value: (i, v) => v,
-        label: (i, v) => v,
-      ),
-      choiceStyle: const C2ChoiceStyle(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        borderColor: Colors.grey,
-      ),
-      choiceActiveStyle: const C2ChoiceStyle(
-        color: blackButton,
-      ),
-      wrapped: true,
-    );
-  }
+  // ChipsChoice<String> _genresChoice() {
+  //   return ChipsChoice<String>.multiple(
+  //     value: tags,
+  //     onChanged: (List<String> val) => setState(() => tags = val),
+  //     choiceItems: C2Choice.listFrom<String, String>(
+  //       source: genres,
+  //       value: (i, v) => v,
+  //       label: (i, v) => v,
+  //     ),
+  //     choiceStyle: const C2ChoiceStyle(
+  //       borderRadius: BorderRadius.all(Radius.circular(5)),
+  //       borderColor: Colors.grey,
+  //     ),
+  //     choiceActiveStyle: const C2ChoiceStyle(
+  //       color: blackButton,
+  //     ),
+  //     wrapped: true,
+  //   );
+  // }
 
   Future<void> _onSubmitTap() async {
-    final List<dynamic> items = tags.toList();
-    items.removeRange(0, 1);
-    print(items);
-    final List<String> selectedGenres = <String>[];
-    for (final dynamic element in items) {
-      final String x = element.toString();
-      print(genres[int.parse(x)]);
-      selectedGenres.add(genres[int.parse(x)]);
-    }
-    print(selectedGenres);
-    await _databaseService.updateGenres(selectedGenres);
+    // final List<dynamic> items = tags.toList();
+    // items.removeRange(0, 1);
+    // print(items);
+    // final List<String> selectedGenres = <String>[];
+    // for (final dynamic element in items) {
+    //   final String x = element.toString();
+    //   print(genres[int.parse(x)]);
+    //   selectedGenres.add(genres[int.parse(x)]);
+    // }
+    // print(selectedGenres);
+    await _databaseService.updatePreferences(_author.text, _book.text, "10");
+    await _databaseService.updateGenres(tags);
   }
 }

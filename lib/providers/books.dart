@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'book.dart';
 
 class Books with ChangeNotifier {
-
   // Explore Books
   final List<Book> _within3km = <Book>[];
   final List<Book> _within5km = <Book>[];
@@ -109,7 +108,7 @@ class Books with ChangeNotifier {
     };
     try {
       final http.Response response =
-      await http.get(Uri.parse(url + isbn.trim()));
+          await http.get(Uri.parse(url + isbn.trim()));
       final dynamic result = jsonDecode(response.body);
       // print("Result From get Books From ISBN:");
       // print(result["items"][0]);
@@ -127,7 +126,7 @@ class Books with ChangeNotifier {
       final dynamic resultJson = jsonDecode(response.body);
       if (resultJson != null) {
         final String isbn = resultJson['items'][0]['volumeInfo']
-        ['industryIdentifiers'][1]['identifier']
+                ['industryIdentifiers'][1]['identifier']
             .toString();
         return isbn;
       }
@@ -144,9 +143,7 @@ class Books with ChangeNotifier {
       final String title = result['volumeInfo']['title'].toString();
       final String author = result['volumeInfo']['authors'][0].toString();
       final String description = result['volumeInfo']['description'].toString();
-      final String isbn = result['volumeInfo']['industryIdentifiers'][0]
-      ['identifier']
-          .toString();
+      final String isbn = '87487834738475'; //! breaking change
       final String infoLink = result['volumeInfo']['infoLink'].toString();
 
       String imageLink;
@@ -155,7 +152,7 @@ class Books with ChangeNotifier {
         imageLink = imageLink.replaceFirst('http', 'https', 0);
       } catch (e) {
         imageLink =
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
       }
       print(imageLink.length);
       if (imageLink.isEmpty) {
@@ -179,21 +176,21 @@ class Books with ChangeNotifier {
     // print(result);
     Book book;
     final String? description =
-    result['items'][0]['volumeInfo']['description'] as String?;
+        result['items'][0]['volumeInfo']['description'] as String?;
     final String isbn = isbnCode;
     final String? infoLink =
-    result['items'][0]['volumeInfo']['infoLink'] as String?;
+        result['items'][0]['volumeInfo']['infoLink'] as String?;
     final int? pages = result['items'][0]['volumeInfo']['pageCount'] as int?;
     String? imageLink, title, author;
     try {
       title = result['items'][0]['volumeInfo']['title'] as String?;
       author = result['items'][0]['volumeInfo']['authors'][0] as String?;
       imageLink = result['items'][0]['volumeInfo']['imageLinks']['thumbnail']
-      as String?;
+          as String?;
       imageLink = imageLink!.replaceFirst('http', 'https', 0);
     } catch (e) {
       imageLink =
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';
       author = inputAuthor;
       print('imageLink is empty');
     }
@@ -218,13 +215,14 @@ class Books with ChangeNotifier {
 
   Future<dynamic> topBooks() async {
     const String recommendedURL =
-        'https://www.googleapis.com/books/v1/volumes?q=isbn:';
+        'https://www.googleapis.com/books/v1/volumes?q=+orderBy=newest';
 
     try {
       final http.Response response = await http.get(Uri.parse(recommendedURL));
       if (response != null) {
         final dynamic result = jsonDecode(response.body);
-        print('result from Google API topBook func is $result');
+        print(result['items']);
+        // print('result from Google API topBook func is $result');
         final List? list = result['items'] as List?;
 
         final List<Book?> recommendedBooks = <Book?>[];

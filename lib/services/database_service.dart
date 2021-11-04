@@ -4,16 +4,6 @@ import 'package:books_app/utils/location_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
-// <<<<<<< HEAD
-//   final String uid;
-//   final CollectionReference userDataCollection =
-//   FirebaseFirestore.instance.collection('users');
-//   final CollectionReference booksCollection =
-//   FirebaseFirestore.instance.collection('books');
-//
-//   final CollectionReference chatCollection =
-//   FirebaseFirestore.instance.collection('chat');
-// =======
   final String? uid;
   final CollectionReference<Map<String, dynamic>> userDataCollection =
       FirebaseFirestore.instance.collection('users');
@@ -22,7 +12,6 @@ class DatabaseService {
 
   final CollectionReference<Map<String, dynamic>> chatCollection =
       FirebaseFirestore.instance.collection('chat');
-// >>>>>>> 36b2b5171216b893c786b39f6acf9948b5127dc9
 
   DatabaseService({this.uid});
 
@@ -47,10 +36,13 @@ class DatabaseService {
     // .map(_userDataFromSnapShot);
   }
 
-  Stream<UserData> getUserData(String? userid) {
-    return userDataCollection.doc(userid).snapshots().map(
-        (DocumentSnapshot<dynamic> snapshot) =>
-            _userDataFromSnapShot(snapshot as DocumentSnapshot<Object>));
+  Stream<UserData>? getUserData(String? userid) {
+    if (userid!.isNotEmpty)
+      return userDataCollection.doc(userid).snapshots().map(
+          (DocumentSnapshot<dynamic> snapshot) =>
+              _userDataFromSnapShot(snapshot as DocumentSnapshot<Object>));
+    else
+      return null;
     // .map(_userDataFromSnapShot);
   }
 
