@@ -25,10 +25,8 @@
 <a href="https://github.com/Project-Easter/Flutter-UI/pulls" target="blank">
 <img src="https://img.shields.io/github/issues-pr/Project-Easter/Flutter-UI?color=&style=plastic" alt="github-profile-readme-generator pull-requests"/>
 </a>
-<a href="https://github.com/Project-Easter/Flutter-UI/pulls?q=is%3Apr+is%3Aclosed+label%3Ahacktoberfest-accepted" target="blank">
-<img src="https://img.shields.io/github/issues-pr-closed/Project-Easter/Flutter-UI/hacktoberfest-accepted?color=teal&style=plastic" alt="github-profile-readme-generator hacktoberfest-accepted issues"/>
-<a href="https://github.com/Project-Easter/Flutter-UI/issues?q=is%3Aissue+is%3Aopen+label%3AHacktoberfest" target="blank">
-<img src="https://img.shields.io/github/issues/Project-Easter/Flutter-UI/Hacktoberfest?color=red&style=plastic" alt="github-profile-readme-generator Hacktoberfest issues"/>
+<a href="https://github.com/Project-Easter/Flutter-UI/pulls?q=is%3Apr+is%3Aclosed" target="blank">
+<img alt="GitHub closed pull requests" src="https://img.shields.io/github/issues-pr-closed-raw/Project-Easter/Flutter-UI?color=blue&style=plastic">
 </a>
 <!---<a href="https://discord.gg/HHMs7Eg" target="blank">
 <img src="https://img.shields.io/discord/735303195105951764?label=Join%20Community&logo=discord&style=flat-square" alt="join discord community of github profile readme generator"/>
@@ -123,7 +121,7 @@ Navigate to the folder where the repository is cloned, which will be named *Flut
 Now, in the terminal, create a branch in Git using the following command:
 
 ```
-git checkout -b <hacktober/your-first-name>
+git checkout -b <explr/your-first-name>
 ```
 
 Use the same name in the branch created in GitHub.
@@ -154,7 +152,7 @@ git commit -m'<Relevant commit message>'
 Push your changes using the command:
 
 ```
-git push origin <hacktober/your-first-name>
+git push origin <explr/your-first-name>
 ```
 
 **Step 6: Make a Pull request**
