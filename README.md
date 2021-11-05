@@ -169,7 +169,7 @@ Please read [`CONTRIBUTING`](CONTRIBUTING.md) for details on our [`CODE OF CONDU
 * Use latest Flutter version 2.5 before forking the repository.
 * Comment on the issue you want to work, tagging me (<a href="https://github.com/Mohitmadhav">@Mohitmadhav</a>) or Ankit (<a href="https://github.com/ankitoscar">@ankitoscar</a>).
 * Then only you'll be assigned with the issues and your PRs will be considered.
-* Create you branches with branchname *hacktober/your-first-name* only in your forked repository.
+* Create you branches with branchname *explr/your-first-name* only in your forked repository.
 * You can only work on one issue at a time.
 * Any changes in the documentation will be marked as **invalid** or **spam** 
 * **Do not** make any changes in the **main** branch or the original repository. 
