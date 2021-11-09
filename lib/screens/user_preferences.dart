@@ -3,7 +3,6 @@ import 'package:books_app/constants/genres.dart';
 import 'package:books_app/providers/user.dart';
 import 'package:books_app/services/auth.dart';
 import 'package:books_app/services/database_service.dart';
-import 'package:books_app/widgets/chip_choice.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 // import 'package:chips_choice/chips_choice.dart';
 // import 'package:chips_choice/chips_choice.dart';

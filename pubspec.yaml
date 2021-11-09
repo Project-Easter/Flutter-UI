@@ -47,7 +47,6 @@ dependencies:
   url_launcher: ^6.0.12
   flutter_secure_storage: ^4.2.1
   pinput: ^1.2.1
-  # chips_choice: ^2.0.1
   chips_choice_null_safety: ^2.0.2
   flutter_signin_button: ^2.0.0
 
