@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OwnerInfo extends StatefulWidget {
-  String? userid;
-  OwnerInfo({this.userid});
+  final String? userid;
+  const OwnerInfo({this.userid});
   @override
   _OwnerInfoState createState() => _OwnerInfoState();
 }
@@ -47,7 +47,9 @@ class _OwnerInfoState extends State<OwnerInfo> {
                 ],
               );
             }
+
             return const Center(child: CircularProgressIndicator());
+
           }),
     );
   }

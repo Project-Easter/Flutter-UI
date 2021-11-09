@@ -143,7 +143,10 @@ class Books with ChangeNotifier {
       final String title = result['volumeInfo']['title'].toString();
       final String author = result['volumeInfo']['authors'][0].toString();
       final String description = result['volumeInfo']['description'].toString();
-      final String isbn = '87487834738475'; //! breaking change
+      final String isbn = result['volumeInfo']['industryIdentifiers'][0]
+              ['identifier']
+          .toString();
+
       final String infoLink = result['volumeInfo']['infoLink'].toString();
 
       String imageLink;
@@ -221,6 +224,7 @@ class Books with ChangeNotifier {
       final http.Response response = await http.get(Uri.parse(recommendedURL));
       if (response != null) {
         final dynamic result = jsonDecode(response.body);
+
         print(result['items']);
         // print('result from Google API topBook func is $result');
         final List? list = result['items'] as List?;
