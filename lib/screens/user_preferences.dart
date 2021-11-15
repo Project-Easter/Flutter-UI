@@ -80,8 +80,8 @@ class _UserPreferenceState extends State<UserPreference> {
     if (a == '' && b == '') {
       favBook = widget.userData!.preferences!['favBook'] as String;
       favAuthor = widget.userData!.preferences!['favAuthor'] as String;
-      dynamic data = widget.userData!.preferences!['genres'].cast<String>();
-      List<String> genres = data
+      final dynamic data = widget.userData!.preferences!['genres'];
+      final List<String> genres = data
           .toString()
           .substring(1, data.toString().length - 1)
           .split(',')
