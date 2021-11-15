@@ -45,41 +45,21 @@ class Books with ChangeNotifier {
   }
 
 //********EXPLORE NEARBY TO BE IMPLEMENTED*******///
-  List<Book> get within3km {
-    return _within3km;
-  }
-
-  List<Book> get within5km {
-    return _within5km;
-  }
-
-  List<Book> get within10km {
-    return _within10km;
-  }
-
-  List<Book> get within20km {
-    return _within20km;
+  List<Book> get lentBooks {
+    return _lentBooks;
   }
 
   List<Book> get morethan20km {
     return _morethan20km;
   }
 
-  List<Book> get lentBooks {
-    return _lentBooks;
-  }
-
-//Lent Books
   List<Book> get ownedBooks {
     return _ownedBooks;
   }
 
-//Borrowed Books
   List<Book> get recommendedBooks {
     return <Book>[..._recommendedBooks];
   }
-
-//Saved Books
 
   List<Book> get savedBooks {
     _savedBooks = <Book>[];
@@ -97,6 +77,26 @@ class Books with ChangeNotifier {
       }
     }
     return _savedBooks;
+  }
+
+  List<Book> get within10km {
+    return _within10km;
+  }
+
+//Lent Books
+  List<Book> get within20km {
+    return _within20km;
+  }
+
+//Borrowed Books
+  List<Book> get within3km {
+    return _within3km;
+  }
+
+//Saved Books
+
+  List<Book> get within5km {
+    return _within5km;
   }
 
   Future<dynamic> getBooksbyISBN(String isbn) async {
@@ -227,7 +227,7 @@ class Books with ChangeNotifier {
 
         print(result['items']);
         // print('result from Google API topBook func is $result');
-        final List? list = result['items'] as List?;
+        final List<dynamic>? list = result['items'] as List<dynamic>?;
 
         final List<Book?> recommendedBooks = <Book?>[];
 
