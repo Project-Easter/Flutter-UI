@@ -161,12 +161,12 @@ class DatabaseService {
         .doc(uid)
         .collection('ownedBooks')
         .get()
-        .then((QuerySnapshot <Object?>value) => booksList(value));
+        .then((QuerySnapshot<Object?> value) => booksList(value));
     return res;
   }
 
   Stream<UserData> getUserData(String? userid) {
-    return userDataCollection.doc(userid).snapshots().map(
+    return userDataCollection.doc(userid ?? '').snapshots().map(
         (DocumentSnapshot<dynamic> snapshot) =>
             _userDataFromSnapShot(snapshot as DocumentSnapshot<Object>));
     // .map(_userDataFromSnapShot);
@@ -233,20 +233,28 @@ class DatabaseService {
 
     // final DocumentReference docReference =
     //     booksCollection.doc(uid).collection('ownedBooks').doc(book.isbn);
-    await userDataCollection
-        .doc(uid)
-        .collection('ownedBooks')
-        .doc(book.isbn)
-        .update(<String, bool?>{
+    await userDataCollection.doc(uid).collection('ownedBooks').doc(book.isbn)
+        // .update(<String, bool?>{
+        .set(<String, dynamic>{
       'isBookMarked': book.isBookMarked,
+      'title': book.title,
+      'description': book.description,
+      'author': book.author,
+      'isbn': book.isbn,
+      'imageUrl': book.imageUrl,
     });
 
     await booksCollection
         .doc(uid)
         .collection('ownedBooks')
         .doc(book.isbn)
-        .update(<String, bool?>{
+        .set(<String, dynamic>{
       'isBookMarked': book.isBookMarked,
+      'title': book.title,
+      'description': book.description,
+      'author': book.author,
+      'isbn': book.isbn,
+      'imageUrl': book.imageUrl,
     });
   }
 
@@ -335,27 +343,32 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  List<Book> _bookFromQuerySnapShot(QuerySnapshot <Object?>snapshot) {
-    return snapshot.docs.map((QueryDocumentSnapshot <Object?>doc) {
+  List<Book> _bookFromQuerySnapShot(QuerySnapshot<Object?> snapshot) {
+    return snapshot.docs.map((QueryDocumentSnapshot<Object?> doc) {
       return Book(
-          // rating: doc.data()['rating'] as double,
-          isOwned: (doc.data()! as Map<String, dynamic>)['isOwned'] as bool?,
-          userid: (doc.data()! as Map<String, dynamic>)['userid'] as String?,
-          isBookMarked:
-              (doc.data()! as Map<String, dynamic>)['isBookMarked'] as bool?,
-          imageUrl:
-              (doc.data()! as Map<String, dynamic>)['imageUrl'] as String?,
-          title: (doc.data()! as Map<String, dynamic>)['title'] as String?,
-          isbn: (doc.data()! as Map<String, dynamic>)['isbn'] as String?,
-          author: (doc.data()! as Map<String, dynamic>)['author'] as String?,
-          description:
-              (doc.data()! as Map<String, dynamic>)['description'] as String?);
+        // rating: doc.data()['rating'] as double,
+        isOwned: (doc.data()! as Map<String, dynamic>)['isOwned'] as bool?,
+        userid: (doc.data()! as Map<String, dynamic>)['userid'] as String?,
+        isBookMarked:
+            (doc.data()! as Map<String, dynamic>)['isBookMarked'] as bool?,
+        imageUrl: (doc.data()! as Map<String, dynamic>)['imageUrl']
+                as String? ??
+            'https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80',
+        // 'assets/images/Explr Logo.png',
+        title: (doc.data()! as Map<String, dynamic>)['title'] as String,
+
+        isbn: (doc.data()! as Map<String, dynamic>)['isbn'] as String?,
+
+        author: (doc.data()! as Map<String, dynamic>)['author'] as String?,
+        description:
+            (doc.data()! as Map<String, dynamic>)['description'] as String?,
+      );
     }).toList();
   }
 
-  UserData _userDataFromSnapShot(DocumentSnapshot <Object?>documentSnapshot) {
+  UserData _userDataFromSnapShot(DocumentSnapshot<Object?> documentSnapshot) {
     return UserData(
-      uid: uid,
+      uid: uid ?? '',
       displayName: (documentSnapshot.data()!
               as Map<String, dynamic>)['displayName'] as String? ??
           'Enter Name',
