@@ -1,42 +1,130 @@
 {
   "project_info": {
-    "project_number": "151974897944",
-    "project_id": "books-app-3b889",
-    "storage_bucket": "books-app-3b889.appspot.com"
+    "project_number": "339703745629",
+    "firebase_url": "https://book-exchange-dde4a-default-rtdb.firebaseio.com",
+    "project_id": "book-exchange-dde4a",
+    "storage_bucket": "book-exchange-dde4a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:151974897944:android:cff3e67535258a7862966d",
+        "mobilesdk_app_id": "1:339703745629:android:6ba5ec7ccd3905d7be91b4",
         "android_client_info": {
           "package_name": "com.example.books_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "151974897944-7f1hljaak2q9j9iskh9bplkaq68e59ip.apps.googleusercontent.com",
+          "client_id": "339703745629-231q5vbr9vmp6lboem62dqih34t612c7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.books_app",
-            "certificate_hash": "b8f8262131d03e3be546268abbff9c61f998b6fd"
+            "certificate_hash": "518647a99a91f48a6d94e5371ea70b00f198c65b"
           }
         },
         {
-          "client_id": "151974897944-vnfqrt0ors8vb2lb6ftis90vvneatpbt.apps.googleusercontent.com",
+          "client_id": "339703745629-4cn2587d3kj00cmqs7u9um4ag2osvnko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "3172275fa14e0a371b886a48feb7556e79d5c952"
+          }
+        },
+        {
+          "client_id": "339703745629-6e0bqnonmvgss949ljapv516t7q10el6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "59f0511b69869c57f4ee2d1f532a6225c71d7a00"
+          }
+        },
+        {
+          "client_id": "339703745629-7ap9u74467rq8eouvd4lc73ij0130e7d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "d7e69ba1755c5eb7d3a3f33681ca21f05a62044a"
+          }
+        },
+        {
+          "client_id": "339703745629-95trhcatpo7oobvp8mgs19pjctl99u6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "3bc728f6c18cfac29a78fca5b6db93f790697913"
+          }
+        },
+        {
+          "client_id": "339703745629-am46l7jcbs0sqgi39a6gf4jjvab0nnfa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "0a73355f21b08c1d58e3a2d4dd52400b1793f920"
+          }
+        },
+        {
+          "client_id": "339703745629-dau900hflr232p111ofh1dp2dajjvmae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "1c6b2f711244f47ea36242975ac9a02c8d1a108c"
+          }
+        },
+        {
+          "client_id": "339703745629-notlihshlmgju1eav41tc2soqtbveonq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "eebfff7af230bea2cf13255bc898ed735e89e3fa"
+          }
+        },
+        {
+          "client_id": "339703745629-p514nauli8g88vpaphl6lo0ubuhnochr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "12c7a2a9dc5ce9ffe51544da79d4e32ea0d04fa7"
+          }
+        },
+        {
+          "client_id": "339703745629-qojigrkk5u6oej1q667s19barfn6so4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "6f64edcfc17edf4e8a8f8fc22b4d64467679a40e"
+          }
+        },
+        {
+          "client_id": "339703745629-v9tq40e8lqfepm3p7nvhrhbrsi7n1762.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.books_app",
+            "certificate_hash": "cc159e1f2635148a2ecbd8f4527d5bd897c68f8e"
+          }
+        },
+        {
+          "client_id": "339703745629-gsgrefnjld46rm1pufrncbkpnb74l9a5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBeNEuItOnZk18yW_OeGNQzdW-VXXCJgZo"
+          "current_key": "AIzaSyCQrNeKMV7lRo0w9vglwR-EZooBHU16ZyY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "151974897944-vnfqrt0ors8vb2lb6ftis90vvneatpbt.apps.googleusercontent.com",
+              "client_id": "339703745629-gsgrefnjld46rm1pufrncbkpnb74l9a5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "339703745629-jipv7n6m0bcc113vis5o8a2r441jnuki.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.booksApp"
+              }
             }
           ]
         }
