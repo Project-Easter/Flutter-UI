@@ -161,7 +161,7 @@ class DatabaseService {
         .doc(uid)
         .collection('ownedBooks')
         .get()
-        .then((QuerySnapshot <Object?>value) => booksList(value));
+        .then((QuerySnapshot<Object?> value) => booksList(value));
     return res;
   }
 
@@ -335,8 +335,8 @@ class DatabaseService {
     }, SetOptions(merge: true));
   }
 
-  List<Book> _bookFromQuerySnapShot(QuerySnapshot <Object?>snapshot) {
-    return snapshot.docs.map((QueryDocumentSnapshot <Object?>doc) {
+  List<Book> _bookFromQuerySnapShot(QuerySnapshot<Object?> snapshot) {
+    return snapshot.docs.map((QueryDocumentSnapshot<Object?> doc) {
       return Book(
           // rating: doc.data()['rating'] as double,
           isOwned: (doc.data()! as Map<String, dynamic>)['isOwned'] as bool?,
@@ -353,7 +353,7 @@ class DatabaseService {
     }).toList();
   }
 
-  UserData _userDataFromSnapShot(DocumentSnapshot <Object?>documentSnapshot) {
+  UserData _userDataFromSnapShot(DocumentSnapshot<Object?> documentSnapshot) {
     return UserData(
       uid: uid,
       displayName: (documentSnapshot.data()!
