@@ -21,7 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> getRecipientList() async {
     recipientList!.clear();
     await FirebaseFirestore.instance
-        .collection('chats')
+        .collection('chat')
         .where('users', arrayContains: uID)
         .get()
         .then((QuerySnapshot querySnapshot) {

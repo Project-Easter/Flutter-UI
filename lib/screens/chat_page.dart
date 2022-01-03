@@ -22,7 +22,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget chatMessages() {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collection('chats')
+          .collection('chat')
           .doc(widget.chatRoomId)
           .collection('messages')
           .orderBy('time')
@@ -81,13 +81,14 @@ class _ChatPageState extends State<ChatPage> {
     WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToBottom());
 
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(widget.displayName),
         elevation: 0.1,
       ),
       body: Container(
-        child: Column(
+        child: Stack(
           children: [
             chatMessages(),
             Container(

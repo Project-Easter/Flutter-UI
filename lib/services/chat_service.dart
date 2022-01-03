@@ -7,7 +7,7 @@ class ChatService {
   final CollectionReference<Map<String, dynamic>> userDataCollection =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference<Map<String, dynamic>> chatsCollection =
-      FirebaseFirestore.instance.collection('chats');
+      FirebaseFirestore.instance.collection('chat');
 
   Future<bool> createNewChat(String recipient, BuildContext context) async {
     if (await checkIfChatExist(recipient)) return false;
