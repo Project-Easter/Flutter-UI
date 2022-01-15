@@ -3,7 +3,8 @@ class Validator {
   static const String EMAIL_REGEX =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 
-  static const String PHONE_REGEX = r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$';
+  static const String PHONE_REGEX = 
+    r'^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$';;
 
   static String? confirmationCode(String confirmationCode) {
     if (confirmationCode.isEmpty || confirmationCode.length != 6) {
