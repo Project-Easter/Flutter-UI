@@ -58,6 +58,7 @@ class _HomeState extends State<Home> {
         ),
         StreamProvider<List<Book>>.value(
           value: _databaseService.booksData,
+          catchError: (_, Object? e) => <Book>[],
           initialData: const <Book>[],
         ),
       ],

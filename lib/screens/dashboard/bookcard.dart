@@ -50,7 +50,7 @@ class BookCard extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 width: getProportionateScreenWidth(100),
                 child: Text(
-                  book.title!,
+                  book.title,
                   softWrap: true,
                   textWidthBasis: TextWidthBasis.parent,
                   style: GoogleFonts.poppins(

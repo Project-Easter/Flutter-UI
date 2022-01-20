@@ -184,13 +184,13 @@ class Books with ChangeNotifier {
     final String? infoLink =
         result['items'][0]['volumeInfo']['infoLink'] as String?;
     final int? pages = result['items'][0]['volumeInfo']['pageCount'] as int?;
-    String? imageLink, title, author;
+    String imageLink, title = '', author = '';
     try {
-      title = result['items'][0]['volumeInfo']['title'] as String?;
-      author = result['items'][0]['volumeInfo']['authors'][0] as String?;
-      imageLink = result['items'][0]['volumeInfo']['imageLinks']['thumbnail']
-          as String?;
-      imageLink = imageLink!.replaceFirst('http', 'https', 0);
+      title = result['items'][0]['volumeInfo']['title'] as String;
+      author = result['items'][0]['volumeInfo']['authors'][0] as String;
+      imageLink =
+          result['items'][0]['volumeInfo']['imageLinks']['thumbnail'] as String;
+      imageLink = imageLink.replaceFirst('http', 'https', 0);
     } catch (e) {
       imageLink =
           'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png';

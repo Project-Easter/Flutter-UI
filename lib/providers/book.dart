@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 class Book with ChangeNotifier {
   // final String id;
   final String? isbn;
-  final String? title;
+  final String title;
   final String? author;
   final String? imageUrl;
   final String? userid;
@@ -20,11 +20,11 @@ class Book with ChangeNotifier {
   Book({
     // this.id,
     this.isbn,
-    this.title='',
-    this.author,
-    this.imageUrl = '',
+    required this.title ,
+    this.author = '',
+    this.imageUrl,
     this.userid,
-    this.description,
+    this.description = '',
     this.genre,
     this.rating = 0,
     this.isBookMarked = false,
