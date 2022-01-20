@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookDescription extends StatefulWidget {
   final Book? bookFromList;
@@ -117,7 +118,7 @@ class _BookDescriptionState extends State<BookDescription>
                     ),
                   ),
                   Text(
-                    widget.bookFromList!.title!,
+                    widget.bookFromList!.title,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: Colors.black,
@@ -238,7 +239,7 @@ class _BookDescriptionState extends State<BookDescription>
                       ],
                     ),
                   )
-                else
+                else if (widget.bookFromList!.userid != null)
                   Button(
                       // color: blackButton,
                       name: 'Exchange this Book',
@@ -272,7 +273,14 @@ class _BookDescriptionState extends State<BookDescription>
                                   context);
                             }
                           },
-                        ),
+                        )
+                        else
+                        Button(
+                            name: 'Purchase Ebook',
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            textColor: Colors.white,
+                            myFunction: () => _canLaunchUrl(
+                                '${widget.bookFromList!.infoLink}')),
                       Button(
                         // color: blackButton,
                         name: 'Visit Profile',
@@ -280,6 +288,7 @@ class _BookDescriptionState extends State<BookDescription>
                           Navigator.pushNamed(context, Routes.PUBLIC_PROFILE);
                         },
                       )
+                       
                       // Button(context, blackButton, 'Visit Profile',
                       //     Routes.PUBLIC_PROFILE),
                       // button(context, greenButton, 'Exchange this Book',
@@ -307,6 +316,9 @@ class _BookDescriptionState extends State<BookDescription>
     super.initState();
   }
 
+  Future<void> _canLaunchUrl(String url) async => canLaunch(url) != null
+      ? await launch(url)
+      : throw 'Could not open the play store link';
 // Widget ratings() {
 //   return Padding(
 //     padding: const EdgeInsets.all(15.0),

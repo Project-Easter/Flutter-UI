@@ -13,36 +13,10 @@ class _ChatScreenState extends State<ChatScreen> {
   List<dynamic>? recipientList = <String>[];
   bool isLoading = true;
   @override
-  void initState() {
-    getRecipientList();
-    super.initState();
-  }
-
-  Future<void> getRecipientList() async {
-    recipientList!.clear();
-    await FirebaseFirestore.instance
-        .collection('chat')
-        .where('users', arrayContains: uID)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
-        List<dynamic> users = doc['chatRoomId'].toString().split('_');
-        users.remove(uID);
-        final String recipientId = users.first.toString();
-        print('recipient : ' + recipientId);
-        recipientList!.add(recipientId);
-      }
-    });
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           height: 35,
           child: const Center(
             child: Text(
@@ -52,7 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
         if (isLoading)
-          Center(
+          const Center(
             child: CircularProgressIndicator(),
           ),
         if (recipientList != null)
@@ -100,13 +74,13 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                         );
                       } else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     });
               } else {
-                return SizedBox(
+                return const SizedBox(
                   child: Text(
-                    "No chats Yet",
+                    'No chats Yet',
                     style: TextStyle(color: Colors.black),
                   ),
                 );
@@ -114,7 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
             },
           )
         else
-          Center(
+          const Center(
             child: Text(
               'No Chats Yet',
               style: TextStyle(color: Colors.black),
@@ -122,5 +96,31 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
       ],
     );
+  }
+
+  Future<void> getRecipientList() async {
+    recipientList!.clear();
+    await FirebaseFirestore.instance
+        .collection('chat')
+        .where('users', arrayContains: uID)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
+        final List<dynamic> users = doc['chatRoomId'].toString().split('_');
+        users.remove(uID);
+        final String recipientId = users.first.toString();
+        print('recipient : ' + recipientId);
+        recipientList!.add(recipientId);
+      }
+    });
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    getRecipientList();
+    super.initState();
   }
 }
