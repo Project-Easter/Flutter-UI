@@ -1,29 +1,126 @@
+import 'package:books_app/screens/chat_page.dart';
+import 'package:books_app/screens/user_preferences.dart';
+import 'package:books_app/services/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  List<dynamic>? recipientList = <String>[];
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-          itemCount: 7,
-          itemBuilder: (BuildContext ctx, int idx) => Container(
-                padding: const EdgeInsets.all(5),
-                child: Text('Chat testing'),
-              )),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.message),
-          onPressed: () {
-            //We'll fetch data from Firestore here
-            //So with this, we're telling Firestore that we want to get access to the messages collection inside the chat collection
-            FirebaseFirestore.instance
-                .collection('chats/gJIMmk9z08nPa2Y3cYJ8/messages')
-                .snapshots()
-                .listen((QuerySnapshot<Map<String, dynamic>> event) {
-              print(event.docs[0]['text']);
-              event.docs.forEach((QueryDocumentSnapshot<Map<String, dynamic>> element) {print(element['text']);});
-            });
-          }),
+    return Column(
+      children: [
+        SizedBox(
+          height: 35,
+          child: const Center(
+            child: Text(
+              'Chats',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        if (isLoading)
+          const Center(
+            child: CircularProgressIndicator(),
+          ),
+        if (recipientList != null)
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: recipientList!.length,
+            itemBuilder: (BuildContext context, int index) {
+              if (recipientList != null) {
+                return FutureBuilder<DocumentSnapshot>(
+                    future: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(recipientList![index].toString())
+                        .get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return GestureDetector(
+                          onTap: () {
+                            final String chatRoomId = ChatService()
+                                .getChatRoomId(
+                                    recipientList![index].toString());
+                            Navigator.of(context)
+                                .push(MaterialPageRoute<ChatPage>(
+                                    builder: (BuildContext context) => ChatPage(
+                                          chatRoomId: chatRoomId,
+                                          displayName: snapshot
+                                              .data!['displayName']
+                                              .toString(),
+                                        )));
+                          },
+                          child: ListTile(
+                            title:
+                                Text(snapshot.data!['displayName'].toString()),
+                            subtitle: const Text('Tap to view message'),
+                            leading: snapshot.data!['photoURL']
+                                    .toString()
+                                    .startsWith('assets')
+                                ? Image.asset(
+                                    snapshot.data!['photoURL'].toString(),
+                                    scale: 1.4,
+                                  )
+                                : Image.network(
+                                    snapshot.data!['photoURL'].toString(),
+                                    scale: 1.4),
+                          ),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    });
+              } else {
+                return const SizedBox(
+                  child: Text(
+                    'No chats Yet',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              }
+            },
+          )
+        else
+          const Center(
+            child: Text(
+              'No Chats Yet',
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+      ],
     );
+  }
+
+  Future<void> getRecipientList() async {
+    recipientList!.clear();
+    await FirebaseFirestore.instance
+        .collection('chat')
+        .where('users', arrayContains: uID)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
+        final List<dynamic> users = doc['chatRoomId'].toString().split('_');
+        users.remove(uID);
+        final String recipientId = users.first.toString();
+        print('recipient : ' + recipientId);
+        recipientList!.add(recipientId);
+      }
+    });
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    getRecipientList();
+    super.initState();
   }
 }
