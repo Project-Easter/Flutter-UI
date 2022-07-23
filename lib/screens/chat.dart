@@ -16,9 +16,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 35,
-          child: const Center(
+          child: Center(
             child: Text(
               'Chats',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

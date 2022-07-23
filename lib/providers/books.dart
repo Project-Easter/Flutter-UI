@@ -198,13 +198,15 @@ class Books with ChangeNotifier {
       print('imageLink is empty');
     }
 
-    print(FirebaseAuth.instance.currentUser!.uid);
+    print('The User ID of the current user is ' +
+        FirebaseAuth.instance.currentUser!.uid);
     print('ISBN' + isbn.toString());
     print('Title:' + title.toString());
     print('Author:' + author.toString());
     print('ImageLink:' + imageLink.toString());
     print('Description' + description.toString());
     book = Book(
+        userid: FirebaseAuth.instance.currentUser!.uid,
         isbn: isbn,
         title: title,
         author: author,

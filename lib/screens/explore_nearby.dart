@@ -8,13 +8,15 @@ import 'package:provider/provider.dart';
 
 import 'dashboard/book_list.dart';
 
-class ExploreNearby extends StatefulWidget {
-  @override
-  _ExploreNearbyState createState() => _ExploreNearbyState();
-}
+class ExploreNearby extends StatelessWidget {
+//   @override
+//   _ExploreNearbyState createState() => _ExploreNearbyState();
+// }
 
-class _ExploreNearbyState extends State<ExploreNearby> {
+// class _ExploreNearbyState extends State<ExploreNearby> {
+
   // LocationRange distance;
+
   @override
   Widget build(BuildContext context) {
     final UserData userData = Provider.of<UserData>(context);
@@ -55,6 +57,7 @@ class _ExploreNearbyState extends State<ExploreNearby> {
                       .getBooks(uid: element.uid)
                       .then((List<Book> value) {
                     within3km.addAll(value);
+                    within3km.toSet();
                   });
                 } else if (dist > 3 && dist <= 5) {
                   // print('dist > 3 && dist <= 5: ' + element.uid.toString());
@@ -94,28 +97,28 @@ class _ExploreNearbyState extends State<ExploreNearby> {
                   //within 5 km
                   BookList(
                     'Within 3 km',
-                    within3km,
+                    within3km.toSet().toList(),
                     subtitle: '(${within3km.length} books nearby)',
                   ),
 
                   //within 5 km
                   BookList(
                     'Within 5 km',
-                    within5km,
+                    within5km.toSet().toList(),
                     subtitle: '(${within5km.length} books nearby)',
                   ),
 
                   //within 10 km
                   BookList(
                     'Within 10 km',
-                    within10km,
+                    within10km.toSet().toList(),
                     subtitle: '(${within10km.length} books nearby)',
                   ),
 
                   //within 20 km
                   BookList(
                     'Within 20 km',
-                    within20km,
+                    within20km.toSet().toList(),
                     subtitle: '(${within20km.length} books nearby)',
                   ),
 
