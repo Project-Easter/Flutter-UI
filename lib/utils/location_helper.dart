@@ -1,3 +1,5 @@
+// import 'package:geocode/geocode.dart';
+// import 'package:geocoding/geocoding.dart';
 import 'package:geocode/geocode.dart';
 import 'package:latlong2/latlong.dart';
 // import 'package:latlong/latlong.dart';
@@ -14,6 +16,7 @@ class LocationHelper {
 
   Future<List<String?>> getAddressFromLatLng(double lat, double lang) async {
     // final Coordinates coordinates = Coordinates(latitude: lat, longitude: lang);
+    // final List<Placemark> addr = await placemarkFromCoordinates(lat, lang);
     final Address addr =
         await GeoCode().reverseGeocoding(latitude: lat, longitude: lang);
     // final Address first = add;
