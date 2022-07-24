@@ -13,7 +13,6 @@ import 'package:books_app/utils/location_helper.dart';
 import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/app_bar.dart';
 import 'package:books_app/widgets/custom_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_void_async
+
 import 'package:books_app/screens/chat_page.dart';
 import 'package:books_app/screens/user_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,7 +63,7 @@ class ChatService {
 
   Future<bool> checkIfChatExist(String recipient) async {
     final String chatRoomId = getChatRoomId(recipient);
-    DocumentSnapshot<Map<String, dynamic>> doc =
+    final DocumentSnapshot<Map<String, dynamic>> doc =
         await chatsCollection.doc(chatRoomId).get();
     if (!doc.exists) {
       print('No such document exista!');
@@ -86,7 +88,7 @@ class ChatService {
   }
 
   void openExistingChat(String recipient, BuildContext context) async {
-    String chatRoomId = getChatRoomId(recipient);
+    final String chatRoomId = getChatRoomId(recipient);
     String displayName = 'Unknown';
     await FirebaseFirestore.instance
         .collection('users')

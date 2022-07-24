@@ -4,7 +4,6 @@ import 'package:books_app/utils/size_config.dart';
 import 'package:books_app/widgets/auth/social_media_handles.dart';
 import 'package:books_app/widgets/button.dart';
 import 'package:books_app/widgets/text_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

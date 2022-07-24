@@ -26,7 +26,7 @@
         </intent>
     </queries>
 
-    <application android:name="io.flutter.app.FlutterApplication" android:label="Explr" android:icon="@mipmap/ic_launcher">
+    <application android:name="${applicationName}" android:label="Explr" android:icon="@mipmap/ic_launcher">
         <activity android:name=".MainActivity" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
@@ -61,6 +61,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
 
     </application>
 
